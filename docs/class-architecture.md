@@ -4,13 +4,14 @@
 Vittavaan is a comprehensive wealth management and networking application designed to help users track net worth, manage specialized assets (like real estate and alternative collections), and structure estate planning. Beyond individual portfolio management, it serves as a collaborative networking zone where investors and professional advisors can connect, compare benchmarks, and share relevant financial intelligence.
 
 ## Document Purpose & Module Summary
-This document serves as the foundational Object-Oriented architectural blueprint for the application. By defining the core domain classes, subclasses, attributes, and functions, it bridges the gap between conceptual prototype features and the physical data architecture. This structured approach establishes the database tables and API boundaries required for backend implementation. 
+This document serves as the foundational Object-Oriented architectural blueprint for the application. By defining the core domain classes, subclasses, attributes, and functions, it bridges the gap between conceptual prototype features and the physical data architecture. This structured approach establishes the database tables, API boundaries, and business logic layers required for backend implementation. 
 
 The architecture is divided into the following core modules:
 *   **Module 1 & 1.5:** Handles role-based user profiles, peer connections, global settings, and the zero-trust authentication gateway relying on Entity-Boundary-Control principles.
 *   **Module 2:** The financial engine aggregating portfolios, tracking liquid, real estate, and alternative assets, and calculating net worth.
 *   **Module 3:** Structures the complex logic surrounding family wealth transfer, legal documentation (wills), and inter-vivos gifting compliance.
 *   **Module 4:** Facilitates the networking, community, and analytical aspects, providing dynamic market data, peer-comparison reports, and direct advisor queries.
+*   **Module 5:** The Application Service Layer, housing stateless business logic to aggregate database queries and compute complex dashboard metrics for the frontend interface.
 
 ---
 
@@ -20,6 +21,7 @@ The architecture is divided into the following core modules:
 3. [Module 2: Wealth & Portfolio Classes](#module-2-wealth--portfolio-classes)
 4. [Module 3: Estate & Legal Planning Classes](#module-3-estate--legal-planning-classes)
 5. [Module 4: Advisory & Market Intelligence Classes](#module-4-advisory--market-intelligence-classes)
+6. [Module 5: Application Service Layer (Business Logic)](#module-5-application-service-layer-business-logic)
 
 ---
 
@@ -362,3 +364,18 @@ A dynamic reporting class that analyzes the user's `Portfolio` and `Asset` alloc
 *   **Functions:**
     *   `run_full_analysis()`: Executes the algorithms that scan the portfolio and calculate the ratios.
     *   `generate_visual_chart_data()`: Packages the analytics into a JSON payload formatted specifically for rendering frontend charts.
+
+---
+
+## Module 5: Application Service Layer (Business Logic)
+
+This module represents stateless backend service classes. These classes do not map to individual database tables; instead, they serve as the orchestration layer between the database queries (SQL) and the frontend APIs (FastAPI). They aggregate data, compute period-over-period comparative math, and format JSON payloads for the HTML dashboards.
+
+### 1. `DashboardService`
+Responsible for calculating comparative metrics, orchestrating mathematical logic, and compiling complex data summaries required by the user interface.
+*   **Attributes:**
+    *   *None* (Stateless service class)
+*   **Functions:**
+    *   `get_net_worth_summary(user_id, timeframe)`: Executes SQL aggregations for current assets/liabilities, fetches the requested historical snapshot, computes the percentage change ($\Delta\%$), and returns the packaged dashboard metrics.
+    *   `get_asset_allocation_summary(user_id)`: Group assets by category using SQL, computes their percentage weight against the total portfolio, and returns formatted data for UI pie/donut charts.
+    *   `get_recent_activity_feed(user_id)`: Aggregates recent asset updates, newly added liabilities, and pending connection requests into a single, chronologically sorted timeline feed for the home dashboard.
