@@ -8,7 +8,7 @@ This document serves as the foundational Object-Oriented architectural blueprint
 
 The architecture is divided into the following core modules:
 *   **Module 1 & 1.5:** Handles role-based user profiles, peer connections, global settings, and the zero-trust authentication gateway relying on Entity-Boundary-Control principles.
-*   **Module 2:** The financial engine aggregating portfolios, tracking liquid, real estate, and alternative assets, and calculating net worth.
+*   **Module 2:** The financial engine aggregating portfolios, tracking liquid, real estate, and alternative assets, computing net worth, and maintaining static time-series snapshot ledgers.
 *   **Module 3:** Structures the complex logic surrounding family wealth transfer, legal documentation (wills), and inter-vivos gifting compliance.
 *   **Module 4:** Facilitates the networking, community, and analytical aspects, providing dynamic market data, peer-comparison reports, and direct advisor queries.
 *   **Module 5:** The Application Service Layer, housing stateless business logic to aggregate database queries and compute complex dashboard metrics for the frontend interface.
@@ -211,6 +211,23 @@ Tracks all debts, loans, and financial obligations required to calculate true ne
     *   `record_payment(amount)`: Deducts the payment from the `current_balance`.
     *   `get_liability_summary()`: Packages debt data for the balance sheet UI.
 
+### 7. `FinancialSnapshot` (Time-Series Ledger)
+Stores static, pre-calculated historical records of the user's wealth at specific intervals (e.g., daily, monthly). This acts as the immutable historical ledger for rendering all trend charts using strict tabular columns.
+*   **Attributes:**
+    *   `snapshot_id` (String/UUID) - Primary Key
+    *   `portfolio_id` (Foreign Key) - Links back to `Portfolio`
+    *   `snapshot_date` (Date) - The exact date the snapshot was captured
+    *   `total_assets_value` (Float) - Aggregate of all assets
+    *   `total_liabilities_value` (Float) - Aggregate of all debts
+    *   `net_worth_value` (Float) - The overarching net worth
+    *   `liquid_assets_value` (Float) - Sub-total for liquid class
+    *   `real_estate_value` (Float) - Sub-total for real estate class
+    *   `alternative_assets_value` (Float) - Sub-total for alternative class
+    *   `debt_to_asset_ratio` (Float) - Computed ratio saved statically
+*   **Functions:**
+    *   `capture_periodic_metrics()`: Triggered by a background job to calculate current totals and freeze them into a new, permanent row in the database.
+    *   `fetch_historical_trend(start_date, end_date)`: Retrieves multiple rows of these static snapshots for the frontend to instantly plot historical line charts.
+
 ---
 
 ## Module 3: Estate & Legal Planning Classes
@@ -376,6 +393,6 @@ Responsible for calculating comparative metrics, orchestrating mathematical logi
 *   **Attributes:**
     *   *None* (Stateless service class)
 *   **Functions:**
-    *   `get_net_worth_summary(user_id, timeframe)`: Executes SQL aggregations for current assets/liabilities, fetches the requested historical snapshot, computes the percentage change ($\Delta\%$), and returns the packaged dashboard metrics.
+    *   `get_net_worth_summary(user_id, timeframe)`: Executes SQL aggregations for current assets/liabilities, fetches the requested historical snapshot from the `FinancialSnapshot` ledger, computes the percentage change ($\Delta\%$), and returns the packaged dashboard metrics.
     *   `get_asset_allocation_summary(user_id)`: Group assets by category using SQL, computes their percentage weight against the total portfolio, and returns formatted data for UI pie/donut charts.
     *   `get_recent_activity_feed(user_id)`: Aggregates recent asset updates, newly added liabilities, and pending connection requests into a single, chronologically sorted timeline feed for the home dashboard.
