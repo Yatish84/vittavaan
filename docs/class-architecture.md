@@ -1,4 +1,4 @@
-# Vittavaan: System Architecture & Domain Model
+# vittavaan-class-architecture.md
 
 ## Project Overview
 Vittavaan is a comprehensive wealth management and networking application designed to help users track net worth, manage specialized assets (like real estate and alternative collections), and structure estate planning. Beyond individual portfolio management, it serves as a collaborative networking zone where investors and professional advisors can connect, compare benchmarks, and share relevant financial intelligence.
@@ -36,7 +36,11 @@ The core identity class handling role assignment and basic account management. *
     *   `created_at` (DateTime)
     *   `last_login` (DateTime)
 *   **Functions:**
+    *   `get_user_details()`: Fetches the consolidated profile and settings payload for the logged-in user.
     *   `get_role_dashboard()`: Routes the user to the appropriate UI based on their role.
+    *   `search_network(search_criteria)`: Queries the database for peers or advisors by specialty, firm name, or location.
+    *   `send_connection_request(recipient_id)`: Creates the initial `Connection` object with a `PENDING` status.
+    *   `get_network_connections(status_filter=None)`: Fetches a list of all `Connection` objects linked to this user, optionally filtering by status (e.g., pending vs. accepted).
 
 ### 2. `InvestorProfile`
 Linked to a User with the `INVESTOR` role. Manages data for the Investor Profile and Financial Resume views.
@@ -74,8 +78,10 @@ Manages the relationship, state, and permissions between two users on the platfo
     *   `updated_at` (DateTime)
 *   **Functions:**
     *   `accept_connection()`: Changes status from `PENDING` to `ACCEPTED`.
+    *   `reject_connection()`: Changes a `PENDING` request status to `REJECTED`.
     *   `update_permissions(new_permissions_dict)`: Modifies the access control list.
     *   `terminate_connection()`: Changes status to `REVOKED` and instantly nullifies shared data access.
+    *   `get_connection_details()`: Returns a packaged dictionary of a specific peer's shared data, status, and current permissions for the frontend UI to render.
 
 ### 5. `Setting`
 Stores global system preferences for the user account. Designed with a universal framework to support multiple regions and currencies.
@@ -86,6 +92,7 @@ Stores global system preferences for the user account. Designed with a universal
     *   `base_currency` (String) - Global currency standard (e.g., USD, EUR, INR)
     *   `email_notifications` (Boolean)
 *   **Functions:**
+    *   `get_user_settings()`: Returns the full dictionary of the user's current preferences.
     *   `toggle_2fa(status)`: Enables or disables multi-factor authentication.
     *   `update_base_currency(new_currency)`: Changes the default currency for all wealth calculations.
 
@@ -131,9 +138,13 @@ The aggregator class that groups all financial holdings and obligations for a sp
     *   `created_at` (DateTime)
     *   `last_updated` (DateTime)
 *   **Functions:**
+    *   `add_asset(asset_data)`: Instantiates a new asset subclass and links it to the portfolio.
+    *   `remove_asset(asset_id)`: Deletes or archives an asset from the portfolio.
+    *   `add_liability(liability_data)`: Links a new debt to the portfolio.
     *   `get_total_assets()`: Sums the `current_value` of all linked Asset records.
     *   `get_total_liabilities()`: Sums the `current_balance` of all linked Liability records.
     *   `calculate_net_worth()`: Subtracts total liabilities from total assets to yield the overarching net worth.
+    *   `get_net_worth_history(timeframe)`: Fetches a time-series array of past net worth valuations to render historical trend charts.
 
 ### 2. `Asset` (Abstract Base Class)
 The foundational blueprint for anything of value owned by the user. Subclasses will inherit these core properties.
@@ -148,6 +159,7 @@ The foundational blueprint for anything of value owned by the user. Subclasses w
     *   `currency` (String) - Local currency of the asset
     *   `notes` (Text)
 *   **Functions:**
+    *   `update_details(updated_data_dict)`: Allows the user to change the name, notes, or category without altering the financial valuation.
     *   `update_valuation(new_value)`: Overwrites `current_value` and updates the timestamp.
     *   `calculate_roi()`: Computes the percentage yield based on purchase price versus current value.
     *   `get_asset_summary()`: Returns a standardized JSON object for the "All Listings" UI.
@@ -193,6 +205,7 @@ Tracks all debts, loans, and financial obligations required to calculate true ne
     *   `interest_rate` (Float)
     *   `due_date` (Date)
 *   **Functions:**
+    *   `update_details(updated_data_dict)`: Allows the user to change non-financial attributes like name or liability type.
     *   `record_payment(amount)`: Deducts the payment from the `current_balance`.
     *   `get_liability_summary()`: Packages debt data for the balance sheet UI.
 
@@ -226,6 +239,9 @@ The high-level container that groups all end-of-life directives, executors, and 
     *   `secondary_executor_name` (String, Optional)
     *   `last_reviewed_date` (Date)
 *   **Functions:**
+    *   `add_household_member(member_data)`: Creates a new `HouseholdMember` and links them to the estate plan.
+    *   `get_household_members()`: Retrieves the list of family members linked to the estate.
+    *   `remove_household_member(member_id)`: Removes a family member from the estate plan.
     *   `update_executors()`: Replaces the designated legal executors.
     *   `check_review_status()`: Flags the estate plan with an alert if it hasn't been reviewed in over a year.
 
@@ -241,6 +257,7 @@ Manages the structured data and digital storage references for the legal will do
 *   **Functions:**
     *   `upload_document(file_url)`: Attaches a new digital copy of the will.
     *   `verify_execution_status()`: Checks if the document is formally signed and active.
+    *   `revoke_will()`: Changes the status to `REVOKED` and archives the document link.
 
 ### 4. `InheritanceAllocation`
 The connective tissue that links specific `Asset` records to specific `HouseholdMember` beneficiaries.
@@ -300,6 +317,7 @@ Manages direct questions and consultation threads between investors and professi
     *   `updated_at` (DateTime)
 *   **Functions:**
     *   `submit_query()`: Opens a new thread and notifies relevant advisors.
+    *   `get_open_queries(advisor_id=None)`: Fetches a list of `OPEN` or `IN_PROGRESS` threads. If `advisor_id` is null, it fetches public community questions.
     *   `add_response(advisor_id, response_text)`: Appends an answer to the thread.
     *   `resolve_query()`: Marks the thread as closed once the investor is satisfied.
 
