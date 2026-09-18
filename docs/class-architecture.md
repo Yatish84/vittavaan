@@ -1,34 +1,34 @@
-# vittavaan-class-architecture.md
+# Vittavaan: System Architecture & Domain Model
 
 ## Project Overview
-Vittavaan is a comprehensive wealth management and networking application designed to help users track net worth, manage specialized assets (like real estate and alternative collections), and structure estate planning. Beyond individual portfolio management, it serves as a collaborative networking zone where investors and professional advisors can connect, compare benchmarks, and share relevant financial intelligence.
+Vittavaan is a comprehensive wealth management and networking application designed to help users track net worth, manage specialized assets (like real estate and alternative collections), and structure estate planning. Beyond individual portfolio management, it serves as a collaborative networking zone where investors and professional advisors can connect, compare benchmarks, and share relevant financial intelligence. 
+
+All monetary values are strictly stored as integers (minor units, e.g., paise/cents) to prevent floating-point calculation errors[cite: 1].
 
 ## Document Purpose & Module Summary
-This document serves as the foundational Object-Oriented architectural blueprint for the application. By defining the core domain classes, subclasses, attributes, and functions, it bridges the gap between conceptual prototype features and the physical data architecture. This structured approach establishes the database tables, API boundaries, and business logic layers required for backend implementation. 
-
-The architecture is divided into the following core modules:
-*   **Module 1 & 1.5:** Handles role-based user profiles, peer connections, global settings, and the zero-trust authentication gateway relying on Entity-Boundary-Control principles.
-*   **Module 2:** The financial engine aggregating portfolios, tracking liquid, real estate, and alternative assets, computing net worth, and maintaining static time-series snapshot ledgers.
-*   **Module 3:** Structures the complex logic surrounding family wealth transfer, legal documentation (wills), and inter-vivos gifting compliance.
-*   **Module 4:** Facilitates the networking, community, and analytical aspects, providing dynamic market data, peer-comparison reports, and direct advisor queries.
-*   **Module 5:** The Application Service Layer, housing stateless business logic to aggregate database queries and compute complex dashboard metrics for the frontend interface.
+This document serves as the foundational Object-Oriented architectural blueprint for the application. The architecture is divided into the following core modules:
+*   **Module 1 & 1.5:** Role-based user profiles, peer connections with time-bound consents[cite: 1], universal document storage[cite: 1], and the zero-trust authentication gateway.
+*   **Module 2:** The financial engine aggregating portfolios, tracking assets, managing transactional cash flows[cite: 1], and mapping financial goals[cite: 1].
+*   **Module 3:** Structures family wealth transfer, legal documentation, and inter-vivos gifting compliance.
+*   **Module 4:** Facilitates networking, market data, peer-comparison reports, and advisor queries.
+*   **Module 5:** The Application Service Layer, grouped into functional calculation engines to aggregate database queries and compute complex dashboard metrics[cite: 1].
 
 ---
 
 ## Table of Contents
-1. [Module 1: User & Profile Classes](#module-1-user--profile-classes)
+1. [Module 1: User, Profile & Data Room Classes](#module-1-user-profile--data-room-classes)
 2. [Module 1.5: Security & Session (Auth-Core Gateway)](#module-15-security--session-auth-core-gateway)
-3. [Module 2: Wealth & Portfolio Classes](#module-2-wealth--portfolio-classes)
+3. [Module 2: Wealth, Portfolio & Planning Classes](#module-2-wealth-portfolio--planning-classes)
 4. [Module 3: Estate & Legal Planning Classes](#module-3-estate--legal-planning-classes)
 5. [Module 4: Advisory & Market Intelligence Classes](#module-4-advisory--market-intelligence-classes)
-6. [Module 5: Application Service Layer (Business Logic)](#module-5-application-service-layer-business-logic)
+6. [Module 5: Application Service Layer (Calculation Engines)](#module-5-application-service-layer-calculation-engines)
 
 ---
 
-## Module 1: User & Profile Classes
+## Module 1: User, Profile & Data Room Classes
 
 ### 1. `User`
-The core identity class handling role assignment and basic account management. *(Note: Credential storage is delegated to the external auth-core service).*
+The core identity class handling role assignment and basic account management. 
 *   **Attributes:**
     *   `user_id` (String/UUID) - Primary Key
     *   `email` (String) - Unique identifier
@@ -38,361 +38,286 @@ The core identity class handling role assignment and basic account management. *
     *   `created_at` (DateTime)
     *   `last_login` (DateTime)
 *   **Functions:**
-    *   `get_user_details()`: Fetches the consolidated profile and settings payload for the logged-in user.
+    *   `get_user_details()`: Fetches the consolidated profile and settings payload.
     *   `get_role_dashboard()`: Routes the user to the appropriate UI based on their role.
-    *   `search_network(search_criteria)`: Queries the database for peers or advisors by specialty, firm name, or location.
-    *   `send_connection_request(recipient_id)`: Creates the initial `Connection` object with a `PENDING` status.
-    *   `get_network_connections(status_filter=None)`: Fetches a list of all `Connection` objects linked to this user, optionally filtering by status (e.g., pending vs. accepted).
+    *   `search_network(search_criteria)`: Queries the database for peers or advisors.
+    *   `send_connection_request(recipient_id)`: Creates the initial `Connection` object.
+    *   `get_network_connections(status_filter=None)`: Fetches a list of linked `Connection` objects.
 
 ### 2. `InvestorProfile`
-Linked to a User with the `INVESTOR` role. Manages data for the Investor Profile and Financial Resume views.
 *   **Attributes:**
     *   `profile_id` (String/UUID) - Primary Key
     *   `user_id` (Foreign Key) - Links back to `User`
     *   `risk_tolerance` (Enum) - `CONSERVATIVE`, `MODERATE`, `AGGRESSIVE`
     *   `investment_horizon_years` (Integer)
-    *   `financial_resume_summary` (Text) - Summary of financial background
+    *   `financial_resume_summary` (Text) 
 *   **Functions:**
     *   `update_risk_profile(new_tolerance)`: Adjusts the user's risk settings.
     *   `get_resume_data()`: Packages the profile info for the frontend UI.
 
 ### 3. `AdvisorProfile`
-Linked to a User with the `ADVISOR` role. Manages professional credentials for the network.
 *   **Attributes:**
     *   `profile_id` (String/UUID) - Primary Key
     *   `user_id` (Foreign Key) - Links back to `User`
     *   `firm_name` (String)
-    *   `certifications` (List of Strings) - e.g., CFA, CPA
-    *   `specialty_areas` (List of Strings) - e.g., Estate Planning, Equities
+    *   `certifications` (List of Strings) 
+    *   `specialty_areas` (List of Strings) 
 *   **Functions:**
-    *   `add_certification(cert_name)`: Appends a new qualification to the profile.
-    *   `get_public_profile()`: Returns the sanitized data for investors to view.
+    *   `add_certification(cert_name)`
+    *   `get_public_profile()`
 
 ### 4. `Connection`
-Manages the relationship, state, and permissions between two users on the platform.
+Manages the relationship, state, and strict time-bound permissions between users.
 *   **Attributes:**
     *   `connection_id` (String/UUID) - Primary Key
-    *   `requester_id` (Foreign Key) - User who sent the invite
-    *   `recipient_id` (Foreign Key) - User who received the invite
+    *   `requester_id` (Foreign Key) 
+    *   `recipient_id` (Foreign Key) 
     *   `status` (Enum) - `PENDING`, `ACCEPTED`, `REJECTED`, `REVOKED`
-    *   `permissions` (Dictionary/JSON) - Access control list (e.g., `{"market_insights": true, "net_worth": false}`)
+    *   `permissions` (Dictionary/JSON) - Field-level access control list
+    *   `consent_scope` (String) - Data/actions the source is allowed to provide/view[cite: 1]
+    *   `consent_purpose` (String) - Recorded purpose for the data share[cite: 1]
+    *   `consent_granted_at` (DateTime) - Consent start[cite: 1]
+    *   `consent_expires_at` (DateTime) - Consent expiry enforcing time-bound rules[cite: 1]
     *   `created_at` (DateTime)
     *   `updated_at` (DateTime)
 *   **Functions:**
-    *   `accept_connection()`: Changes status from `PENDING` to `ACCEPTED`.
-    *   `reject_connection()`: Changes a `PENDING` request status to `REJECTED`.
-    *   `update_permissions(new_permissions_dict)`: Modifies the access control list.
-    *   `terminate_connection()`: Changes status to `REVOKED` and instantly nullifies shared data access.
-    *   `get_connection_details()`: Returns a packaged dictionary of a specific peer's shared data, status, and current permissions for the frontend UI to render.
+    *   `accept_connection()`
+    *   `reject_connection()`
+    *   `update_permissions(new_permissions_dict)`
+    *   `terminate_connection()`
+    *   `get_connection_details()`
 
 ### 5. `Setting`
-Stores global system preferences for the user account. Designed with a universal framework to support multiple regions and currencies.
 *   **Attributes:**
     *   `setting_id` (String/UUID) - Primary Key
-    *   `user_id` (Foreign Key) - Links back to `User`
+    *   `user_id` (Foreign Key) 
     *   `two_factor_enabled` (Boolean)
-    *   `base_currency` (String) - Global currency standard (e.g., USD, EUR, INR)
+    *   `base_currency` (String) 
     *   `email_notifications` (Boolean)
 *   **Functions:**
-    *   `get_user_settings()`: Returns the full dictionary of the user's current preferences.
-    *   `toggle_2fa(status)`: Enables or disables multi-factor authentication.
-    *   `update_base_currency(new_currency)`: Changes the default currency for all wealth calculations.
+    *   `get_user_settings()`
+    *   `toggle_2fa(status)`
+    *   `update_base_currency(new_currency)`
+
+### 6. `Document` (Data Room)
+Universal document storage supporting verification, estate planning, and consents[cite: 1].
+*   **Attributes:**
+    *   `document_id` (String/UUID) - Primary Key
+    *   `owner_id` (Foreign Key) - Links to `User`[cite: 1]
+    *   `linked_asset_id` (Foreign Key, Optional) - Links to `Asset` if applicable[cite: 1]
+    *   `document_type` (Enum) - e.g., `WILL`, `VALUATION_REPORT`, `CONSENT_FORM`, `TITLE_DEED`[cite: 1]
+    *   `storage_url` (String) - Secure cloud reference
+    *   `document_date` (Date)[cite: 1]
+    *   `document_expiry` (Date, Optional)[cite: 1]
+*   **Functions:**
+    *   `upload_document()`
+    *   `verify_document()`
 
 ---
 
 ## Module 1.5: Security & Session (Auth-Core Gateway)
 
-Since primary credential verification and user management are delegated to the standalone `auth-core` microservice, this module acts as the localized boundary. It handles the secure handshake, validates incoming tokens, and manages the local application state utilizing Entity-Boundary-Control architecture principles.
-
 ### 1. `AuthGateway` (Boundary/Control Class)
-The boundary layer responsible for communicating with `auth-core` and validating the entry handshake.
 *   **Attributes:**
-    *   `public_key` (String) - Used to verify the cryptographic signature of the token sent by auth-core.
-    *   `issuer_url` (String) - The trusted URL of the auth-core service.
+    *   `public_key` (String) 
+    *   `issuer_url` (String) 
 *   **Functions:**
-    *   `verify_handshake(token)`: Validates the signature, audience, and expiration of the incoming token to ensure it genuinely originated from auth-core.
-    *   `extract_user_identity(token)`: Decodes the token payload to map the auth-core identity to the local Vittavaan `User` record.
+    *   `verify_handshake(token)`
+    *   `extract_user_identity(token)`
 
 ### 2. `LocalSession`
-Manages the active state and access rights of the user within the main Vittavaan application once the handshake passes.
 *   **Attributes:**
     *   `session_id` (String/UUID) - Primary Key
-    *   `user_id` (Foreign Key) - Links back to the local `User`
-    *   `access_token` (String) - The validated token structure
+    *   `user_id` (Foreign Key)
+    *   `access_token` (String) 
     *   `expires_at` (DateTime)
     *   `is_active` (Boolean)
 *   **Functions:**
-    *   `create_session(user_id, token)`: Initializes the local session and grants entry to the app.
-    *   `validate_session()`: Middleware check to ensure the session is active before loading any protected modules or UI dashboards.
-    *   `terminate_session()`: Logs the user out locally and optionally pings `auth-core` to kill the global session.
+    *   `create_session(user_id, token)`
+    *   `validate_session()`
+    *   `terminate_session()`
 
 ---
 
-## Module 2: Wealth & Portfolio Classes
-
-This module serves as the core financial engine of Vittavaan. It utilizes a centralized `Portfolio` to group individual holdings and separates assets into specific subclasses to handle the unique data structures required for liquid capital, real estate, and alternative collections.
+## Module 2: Wealth, Portfolio & Planning Classes
 
 ### 1. `Portfolio`
-The aggregator class that groups all financial holdings and obligations for a specific user, acting as the primary point of entry for dashboard metrics.
 *   **Attributes:**
     *   `portfolio_id` (String/UUID) - Primary Key
-    *   `user_id` (Foreign Key) - Links back to `User`
+    *   `user_id` (Foreign Key) 
     *   `created_at` (DateTime)
     *   `last_updated` (DateTime)
 *   **Functions:**
-    *   `add_asset(asset_data)`: Instantiates a new asset subclass and links it to the portfolio.
-    *   `remove_asset(asset_id)`: Deletes or archives an asset from the portfolio.
-    *   `add_liability(liability_data)`: Links a new debt to the portfolio.
-    *   `get_total_assets()`: Sums the `current_value` of all linked Asset records.
-    *   `get_total_liabilities()`: Sums the `current_balance` of all linked Liability records.
-    *   `calculate_net_worth()`: Subtracts total liabilities from total assets to yield the overarching net worth.
-    *   `get_net_worth_history(timeframe)`: Fetches a time-series array of past net worth valuations to render historical trend charts.
+    *   `add_asset(asset_data)`
+    *   `remove_asset(asset_id)`
+    *   `add_liability(liability_data)`
+    *   `get_net_worth_history(timeframe)`
 
 ### 2. `Asset` (Abstract Base Class)
-The foundational blueprint for anything of value owned by the user. Subclasses will inherit these core properties.
+Foundational blueprint incorporating fractional ownership and strict data provenance[cite: 1].
 *   **Attributes:**
     *   `asset_id` (String/UUID) - Primary Key
-    *   `portfolio_id` (Foreign Key) - Links back to `Portfolio`
-    *   `name` (String) - e.g., "HDFC Savings Account", "Karjat Land"
+    *   `portfolio_id` (Foreign Key)
+    *   `name` (String) 
     *   `asset_category` (Enum) - `LIQUID`, `REAL_ESTATE`, `ALTERNATIVE`
-    *   `purchase_price` (Float) - Initial cost basis
-    *   `current_value` (Float) - Latest valuation
+    *   `ownership_split_pct` (Float) - Legal/economic ownership share enabling proper household deduplication[cite: 1]
+    *   `purchase_price_minor_units` (Integer) - Initial cost basis stored in minor units[cite: 1]
+    *   `current_value_minor_units` (Integer) - Latest valuation stored in minor units[cite: 1]
     *   `purchase_date` (Date)
-    *   `currency` (String) - Local currency of the asset
+    *   `currency` (String) 
+    *   `verification_level` (Enum) - `SELF_DECLARED`, `DOCUMENTED`, `VERIFIED`, `ACCEPTED` tracking data actionability[cite: 1]
+    *   `valuation_method` (String) - e.g., "market feed", "appraisal", "manual estimate"[cite: 1]
+    *   `valuation_as_of` (DateTime) - Explicit timestamp of the valuation[cite: 1]
     *   `notes` (Text)
 *   **Functions:**
-    *   `update_details(updated_data_dict)`: Allows the user to change the name, notes, or category without altering the financial valuation.
-    *   `update_valuation(new_value)`: Overwrites `current_value` and updates the timestamp.
-    *   `calculate_roi()`: Computes the percentage yield based on purchase price versus current value.
-    *   `get_asset_summary()`: Returns a standardized JSON object for the "All Listings" UI.
+    *   `update_details(updated_data_dict)`
+    *   `update_valuation(new_value_minor_units, method)`
+    *   `calculate_attributed_value()`: Multiplies gross value by ownership split[cite: 1].
 
-### 3. `LiquidAsset` (Subclass of Asset)
-Handles traditional financial instruments like bank accounts, mutual funds, or equities.
-*   **Attributes:**
-    *   `institution_name` (String) - e.g., "Chase Bank", "Zerodha"
-    *   `ticker_symbol` (String, Optional) - For publicly traded assets
-    *   `quantity_held` (Float) - Number of shares or units
-*   **Functions:**
-    *   `fetch_live_price()`: Pings an external API to automatically update the `current_value`.
-
-### 4. `RealEstateAsset` (Subclass of Asset)
-Tailored for property and land holdings, specifically accommodating views like the *Karjat Plot* prototype.
-*   **Attributes:**
-    *   `property_type` (Enum) - `LAND`, `RESIDENTIAL`, `COMMERCIAL`
-    *   `location_address` (String)
-    *   `square_footage` (Float)
-    *   `price_per_sqft` (Float)
-*   **Functions:**
-    *   `calculate_sqft_valuation()`: Multiplies `square_footage` by `price_per_sqft` to dynamically update the `current_value`.
-
-### 5. `AlternativeAsset` (Subclass of Asset)
-Designed for passion assets and niche collections, such as the *Stamp Collection* view.
-*   **Attributes:**
-    *   `collection_type` (String) - e.g., "Philately", "Fine Art", "Numismatics"
-    *   `authenticity_cert_id` (String, Optional) - Reference to provenance documents
-    *   `last_appraisal_date` (Date)
-    *   `appraiser_name` (String)
-*   **Functions:**
-    *   `check_appraisal_status()`: Flags the asset if the `last_appraisal_date` is older than a specified threshold (e.g., 3 years).
+### 3. `LiquidAsset`, 4. `RealEstateAsset`, 5. `AlternativeAsset` 
+*(Subclasses inheriting from Asset, storing specific attributes like `ticker_symbol`, `square_footage`, `collection_type`)*
 
 ### 6. `Liability`
-Tracks all debts, loans, and financial obligations required to calculate true net worth.
 *   **Attributes:**
     *   `liability_id` (String/UUID) - Primary Key
-    *   `portfolio_id` (Foreign Key) - Links back to `Portfolio`
-    *   `name` (String) - e.g., "Home Mortgage", "Auto Loan"
-    *   `liability_type` (Enum) - `MORTGAGE`, `PERSONAL_LOAN`, `CREDIT_CARD`
-    *   `principal_amount` (Float) - Original loan size
-    *   `current_balance` (Float) - Amount currently owed
+    *   `portfolio_id` (Foreign Key) 
+    *   `name` (String) 
+    *   `liability_type` (Enum) 
+    *   `principal_amount_minor_units` (Integer) - Original loan size[cite: 1]
+    *   `current_balance_minor_units` (Integer) - Amount currently owed[cite: 1]
     *   `interest_rate` (Float)
     *   `due_date` (Date)
 *   **Functions:**
-    *   `update_details(updated_data_dict)`: Allows the user to change non-financial attributes like name or liability type.
-    *   `record_payment(amount)`: Deducts the payment from the `current_balance`.
-    *   `get_liability_summary()`: Packages debt data for the balance sheet UI.
+    *   `update_details(updated_data_dict)`
+    *   `record_payment(amount_minor_units)`
 
-### 7. `FinancialSnapshot` (Time-Series Ledger)
-Stores static, pre-calculated historical records of the user's wealth at specific intervals (e.g., daily, monthly). This acts as the immutable historical ledger for rendering all trend charts using strict tabular columns.
+### 7. `Transaction` (Cash Flow Ledger)
+Records individual historical cash flows, required for generating time-weighted (TWRR) and money-weighted (XIRR) returns[cite: 1].
+*   **Attributes:**
+    *   `transaction_id` (String/UUID) - Primary Key
+    *   `portfolio_id` (Foreign Key)
+    *   `asset_id` (Foreign Key, Optional) - Links to specific asset if applicable
+    *   `transaction_date` (DateTime)[cite: 1]
+    *   `amount_minor_units` (Integer)[cite: 1]
+    *   `transaction_type` (Enum) - e.g., `INFLOW`, `OUTFLOW`, `BUY`, `SELL`, `RENT`[cite: 1]
+    *   `category` (String) - e.g., "salary", "dividend", "repair"[cite: 1]
+*   **Functions:**
+    *   `log_transaction()`
+    *   `get_period_cashflows(start_date, end_date)`
+
+### 8. `FinancialGoal` (Planning)
+Maps user objectives against current portfolio funding[cite: 1].
+*   **Attributes:**
+    *   `goal_id` (String/UUID) - Primary Key
+    *   `user_id` (Foreign Key)
+    *   `name` (String)
+    *   `target_year` (Date) - Date goal requires funds[cite: 1]
+    *   `target_amount_minor_units` (Integer) - Expected need at target date[cite: 1]
+    *   `linked_asset_ids` (List of Strings) - Holdings assigned to fund this goal[cite: 1]
+*   **Functions:**
+    *   `calculate_funding_gap()`: Computes difference between projected value and needed value[cite: 1].
+
+### 9. `FinancialSnapshot` (Time-Series Ledger)
+Immutable historical ledger using explicit integer columns.
 *   **Attributes:**
     *   `snapshot_id` (String/UUID) - Primary Key
-    *   `portfolio_id` (Foreign Key) - Links back to `Portfolio`
-    *   `snapshot_date` (Date) - The exact date the snapshot was captured
-    *   `total_assets_value` (Float) - Aggregate of all assets
-    *   `total_liabilities_value` (Float) - Aggregate of all debts
-    *   `net_worth_value` (Float) - The overarching net worth
-    *   `liquid_assets_value` (Float) - Sub-total for liquid class
-    *   `real_estate_value` (Float) - Sub-total for real estate class
-    *   `alternative_assets_value` (Float) - Sub-total for alternative class
-    *   `debt_to_asset_ratio` (Float) - Computed ratio saved statically
+    *   `portfolio_id` (Foreign Key) 
+    *   `snapshot_date` (Date) 
+    *   `total_assets_value_minor_units` (Integer)[cite: 1]
+    *   `total_liabilities_value_minor_units` (Integer)[cite: 1]
+    *   `net_worth_value_minor_units` (Integer)[cite: 1]
+    *   `liquid_assets_value_minor_units` (Integer)[cite: 1]
+    *   `real_estate_value_minor_units` (Integer)[cite: 1]
+    *   `alternative_assets_value_minor_units` (Integer)[cite: 1]
 *   **Functions:**
-    *   `capture_periodic_metrics()`: Triggered by a background job to calculate current totals and freeze them into a new, permanent row in the database.
-    *   `fetch_historical_trend(start_date, end_date)`: Retrieves multiple rows of these static snapshots for the frontend to instantly plot historical line charts.
+    *   `capture_periodic_metrics()`
+    *   `fetch_historical_trend(start_date, end_date)`
 
 ---
 
 ## Module 3: Estate & Legal Planning Classes
 
-This module structures the complex logic surrounding family wealth transfer, legal documentation, and tax compliance. It maps directly to the *Household*, *Will*, *Inheritance*, and *Gift* views, ensuring assets are properly assigned to beneficiaries while adhering to jurisdictional rules.
-
 ### 1. `HouseholdMember`
-Represents family members, dependents, or external beneficiaries who are relevant to the user's estate plan.
 *   **Attributes:**
     *   `member_id` (String/UUID) - Primary Key
-    *   `user_id` (Foreign Key) - Links back to the primary `User`
+    *   `user_id` (Foreign Key) 
     *   `first_name` (String)
     *   `last_name` (String)
-    *   `relationship` (Enum) - e.g., `SPOUSE`, `CHILD`, `SIBLING`, `TRUST`
+    *   `relationship` (Enum) 
     *   `date_of_birth` (Date)
     *   `contact_email` (String, Optional)
-*   **Functions:**
-    *   `update_details()`: Modifies basic contact or relationship information.
-    *   `get_age()`: Dynamically computes current age for trust or inheritance age-restriction logic.
 
 ### 2. `EstatePlan`
-The high-level container that groups all end-of-life directives, executors, and linked documents for a user.
 *   **Attributes:**
     *   `plan_id` (String/UUID) - Primary Key
-    *   `user_id` (Foreign Key) - Links back to `User`
+    *   `user_id` (Foreign Key) 
     *   `primary_executor_name` (String)
     *   `primary_executor_contact` (String)
     *   `secondary_executor_name` (String, Optional)
     *   `last_reviewed_date` (Date)
-*   **Functions:**
-    *   `add_household_member(member_data)`: Creates a new `HouseholdMember` and links them to the estate plan.
-    *   `get_household_members()`: Retrieves the list of family members linked to the estate.
-    *   `remove_household_member(member_id)`: Removes a family member from the estate plan.
-    *   `update_executors()`: Replaces the designated legal executors.
-    *   `check_review_status()`: Flags the estate plan with an alert if it hasn't been reviewed in over a year.
 
 ### 3. `Will`
-Manages the structured data and digital storage references for the legal will document.
 *   **Attributes:**
     *   `will_id` (String/UUID) - Primary Key
-    *   `plan_id` (Foreign Key) - Links back to `EstatePlan`
-    *   `document_storage_url` (String) - Secure cloud link to the PDF/Scanned document
+    *   `plan_id` (Foreign Key) 
+    *   `document_id` (Foreign Key) - Links to `Document` storage[cite: 1]
     *   `signature_date` (Date)
-    *   `notary_details` (String)
     *   `status` (Enum) - `DRAFT`, `EXECUTED`, `REVOKED`
-*   **Functions:**
-    *   `upload_document(file_url)`: Attaches a new digital copy of the will.
-    *   `verify_execution_status()`: Checks if the document is formally signed and active.
-    *   `revoke_will()`: Changes the status to `REVOKED` and archives the document link.
 
 ### 4. `InheritanceAllocation`
-The connective tissue that links specific `Asset` records to specific `HouseholdMember` beneficiaries.
 *   **Attributes:**
     *   `allocation_id` (String/UUID) - Primary Key
-    *   `plan_id` (Foreign Key) - Links back to `EstatePlan`
-    *   `asset_id` (Foreign Key) - Links to a specific `Asset`
-    *   `beneficiary_id` (Foreign Key) - Links to a `HouseholdMember`
-    *   `percentage_share` (Float) - e.g., 50.0 for 50%
-    *   `distribution_conditions` (Text) - e.g., "Payable upon 25th birthday"
+    *   `plan_id` (Foreign Key) 
+    *   `asset_id` (Foreign Key) 
+    *   `beneficiary_id` (Foreign Key) 
+    *   `percentage_share` (Float) 
+    *   `distribution_conditions` (Text) 
 *   **Functions:**
-    *   `update_share(new_percentage)`: Adjusts the distribution weight.
-    *   `validate_total_allocation(asset_id)`: Sums all shares for a single asset to ensure they equal exactly 100%.
+    *   `validate_total_allocation(asset_id)`
 
 ### 5. `GiftRule`
-Stores the jurisdictional limits and tax-free thresholds for inter-vivos (living) wealth transfers.
 *   **Attributes:**
     *   `rule_id` (String/UUID) - Primary Key
-    *   `jurisdiction` (String) - e.g., "Canada", "USA", "India"
-    *   `fiscal_year` (Integer)
-    *   `annual_exemption_limit` (Float) - Maximum tax-free amount per year
-    *   `lifetime_exemption_limit` (Float, Optional)
-*   **Functions:**
-    *   `update_annual_limit(new_limit)`: Modifies the threshold based on new government tax laws.
-    *   `evaluate_compliance(transfer_amount)`: Compares a proposed transfer against the limits and returns a boolean or warning flag.
+    *   `jurisdiction` (String) 
+    *   `rule_effective_date` (Date) - Version control for tax/legal rules[cite: 1]
+    *   `annual_exemption_limit_minor_units` (Integer)[cite: 1]
 
 ### 6. `GiftTransfer`
-Logs the actual historical or planned movement of assets or cash to family members while the user is still living.
 *   **Attributes:**
     *   `transfer_id` (String/UUID) - Primary Key
-    *   `user_id` (Foreign Key) - The sender
-    *   `recipient_id` (Foreign Key) - Links to `HouseholdMember`
-    *   `asset_id` (Foreign Key, Optional) - Populated if a specific physical asset was transferred
-    *   `cash_value` (Float) - The monetary value of the gift
+    *   `user_id` (Foreign Key) 
+    *   `recipient_id` (Foreign Key) 
+    *   `asset_id` (Foreign Key, Optional) 
+    *   `cash_value_minor_units` (Integer)[cite: 1]
     *   `transfer_date` (Date)
     *   `tax_filed_status` (Boolean)
-*   **Functions:**
-    *   `log_transfer()`: Records a completed transaction.
-    *   `generate_annual_report(fiscal_year)`: Aggregates all transfers to generate a schedule for tax reporting purposes.
 
 ---
 
 ## Module 4: Advisory & Market Intelligence Classes
 
-This final module facilitates the networking, community, and analytical aspects of Vittavaan. It leverages the role-based profiles to connect investors with advisors, while providing dynamic market data and peer-comparison reports.
-
-### 1. `AdvisoryQuery` (The "Ask" Module)
-Manages direct questions and consultation threads between investors and professional advisors on the network.
-*   **Attributes:**
-    *   `query_id` (String/UUID) - Primary Key
-    *   `asker_id` (Foreign Key) - Links to the `User` (Investor) who asked the question
-    *   `advisor_id` (Foreign Key, Optional) - Links to a specific `User` (Advisor). If null, the query is broadcast to the open network.
-    *   `subject` (String)
-    *   `content_body` (Text)
-    *   `status` (Enum) - `OPEN`, `IN_PROGRESS`, `RESOLVED`, `CLOSED`
-    *   `created_at` (DateTime)
-    *   `updated_at` (DateTime)
-*   **Functions:**
-    *   `submit_query()`: Opens a new thread and notifies relevant advisors.
-    *   `get_open_queries(advisor_id=None)`: Fetches a list of `OPEN` or `IN_PROGRESS` threads. If `advisor_id` is null, it fetches public community questions.
-    *   `add_response(advisor_id, response_text)`: Appends an answer to the thread.
-    *   `resolve_query()`: Marks the thread as closed once the investor is satisfied.
-
-### 2. `MarketInsight` (Trends & News)
-Handles the publishing and aggregation of financial news, tax updates, or advisor-authored articles on the platform.
-*   **Attributes:**
-    *   `insight_id` (String/UUID) - Primary Key
-    *   `author_id` (Foreign Key) - Links to a `User` (usually an Advisor or System Admin)
-    *   `title` (String)
-    *   `content` (Text)
-    *   `category` (Enum) - e.g., `MACRO_ECONOMICS`, `REAL_ESTATE`, `TAX_POLICY`
-    *   `tags` (List of Strings) - e.g., ["crypto", "compliance", "interest rates"]
-    *   `published_date` (DateTime)
-*   **Functions:**
-    *   `publish_insight()`: Makes the article live on the network feed.
-    *   `fetch_feed(user_preferences)`: Returns a curated list of insights based on the user's tags or risk profile.
-
-### 3. `PeerBenchmark` (Peers)
-A snapshot entity that stores anonymized, aggregated comparison metrics, allowing users to see how their wealth distribution stacks up against similar demographics.
-*   **Attributes:**
-    *   `benchmark_id` (String/UUID) - Primary Key
-    *   `user_id` (Foreign Key) - The user requesting the comparison
-    *   `cohort_criteria` (Dictionary) - The filters used for the peer group (e.g., `{"age_range": "35-45", "net_worth_tier": "1M-5M"}`)
-    *   `user_metric_value` (Float) - The user's specific data point (e.g., % of wealth in real estate)
-    *   `cohort_average` (Float) - The peer group's average for that same data point
-    *   `percentile_rank` (Integer) - Where the user ranks within the cohort (1-99)
-    *   `generated_at` (DateTime)
-*   **Functions:**
-    *   `generate_cohort_comparison(metric_type)`: Queries anonymized system data to calculate the peer average and the user's percentile rank.
-    *   `get_historical_benchmarks()`: Retrieves past snapshots to show how the user's ranking has evolved over time.
-
-### 4. `PortfolioAnalytics` (Analysis)
-A dynamic reporting class that analyzes the user's `Portfolio` and `Asset` allocation to generate risk assessments and diversification scores.
-*   **Attributes:**
-    *   `analysis_id` (String/UUID) - Primary Key
-    *   `portfolio_id` (Foreign Key) - Links back to `Portfolio`
-    *   `liquidity_ratio` (Float) - Ratio of liquid assets to total net worth
-    *   `debt_to_asset_ratio` (Float)
-    *   `diversification_score` (Integer) - A computed health metric (0-100)
-    *   `top_heavy_warning` (Boolean) - True if a single asset dominates the portfolio (e.g., > 50% of total wealth)
-    *   `evaluated_at` (DateTime)
-*   **Functions:**
-    *   `run_full_analysis()`: Executes the algorithms that scan the portfolio and calculate the ratios.
-    *   `generate_visual_chart_data()`: Packages the analytics into a JSON payload formatted specifically for rendering frontend charts.
+*(Contains `AdvisoryQuery`, `MarketInsight`, and `PeerBenchmark` mapping community network features, threads, and peer comparison parameters.)*
 
 ---
 
-## Module 5: Application Service Layer (Business Logic)
+## Module 5: Application Service Layer (Calculation Engines)
 
-This module represents stateless backend service classes. These classes do not map to individual database tables; instead, they serve as the orchestration layer between the database queries (SQL) and the frontend APIs (FastAPI). They aggregate data, compute period-over-period comparative math, and format JSON payloads for the HTML dashboards.
+This module represents stateless backend service classes mapping to the recommended engineering taxonomy[cite: 1]. They orchestrate SQL queries and Python math, strictly outputting JSON payloads with robust provenance (e.g., `value_minor_units`, `as_of`, `calculation_version`)[cite: 1].
 
-### 1. `DashboardService`
-Responsible for calculating comparative metrics, orchestrating mathematical logic, and compiling complex data summaries required by the user interface.
-*   **Attributes:**
-    *   *None* (Stateless service class)
-*   **Functions:**
-    *   `get_net_worth_summary(user_id, timeframe)`: Executes SQL aggregations for current assets/liabilities, fetches the requested historical snapshot from the `FinancialSnapshot` ledger, computes the percentage change ($\Delta\%$), and returns the packaged dashboard metrics.
-    *   `get_asset_allocation_summary(user_id)`: Group assets by category using SQL, computes their percentage weight against the total portfolio, and returns formatted data for UI pie/donut charts.
-    *   `get_recent_activity_feed(user_id)`: Aggregates recent asset updates, newly added liabilities, and pending connection requests into a single, chronologically sorted timeline feed for the home dashboard.
+### 1. `WealthAndOwnershipEngine`
+*   **Functions:** Aggregates assets, liabilities, and net worth, rigorously applying `ownership_split_pct` before household aggregation to prevent double-counting[cite: 1].
+
+### 2. `ValuationAndVerificationEngine`
+*   **Functions:** Evaluates `verification_level` across the portfolio, calculating `VerifiedWealthPct` and monitoring `ValuationAgeDays` to flag stale data states[cite: 1].
+
+### 3. `CashFlowAndDebtEngine`
+*   **Functions:** Queries `Transaction` and `Liability` tables to compute `MonthlySurplus`, amortization schedules, and the `DebtServiceRatio`[cite: 1].
+
+### 4. `PerformanceAndAttributionEngine`
+*   **Functions:** Calculates money-weighted returns (`PortfolioXIRR`), time-weighted returns (`PortfolioTWRR`), and asset class contributions over defined time windows using historical transactions[cite: 1].
+
+### 5. `PlanningAndScenarioEngine`
+*   **Functions:** Projects future values for `FinancialGoal` records, calculates timing mismatches, and models "invest vs. prepay" scenarios based on dynamic assumptions[cite: 1].
+
+### 6. `ConsentAndMarketplaceEngine`
+*   **Functions:** Evaluates `Document` and `Connection` grants to determine field-level access decisions, preventing exposure of withheld datapoints[cite: 1].
