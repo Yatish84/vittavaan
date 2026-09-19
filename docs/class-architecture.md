@@ -16,14 +16,55 @@ This document serves as the foundational Object-Oriented architectural blueprint
 ---
 
 ## Table of Contents
-1. [Module 1: User, Profile & Data Room Classes](#module-1-user-profile--data-room-classes)
-2. [Module 1.5: Security & Session (Auth-Core Gateway)](#module-15-security--session-auth-core-gateway)
-3. [Module 2: Wealth, Portfolio & Planning Classes](#module-2-wealth-portfolio--planning-classes)
-4. [Module 3: Estate & Legal Planning Classes](#module-3-estate--legal-planning-classes)
-5. [Module 4: Advisory & Market Intelligence Classes](#module-4-advisory--market-intelligence-classes)
-6. [Module 5: Application Service Layer (Calculation Engines)](#module-5-application-service-layer-calculation-engines)
+1. [Entity-Relationship (ER) Diagram](#entity-relationship-er-diagram)
+2. [Module 1: User, Profile & Data Room Classes](#module-1-user-profile--data-room-classes)
+3. [Module 1.5: Security & Session (Auth-Core Gateway)](#module-15-security--session-auth-core-gateway)
+4. [Module 2: Wealth, Portfolio & Planning Classes](#module-2-wealth-portfolio--planning-classes)
+5. [Module 3: Estate & Legal Planning Classes](#module-3-estate--legal-planning-classes)
+6. [Module 4: Advisory & Market Intelligence Classes](#module-4-advisory--market-intelligence-classes)
+7. [Module 5: Application Service Layer (Calculation Engines)](#module-5-application-service-layer-calculation-engines)
 
 ---
+
+## Entity-Relationship (ER) Diagram
+
+The following Mermaid diagram visualizes the relational database connections between the core persistent domain classes. *(Note: Stateless boundaries, calculation engines, and generic lookup tables like `GiftRule` are excluded to maintain structural clarity).*
+
+```mermaid
+erDiagram
+    USER ||--o| INVESTOR_PROFILE : "has"
+    USER ||--o| ADVISOR_PROFILE : "has"
+    USER ||--o{ CONNECTION : "initiates / receives"
+    USER ||--|| SETTING : "has"
+    USER ||--o{ DOCUMENT : "owns"
+    USER ||--o{ LOCAL_SESSION : "authenticates"
+    USER ||--|| PORTFOLIO : "owns"
+    USER ||--o{ HOUSEHOLD_MEMBER : "registers"
+    USER ||--o| ESTATE_PLAN : "creates"
+    USER ||--o{ FINANCIAL_GOAL : "sets"
+    USER ||--o{ ADVISORY_QUERY : "asks / answers"
+    USER ||--o{ GIFT_TRANSFER : "sends"
+    USER ||--o{ MARKET_INSIGHT : "publishes"
+
+    PORTFOLIO ||--o{ ASSET : "contains"
+    PORTFOLIO ||--o{ LIABILITY : "contains"
+    PORTFOLIO ||--o{ TRANSACTION : "logs"
+    PORTFOLIO ||--o{ FINANCIAL_SNAPSHOT : "snapshots"
+
+    ASSET ||--o{ TRANSACTION : "subject_of"
+    ASSET ||--o{ DOCUMENT : "provenance_link"
+    ASSET ||--o{ INHERITANCE_ALLOCATION : "allocated_in"
+
+    ESTATE_PLAN ||--o| WILL : "contains"
+    ESTATE_PLAN ||--o{ INHERITANCE_ALLOCATION : "specifies"
+
+    WILL ||--o| DOCUMENT : "backed_by"
+
+    HOUSEHOLD_MEMBER ||--o{ INHERITANCE_ALLOCATION : "receives"
+    HOUSEHOLD_MEMBER ||--o{ GIFT_TRANSFER : "receives"
+
+    FINANCIAL_GOAL ||--o{ ASSET : "funded_by"
+
 
 ## Module 1: User, Profile & Data Room Classes
 
