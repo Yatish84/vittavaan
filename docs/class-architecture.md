@@ -64,7 +64,9 @@ erDiagram
     HOUSEHOLD_MEMBER ||--o{ GIFT_TRANSFER : "receives"
 
     FINANCIAL_GOAL ||--o{ ASSET : "funded_by"
+```
 
+---
 
 ## Module 1: User, Profile & Data Room Classes
 
@@ -200,7 +202,6 @@ Universal document storage supporting verification, estate planning, and consent
     *   `add_asset(asset_data)`
     *   `remove_asset(asset_id)`
     *   `add_liability(liability_data)`
-    *   `get_net_worth_history(timeframe)`
 
 ### 2. `Asset` (Abstract Base Class)
 Foundational blueprint incorporating fractional ownership and strict data provenance.
@@ -223,8 +224,33 @@ Foundational blueprint incorporating fractional ownership and strict data proven
     *   `update_valuation(new_value_minor_units, method)`
     *   `calculate_attributed_value()`: Multiplies gross value by ownership split.
 
-### 3. `LiquidAsset`, 4. `RealEstateAsset`, 5. `AlternativeAsset` 
-*(Subclasses inheriting from Asset, storing specific attributes like `ticker_symbol`, `square_footage`, `collection_type`)*
+### 3. `LiquidAsset` (Subclass of Asset)
+Handles traditional financial instruments like bank accounts, mutual funds, or equities.
+*   **Attributes:**
+    *   `institution_name` (String) - e.g., "Chase Bank", "Zerodha"
+    *   `ticker_symbol` (String, Optional) - For publicly traded assets
+    *   `quantity_held` (Float) - Number of shares or units
+*   **Functions:**
+    *   `fetch_live_price()`: Pings an external API to automatically update the `current_value_minor_units`.
+
+### 4. `RealEstateAsset` (Subclass of Asset)
+Tailored for property and land holdings, specifically accommodating views like the Karjat Plot prototype.
+*   **Attributes:**
+    *   `property_type` (Enum) - `LAND`, `RESIDENTIAL`, `COMMERCIAL`
+    *   `location_address` (String)
+    *   `square_footage` (Float)
+    *   `price_per_sqft_minor_units` (Integer)
+*   **Functions:**
+    *   `calculate_sqft_valuation()`: Multiplies `square_footage` by `price_per_sqft_minor_units` to dynamically update valuation.
+
+### 5. `AlternativeAsset` (Subclass of Asset)
+Designed for passion assets and niche collections, such as the Stamp Collection view.
+*   **Attributes:**
+    *   `collection_type` (String) - e.g., "Philately", "Fine Art", "Numismatics"
+    *   `last_appraisal_date` (Date)
+    *   `appraiser_name` (String)
+*   **Functions:**
+    *   `check_appraisal_status()`: Flags the asset if the `last_appraisal_date` is older than a specified threshold.
 
 ### 6. `Liability`
 *   **Attributes:**
@@ -279,8 +305,8 @@ Immutable historical ledger using explicit integer columns.
     *   `real_estate_value_minor_units` (Integer)
     *   `alternative_assets_value_minor_units` (Integer)
 *   **Functions:**
-    *   `capture_periodic_metrics()`
-    *   `fetch_historical_trend(start_date, end_date)`
+    *   `capture_periodic_metrics()`: Triggered by a background job to freeze the current totals into a new, permanent record.
+    *   `fetch_historical_trend(start_date, end_date)`: Retrieves an array of static snapshots for the frontend.
 
 ---
 
@@ -292,9 +318,11 @@ Immutable historical ledger using explicit integer columns.
     *   `user_id` (Foreign Key) 
     *   `first_name` (String)
     *   `last_name` (String)
-    *   `relationship` (Enum) 
+    *   `relationship` (Enum) - e.g., `SPOUSE`, `CHILD`, `SIBLING`
     *   `date_of_birth` (Date)
     *   `contact_email` (String, Optional)
+*   **Functions:**
+    *   `update_details()`
 
 ### 2. `EstatePlan`
 *   **Attributes:**
@@ -304,6 +332,8 @@ Immutable historical ledger using explicit integer columns.
     *   `primary_executor_contact` (String)
     *   `secondary_executor_name` (String, Optional)
     *   `last_reviewed_date` (Date)
+*   **Functions:**
+    *   `update_executors()`
 
 ### 3. `Will`
 *   **Attributes:**
@@ -312,6 +342,9 @@ Immutable historical ledger using explicit integer columns.
     *   `document_id` (Foreign Key) - Links to `Document` storage
     *   `signature_date` (Date)
     *   `status` (Enum) - `DRAFT`, `EXECUTED`, `REVOKED`
+*   **Functions:**
+    *   `verify_execution_status()`
+    *   `revoke_will()`
 
 ### 4. `InheritanceAllocation`
 *   **Attributes:**
@@ -322,6 +355,7 @@ Immutable historical ledger using explicit integer columns.
     *   `percentage_share` (Float) 
     *   `distribution_conditions` (Text) 
 *   **Functions:**
+    *   `update_share(new_percentage)`
     *   `validate_total_allocation(asset_id)`
 
 ### 5. `GiftRule`
@@ -330,6 +364,8 @@ Immutable historical ledger using explicit integer columns.
     *   `jurisdiction` (String) 
     *   `rule_effective_date` (Date) - Version control for tax/legal rules
     *   `annual_exemption_limit_minor_units` (Integer)
+*   **Functions:**
+    *   `evaluate_compliance(transfer_amount_minor_units)`
 
 ### 6. `GiftTransfer`
 *   **Attributes:**
@@ -340,19 +376,22 @@ Immutable historical ledger using explicit integer columns.
     *   `cash_value_minor_units` (Integer)
     *   `transfer_date` (Date)
     *   `tax_filed_status` (Boolean)
+*   **Functions:**
+    *   `log_transfer()`
 
 ---
 
 ## Module 4: Advisory & Market Intelligence Classes
 
 ### 1. `AdvisoryQuery` (The "Ask" Module)
+Manages direct questions and consultation threads between investors and professional advisors on the network.
 *   **Attributes:**
     *   `query_id` (String/UUID) - Primary Key
     *   `asker_id` (Foreign Key)
     *   `advisor_id` (Foreign Key, Optional)
     *   `subject` (String)
     *   `content_body` (Text)
-    *   `status` (Enum)
+    *   `status` (Enum) - `OPEN`, `IN_PROGRESS`, `RESOLVED`, `CLOSED`
     *   `created_at` (DateTime)
     *   `updated_at` (DateTime)
 *   **Functions:**
@@ -362,12 +401,13 @@ Immutable historical ledger using explicit integer columns.
     *   `resolve_query()`
 
 ### 2. `MarketInsight` (Trends & News)
+Handles the publishing and aggregation of financial news, tax updates, or advisor-authored articles on the platform.
 *   **Attributes:**
     *   `insight_id` (String/UUID) - Primary Key
     *   `author_id` (Foreign Key)
     *   `title` (String)
     *   `content` (Text)
-    *   `category` (Enum)
+    *   `category` (Enum) - e.g., `MACRO_ECONOMICS`, `REAL_ESTATE`, `TAX_POLICY`
     *   `tags` (List of Strings)
     *   `published_date` (DateTime)
 *   **Functions:**
@@ -375,10 +415,11 @@ Immutable historical ledger using explicit integer columns.
     *   `fetch_feed(user_preferences)`
 
 ### 3. `PeerBenchmark` (Peers)
+A snapshot entity that stores anonymized, aggregated comparison metrics, allowing users to see how their wealth distribution stacks up against similar demographics.
 *   **Attributes:**
     *   `benchmark_id` (String/UUID) - Primary Key
     *   `user_id` (Foreign Key)
-    *   `cohort_criteria` (Dictionary)
+    *   `cohort_criteria` (Dictionary) - e.g., `{"age_range": "35-45", "net_worth_tier": "1M-5M"}`
     *   `user_metric_value` (Float)
     *   `cohort_average` (Float)
     *   `percentile_rank` (Integer)
