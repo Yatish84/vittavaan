@@ -3,15 +3,15 @@
 ## Project Overview
 Vittavaan is a comprehensive wealth management and networking application designed to help users track net worth, manage specialized assets (like real estate and alternative collections), and structure estate planning. Beyond individual portfolio management, it serves as a collaborative networking zone where investors and professional advisors can connect, compare benchmarks, and share relevant financial intelligence. 
 
-All monetary values are strictly stored as integers (minor units, e.g., paise/cents) to prevent floating-point calculation errors[cite: 1].
+All monetary values are strictly stored as integers (minor units, e.g., paise/cents) to prevent floating-point calculation errors.
 
 ## Document Purpose & Module Summary
 This document serves as the foundational Object-Oriented architectural blueprint for the application. The architecture is divided into the following core modules:
-*   **Module 1 & 1.5:** Role-based user profiles, peer connections with time-bound consents[cite: 1], universal document storage[cite: 1], and the zero-trust authentication gateway.
-*   **Module 2:** The financial engine aggregating portfolios, tracking assets, managing transactional cash flows[cite: 1], and mapping financial goals[cite: 1].
+*   **Module 1 & 1.5:** Dual-role user identities, demographic profiles, peer connections with time-bound consents, universal document storage, and the zero-trust authentication gateway.
+*   **Module 2:** The financial engine aggregating portfolios, tracking assets, managing transactional cash flows, and mapping financial goals.
 *   **Module 3:** Structures family wealth transfer, legal documentation, and inter-vivos gifting compliance.
 *   **Module 4:** Facilitates networking, market data, peer-comparison reports, and advisor queries.
-*   **Module 5:** The Application Service Layer, grouped into functional calculation engines to aggregate database queries and compute complex dashboard metrics[cite: 1].
+*   **Module 5:** The Application Service Layer, grouped into functional calculation engines to aggregate database queries and compute complex dashboard metrics.
 
 ---
 
@@ -28,26 +28,33 @@ This document serves as the foundational Object-Oriented architectural blueprint
 ## Module 1: User, Profile & Data Room Classes
 
 ### 1. `User`
-The core identity class handling role assignment and basic account management. 
+The core identity class handling basic account management and immutable human demographics. Acts as the root for dual-role users (investors who are also advisors).
 *   **Attributes:**
     *   `user_id` (String/UUID) - Primary Key
     *   `email` (String) - Unique identifier
     *   `first_name` (String)
     *   `last_name` (String)
-    *   `role` (Enum) - e.g., `INVESTOR`, `ADVISOR`
+    *   `date_of_birth` (Date) - Used to dynamically calculate age for cohorts/credit
+    *   `gender` (Enum) - e.g., `MALE`, `FEMALE`, `NON_BINARY`, `PREFER_NOT_TO_SAY`
+    *   `is_investor` (Boolean) - True if the user has an attached `InvestorProfile` and personal ledger
+    *   `is_advisor` (Boolean) - True if the user has an attached `AdvisorProfile` for the marketplace
     *   `created_at` (DateTime)
     *   `last_login` (DateTime)
 *   **Functions:**
-    *   `get_user_details()`: Fetches the consolidated profile and settings payload.
-    *   `get_role_dashboard()`: Routes the user to the appropriate UI based on their role.
+    *   `get_user_details()`: Fetches the consolidated identity payload.
+    *   `switch_active_context(target_role)`: Toggles the UI state between personal wealth and professional advisory views.
     *   `search_network(search_criteria)`: Queries the database for peers or advisors.
     *   `send_connection_request(recipient_id)`: Creates the initial `Connection` object.
     *   `get_network_connections(status_filter=None)`: Fetches a list of linked `Connection` objects.
 
 ### 2. `InvestorProfile`
+The financial persona linked to a user. Separates self-declared financial demographics from core identity.
 *   **Attributes:**
     *   `profile_id` (String/UUID) - Primary Key
     *   `user_id` (Foreign Key) - Links back to `User`
+    *   `education_level` (Enum) - e.g., `BACHELORS`, `MASTERS`, `DOCTORATE`, `PROFESSIONAL`
+    *   `city_tier` (Enum) - e.g., `TIER_1`, `TIER_2`, `TIER_3`
+    *   `stated_annual_income_minor_units` (Integer) - Self-declared demographic income
     *   `risk_tolerance` (Enum) - `CONSERVATIVE`, `MODERATE`, `AGGRESSIVE`
     *   `investment_horizon_years` (Integer)
     *   `financial_resume_summary` (Text) 
@@ -56,12 +63,13 @@ The core identity class handling role assignment and basic account management.
     *   `get_resume_data()`: Packages the profile info for the frontend UI.
 
 ### 3. `AdvisorProfile`
+Manages professional credentials for the network, using strict finite lists to ensure regulatory integrity.
 *   **Attributes:**
     *   `profile_id` (String/UUID) - Primary Key
     *   `user_id` (Foreign Key) - Links back to `User`
     *   `firm_name` (String)
-    *   `certifications` (List of Strings) 
-    *   `specialty_areas` (List of Strings) 
+    *   `certifications` (List of Enums) - Strict subset of recognized credentials (e.g., `CFP`, `SEBI_RIA`, `CA`, `IBBI_VALUER`, `ADVOCATE`, `CFA`).
+    *   `specialty_areas` (List of Strings) - e.g., Estate Planning, Equities, Crypto Taxation
 *   **Functions:**
     *   `add_certification(cert_name)`
     *   `get_public_profile()`
@@ -74,10 +82,10 @@ Manages the relationship, state, and strict time-bound permissions between users
     *   `recipient_id` (Foreign Key) 
     *   `status` (Enum) - `PENDING`, `ACCEPTED`, `REJECTED`, `REVOKED`
     *   `permissions` (Dictionary/JSON) - Field-level access control list
-    *   `consent_scope` (String) - Data/actions the source is allowed to provide/view[cite: 1]
-    *   `consent_purpose` (String) - Recorded purpose for the data share[cite: 1]
-    *   `consent_granted_at` (DateTime) - Consent start[cite: 1]
-    *   `consent_expires_at` (DateTime) - Consent expiry enforcing time-bound rules[cite: 1]
+    *   `consent_scope` (String) - Data/actions the source is allowed to provide/view
+    *   `consent_purpose` (String) - Recorded purpose for the data share
+    *   `consent_granted_at` (DateTime) - Consent start
+    *   `consent_expires_at` (DateTime) - Consent expiry enforcing time-bound rules
     *   `created_at` (DateTime)
     *   `updated_at` (DateTime)
 *   **Functions:**
@@ -100,15 +108,15 @@ Manages the relationship, state, and strict time-bound permissions between users
     *   `update_base_currency(new_currency)`
 
 ### 6. `Document` (Data Room)
-Universal document storage supporting verification, estate planning, and consents[cite: 1].
+Universal document storage supporting verification, estate planning, and consents.
 *   **Attributes:**
     *   `document_id` (String/UUID) - Primary Key
-    *   `owner_id` (Foreign Key) - Links to `User`[cite: 1]
-    *   `linked_asset_id` (Foreign Key, Optional) - Links to `Asset` if applicable[cite: 1]
-    *   `document_type` (Enum) - e.g., `WILL`, `VALUATION_REPORT`, `CONSENT_FORM`, `TITLE_DEED`[cite: 1]
+    *   `owner_id` (Foreign Key) - Links to `User`
+    *   `linked_asset_id` (Foreign Key, Optional) - Links to `Asset` if applicable
+    *   `document_type` (Enum) - e.g., `WILL`, `VALUATION_REPORT`, `CONSENT_FORM`, `TITLE_DEED`
     *   `storage_url` (String) - Secure cloud reference
-    *   `document_date` (Date)[cite: 1]
-    *   `document_expiry` (Date, Optional)[cite: 1]
+    *   `document_date` (Date)
+    *   `document_expiry` (Date, Optional)
 *   **Functions:**
     *   `upload_document()`
     *   `verify_document()`
@@ -154,25 +162,25 @@ Universal document storage supporting verification, estate planning, and consent
     *   `get_net_worth_history(timeframe)`
 
 ### 2. `Asset` (Abstract Base Class)
-Foundational blueprint incorporating fractional ownership and strict data provenance[cite: 1].
+Foundational blueprint incorporating fractional ownership and strict data provenance.
 *   **Attributes:**
     *   `asset_id` (String/UUID) - Primary Key
     *   `portfolio_id` (Foreign Key)
     *   `name` (String) 
     *   `asset_category` (Enum) - `LIQUID`, `REAL_ESTATE`, `ALTERNATIVE`
-    *   `ownership_split_pct` (Float) - Legal/economic ownership share enabling proper household deduplication[cite: 1]
-    *   `purchase_price_minor_units` (Integer) - Initial cost basis stored in minor units[cite: 1]
-    *   `current_value_minor_units` (Integer) - Latest valuation stored in minor units[cite: 1]
+    *   `ownership_split_pct` (Float) - Legal/economic ownership share enabling proper household deduplication
+    *   `purchase_price_minor_units` (Integer) - Initial cost basis stored in minor units
+    *   `current_value_minor_units` (Integer) - Latest valuation stored in minor units
     *   `purchase_date` (Date)
     *   `currency` (String) 
-    *   `verification_level` (Enum) - `SELF_DECLARED`, `DOCUMENTED`, `VERIFIED`, `ACCEPTED` tracking data actionability[cite: 1]
-    *   `valuation_method` (String) - e.g., "market feed", "appraisal", "manual estimate"[cite: 1]
-    *   `valuation_as_of` (DateTime) - Explicit timestamp of the valuation[cite: 1]
+    *   `verification_level` (Enum) - `SELF_DECLARED`, `DOCUMENTED`, `VERIFIED`, `ACCEPTED` tracking data actionability
+    *   `valuation_method` (String) - e.g., "market feed", "appraisal", "manual estimate"
+    *   `valuation_as_of` (DateTime) - Explicit timestamp of the valuation
     *   `notes` (Text)
 *   **Functions:**
     *   `update_details(updated_data_dict)`
     *   `update_valuation(new_value_minor_units, method)`
-    *   `calculate_attributed_value()`: Multiplies gross value by ownership split[cite: 1].
+    *   `calculate_attributed_value()`: Multiplies gross value by ownership split.
 
 ### 3. `LiquidAsset`, 4. `RealEstateAsset`, 5. `AlternativeAsset` 
 *(Subclasses inheriting from Asset, storing specific attributes like `ticker_symbol`, `square_footage`, `collection_type`)*
@@ -183,8 +191,8 @@ Foundational blueprint incorporating fractional ownership and strict data proven
     *   `portfolio_id` (Foreign Key) 
     *   `name` (String) 
     *   `liability_type` (Enum) 
-    *   `principal_amount_minor_units` (Integer) - Original loan size[cite: 1]
-    *   `current_balance_minor_units` (Integer) - Amount currently owed[cite: 1]
+    *   `principal_amount_minor_units` (Integer) - Original loan size
+    *   `current_balance_minor_units` (Integer) - Amount currently owed
     *   `interest_rate` (Float)
     *   `due_date` (Date)
 *   **Functions:**
@@ -192,30 +200,30 @@ Foundational blueprint incorporating fractional ownership and strict data proven
     *   `record_payment(amount_minor_units)`
 
 ### 7. `Transaction` (Cash Flow Ledger)
-Records individual historical cash flows, required for generating time-weighted (TWRR) and money-weighted (XIRR) returns[cite: 1].
+Records individual historical cash flows, required for generating time-weighted (TWRR) and money-weighted (XIRR) returns.
 *   **Attributes:**
     *   `transaction_id` (String/UUID) - Primary Key
     *   `portfolio_id` (Foreign Key)
     *   `asset_id` (Foreign Key, Optional) - Links to specific asset if applicable
-    *   `transaction_date` (DateTime)[cite: 1]
-    *   `amount_minor_units` (Integer)[cite: 1]
-    *   `transaction_type` (Enum) - e.g., `INFLOW`, `OUTFLOW`, `BUY`, `SELL`, `RENT`[cite: 1]
-    *   `category` (String) - e.g., "salary", "dividend", "repair"[cite: 1]
+    *   `transaction_date` (DateTime)
+    *   `amount_minor_units` (Integer)
+    *   `transaction_type` (Enum) - e.g., `INFLOW`, `OUTFLOW`, `BUY`, `SELL`, `RENT`
+    *   `category` (String) - e.g., "salary", "dividend", "repair"
 *   **Functions:**
     *   `log_transaction()`
     *   `get_period_cashflows(start_date, end_date)`
 
 ### 8. `FinancialGoal` (Planning)
-Maps user objectives against current portfolio funding[cite: 1].
+Maps user objectives against current portfolio funding.
 *   **Attributes:**
     *   `goal_id` (String/UUID) - Primary Key
     *   `user_id` (Foreign Key)
     *   `name` (String)
-    *   `target_year` (Date) - Date goal requires funds[cite: 1]
-    *   `target_amount_minor_units` (Integer) - Expected need at target date[cite: 1]
-    *   `linked_asset_ids` (List of Strings) - Holdings assigned to fund this goal[cite: 1]
+    *   `target_year` (Date) - Date goal requires funds
+    *   `target_amount_minor_units` (Integer) - Expected need at target date
+    *   `linked_asset_ids` (List of Strings) - Holdings assigned to fund this goal
 *   **Functions:**
-    *   `calculate_funding_gap()`: Computes difference between projected value and needed value[cite: 1].
+    *   `calculate_funding_gap()`: Computes difference between projected value and needed value.
 
 ### 9. `FinancialSnapshot` (Time-Series Ledger)
 Immutable historical ledger using explicit integer columns.
@@ -223,12 +231,12 @@ Immutable historical ledger using explicit integer columns.
     *   `snapshot_id` (String/UUID) - Primary Key
     *   `portfolio_id` (Foreign Key) 
     *   `snapshot_date` (Date) 
-    *   `total_assets_value_minor_units` (Integer)[cite: 1]
-    *   `total_liabilities_value_minor_units` (Integer)[cite: 1]
-    *   `net_worth_value_minor_units` (Integer)[cite: 1]
-    *   `liquid_assets_value_minor_units` (Integer)[cite: 1]
-    *   `real_estate_value_minor_units` (Integer)[cite: 1]
-    *   `alternative_assets_value_minor_units` (Integer)[cite: 1]
+    *   `total_assets_value_minor_units` (Integer)
+    *   `total_liabilities_value_minor_units` (Integer)
+    *   `net_worth_value_minor_units` (Integer)
+    *   `liquid_assets_value_minor_units` (Integer)
+    *   `real_estate_value_minor_units` (Integer)
+    *   `alternative_assets_value_minor_units` (Integer)
 *   **Functions:**
     *   `capture_periodic_metrics()`
     *   `fetch_historical_trend(start_date, end_date)`
@@ -260,7 +268,7 @@ Immutable historical ledger using explicit integer columns.
 *   **Attributes:**
     *   `will_id` (String/UUID) - Primary Key
     *   `plan_id` (Foreign Key) 
-    *   `document_id` (Foreign Key) - Links to `Document` storage[cite: 1]
+    *   `document_id` (Foreign Key) - Links to `Document` storage
     *   `signature_date` (Date)
     *   `status` (Enum) - `DRAFT`, `EXECUTED`, `REVOKED`
 
@@ -279,8 +287,8 @@ Immutable historical ledger using explicit integer columns.
 *   **Attributes:**
     *   `rule_id` (String/UUID) - Primary Key
     *   `jurisdiction` (String) 
-    *   `rule_effective_date` (Date) - Version control for tax/legal rules[cite: 1]
-    *   `annual_exemption_limit_minor_units` (Integer)[cite: 1]
+    *   `rule_effective_date` (Date) - Version control for tax/legal rules
+    *   `annual_exemption_limit_minor_units` (Integer)
 
 ### 6. `GiftTransfer`
 *   **Attributes:**
@@ -288,7 +296,7 @@ Immutable historical ledger using explicit integer columns.
     *   `user_id` (Foreign Key) 
     *   `recipient_id` (Foreign Key) 
     *   `asset_id` (Foreign Key, Optional) 
-    *   `cash_value_minor_units` (Integer)[cite: 1]
+    *   `cash_value_minor_units` (Integer)
     *   `transfer_date` (Date)
     *   `tax_filed_status` (Boolean)
 
@@ -296,28 +304,68 @@ Immutable historical ledger using explicit integer columns.
 
 ## Module 4: Advisory & Market Intelligence Classes
 
-*(Contains `AdvisoryQuery`, `MarketInsight`, and `PeerBenchmark` mapping community network features, threads, and peer comparison parameters.)*
+### 1. `AdvisoryQuery` (The "Ask" Module)
+*   **Attributes:**
+    *   `query_id` (String/UUID) - Primary Key
+    *   `asker_id` (Foreign Key)
+    *   `advisor_id` (Foreign Key, Optional)
+    *   `subject` (String)
+    *   `content_body` (Text)
+    *   `status` (Enum)
+    *   `created_at` (DateTime)
+    *   `updated_at` (DateTime)
+*   **Functions:**
+    *   `submit_query()`
+    *   `get_open_queries(advisor_id=None)`
+    *   `add_response(advisor_id, response_text)`
+    *   `resolve_query()`
+
+### 2. `MarketInsight` (Trends & News)
+*   **Attributes:**
+    *   `insight_id` (String/UUID) - Primary Key
+    *   `author_id` (Foreign Key)
+    *   `title` (String)
+    *   `content` (Text)
+    *   `category` (Enum)
+    *   `tags` (List of Strings)
+    *   `published_date` (DateTime)
+*   **Functions:**
+    *   `publish_insight()`
+    *   `fetch_feed(user_preferences)`
+
+### 3. `PeerBenchmark` (Peers)
+*   **Attributes:**
+    *   `benchmark_id` (String/UUID) - Primary Key
+    *   `user_id` (Foreign Key)
+    *   `cohort_criteria` (Dictionary)
+    *   `user_metric_value` (Float)
+    *   `cohort_average` (Float)
+    *   `percentile_rank` (Integer)
+    *   `generated_at` (DateTime)
+*   **Functions:**
+    *   `generate_cohort_comparison(metric_type)`
+    *   `get_historical_benchmarks()`
 
 ---
 
 ## Module 5: Application Service Layer (Calculation Engines)
 
-This module represents stateless backend service classes mapping to the recommended engineering taxonomy[cite: 1]. They orchestrate SQL queries and Python math, strictly outputting JSON payloads with robust provenance (e.g., `value_minor_units`, `as_of`, `calculation_version`)[cite: 1].
+This module represents stateless backend service classes mapping to the recommended engineering taxonomy. They orchestrate SQL queries and Python math, strictly outputting JSON payloads with robust provenance (e.g., `value_minor_units`, `as_of`, `calculation_version`).
 
 ### 1. `WealthAndOwnershipEngine`
-*   **Functions:** Aggregates assets, liabilities, and net worth, rigorously applying `ownership_split_pct` before household aggregation to prevent double-counting[cite: 1].
+*   **Functions:** Aggregates assets, liabilities, and net worth, rigorously applying `ownership_split_pct` before household aggregation to prevent double-counting.
 
 ### 2. `ValuationAndVerificationEngine`
-*   **Functions:** Evaluates `verification_level` across the portfolio, calculating `VerifiedWealthPct` and monitoring `ValuationAgeDays` to flag stale data states[cite: 1].
+*   **Functions:** Evaluates `verification_level` across the portfolio, calculating `VerifiedWealthPct` and monitoring `ValuationAgeDays` to flag stale data states.
 
 ### 3. `CashFlowAndDebtEngine`
-*   **Functions:** Queries `Transaction` and `Liability` tables to compute `MonthlySurplus`, amortization schedules, and the `DebtServiceRatio`[cite: 1].
+*   **Functions:** Queries `Transaction` and `Liability` tables to compute `MonthlySurplus`, amortization schedules, and the `DebtServiceRatio`.
 
 ### 4. `PerformanceAndAttributionEngine`
-*   **Functions:** Calculates money-weighted returns (`PortfolioXIRR`), time-weighted returns (`PortfolioTWRR`), and asset class contributions over defined time windows using historical transactions[cite: 1].
+*   **Functions:** Calculates money-weighted returns (`PortfolioXIRR`), time-weighted returns (`PortfolioTWRR`), and asset class contributions over defined time windows using historical transactions.
 
 ### 5. `PlanningAndScenarioEngine`
-*   **Functions:** Projects future values for `FinancialGoal` records, calculates timing mismatches, and models "invest vs. prepay" scenarios based on dynamic assumptions[cite: 1].
+*   **Functions:** Projects future values for `FinancialGoal` records, calculates timing mismatches, and models "invest vs. prepay" scenarios based on dynamic assumptions.
 
 ### 6. `ConsentAndMarketplaceEngine`
-*   **Functions:** Evaluates `Document` and `Connection` grants to determine field-level access decisions, preventing exposure of withheld datapoints[cite: 1].
+*   **Functions:** Evaluates `Document` and `Connection` grants to determine field-level access decisions, preventing exposure of withheld datapoints.
