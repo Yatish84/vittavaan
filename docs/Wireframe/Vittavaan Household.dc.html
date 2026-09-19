@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#F2EFE8;-webkit-font-smoothing:antialiased}
+  a{color:#1A3A26;text-decoration:none}
+  a:hover{color:#7E6329}
+</style>
+</helmet>
+
+<div style="width:1440px;min-height:1024px;display:flex;gap:16px;padding:16px;background:#F2EFE8;background-image:radial-gradient(#D8D3C7 1px,transparent 1px);background-size:22px 22px;font-family:'Manrope',system-ui,sans-serif;color:#282A2E;font-variant-numeric:tabular-nums">
+
+  <nav style="width:240px;flex:0 0 240px;background:#0E2116;border-radius:10px;padding:28px 20px 32px;display:flex;flex-direction:column;gap:26px">
+    <img src="brand/lockup-reversed.svg" alt="Vittavaan" style="width:150px;display:block;margin:4px 0 0 4px">
+    
+
+    <div style="background:#16301F;border-radius:6px;padding:12px 14px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(247,245,240,.42)">Viewing</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:7px"><span style="font-size:14px;font-weight:700;color:#F7F5F0">{{ scopeLabel }}</span><span style="color:#C7A664;font-size:12px">▾</span></div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#C7A664;margin-top:6px">{{ scopeMeta }}</div>
+    </div>
+
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(247,245,240,.4);padding:0 4px 10px">Household</div>
+      <div style="position:relative">
+        <div style="position:absolute;left:0;right:0;height:38px;background:#245034;border-left:2px solid #C7A664;border-radius:2px;transition:top 180ms cubic-bezier(.22,.61,.36,1);top:{{ markerTop }}"></div>
+        <div style="position:relative;display:flex;flex-direction:column">
+          <div onClick="{{ go1 }}" style="height:38px;display:flex;align-items:center;padding:0 12px;font-size:14px;color:#F7F5F0;cursor:pointer">Consolidated</div>
+          <div onClick="{{ go2 }}" style="height:38px;display:flex;align-items:center;padding:0 12px;font-size:14px;color:#F7F5F0;cursor:pointer">Members &amp; ownership</div>
+          <div onClick="{{ go3 }}" style="height:38px;display:flex;align-items:center;padding:0 12px;font-size:14px;color:#F7F5F0;cursor:pointer">Liquidity</div>
+          <div onClick="{{ go4 }}" style="height:38px;display:flex;align-items:center;padding:0 12px;font-size:14px;color:#F7F5F0;cursor:pointer">Income &amp; dependants</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(247,245,240,.4);padding:0 4px 10px">Elsewhere</div>
+      <div style="display:flex;flex-direction:column">
+        <a href="Vittavaan Dashboard v3.dc.html" style="height:38px;display:flex;align-items:center;padding:0 12px;font-size:14px;color:rgba(247,245,240,.66)">Ananya's overview</a>
+        <a href="Vittavaan Pages.dc.html" style="height:38px;display:flex;align-items:center;padding:0 12px;font-size:14px;color:rgba(247,245,240,.66)">Assets &amp; liabilities</a>
+        <a href="Vittavaan Schema.dc.html" style="height:38px;display:flex;align-items:center;padding:0 12px;font-size:14px;color:rgba(247,245,240,.66)">Schema &amp; use cases</a>
+      </div>
+    </div>
+
+    <div style="margin-top:auto;border-top:1px solid #245034;padding-top:16px">
+      <div style="display:flex;gap:10px;align-items:center">
+        <div style="width:34px;height:34px;border-radius:50%;background:#245034;color:#C7A664;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">AR</div>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:#F7F5F0">Ananya Rao</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(247,245,240,.42);margin-top:2px">Household administrator</div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main style="flex:1;min-width:0;padding:12px 8px 24px">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;padding:8px 12px;margin-bottom:16px">
+      <div style="display:flex;gap:4px;align-items:center"><span style="padding:8px 14px;background:#1A3A26;color:#F7F5F0;border-radius:6px;font-size:12.5px;font-weight:600">Wealth</span><a href="Vittavaan Platform.dc.html#understand" style="padding:8px 14px;border-radius:6px;font-size:12.5px;color:#6B7075">Understand</a><a href="Vittavaan Platform.dc.html#plan" style="padding:8px 14px;border-radius:6px;font-size:12.5px;color:#6B7075">Plan</a><a href="Vittavaan Marketplace Browse.dc.html" style="padding:8px 14px;border-radius:6px;font-size:12.5px;color:#6B7075">Market</a><a href="Vittavaan Profiling.dc.html" style="padding:8px 14px;border-radius:6px;font-size:12.5px;color:#6B7075">Profile</a></div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075">Wealth &nbsp;›&nbsp; Household</div>
+      <div style="display:flex;gap:4px;align-items:center"><a href="Vittavaan Connections.dc.html" style="padding:8px 12px;font-size:12.5px;color:#6B7075">Connections</a><a href="Vittavaan Settings.dc.html" style="padding:8px 12px;font-size:12.5px;color:#6B7075">Settings</a><span style="width:30px;height:30px;border-radius:50%;background:#0E2116;color:#C7A664;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;margin-left:4px">AR</span></div>
+    </div>
+
+    <div style="display:flex;gap:8px;flex-wrap:wrap;padding-bottom:18px">
+      <div onClick="{{ scopeAll }}" style="border:1px solid #1A3A26;background:#1A3A26;color:#F7F5F0;border-radius:6px;padding:8px 14px;font-size:12.5px;font-weight:600;cursor:pointer">Everyone · 8</div>
+      <div onClick="{{ scopeCore }}" style="border:1px solid #E8E5DD;background:#FCFCFC;border-radius:6px;padding:8px 14px;font-size:12.5px;cursor:pointer">Ananya + Manoj</div>
+      <div onClick="{{ scopeAnanya }}" style="border:1px solid #E8E5DD;background:#FCFCFC;border-radius:6px;padding:8px 14px;font-size:12.5px;cursor:pointer">Ananya</div>
+      <div onClick="{{ scopeManoj }}" style="border:1px solid #E8E5DD;background:#FCFCFC;border-radius:6px;padding:8px 14px;font-size:12.5px;cursor:pointer">Manoj</div>
+      <div onClick="{{ scopeHuf }}" style="border:1px solid #E8E5DD;background:#FCFCFC;border-radius:6px;padding:8px 14px;font-size:12.5px;cursor:pointer">Rao Family HUF</div>
+      <div onClick="{{ scopeKids }}" style="border:1px solid #E8E5DD;background:#FCFCFC;border-radius:6px;padding:8px 14px;font-size:12.5px;cursor:pointer">Rohan &amp; Priyanka</div>
+      <div onClick="{{ scopeParents }}" style="border:1px solid #E8E5DD;background:#FCFCFC;border-radius:6px;padding:8px 14px;font-size:12.5px;cursor:pointer">Nirmala &amp; Vasant</div>
+      <div style="border:1px dashed #C7A664;border-radius:6px;padding:8px 14px;font-size:12.5px;color:#7E6329;cursor:pointer">+ New group</div>
+    </div>
+
+    <sc-if value="{{ p1 }}" hint-placeholder-val="{{ true }}">
+    <div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:20px;border-bottom:1px solid #E8E5DD">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#7E6329">Rao–Deshpande household</div>
+          <h1 style="font-family:'Jost',sans-serif;font-weight:300;font-size:34px;line-height:1.1;letter-spacing:-.02em;color:#1A3A26;margin:8px 0 0">Everything, everyone</h1>
+        </div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#6B7075;text-align:right">As of 31 Aug 2026, 3:42 PM IST<br>17 of 23 sources live · 4 stale · 2 manual</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px">
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:20px 22px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Under monitoring</div>
+          <div style="font-size:34px;font-weight:700;letter-spacing:-.02em;margin:12px 0 8px">₹20,18,00,000</div>
+          <div style="font-size:13px;color:#2E7D4F;font-weight:600">▲ +₹3,42,00,000 &nbsp;+20.40%</div>
+          <div style="font-size:12.5px;color:#6B7075;margin-top:6px">12 months · 8 people and entities</div>
+        </div>
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:20px 22px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Assets</div>
+          <div style="font-size:34px;font-weight:700;letter-spacing:-.02em;margin:12px 0 8px">₹23,78,00,000</div>
+          <div style="font-size:13px;color:#2E7D4F;font-weight:600">▲ +₹3,18,00,000 &nbsp;+15.40%</div>
+          <div style="font-size:12.5px;color:#6B7075;margin-top:6px">11 classes · 6 held jointly</div>
+        </div>
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:20px 22px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Liabilities</div>
+          <div style="font-size:34px;font-weight:700;letter-spacing:-.02em;margin:12px 0 8px">₹3,60,00,000</div>
+          <div style="font-size:13px;color:#2E7D4F;font-weight:600">▼ −₹24,00,000 &nbsp;−6.30%</div>
+          <div style="font-size:12.5px;color:#6B7075;margin-top:6px">6 facilities · 1 co-signed</div>
+        </div>
+        <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:20px 22px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">Passive income</div>
+          <div style="font-size:34px;font-weight:700;letter-spacing:-.02em;margin:12px 0 8px;color:#F7F5F0">₹52,80,000</div>
+          <div style="font-size:13px;color:#4E9E6A;font-weight:600">▲ 31% of household inflow</div>
+          <div style="font-size:12.5px;color:rgba(247,245,240,.6);margin-top:6px">Five streams · annualised</div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px;margin-top:16px">
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px 12px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #E8E5DD;padding-bottom:14px">
+            <h2 style="font-family:'Jost',sans-serif;font-weight:400;font-size:20px;color:#1A3A26;margin:0">Who holds what</h2>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:#6B7075">Net of liabilities attributed to each holder</div>
+          </div>
+          <div style="display:flex;height:14px;border-radius:2px;overflow:hidden;margin:18px 0 6px">
+            <div style="width:32%;background:#1A3A26"></div><div style="width:34%;background:#3A6B4C"></div><div style="width:15%;background:#7E6329"></div><div style="width:8%;background:#C7A664"></div><div style="width:8%;background:#6B7075"></div><div style="width:3%;background:#A8B0A9"></div>
+          </div>
+          <div style="display:flex;gap:16px;padding:12px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:#7E6329"><span style="flex:none;width:14px"></span><span style="min-width:0;flex:1">Holder</span><span style="flex:none;width:80px;text-align:right">Age</span><span style="flex:none;width:140px;text-align:right">Assets</span><span style="flex:none;width:130px;text-align:right">Liabilities</span><span style="flex:none;width:140px;text-align:right">Net</span><span style="flex:none;width:70px;text-align:right">Share</span></div>
+
+          <div style="display:flex;align-items:center;gap:16px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:14px"><span style="display:block;width:8px;height:8px;background:#3A6B4C"></span></span><span style="min-width:0;flex:1;font-weight:600">Manoj Deshpande<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Individual · salary ₹1,00,00,000 p.a.</div></span><span style="flex:none;width:80px;text-align:right;color:#6B7075">40</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹6,78,00,000</span><span style="flex:none;width:130px;text-align:right">₹33,00,000</span><span style="flex:none;width:140px;text-align:right;font-weight:700">₹6,45,00,000</span><span style="flex:none;width:70px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#6B7075">32%</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:14px"><span style="display:block;width:8px;height:8px;background:#1A3A26"></span></span><span style="min-width:0;flex:1;font-weight:600">Ananya + Manoj · joint<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Three properties · two loans</div></span><span style="flex:none;width:80px;text-align:right;color:#6B7075">—</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹9,28,00,000</span><span style="flex:none;width:130px;text-align:right">₹2,44,00,000</span><span style="flex:none;width:140px;text-align:right;font-weight:700">₹6,84,00,000</span><span style="flex:none;width:70px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#6B7075">34%</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:14px"><span style="display:block;width:8px;height:8px;background:#7E6329"></span></span><span style="min-width:0;flex:1;font-weight:600">Ananya Rao<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Individual · salary ₹70,00,000 p.a.</div></span><span style="flex:none;width:80px;text-align:right;color:#6B7075">40</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹3,88,00,000</span><span style="flex:none;width:130px;text-align:right">₹83,00,000</span><span style="flex:none;width:140px;text-align:right;font-weight:700">₹3,05,00,000</span><span style="flex:none;width:70px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#6B7075">15%</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:14px"><span style="display:block;width:8px;height:8px;background:#C7A664"></span></span><span style="min-width:0;flex:1;font-weight:600">Rao Family HUF<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Karta: Ananya · land, gold, deposits</div></span><span style="flex:none;width:80px;text-align:right;color:#6B7075">—</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹1,70,00,000</span><span style="flex:none;width:130px;text-align:right">₹0</span><span style="flex:none;width:140px;text-align:right;font-weight:700">₹1,70,00,000</span><span style="flex:none;width:70px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#6B7075">8%</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:14px"><span style="display:block;width:8px;height:8px;background:#6B7075"></span></span><span style="min-width:0;flex:1;font-weight:600">Nirmala Rao &amp; Vasant Rao<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Dependants · SCSS, deposits, pension</div></span><span style="flex:none;width:80px;text-align:right;color:#6B7075">66 · 70</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹1,68,00,000</span><span style="flex:none;width:130px;text-align:right">₹0</span><span style="flex:none;width:140px;text-align:right;font-weight:700">₹1,68,00,000</span><span style="flex:none;width:70px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#6B7075">8%</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:14px"><span style="display:block;width:8px;height:8px;background:#A8B0A9"></span></span><span style="min-width:0;flex:1;font-weight:600">Rohan &amp; Priyanka<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Minors · guardian folios, SSY</div></span><span style="flex:none;width:80px;text-align:right;color:#6B7075">10 · 7</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹46,00,000</span><span style="flex:none;width:130px;text-align:right">₹0</span><span style="flex:none;width:140px;text-align:right;font-weight:700">₹46,00,000</span><span style="flex:none;width:70px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#6B7075">3%</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:14px 0;border-top:1px solid #1A3A26;font-size:13.5px;font-weight:700"><span style="flex:none;width:14px"></span><span style="min-width:0;flex:1">Household</span><span style="flex:none;width:80px"></span><span style="flex:none;width:140px;text-align:right">₹23,78,00,000</span><span style="flex:none;width:130px;text-align:right">₹3,60,00,000</span><span style="flex:none;width:140px;text-align:right">₹20,18,00,000</span><span style="flex:none;width:70px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:400">100%</span></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;align-items:start">
+          <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">By class · all holders</div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13.5px"><span style="flex:none;width:8px;height:8px;background:#1A3A26"></span><span style="min-width:0;flex:1">Real estate</span><span style="font-weight:600">₹9,90,00,000</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075;width:34px;text-align:right">42%</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:8px;height:8px;background:#3A6B4C"></span><span style="min-width:0;flex:1">Listed equity</span><span style="font-weight:600">₹2,40,00,000</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075;width:34px;text-align:right">10%</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:8px;height:8px;background:#7E6329"></span><span style="min-width:0;flex:1">Mutual funds</span><span style="font-weight:600">₹1,90,00,000</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075;width:34px;text-align:right">8%</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:8px;height:8px;background:#C7A664"></span><span style="min-width:0;flex:1">ESOPs, vested <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#8F6414">est.</span></span><span style="font-weight:600">₹1,80,00,000</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075;width:34px;text-align:right">8%</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:8px;height:8px;background:#6B7075"></span><span style="min-width:0;flex:1">Small savings &amp; pensions</span><span style="font-weight:600">₹1,42,00,000</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075;width:34px;text-align:right">6%</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:8px;height:8px;background:#A8B0A9"></span><span style="min-width:0;flex:1">Private equity &amp; AIF <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#8F6414">est.</span></span><span style="font-weight:600">₹1,35,00,000</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075;width:34px;text-align:right">6%</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:8px;height:8px;background:#1A3A26;opacity:.55"></span><span style="min-width:0;flex:1">Cash &amp; deposits</span><span style="font-weight:600">₹94,00,000</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075;width:34px;text-align:right">4%</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:8px;height:8px;background:#3A6B4C;opacity:.55"></span><span style="min-width:0;flex:1">Fixed income</span><span style="font-weight:600">₹85,00,000</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075;width:34px;text-align:right">4%</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:8px;height:8px;background:#7E6329;opacity:.55"></span><span style="min-width:0;flex:1">Gold</span><span style="font-weight:600">₹68,00,000</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075;width:34px;text-align:right">3%</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:8px;height:8px;background:#C7A664;opacity:.55"></span><span style="min-width:0;flex:1">Crypto</span><span style="font-weight:600">₹22,00,000</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075;width:34px;text-align:right">1%</span></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:8px;height:8px;background:#6B7075;opacity:.55"></span><span style="min-width:0;flex:1">Art &amp; collectibles <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#8F6414">est.</span></span><span style="font-weight:600">₹18,00,000</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075;width:34px;text-align:right">1%</span></div>
+          </div>
+
+          <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:22px 24px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">Worth a look</div>
+            <div style="font-family:'Jost',sans-serif;font-weight:300;font-size:22px;line-height:1.25;color:#F7F5F0;margin-top:10px">One employer is 9% of the household</div>
+            <p style="font-size:13.5px;line-height:1.6;color:rgba(247,245,240,.72);margin:10px 0 0;text-wrap:pretty">Manoj's vested ESOPs (₹1,80,00,000) plus the same company held inside two funds comes to ₹2,04,00,000 — and it is also where ₹1,00,00,000 of salary comes from.</p>
+            <div style="margin-top:14px;font-size:13px;font-weight:600"><a href="#" style="color:#C7A664">See the exposure →</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ p2 }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:20px;border-bottom:1px solid #E8E5DD">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#7E6329">Household</div>
+          <h1 style="font-family:'Jost',sans-serif;font-weight:300;font-size:34px;line-height:1.1;letter-spacing:-.02em;color:#1A3A26;margin:8px 0 0">Members &amp; ownership</h1>
+        </div>
+        <div style="padding:9px 16px;background:#1A3A26;color:#F7F5F0;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">Invite a member</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px">
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:20px 22px">
+          <div style="display:flex;gap:10px;align-items:center"><div style="width:36px;height:36px;border-radius:50%;background:#1A3A26;color:#F7F5F0;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700">AR</div><div><div style="font-size:14px;font-weight:700">Ananya Rao</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075;margin-top:2px">40 · administrator</div></div></div>
+          <div style="font-size:22px;font-weight:700;margin:14px 0 4px">₹3,05,00,000</div>
+          <div style="font-size:12.5px;color:#6B7075">Own portfolio, net</div>
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid #E8E5DD;font-size:12.5px;line-height:1.6"><div>Karta · Rao Family HUF</div><div>Guardian · Rohan, Priyanka</div><div>Full access to everything</div></div>
+        </div>
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:20px 22px">
+          <div style="display:flex;gap:10px;align-items:center"><div style="width:36px;height:36px;border-radius:50%;background:#245034;color:#F7F5F0;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700">MD</div><div><div style="font-size:14px;font-weight:700">Manoj Deshpande</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075;margin-top:2px">40 · member</div></div></div>
+          <div style="font-size:22px;font-weight:700;margin:14px 0 4px">₹6,45,00,000</div>
+          <div style="font-size:12.5px;color:#6B7075">Own portfolio, net</div>
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid #E8E5DD;font-size:12.5px;line-height:1.6"><div>Joint holder · 3 properties</div><div>ESOPs · unlisted employer</div><div>Sees joint + own only</div></div>
+        </div>
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:20px 22px">
+          <div style="display:flex;gap:10px;align-items:center"><div style="width:36px;height:36px;border-radius:50%;background:#E8E5DD;color:#1A3A26;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700">NR</div><div><div style="font-size:14px;font-weight:700">Nirmala Rao</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075;margin-top:2px">66 · dependant</div></div></div>
+          <div style="font-size:22px;font-weight:700;margin:14px 0 4px">₹90,00,000</div>
+          <div style="font-size:12.5px;color:#6B7075">Own portfolio, net</div>
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid #E8E5DD;font-size:12.5px;line-height:1.6"><div>SCSS · deposits · one fund</div><div>Pension ₹3,60,000 p.a.</div><div>View-only login, large type</div></div>
+        </div>
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:20px 22px">
+          <div style="display:flex;gap:10px;align-items:center"><div style="width:36px;height:36px;border-radius:50%;background:#E8E5DD;color:#1A3A26;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700">VR</div><div><div style="font-size:14px;font-weight:700">Vasant Rao</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075;margin-top:2px">70 · dependant</div></div></div>
+          <div style="font-size:22px;font-weight:700;margin:14px 0 4px">₹78,00,000</div>
+          <div style="font-size:12.5px;color:#6B7075">Own portfolio, net</div>
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid #E8E5DD;font-size:12.5px;line-height:1.6"><div>Co-owner · HUF land parcel</div><div>Pension ₹6,00,000 p.a.</div><div>Managed by Ananya</div></div>
+        </div>
+      </div>
+
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px 12px;margin-top:16px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #E8E5DD;padding-bottom:14px">
+          <h2 style="font-family:'Jost',sans-serif;font-weight:400;font-size:20px;color:#1A3A26;margin:0">Ownership map</h2>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:#6B7075">Every holding has one owning entity and a share</div>
+        </div>
+        <div style="display:flex;gap:16px;padding:12px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:#7E6329"><span style="min-width:0;flex:1">Holding</span><span style="flex:none;width:180px">Owning entity</span><span style="flex:none;width:110px;text-align:right">Share</span><span style="flex:none;width:140px;text-align:right">Value</span><span style="flex:none;width:120px;text-align:right">Liquidity</span><span style="flex:none;width:120px;text-align:right">Visible to</span></div>
+        <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Flat · Pune, Baner<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Self-occupied · registered 14 Mar 2020</div></span><span style="flex:none;width:180px">Ananya + Manoj</span><span style="flex:none;width:110px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px">50 / 50</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹3,40,00,000</span><span style="flex:none;width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8F6414">Illiquid</span><span style="flex:none;width:120px;text-align:right;font-size:12.5px;color:#6B7075">Both</span></div>
+        <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Shop-cum-office · Pune, Kharadi<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Let out · 9-year lease to 2031</div></span><span style="flex:none;width:180px">Ananya + Manoj</span><span style="flex:none;width:110px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px">50 / 50</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹2,80,00,000</span><span style="flex:none;width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8F6414">Illiquid</span><span style="flex:none;width:120px;text-align:right;font-size:12.5px;color:#6B7075">Both</span></div>
+        <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Flat · Bengaluru, Whitefield<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Let out · 11 months, renews Mar 2027</div></span><span style="flex:none;width:180px">Ananya + Manoj</span><span style="flex:none;width:110px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px">50 / 50</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹2,50,00,000</span><span style="flex:none;width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8F6414">Illiquid</span><span style="flex:none;width:120px;text-align:right;font-size:12.5px;color:#6B7075">Both</span></div>
+        <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Vested ESOPs · unlisted employer<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">28,400 of 42,000 vested · strike ₹210</div></span><span style="flex:none;width:180px">Manoj</span><span style="flex:none;width:110px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px">100</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹1,80,00,000</span><span style="flex:none;width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8F6414">Window Mar 2027</span><span style="flex:none;width:120px;text-align:right;font-size:12.5px;color:#6B7075">Both</span></div>
+        <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Land parcel · Sangli district<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Agricultural · 4.2 acres</div></span><span style="flex:none;width:180px">Rao Family HUF</span><span style="flex:none;width:110px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px">100</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹1,20,00,000</span><span style="flex:none;width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8F6414">Illiquid</span><span style="flex:none;width:120px;text-align:right;font-size:12.5px;color:#6B7075">Ananya, Vasant</span></div>
+        <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">AIF Category II · two commitments<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">₹1,50,00,000 committed · 62% drawn</div></span><span style="flex:none;width:180px">Manoj</span><span style="flex:none;width:110px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px">100</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹90,00,000</span><span style="flex:none;width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8F6414">Locked to 2029</span><span style="flex:none;width:120px;text-align:right;font-size:12.5px;color:#6B7075">Both</span></div>
+        <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Startup syndicates · four<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">One convertible note · last marks 2025–26</div></span><span style="flex:none;width:180px">Ananya</span><span style="flex:none;width:110px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px">100</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹45,00,000</span><span style="flex:none;width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8F6414">No window</span><span style="flex:none;width:120px;text-align:right;font-size:12.5px;color:#6B7075">Ananya</span></div>
+        <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Sukanya Samriddhi · Priyanka<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Opened 2019 · matures 2040</div></span><span style="flex:none;width:180px">Priyanka (Ananya guardian)</span><span style="flex:none;width:110px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px">100</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹12,00,000</span><span style="flex:none;width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8F6414">Locked</span><span style="flex:none;width:120px;text-align:right;font-size:12.5px;color:#6B7075">Ananya, Manoj</span></div>
+        <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Home loan · HDFC<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Co-borrowers · 8.40% floating</div></span><span style="flex:none;width:180px">Ananya + Manoj</span><span style="flex:none;width:110px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px">Joint &amp; several</span><span style="flex:none;width:140px;text-align:right;font-weight:600;color:#B4432E">−₹1,92,00,000</span><span style="flex:none;width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#6B7075">EMI ₹1,68,000</span><span style="flex:none;width:120px;text-align:right;font-size:12.5px;color:#6B7075">Both</span></div>
+        <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Guarantee · brother's business loan<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Co-signed · not drawn on you yet</div></span><span style="flex:none;width:180px">Ananya (guarantor)</span><span style="flex:none;width:110px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px">Contingent</span><span style="flex:none;width:140px;text-align:right;font-weight:600;color:#8F6414">₹40,00,000</span><span style="flex:none;width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8F6414">Off balance</span><span style="flex:none;width:120px;text-align:right;font-size:12.5px;color:#6B7075">Ananya</span></div>
+        <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:14px 0 8px;text-wrap:pretty">Contingent liabilities are shown but not subtracted from net worth. The figure they would become, if called, is ₹40,00,000.</p>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ p3 }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:20px;border-bottom:1px solid #E8E5DD">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#7E6329">Household</div>
+          <h1 style="font-family:'Jost',sans-serif;font-weight:300;font-size:34px;line-height:1.1;letter-spacing:-.02em;color:#1A3A26;margin:8px 0 0">Liquidity</h1>
+        </div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#6B7075;text-align:right">How much could become cash, and when</div>
+      </div>
+
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px;margin-top:20px">
+        <div style="display:flex;height:16px;border-radius:2px;overflow:hidden">
+          <div style="width:27%;background:#1A3A26"></div><div style="width:10%;background:#7E6329"></div><div style="width:63%;background:#E8E5DD"></div>
+        </div>
+        <div style="display:flex;gap:40px;margin-top:18px">
+          <div><div style="display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075"><span style="flex:none;width:8px;height:8px;background:#1A3A26"></span>Liquid · T+3</div><div style="font-size:26px;font-weight:700;margin-top:8px">₹6,41,00,000</div><div style="font-size:12.5px;color:#6B7075;margin-top:4px">27% · equity, funds, deposits, crypto</div></div>
+          <div><div style="display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075"><span style="flex:none;width:8px;height:8px;background:#7E6329"></span>Within a year</div><div style="font-size:26px;font-weight:700;margin-top:8px">₹2,44,00,000</div><div style="font-size:12.5px;color:#6B7075;margin-top:4px">10% · bonds to maturity, SGB, ESOP window</div></div>
+          <div><div style="display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075"><span style="flex:none;width:8px;height:8px;background:#E8E5DD"></span>Illiquid</div><div style="font-size:26px;font-weight:700;margin-top:8px">₹14,93,00,000</div><div style="font-size:12.5px;color:#6B7075;margin-top:4px">63% · property, AIF, small savings, art</div></div>
+          <div style="border-left:1px solid #E8E5DD;padding-left:40px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075">Fixed outgo cover</div><div style="font-size:26px;font-weight:700;margin-top:8px">31 months</div><div style="font-size:12.5px;color:#6B7075;margin-top:4px">Liquid ÷ EMIs and household costs</div></div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px;margin-top:16px">
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px 12px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #E8E5DD;padding-bottom:14px">
+            <h2 style="font-family:'Jost',sans-serif;font-weight:400;font-size:20px;color:#1A3A26;margin:0">When each holding could be sold</h2>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:#6B7075">Windows as documented, not estimates of demand</div>
+          </div>
+          <div style="display:flex;gap:16px;padding:12px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:#7E6329"><span style="min-width:0;flex:1">Holding</span><span style="flex:none;width:150px">Holder</span><span style="flex:none;width:140px;text-align:right">Value</span><span style="flex:none;width:170px;text-align:right">Earliest exit</span><span style="flex:none;width:120px;text-align:right">Cost to exit</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Listed equity · 11 holdings</span><span style="flex:none;width:150px;color:#6B7075">Ananya, Manoj</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹2,40,00,000</span><span style="flex:none;width:170px;text-align:right;color:#2E7D4F;font-weight:600">T+1 settlement</span><span style="flex:none;width:120px;text-align:right;color:#6B7075">STT + LTCG</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Mutual funds · open-ended</span><span style="flex:none;width:150px;color:#6B7075">Four holders</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹1,76,00,000</span><span style="flex:none;width:170px;text-align:right;color:#2E7D4F;font-weight:600">T+2 / T+3</span><span style="flex:none;width:120px;text-align:right;color:#6B7075">Exit load on 2</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Cash &amp; savings</span><span style="flex:none;width:150px;color:#6B7075">Five holders</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹94,00,000</span><span style="flex:none;width:170px;text-align:right;color:#2E7D4F;font-weight:600">Same day</span><span style="flex:none;width:120px;text-align:right;color:#6B7075">—</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">ELSS · in lock-in<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Three years from each instalment</div></span><span style="flex:none;width:150px;color:#6B7075">Ananya</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹14,00,000</span><span style="flex:none;width:170px;text-align:right;color:#8F6414;font-weight:600">Staggered to Jan 2029</span><span style="flex:none;width:120px;text-align:right;color:#6B7075">—</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Vested ESOPs<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Company-run buyback, not guaranteed</div></span><span style="flex:none;width:150px;color:#6B7075">Manoj</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹1,80,00,000</span><span style="flex:none;width:170px;text-align:right;color:#8F6414;font-weight:600">Window Mar 2027</span><span style="flex:none;width:120px;text-align:right;color:#6B7075">Perquisite tax</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">AIF Category II</span><span style="flex:none;width:150px;color:#6B7075">Manoj</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹90,00,000</span><span style="flex:none;width:170px;text-align:right;color:#8F6414;font-weight:600">Fund life to 2029</span><span style="flex:none;width:120px;text-align:right;color:#6B7075">No secondary</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Startup syndicates<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Value is the last priced round, not a bid</div></span><span style="flex:none;width:150px;color:#6B7075">Ananya</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹45,00,000</span><span style="flex:none;width:170px;text-align:right;color:#B4432E;font-weight:600">No window</span><span style="flex:none;width:120px;text-align:right;color:#6B7075">Unknown</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">EPF, PPF, NPS, SSY</span><span style="flex:none;width:150px;color:#6B7075">Five holders</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹1,42,00,000</span><span style="flex:none;width:170px;text-align:right;color:#B4432E;font-weight:600">Rule-bound</span><span style="flex:none;width:120px;text-align:right;color:#6B7075">Partial only</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Property · four</span><span style="flex:none;width:150px;color:#6B7075">Joint, HUF</span><span style="flex:none;width:140px;text-align:right;font-weight:600">₹9,90,00,000</span><span style="flex:none;width:170px;text-align:right;color:#B4432E;font-weight:600">Months, if sold</span><span style="flex:none;width:120px;text-align:right;color:#6B7075">Stamp, brokerage</span></div>
+          <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:14px 0 8px;text-wrap:pretty">Nothing here says what to sell. It says what could be sold, how soon, and what the exit would cost.</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px;align-items:start">
+          <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Commitments still to fund</div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13.5px"><span style="min-width:0;flex:1">AIF drawdowns remaining</span><span style="font-weight:600">₹57,00,000</span></div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Convertible note follow-on</span><span style="font-weight:600">₹10,00,000</span></div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">ESOP exercise cost, if exercised</span><span style="font-weight:600">₹59,64,000</span></div>
+            <div style="display:flex;gap:12px;padding:12px 0;border-top:1px solid #1A3A26;font-size:13.5px;font-weight:700"><span style="min-width:0;flex:1">Total</span><span>₹1,26,64,000</span></div>
+            <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:12px 0 0;text-wrap:pretty">Against ₹6,41,00,000 liquid. Drawdown notices usually give 10 working days.</p>
+          </div>
+          <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Valuation ages</div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Market-priced · 63 holdings</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#2E7D4F">Today</span></div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">ESOP · Series D price</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8F6414">6 months old</span></div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Property · your estimate</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8F6414">3 months old</span></div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Two syndicates · last round</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#B4432E">18 months old</span></div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Art · last appraisal</span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#B4432E">2 years old</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ p4 }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:20px;border-bottom:1px solid #E8E5DD">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#7E6329">Household</div>
+          <h1 style="font-family:'Jost',sans-serif;font-weight:300;font-size:34px;line-height:1.1;letter-spacing:-.02em;color:#1A3A26;margin:8px 0 0">Income &amp; dependants</h1>
+        </div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#6B7075;text-align:right">FY 2026–27 · annualised from Apr–Aug actuals</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px">
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:20px 22px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Earned</div>
+          <div style="font-size:30px;font-weight:700;letter-spacing:-.02em;margin:12px 0 8px">₹1,70,00,000</div>
+          <div style="font-size:12.5px;color:#6B7075">Two salaries · gross, before tax</div>
+        </div>
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:20px 22px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Passive</div>
+          <div style="font-size:30px;font-weight:700;letter-spacing:-.02em;margin:12px 0 8px">₹52,80,000</div>
+          <div style="font-size:12.5px;color:#6B7075">Five streams · 31% of inflow</div>
+        </div>
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:20px 22px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Dependants' own income</div>
+          <div style="font-size:30px;font-weight:700;letter-spacing:-.02em;margin:12px 0 8px">₹9,60,000</div>
+          <div style="font-size:12.5px;color:#6B7075">Two pensions · not pooled</div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px;margin-top:16px">
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px 12px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #E8E5DD;padding-bottom:14px">
+            <h2 style="font-family:'Jost',sans-serif;font-weight:400;font-size:20px;color:#1A3A26;margin:0">Every stream</h2>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:#6B7075">Annualised · with the asset it comes from</div>
+          </div>
+          <div style="display:flex;gap:16px;padding:12px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:#7E6329"><span style="min-width:0;flex:1">Stream</span><span style="flex:none;width:150px">To whom</span><span style="flex:none;width:130px;text-align:right">Per year</span><span style="flex:none;width:110px;text-align:right">Yield</span><span style="flex:none;width:140px;text-align:right">Reliability</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Salary · Manoj</span><span style="flex:none;width:150px;color:#6B7075">Manoj</span><span style="flex:none;width:130px;text-align:right;font-weight:600">₹1,00,00,000</span><span style="flex:none;width:110px;text-align:right;color:#6B7075">—</span><span style="flex:none;width:140px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#2E7D4F">Monthly, 60 of 60</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Salary · Ananya</span><span style="flex:none;width:150px;color:#6B7075">Ananya</span><span style="flex:none;width:130px;text-align:right;font-weight:600">₹70,00,000</span><span style="flex:none;width:110px;text-align:right;color:#6B7075">—</span><span style="flex:none;width:140px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#2E7D4F">Monthly, 60 of 60</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Commercial rent · Kharadi<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">9-year lease · 5% escalation every 3 years</div></span><span style="flex:none;width:150px;color:#6B7075">Joint</span><span style="flex:none;width:130px;text-align:right;font-weight:600">₹25,20,000</span><span style="flex:none;width:110px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px">9.00%</span><span style="flex:none;width:140px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#2E7D4F">36 of 36 months</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Residential rent · Whitefield<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">11-month agreement · renews Mar 2027</div></span><span style="flex:none;width:150px;color:#6B7075">Joint</span><span style="flex:none;width:130px;text-align:right;font-weight:600">₹10,20,000</span><span style="flex:none;width:110px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px">4.10%</span><span style="flex:none;width:140px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8F6414">One month vacant</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Interest · bonds, deposits, SCSS</span><span style="flex:none;width:150px;color:#6B7075">Five holders</span><span style="flex:none;width:130px;text-align:right;font-weight:600">₹7,40,000</span><span style="flex:none;width:110px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px">7.20%</span><span style="flex:none;width:140px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#2E7D4F">Contractual</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Dividends · equity and funds</span><span style="flex:none;width:150px;color:#6B7075">Ananya, Manoj</span><span style="flex:none;width:130px;text-align:right;font-weight:600">₹5,80,000</span><span style="flex:none;width:110px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px">1.35%</span><span style="flex:none;width:140px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8F6414">Declared, not owed</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">AIF distributions<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Two payouts in 24 months</div></span><span style="flex:none;width:150px;color:#6B7075">Manoj</span><span style="flex:none;width:130px;text-align:right;font-weight:600">₹4,20,000</span><span style="flex:none;width:110px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12px">4.70%</span><span style="flex:none;width:140px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#B4432E">Lumpy</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Pension · Vasant, Nirmala</span><span style="flex:none;width:150px;color:#6B7075">Dependants</span><span style="flex:none;width:130px;text-align:right;font-weight:600">₹9,60,000</span><span style="flex:none;width:110px;text-align:right;color:#6B7075">—</span><span style="flex:none;width:140px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#2E7D4F">Monthly</span></div>
+          <div style="display:flex;align-items:center;gap:16px;padding:13px 0;border-top:1px solid #1A3A26;font-size:13.5px;font-weight:700"><span style="min-width:0;flex:1">All inflow</span><span style="flex:none;width:150px"></span><span style="flex:none;width:130px;text-align:right">₹2,32,40,000</span><span style="flex:none;width:110px"></span><span style="flex:none;width:140px"></span></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:start">
+          <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Passive vs fixed outgo</div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13.5px"><span style="min-width:0;flex:1">Passive income</span><span style="font-weight:600;color:#2E7D4F">+₹52,80,000</span></div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">EMIs, all facilities</span><span style="font-weight:600;color:#B4432E">−₹41,04,000</span></div>
+            <div style="display:flex;gap:12px;padding:12px 0;border-top:1px solid #1A3A26;font-size:13.5px;font-weight:700"><span style="min-width:0;flex:1">Covered</span><span>129%</span></div>
+            <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:12px 0 0;text-wrap:pretty">Passive income alone covers every EMI in the household. Both salaries are currently going into savings and investment.</p>
+          </div>
+
+          <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Earmarked for the children</div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13.5px"><span style="min-width:0;flex:1">Priyanka · SSY, matures 2040</span><span style="font-weight:600">₹12,00,000</span></div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Priyanka · guardian folio</span><span style="font-weight:600">₹14,00,000</span></div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Rohan · guardian folio, gold</span><span style="font-weight:600">₹20,00,000</span></div>
+            <div style="display:flex;gap:12px;padding:12px 0;border-top:1px solid #1A3A26;font-size:13.5px;font-weight:700"><span style="min-width:0;flex:1">Total earmarked</span><span>₹46,00,000</span></div>
+            <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:12px 0 0;text-wrap:pretty">Rohan turns 18 in 2034, Priyanka in 2037. Guardian folios transfer to them then.</p>
+          </div>
+
+          <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:22px 24px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">Dependants</div>
+            <div style="font-family:'Jost',sans-serif;font-weight:300;font-size:22px;line-height:1.25;color:#F7F5F0;margin-top:10px">Nirmala and Vasant fund themselves</div>
+            <p style="font-size:13.5px;line-height:1.6;color:rgba(247,245,240,.72);margin:10px 0 0;text-wrap:pretty">₹9,60,000 of pension against ₹8,40,000 of recorded annual costs, plus ₹1,68,00,000 of their own assets. No transfer from you is recorded this year.</p>
+            <div style="margin-top:14px;font-size:13px;font-weight:600"><a href="#" style="color:#C7A664">See their portfolios →</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+  </main>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1024}}">
+class Component extends DCLogic {
+  state = { page: 1, scope: "all" };
+  go(n) { return () => this.setState({ page: n }); }
+  setScope(s) { return () => this.setState({ scope: s }); }
+  renderVals() {
+    const p = this.state.page;
+    const scopes = {
+      all: ["Everyone", "8 holders · ₹20.18 Cr"],
+      core: ["Ananya + Manoj", "3 entities · ₹18.04 Cr"],
+      ananya: ["Ananya Rao", "Individual · ₹3.05 Cr"],
+      manoj: ["Manoj Deshpande", "Individual · ₹6.45 Cr"],
+      huf: ["Rao Family HUF", "Karta: Ananya · ₹1.70 Cr"],
+      kids: ["Rohan & Priyanka", "Minors · ₹0.46 Cr"],
+      parents: ["Nirmala & Vasant", "Dependants · ₹1.68 Cr"]
+    };
+    const [scopeLabel, scopeMeta] = scopes[this.state.scope] ?? scopes.all;
+    const v = { markerTop: ((p - 1) * 38) + "px", scopeLabel, scopeMeta };
+    for (let i = 1; i <= 4; i++) { v["p" + i] = p === i; v["go" + i] = this.go(i); }
+    ["all","core","ananya","manoj","huf","kids","parents"].forEach(s => {
+      v["scope" + s.charAt(0).toUpperCase() + s.slice(1)] = this.setScope(s);
+    });
+    return v;
+  }
+}
+</script>
+</body>
+</html>

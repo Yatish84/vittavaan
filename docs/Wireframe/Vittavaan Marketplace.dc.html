@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#F2EFE8;-webkit-font-smoothing:antialiased}
+  a{color:#1A3A26;text-decoration:none}
+  a:hover{color:#7E6329}
+</style>
+</helmet>
+
+<div style="width:1440px;min-height:1024px;background:#F2EFE8;background-image:radial-gradient(#D8D3C7 1px,transparent 1px);background-size:22px 22px;font-family:'Manrope',system-ui,sans-serif;color:#282A2E;font-variant-numeric:tabular-nums;padding:20px 28px 40px">
+
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;padding:8px 12px;margin-bottom:16px">
+    <div style="display:flex;gap:4px;align-items:center"><a href="Vittavaan Dashboard v3.dc.html" style="padding:8px 14px;border-radius:6px;font-size:12.5px;color:#6B7075">Wealth</a><a href="Vittavaan Platform.dc.html#understand" style="padding:8px 14px;border-radius:6px;font-size:12.5px;color:#6B7075">Understand</a><a href="Vittavaan Platform.dc.html#plan" style="padding:8px 14px;border-radius:6px;font-size:12.5px;color:#6B7075">Plan</a><span style="padding:8px 14px;background:#1A3A26;color:#F7F5F0;border-radius:6px;font-size:12.5px;font-weight:600">Market</span><a href="Vittavaan Profiling.dc.html" style="padding:8px 14px;border-radius:6px;font-size:12.5px;color:#6B7075">Profile</a></div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075">Market &nbsp;›&nbsp; <a href="Vittavaan Marketplace Browse.dc.html" style="color:#7E6329">All listings</a> &nbsp;›&nbsp; Stamp collection</div>
+    <div style="display:flex;gap:4px;align-items:center"><a href="Vittavaan Connections.dc.html" style="padding:8px 12px;font-size:12.5px;color:#6B7075">Connections</a><a href="Vittavaan Settings.dc.html" style="padding:8px 12px;font-size:12.5px;color:#6B7075">Settings</a><span style="width:30px;height:30px;border-radius:50%;background:#0E2116;color:#C7A664;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;margin-left:4px">AR</span></div>
+  </div>
+
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:20px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:44px;height:44px;border-radius:8px;background:#0E2116;display:flex;align-items:center;justify-content:center"><img src="brand/mark-reversed.svg" alt="Vittavaan" style="width:24px;display:block"></div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#7E6329">Market · assets</div>
+        <div style="font-family:'Jost',sans-serif;font-weight:400;font-size:20px;color:#1A3A26;margin-top:2px">Philatelic collection · lot VV-C-2291</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <div style="border:1px solid #C7A664;border-radius:8px;padding:9px 14px;background:#FCFCFC;font-size:12px;line-height:1.5;max-width:440px">We verify documents and hold the money in escrow. We do not value the asset, and we are not a party to the sale. Our fee is 0.75%, paid by the buyer.</div>
+      <a href="Vittavaan Marketplace Browse.dc.html" style="border:1px solid #E8E5DD;background:#FCFCFC;border-radius:8px;padding:9px 14px;font-size:12.5px;color:#6B7075">All listings</a>
+      <a href="Vittavaan Platform.dc.html" style="border:1px solid #E8E5DD;background:#FCFCFC;border-radius:8px;padding:9px 14px;font-size:12.5px;color:#6B7075">Back to Market</a>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:0;margin-top:24px;background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;overflow:hidden;box-shadow:0 1px 2px rgba(26,58,38,.05)">
+    <div onClick="{{ go1 }}" style="flex:1;padding:14px 16px;cursor:pointer;background:{{ s1bg }};border-right:1px solid #E8E5DD"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:{{ s1meta }}">Step 1</div><div style="font-size:13px;font-weight:600;color:{{ s1fg }};margin-top:5px">The listing</div></div>
+    <div onClick="{{ go2 }}" style="flex:1;padding:14px 16px;cursor:pointer;background:{{ s2bg }};border-right:1px solid #E8E5DD"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:{{ s2meta }}">Step 2</div><div style="font-size:13px;font-weight:600;color:{{ s2fg }};margin-top:5px">Verification</div></div>
+    <div onClick="{{ go3 }}" style="flex:1;padding:14px 16px;cursor:pointer;background:{{ s3bg }};border-right:1px solid #E8E5DD"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:{{ s3meta }}">Step 3</div><div style="font-size:13px;font-weight:600;color:{{ s3fg }};margin-top:5px">Negotiation</div></div>
+    <div onClick="{{ go4 }}" style="flex:1;padding:14px 16px;cursor:pointer;background:{{ s4bg }};border-right:1px solid #E8E5DD"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:{{ s4meta }}">Step 4</div><div style="font-size:13px;font-weight:600;color:{{ s4fg }};margin-top:5px">Agreement</div></div>
+    <div onClick="{{ go5 }}" style="flex:1;padding:14px 16px;cursor:pointer;background:{{ s5bg }};border-right:1px solid #E8E5DD"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:{{ s5meta }}">Step 5</div><div style="font-size:13px;font-weight:600;color:{{ s5fg }};margin-top:5px">Payment</div></div>
+    <div onClick="{{ go6 }}" style="flex:1;padding:14px 16px;cursor:pointer;background:{{ s6bg }}"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:{{ s6meta }}">Step 6</div><div style="font-size:13px;font-weight:600;color:{{ s6fg }};margin-top:5px">On your books</div></div>
+  </div>
+
+  <sc-if value="{{ p1 }}" hint-placeholder-val="{{ true }}">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:20px;margin-top:20px;align-items:start">
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:0;overflow:hidden">
+      <div style="height:280px;background:#F7F5F0;border-bottom:1px solid #E8E5DD;display:flex;align-items:center;justify-content:center">
+        <div style="text-align:center">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#8F6414">Seller's photographs · 24 plates</div>
+          <div style="font-size:13px;color:#6B7075;margin-top:8px">Images to be supplied by the seller</div>
+        </div>
+      </div>
+      <div style="padding:26px 28px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:24px">
+          <div>
+            <h2 style="font-family:'Jost',sans-serif;font-weight:300;font-size:28px;line-height:1.15;color:#1A3A26;margin:0">Pre-independence India · 24-plate collection</h2>
+            <div style="font-size:14px;color:#282A2E;margin-top:8px">1854–1947 · includes four Scinde Dawk covers and a complete 1854 lithograph set</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075;margin-top:8px">Listed 12 Aug 2026 · lot VV-C-2291 · Mumbai</div>
+          </div>
+          <div style="flex:none;text-align:right">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#7E6329">Asking</div>
+            <div style="font-size:34px;font-weight:700;letter-spacing:-.025em;margin-top:6px">₹58,00,000</div>
+            <div style="font-size:12.5px;color:#6B7075;margin-top:5px">Seller open to offers</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:26px;padding-top:22px;border-top:1px solid #E8E5DD">
+          <div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">The lot</div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Items</span><span style="flex:none;font-weight:600">24 plates, 312 stamps</span></div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Catalogued</span><span style="flex:none;font-weight:600">Stanley Gibbons, 2024 ed.</span></div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Condition</span><span style="flex:none;font-weight:600">Graded on 19 of 24 plates</span></div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Sold as</span><span style="flex:none;font-weight:600">One lot, not split</span></div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Currently held</span><span style="flex:none;font-weight:600">Bank vault, Mumbai</span></div>
+          </div>
+          <div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">The seller</div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Identity</span><span style="flex:none;font-weight:600;color:#2E7D4F">KYC complete</span></div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">On the platform since</span><span style="flex:none;font-weight:600">2024 · 3 completed sales</span></div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Reason for sale</span><span style="flex:none;font-weight:600">Estate consolidation</span></div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Name shown</span><span style="flex:none;font-weight:600">On agreement only</span></div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Ratings from</span><span style="flex:none;font-weight:600">3 settled trades</span></div>
+          </div>
+        </div>
+
+        <div style="margin-top:22px;padding-top:20px;border-top:1px solid #E8E5DD">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">In the seller's words</div>
+          <p style="font-size:14.5px;line-height:1.7;margin:12px 0 0;max-width:76ch;text-wrap:pretty">Assembled by my grandfather between 1961 and 1994, and untouched since. The Scinde Dawk covers were bought at auction in Bombay in 1972 and 1979, with receipts. I am not a dealer and I have no interest in breaking the collection up — it should go to someone who will keep it together.</p>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Verification status</div>
+        <div style="display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="flex:none;color:#2E7D4F">✓</span><span style="min-width:0;flex:1">Seller identity, KYC</span></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="flex:none;color:#2E7D4F">✓</span><span style="min-width:0;flex:1">Ownership documents on file</span></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="flex:none;color:#2E7D4F">✓</span><span style="min-width:0;flex:1">Independent authentication</span></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="flex:none;color:#8F6414">•</span><span style="min-width:0;flex:1">Five plates ungraded</span></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="flex:none;color:#B4432E">—</span><span style="min-width:0;flex:1">Price · we don't verify value</span></div>
+        <div onClick="{{ go2 }}" style="margin-top:14px;padding:10px 14px;border:1px solid #E8E5DD;border-radius:8px;font-size:12.5px;font-weight:600;text-align:center;cursor:pointer">Read the full verification</div>
+      </div>
+
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Against your position</div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Asking price</span><span style="flex:none;font-weight:600">₹58,00,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Your liquid assets</span><span style="flex:none;font-weight:600">₹1,88,00,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Would be, of your assets</span><span style="flex:none;font-weight:600">7.5%</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Collectibles you hold today</span><span style="flex:none;font-weight:600">₹0</span></div>
+        <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:12px 0 0;text-wrap:pretty">Collectibles have no market price, no income, and no exit window. In your liquidity view this would sit at the illiquid end alongside the Sangli land.</p>
+      </div>
+
+      <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">What we do and don't</div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;margin-top:12px;font-size:13px;color:rgba(247,245,240,.86)"><span style="flex:none;color:#4E9E6A">✓</span><span style="min-width:0;flex:1">KYC both sides, verify documents, commission authentication</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="flex:none;color:#4E9E6A">✓</span><span style="min-width:0;flex:1">Draft the agreement, hold funds in escrow, keep the record</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="flex:none;color:#D97757">—</span><span style="min-width:0;flex:1">Value the asset or tell you what it's worth</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="flex:none;color:#D97757">—</span><span style="min-width:0;flex:1">Represent either side, or guarantee the outcome</span></div>
+        <div style="margin-top:14px;font-size:13px;font-weight:600"><a href="#" style="color:#C7A664">Commission your own valuer →</a></div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ p2 }}" hint-placeholder-val="{{ false }}">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:20px;margin-top:20px;align-items:start">
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px">
+      <h2 style="font-family:'Jost',sans-serif;font-weight:300;font-size:28px;line-height:1.15;color:#1A3A26;margin:0">What we checked, and what we couldn't</h2>
+      <p style="font-size:14px;line-height:1.65;margin:12px 0 0;max-width:76ch;text-wrap:pretty">Verification is a list of documents seen and checks performed, each with a date and who did it. It is not an opinion that the price is fair or that the collection will hold its value.</p>
+
+      <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E8E5DD">
+        <div style="display:flex;gap:14px;padding-bottom:10px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:#7E6329"><span style="flex:none;width:24px"></span><span style="min-width:0;flex:1">Check</span><span style="flex:none;width:230px">By whom</span><span style="flex:none;width:120px;text-align:right">Date</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:24px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">Seller's identity against PAN and Aadhaar<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Matched · no adverse media</div></span><span style="flex:none;width:230px;color:#6B7075">Vittavaan · KYC provider</span><span style="flex:none;width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">14 Aug 2026</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:24px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">Chain of ownership<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Two 1970s auction receipts, a 1994 probate inventory, and a 2019 insurance schedule naming 21 of 24 plates</div></span><span style="flex:none;width:230px;color:#6B7075">Vittavaan · document review</span><span style="flex:none;width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">18 Aug 2026</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:24px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">Physical authentication of 19 plates<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Genuine, with three repairs noted and photographed</div></span><span style="flex:none;width:230px;color:#6B7075">Independent philatelic expert<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Engaged by us, paid by the seller</div></span><span style="flex:none;width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">22 Aug 2026</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:24px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">No lien, no pledge, not part of a disputed estate<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Seller's declaration plus probate document</div></span><span style="flex:none;width:230px;color:#6B7075">Vittavaan · declaration on file</span><span style="flex:none;width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">18 Aug 2026</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:24px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">Export and cultural-property status<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Not registered antiquities · sale within India unrestricted</div></span><span style="flex:none;width:230px;color:#6B7075">Panel advocate</span><span style="flex:none;width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">25 Aug 2026</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px;background:rgba(143,100,20,.05)"><span style="flex:none;width:24px;color:#8F6414">•</span><span style="min-width:0;flex:1;font-weight:600">Five plates not authenticated<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Sealed since 1994 and not opened for this sale. They are 11 of 312 stamps, and they include none of the Scinde Dawk covers.</div></span><span style="flex:none;width:230px;color:#8F6414">Not checked</span><span style="flex:none;width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8F6414">Open</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px;background:rgba(180,67,46,.04)"><span style="flex:none;width:24px;color:#B4432E">—</span><span style="min-width:0;flex:1;font-weight:600">Market value<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Catalogue values are not prices. Comparable public sales in India are thin — four lots of this kind in five years. What it is worth is between you and the seller.</div></span><span style="flex:none;width:230px;color:#B4432E">Not our role</span><span style="flex:none;width:120px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#B4432E">Never</span></div>
+      </div>
+
+      <div style="margin-top:22px;padding-top:20px;border-top:1px solid #E8E5DD">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Documents in the lot's file</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+          <span style="border:1px solid #E8E5DD;border-radius:2px;padding:6px 11px;font-size:12.5px">Auction receipt · 1972</span>
+          <span style="border:1px solid #E8E5DD;border-radius:2px;padding:6px 11px;font-size:12.5px">Auction receipt · 1979</span>
+          <span style="border:1px solid #E8E5DD;border-radius:2px;padding:6px 11px;font-size:12.5px">Probate inventory · 1994</span>
+          <span style="border:1px solid #E8E5DD;border-radius:2px;padding:6px 11px;font-size:12.5px">Insurance schedule · 2019</span>
+          <span style="border:1px solid #E8E5DD;border-radius:2px;padding:6px 11px;font-size:12.5px">Authentication report · 24 pp</span>
+          <span style="border:1px solid #E8E5DD;border-radius:2px;padding:6px 11px;font-size:12.5px">Condition photographs · 96</span>
+          <span style="border:1px solid #E8E5DD;border-radius:2px;padding:6px 11px;font-size:12.5px">Legal opinion · 4 pp</span>
+          <span style="border:1px solid #E8E5DD;border-radius:2px;padding:6px 11px;font-size:12.5px">Seller declaration</span>
+        </div>
+        <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:14px 0 0;text-wrap:pretty">All eight are readable now. They copy into your data room if the sale completes.</p>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;padding:22px 24px;border-left:3px solid #8F6414">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8F6414">The five sealed plates</div>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">You can make opening and authenticating them a condition of the sale. The seller can refuse. If you buy without it, you are buying 11 stamps on the strength of a 1994 inventory — and the agreement will say so in those words.</p>
+        <div style="margin-top:14px;padding:10px 14px;border:1px solid #E8E5DD;border-radius:8px;font-size:12.5px;font-weight:600;text-align:center;cursor:pointer">Add as a condition</div>
+      </div>
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Comparable public sales</div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Mumbai auction · 2024<div style="font-size:11.5px;color:#6B7075;margin-top:3px">18 plates, 2 Scinde Dawk</div></span><span style="flex:none;font-weight:600">₹41,00,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">London auction · 2023<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Single Scinde Dawk cover</div></span><span style="flex:none;font-weight:600">₹19,00,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Private sale · 2022<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Reported, unverified</div></span><span style="flex:none;font-weight:600">₹52,00,000</span></div>
+        <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:12px 0 0;text-wrap:pretty">Three data points across four years, none identical to this lot. We show them because they exist, not because they price it.</p>
+      </div>
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Get your own opinion</div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Second philatelic valuation</span><span style="flex:none;font-weight:600">₹35,000</span></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">CA · tax on a collectible</span><span style="flex:none;font-weight:600">₹12,000</span></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Advocate · review the agreement</span><span style="flex:none;font-weight:600">₹18,000</span></div>
+        <div onClick="{{ go3 }}" style="margin-top:14px;padding:10px 14px;background:#1A3A26;color:#F7F5F0;border-radius:8px;font-size:12.5px;font-weight:600;text-align:center;cursor:pointer">Contact the seller</div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ p3 }}" hint-placeholder-val="{{ false }}">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:20px;margin-top:20px;align-items:start">
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:0;overflow:hidden">
+      <div style="background:#F7F5F0;border-bottom:1px solid #E8E5DD;padding:16px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Negotiation · lot VV-C-2291</div>
+          <div style="font-size:14px;font-weight:600;margin-top:5px">You and the seller · 11 messages over 9 days</div>
+        </div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075;text-align:right">Every message kept<br>Both names withheld until signing</div>
+      </div>
+
+      <div style="padding:24px 28px">
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <div style="flex:none;width:30px;height:30px;border-radius:50%;background:#E8E5DD;color:#1A3A26;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">AR</div>
+          <div style="min-width:0;flex:1">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><span style="font-size:12.5px;font-weight:700">You</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6B7075">20 Aug, 9:12 PM</span></div>
+            <p style="font-size:14px;line-height:1.6;margin:6px 0 0;text-wrap:pretty">I've read the authentication report. My interest is in keeping the collection whole, which I gather is yours too. Would you consider ₹48,00,000 for the lot as it stands, with the five sealed plates unopened?</p>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:14px;align-items:flex-start;margin-top:20px;padding-top:20px;border-top:1px solid #E8E5DD">
+          <div style="flex:none;width:30px;height:30px;border-radius:50%;background:#245034;color:#F7F5F0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">S</div>
+          <div style="min-width:0;flex:1">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><span style="font-size:12.5px;font-weight:700">Seller</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6B7075">21 Aug, 10:40 AM</span></div>
+            <p style="font-size:14px;line-height:1.6;margin:6px 0 0;text-wrap:pretty">₹48,00,000 is below what the 2024 Mumbai lot fetched on fewer plates. I would take ₹54,00,000. I will not open the sealed plates — my grandfather sealed them and I would rather they pass on as they are.</p>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:14px;align-items:flex-start;margin-top:20px;padding-top:20px;border-top:1px solid #E8E5DD">
+          <div style="flex:none;width:30px;height:30px;border-radius:50%;background:#E8E5DD;color:#1A3A26;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">AR</div>
+          <div style="min-width:0;flex:1">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><span style="font-size:12.5px;font-weight:700">You</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6B7075">24 Aug, 8:05 PM</span></div>
+            <p style="font-size:14px;line-height:1.6;margin:6px 0 0;text-wrap:pretty">I'll respect the seals. But I'm buying 11 stamps on a 1994 inventory, and the report notes three repairs. ₹50,00,000, everything as documented, you keep the collection together in the agreement. I can complete within two weeks.</p>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:14px;align-items:flex-start;margin-top:20px;padding-top:20px;border-top:1px solid #E8E5DD">
+          <div style="flex:none;width:30px;height:30px;border-radius:50%;background:#245034;color:#F7F5F0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">S</div>
+          <div style="min-width:0;flex:1">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><span style="font-size:12.5px;font-weight:700">Seller</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6B7075">25 Aug, 7:22 PM</span></div>
+            <p style="font-size:14px;line-height:1.6;margin:6px 0 0;text-wrap:pretty">₹50,00,000 accepted, on two conditions: it goes as one lot, and you collect from the vault in person with the expert present so there is no argument later about condition.</p>
+          </div>
+        </div>
+
+        <div style="margin-top:22px;padding:16px 18px;background:#F7F5F0;border-radius:6px;border-left:3px solid #2E7D4F">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#2E7D4F">Terms agreed · 25 Aug 2026, 7:22 PM</div>
+          <div style="display:flex;gap:34px;flex-wrap:wrap;margin-top:14px">
+            <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Price</div><div style="font-size:24px;font-weight:700;margin-top:5px">₹50,00,000</div></div>
+            <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Sold as</div><div style="font-size:15px;font-weight:600;margin-top:8px">One lot, 24 plates</div></div>
+            <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Sealed plates</div><div style="font-size:15px;font-weight:600;margin-top:8px">Remain sealed · buyer accepts</div></div>
+            <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Handover</div><div style="font-size:15px;font-weight:600;margin-top:8px">In person, expert present</div></div>
+          </div>
+        </div>
+
+        <div style="margin-top:20px;display:flex;justify-content:space-between;align-items:center;gap:20px">
+          <div style="font-size:12.5px;color:#6B7075;max-width:56ch">Nothing here binds either of you. The agreement in the next step does, and it will carry exactly these four terms.</div>
+          <div onClick="{{ go4 }}" style="flex:none;padding:11px 20px;background:#1A3A26;color:#F7F5F0;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">Draft the agreement</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">Funding this</div>
+        <div style="font-family:'Jost',sans-serif;font-weight:300;font-size:22px;line-height:1.25;color:#F7F5F0;margin-top:10px">₹50,00,000 agreed · your loan is at sanction</div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;margin-top:14px;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">Facility · loan against securities</span><span style="flex:none;font-weight:600">8.45%</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">Drawdown expected</span><span style="flex:none;font-weight:600">04 Sep 2026</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">Completion promised</span><span style="flex:none;font-weight:600">Within two weeks</span></div>
+        <p style="font-size:12.5px;line-height:1.6;color:rgba(247,245,240,.6);margin:14px 0 0;text-wrap:pretty">You are borrowing against listed securities to buy an asset with no market price and no exit window. That is your call to make, and the agreement records that you made it knowingly.</p>
+        <div style="margin-top:14px;font-size:13px;font-weight:600"><a href="Vittavaan Credit.dc.html" style="color:#C7A664">See the facility →</a></div>
+      </div>
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">On the record</div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Messages exchanged</span><span style="flex:none;font-weight:600">11</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Offers made</span><span style="flex:none;font-weight:600">3</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Off-platform contact</span><span style="flex:none;font-weight:600">None</span></div>
+        <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:12px 0 0;text-wrap:pretty">The whole thread copies into both data rooms at completion. In a dispute, what was said and when is the record.</p>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ p4 }}" hint-placeholder-val="{{ false }}">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:20px;margin-top:20px;align-items:start">
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:0;overflow:hidden">
+      <div style="background:#F7F5F0;border-bottom:1px solid #E8E5DD;padding:18px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Sale agreement · draft 2</div>
+          <div style="font-size:15px;font-weight:600;margin-top:5px">Ananya Rao and Devika Iyer · lot VV-C-2291</div>
+        </div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#8F6414;text-align:right">Names revealed to each other<br>on signing consent</div>
+      </div>
+      <div style="padding:26px 28px">
+        <div style="display:flex;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:190px;color:#6B7075">Asset</span><span style="min-width:0;flex:1;font-weight:600">24 plates, 312 stamps, as itemised in the schedule and photographed on 22 Aug 2026</span></div>
+        <div style="display:flex;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:190px;color:#6B7075">Price</span><span style="min-width:0;flex:1;font-weight:600">₹50,00,000, one lot, not severable</span></div>
+        <div style="display:flex;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:190px;color:#6B7075">Seller warrants</span><span style="min-width:0;flex:1;font-weight:600">Clear title, no lien or pledge, authority to sell, no undisclosed dispute</span></div>
+        <div style="display:flex;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:190px;color:#6B7075">Buyer acknowledges</span><span style="min-width:0;flex:1;font-weight:600">Five plates remain sealed and unauthenticated; three repairs are noted in the report; no valuation has been given by the platform</span></div>
+        <div style="display:flex;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:190px;color:#6B7075">Handover</span><span style="min-width:0;flex:1;font-weight:600">In person at the vault, buyer and the authenticating expert present, within 14 days of funds clearing</span></div>
+        <div style="display:flex;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:190px;color:#6B7075">If condition differs</span><span style="min-width:0;flex:1;font-weight:600">Buyer may reject at handover against the 22 Aug photographs; escrow returns in full within 3 working days</span></div>
+        <div style="display:flex;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:190px;color:#6B7075">Escrow</span><span style="min-width:0;flex:1;font-weight:600">Funds held by the escrow bank, released on the buyer's confirmation of handover or on the 21st day if unchallenged</span></div>
+        <div style="display:flex;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:190px;color:#6B7075">Taxes</span><span style="min-width:0;flex:1;font-weight:600">Seller's capital gains are the seller's; stamp duty as applicable in Maharashtra, borne by the buyer</span></div>
+        <div style="display:flex;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:190px;color:#6B7075">Platform's role</span><span style="min-width:0;flex:1;font-weight:600">Verification of documents, escrow arrangement and recordkeeping only. Not a party, not an agent, gives no warranty as to value or authenticity</span></div>
+        <div style="display:flex;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:190px;color:#6B7075">Dispute</span><span style="min-width:0;flex:1;font-weight:600">Mediation through the platform's panel first; then arbitration in Mumbai; the message thread and reports are admitted as record</span></div>
+        <div style="display:flex;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:190px;color:#6B7075">Governing law</span><span style="min-width:0;flex:1;font-weight:600">India · Maharashtra</span></div>
+
+        <div style="margin-top:22px;padding-top:20px;border-top:1px solid #C7A664;display:flex;justify-content:space-between;align-items:center;gap:20px">
+          <div style="display:flex;gap:30px">
+            <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075">Seller</div><div style="font-size:13.5px;font-weight:600;color:#2E7D4F;margin-top:5px">Signed · 27 Aug, 11:02 AM</div></div>
+            <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075">You</div><div style="font-size:13.5px;font-weight:600;color:#8F6414;margin-top:5px">Awaiting your signature</div></div>
+          </div>
+          <div style="display:flex;gap:10px;flex:none">
+            <div style="padding:11px 18px;border:1px solid #E8E5DD;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">Send to my advocate</div>
+            <div onClick="{{ go5 }}" style="padding:11px 20px;background:#1A3A26;color:#F7F5F0;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">Sign · ₹18,000 advocate review recommended</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What signing costs you</div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Price</span><span style="flex:none;font-weight:600">₹50,00,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Platform fee · 0.75%</span><span style="flex:none;font-weight:600">₹37,500</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Escrow bank charge</span><span style="flex:none;font-weight:600">₹6,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Stamp duty, Maharashtra</span><span style="flex:none;font-weight:600">₹25,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Insurance, first year</span><span style="flex:none;font-weight:600">₹42,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Vault, per year</span><span style="flex:none;font-weight:600">₹18,000</span></div>
+        <div style="display:flex;gap:12px;padding:12px 0;border-top:1px solid #1A3A26;font-size:13.5px;font-weight:700"><span style="min-width:0;flex:1">Total to complete</span><span style="flex:none">₹51,10,500</span></div>
+        <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:12px 0 0;text-wrap:pretty">Your loan is ₹50,00,000. The remaining ₹1,10,500 comes from cash, and ₹18,000 a year is a new holding cost.</p>
+      </div>
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;padding:20px 24px;border-left:3px solid #8F6414">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8F6414">The clause that matters most</div>
+        <p style="font-size:13px;line-height:1.6;margin:10px 0 0;text-wrap:pretty">Rejection at handover against the 22 August photographs is the only real protection you have, and it lapses the moment you confirm. Bring the expert, and don't confirm in the room.</p>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ p5 }}" hint-placeholder-val="{{ false }}">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:20px;margin-top:20px;align-items:start">
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px">
+      <h2 style="font-family:'Jost',sans-serif;font-weight:300;font-size:28px;line-height:1.15;color:#1A3A26;margin:0">Pay from your own bank, into escrow</h2>
+      <p style="font-size:14px;line-height:1.65;margin:12px 0 0;max-width:76ch;text-wrap:pretty">Vittavaan never holds your money. You authorise the transfer inside your bank's own flow, to an escrow account in both your names, and the escrow bank releases it on your confirmation.</p>
+
+      <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E8E5DD">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Where the money is</div>
+        <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13.5px"><span style="flex:none;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">Loan drawn down · ₹50,00,000<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Into your HDFC savings account · 4471</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">04 Sep, 11:20 AM</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">Escrow account opened<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Tripartite · you, the seller, the escrow bank</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">04 Sep, 2:05 PM</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px;background:rgba(143,100,20,.05)"><span style="flex:none;color:#8F6414">•</span><span style="min-width:0;flex:1;font-weight:600">Transfer to escrow · ₹50,43,500<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Price, platform fee and escrow charge in one instruction</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8F6414">Waiting on you</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;color:#6B7075">•</span><span style="min-width:0;flex:1;color:#6B7075">Handover at the vault</span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">Booked 09 Sep, 11:00 AM</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;color:#6B7075">•</span><span style="min-width:0;flex:1;color:#6B7075">Release to the seller, on your confirmation</span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">After handover</span></div>
+      </div>
+
+      <div style="margin-top:24px;padding:22px 24px;background:#F7F5F0;border-radius:8px;border:1px solid #E8E5DD">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:20px">
+          <div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Authorise in your bank</div>
+            <div style="font-size:15px;font-weight:600;margin-top:7px">HDFC Bank · savings 4471</div>
+            <div style="font-size:12.5px;color:#6B7075;margin-top:5px">Balance after this transfer: ₹40,03,700</div>
+          </div>
+          <div style="flex:none;text-align:right">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075">Amount</div>
+            <div style="font-size:30px;font-weight:700;letter-spacing:-.02em;margin-top:5px">₹50,43,500</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:18px;font-size:13px"><span style="min-width:0;flex:1;color:#6B7075">Beneficiary</span><span style="flex:none;font-weight:600">Escrow · VV-C-2291</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1;color:#6B7075">Escrow bank</span><span style="flex:none;font-weight:600">Named on the agreement</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1;color:#6B7075">Method</span><span style="flex:none;font-weight:600">RTGS, same day</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1;color:#6B7075">Who can move it</span><span style="flex:none;font-weight:600">Only the escrow bank, per the agreement</span></div>
+        <div style="display:flex;gap:12px;margin-top:18px">
+          <div onClick="{{ go6 }}" style="flex:1;padding:13px 18px;background:#1A3A26;color:#F7F5F0;border-radius:8px;font-size:13.5px;font-weight:700;text-align:center;cursor:pointer">Open HDFC and authorise ₹50,43,500</div>
+          <div style="flex:none;padding:13px 18px;border:1px solid #E8E5DD;background:#FCFCFC;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">Pay from another account</div>
+        </div>
+        <p style="font-size:12px;line-height:1.55;color:#6B7075;margin:12px 0 0;text-wrap:pretty">You will approve this in HDFC's own app or netbanking. Vittavaan has read access to your balances and no ability to move money — this link hands you to your bank and waits for its confirmation.</p>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">Why escrow, not a direct transfer</div>
+        <p style="font-size:13.5px;line-height:1.65;color:rgba(247,245,240,.86);margin:12px 0 0;text-wrap:pretty">A direct transfer to a stranger for ₹50,00,000 of stamps in a vault you haven't opened is how people lose money. Escrow means the seller can see the funds are real and you can still walk away at the vault door.</p>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;margin-top:14px;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">Released on your confirmation</span><span style="flex:none;font-weight:600">Or day 21</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">Returned if you reject at handover</span><span style="flex:none;font-weight:600">3 working days</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">If you both disagree</span><span style="flex:none;font-weight:600">Frozen, mediation</span></div>
+      </div>
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;padding:20px 24px;border-left:3px solid #8F6414">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8F6414">Before this is built</div>
+        <p style="font-size:13px;line-height:1.6;margin:10px 0 0;text-wrap:pretty">Escrow, an embedded bank payment link and a fee on completion put this close to payment-aggregator and possibly nodal-account rules. It needs a licensed escrow partner and counsel on whether the fee structure makes us an intermediary in the transaction rather than a listing service.</p>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ p6 }}" hint-placeholder-val="{{ false }}">
+  <div style="margin-top:20px">
+    <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:26px 28px;display:flex;justify-content:space-between;align-items:flex-start;gap:30px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">Completed · 09 Sep 2026, 12:40 PM</div>
+        <div style="font-family:'Jost',sans-serif;font-weight:300;font-size:30px;line-height:1.15;color:#F7F5F0;margin-top:12px">The collection is yours, and it is on your books</div>
+        <p style="font-size:13.5px;line-height:1.6;color:rgba(247,245,240,.72);margin:12px 0 0;max-width:76ch;text-wrap:pretty">Handover at the vault with the expert present, condition matched against the 22 August photographs, escrow released. It now appears in your assets as a collectible — self-declared value, no market price, no exit window.</p>
+      </div>
+      <div style="flex:none;text-align:right">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,245,240,.5)">Recorded at cost</div>
+        <div style="font-size:34px;font-weight:700;letter-spacing:-.025em;color:#F7F5F0;margin-top:8px">₹50,00,000</div>
+        <div style="font-size:12.5px;color:rgba(247,245,240,.6);margin-top:6px">Acquisition cost ₹51,10,500</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">In your data room · 14 new documents</div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13.5px"><span style="min-width:0;flex:1">Signed sale agreement</span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">27 Aug 2026</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Itemised schedule · 312 stamps</span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">Annexed</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Authentication report · 24 pp</span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">22 Aug 2026</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Condition photographs · 96</span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">22 Aug 2026</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Provenance chain · 4 documents</span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">1972–2019</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Handover certificate, countersigned</span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">09 Sep 2026</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Escrow release confirmation</span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">09 Sep 2026</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Negotiation thread · 11 messages</span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">20–25 Aug</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Insurance policy · ₹50,00,000 cover</span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8F6414">Renews 09 Sep 2027</span></div>
+        <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:14px 0 0;text-wrap:pretty">The seller's data room holds the mirror set. In ten years, whoever inherits this will find the provenance in one place.</p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What changed in your position</div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13.5px"><span style="min-width:0;flex:1">New asset · collectibles</span><span style="flex:none;font-weight:600;color:#2E7D4F">+₹50,00,000</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">New liability · loan against securities</span><span style="flex:none;font-weight:600;color:#B4432E">−₹50,00,000</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Cash spent on costs</span><span style="flex:none;font-weight:600;color:#B4432E">−₹1,10,500</span></div>
+          <div style="display:flex;gap:12px;padding:12px 0;border-top:1px solid #1A3A26;font-size:13.5px;font-weight:700"><span style="min-width:0;flex:1">Net worth effect</span><span style="flex:none">−₹1,10,500</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Liquid assets now</span><span style="flex:none;font-weight:600">₹1,86,89,500</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Illiquid share of assets</span><span style="flex:none;font-weight:600;color:#8F6414">63% → 66%</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Securities now pledged</span><span style="flex:none;font-weight:600">₹2,29,00,000</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">New annual outgo · EMI and holding</span><span style="flex:none;font-weight:600">₹12,46,800</span></div>
+        </div>
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">How this will be valued from now on</div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Basis</span><span style="flex:none;font-weight:600;color:#8F6414">Self-declared, at cost</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Staleness policy</span><span style="flex:none;font-weight:600">Appraisal every 24 months</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Next appraisal due</span><span style="flex:none;font-weight:600">Sep 2028</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Counts as verified wealth</span><span style="flex:none;font-weight:600;color:#B4432E">No</span></div>
+          <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:12px 0 0;text-wrap:pretty">It will sit in the unverified column of your resume until an appraiser or a CA attests it. Cost is what you paid, not what it is worth.</p>
+          <div style="margin-top:14px;display:flex;gap:10px">
+            <a href="Vittavaan Financial Resume.dc.html" style="flex:1;padding:10px 14px;border:1px solid #E8E5DD;border-radius:8px;font-size:12.5px;font-weight:600;text-align:center">See it on the resume</a>
+            <a href="Vittavaan Platform.dc.html" style="flex:1;padding:10px 14px;border:1px solid #E8E5DD;border-radius:8px;font-size:12.5px;font-weight:600;text-align:center">Back to Market</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1024}}">
+class Component extends DCLogic {
+  state = { step: 1 };
+  go(n) { return () => this.setState({ step: n }); }
+  renderVals() {
+    const s = this.state.step;
+    const v = {};
+    for (let i = 1; i <= 6; i++) {
+      v["p" + i] = s === i;
+      v["go" + i] = this.go(i);
+      const active = s === i, done = i < s;
+      v["s" + i + "bg"] = active ? "#1A3A26" : (done ? "#F7F5F0" : "#FCFCFC");
+      v["s" + i + "fg"] = active ? "#F7F5F0" : (done ? "#1A3A26" : "#6B7075");
+      v["s" + i + "meta"] = active ? "#C7A664" : (done ? "#2E7D4F" : "#6B7075");
+    }
+    return v;
+  }
+}
+</script>
+</body>
+</html>

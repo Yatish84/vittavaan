@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#F2EFE8;-webkit-font-smoothing:antialiased}
+  a{color:#1A3A26;text-decoration:none}
+  a:hover{color:#7E6329}
+</style>
+</helmet>
+
+<div style="width:1440px;min-height:1024px;background:#F2EFE8;background-image:radial-gradient(#D8D3C7 1px,transparent 1px);background-size:22px 22px;font-family:'Manrope',system-ui,sans-serif;color:#282A2E;font-variant-numeric:tabular-nums;padding:20px 28px 40px">
+
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;padding:8px 12px;margin-bottom:16px">
+    <div style="display:flex;gap:4px;align-items:center"><a href="Vittavaan Dashboard v3.dc.html" style="padding:8px 14px;border-radius:6px;font-size:12.5px;color:#6B7075">Wealth</a><a href="Vittavaan Platform.dc.html#understand" style="padding:8px 14px;border-radius:6px;font-size:12.5px;color:#6B7075">Understand</a><a href="Vittavaan Platform.dc.html#plan" style="padding:8px 14px;border-radius:6px;font-size:12.5px;color:#6B7075">Plan</a><span style="padding:8px 14px;background:#1A3A26;color:#F7F5F0;border-radius:6px;font-size:12.5px;font-weight:600">Market</span><a href="Vittavaan Profiling.dc.html" style="padding:8px 14px;border-radius:6px;font-size:12.5px;color:#6B7075">Profile</a></div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075">Market &nbsp;›&nbsp; <a href="Vittavaan Marketplace Browse.dc.html" style="color:#7E6329">All listings</a> &nbsp;›&nbsp; Karjat plot</div>
+    <div style="display:flex;gap:4px;align-items:center"><a href="Vittavaan Connections.dc.html" style="padding:8px 12px;font-size:12.5px;color:#6B7075">Connections</a><a href="Vittavaan Settings.dc.html" style="padding:8px 12px;font-size:12.5px;color:#6B7075">Settings</a><span style="width:30px;height:30px;border-radius:50%;background:#0E2116;color:#C7A664;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;margin-left:4px">AR</span></div>
+  </div>
+
+  <div style="display:flex;align-items:center;justify-content:space-between;gap:20px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:44px;height:44px;border-radius:8px;background:#0E2116;display:flex;align-items:center;justify-content:center"><img src="brand/mark-reversed.svg" alt="Vittavaan" style="width:24px;display:block"></div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:#7E6329">Market · real estate</div>
+        <div style="font-family:'Jost',sans-serif;font-weight:400;font-size:20px;color:#1A3A26;margin-top:2px">NA plot · Karjat · lot VV-R-0846</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <div style="border:1px solid #C7A664;border-radius:8px;padding:9px 14px;background:#FCFCFC;font-size:12px;line-height:1.5;max-width:330px">Buying for <strong>Vasant Rao</strong> · Ananya Rao acting as household administrator</div>
+      <a href="Vittavaan Marketplace Browse.dc.html" style="border:1px solid #E8E5DD;background:#FCFCFC;border-radius:8px;padding:9px 14px;font-size:12.5px;color:#6B7075">All listings</a>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:0;margin-top:24px;background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;overflow:hidden;box-shadow:0 1px 2px rgba(26,58,38,.05)">
+    <div onClick="{{ go1 }}" style="flex:1;padding:14px 16px;cursor:pointer;background:{{ s1bg }};border-right:1px solid #E8E5DD"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:{{ s1meta }}">Step 1</div><div style="font-size:13px;font-weight:600;color:{{ s1fg }};margin-top:5px">Listing &amp; data request</div></div>
+    <div onClick="{{ go2 }}" style="flex:1;padding:14px 16px;cursor:pointer;background:{{ s2bg }};border-right:1px solid #E8E5DD"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:{{ s2meta }}">Step 2</div><div style="font-size:13px;font-weight:600;color:{{ s2fg }};margin-top:5px">Tentative price</div></div>
+    <div onClick="{{ go3 }}" style="flex:1;padding:14px 16px;cursor:pointer;background:{{ s3bg }};border-right:1px solid #E8E5DD"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:{{ s3meta }}">Step 3</div><div style="font-size:13px;font-weight:600;color:{{ s3fg }};margin-top:5px">Title verification</div></div>
+    <div onClick="{{ go4 }}" style="flex:1;padding:14px 16px;cursor:pointer;background:{{ s4bg }};border-right:1px solid #E8E5DD"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:{{ s4meta }}">Step 4</div><div style="font-size:13px;font-weight:600;color:{{ s4fg }};margin-top:5px">Site visit</div></div>
+    <div onClick="{{ go5 }}" style="flex:1;padding:14px 16px;cursor:pointer;background:{{ s5bg }};border-right:1px solid #E8E5DD"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:{{ s5meta }}">Step 5</div><div style="font-size:13px;font-weight:600;color:{{ s5fg }};margin-top:5px">Due diligence</div></div>
+    <div onClick="{{ go6 }}" style="flex:1;padding:14px 16px;cursor:pointer;background:{{ s6bg }}"><div style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:{{ s6meta }}">Step 6</div><div style="font-size:13px;font-weight:600;color:{{ s6fg }};margin-top:5px">Payment &amp; registration</div></div>
+  </div>
+
+  <sc-if value="{{ p1 }}" hint-placeholder-val="{{ true }}">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:20px;margin-top:20px;align-items:start">
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:0;overflow:hidden">
+      <div style="height:240px;background:#F7F5F0;border-bottom:1px solid #E8E5DD;display:flex;align-items:center;justify-content:center">
+        <div style="text-align:center">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#8F6414">Site photographs and survey plan</div>
+          <div style="font-size:13px;color:#6B7075;margin-top:8px">To be supplied by the seller · 18 images, 1 plan</div>
+        </div>
+      </div>
+      <div style="padding:26px 28px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:24px">
+          <div>
+            <h2 style="font-family:'Jost',sans-serif;font-weight:300;font-size:28px;line-height:1.15;color:#1A3A26;margin:0">Non-agricultural plot · 12 guntha</h2>
+            <div style="font-size:14px;color:#282A2E;margin-top:8px">Village Kadav, Karjat taluka, Raigad · survey no. 118/2B, plot 7</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075;margin-top:8px">Listed 04 Aug 2026 · 13,068 sq ft · lot VV-R-0846</div>
+          </div>
+          <div style="flex:none;text-align:right">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#7E6329">Asking</div>
+            <div style="font-size:34px;font-weight:700;letter-spacing:-.025em;margin-top:6px">₹42,00,000</div>
+            <div style="font-size:12.5px;color:#6B7075;margin-top:5px">₹321 per sq ft</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:26px;padding-top:22px;border-top:1px solid #E8E5DD">
+          <div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">The plot</div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Land use</span><span style="flex:none;font-weight:600">NA · residential</span></div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">NA order</span><span style="flex:none;font-weight:600">Collector, Raigad · 2019</span></div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Layout</span><span style="flex:none;font-weight:600">Sanctioned · 11 plots</span></div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Access</span><span style="flex:none;font-weight:600">9 m internal road, tarred</span></div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Water and power</span><span style="flex:none;font-weight:600">Borewell · MSEDCL pole at plot</span></div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Distance</span><span style="flex:none;font-weight:600">6 km from Karjat station</span></div>
+          </div>
+          <div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">The seller</div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Identity</span><span style="flex:none;font-weight:600;color:#2E7D4F">KYC complete</span></div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Held since</span><span style="flex:none;font-weight:600">2019 · bought in layout</span></div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Owners on record</span><span style="flex:none;font-weight:600">2 · husband and wife</span></div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Reason for sale</span><span style="flex:none;font-weight:600">Moved abroad</span></div>
+            <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Broker involved</span><span style="flex:none;font-weight:600">None declared</span></div>
+          </div>
+        </div>
+
+        <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E8E5DD">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Your data request · sent 08 Aug</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#2E7D4F">7 of 9 supplied</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13.5px"><span style="flex:none;width:22px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1">7/12 extract, current</span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">11 Aug 2026</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:22px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1">Mutation entries · 1998 to date</span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">11 Aug 2026</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:22px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1">NA order and sanctioned layout</span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">11 Aug 2026</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:22px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1">Seller's 2019 sale deed, registered</span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">12 Aug 2026</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:22px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1">Property tax receipts · 2019–2026</span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">12 Aug 2026</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:22px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1">Survey plan and demarcation sketch</span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">14 Aug 2026</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:22px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1">Both owners' PAN and Aadhaar</span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">14 Aug 2026</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px;background:rgba(143,100,20,.05)"><span style="flex:none;width:22px;color:#8F6414">•</span><span style="min-width:0;flex:1">Encumbrance certificate, 30 years<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Seller says the sub-registrar search is under way</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8F6414">Awaited</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px;background:rgba(143,100,20,.05)"><span style="flex:none;width:22px;color:#8F6414">•</span><span style="min-width:0;flex:1">Layout completion certificate<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Roads and drains were the developer's obligation</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8F6414">Awaited</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">Whose money this is</div>
+        <div style="font-family:'Jost',sans-serif;font-weight:300;font-size:22px;line-height:1.25;color:#F7F5F0;margin-top:10px">Vasant Rao, 70 · dependant</div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;margin-top:14px;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">His own assets</span><span style="flex:none;font-weight:600">₹78,00,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">This purchase, at asking</span><span style="flex:none;font-weight:600">₹42,00,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">Share of his assets</span><span style="flex:none;font-weight:600;color:#D97757">54%</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">His annual income</span><span style="flex:none;font-weight:600">₹6,00,000 pension</span></div>
+        <p style="font-size:12.5px;line-height:1.6;color:rgba(247,245,240,.6);margin:14px 0 0;text-wrap:pretty">This would move over half of a 70-year-old's assets from deposits into land with no income and no exit window. It is his money and his decision. We are stating the arithmetic, not objecting to it.</p>
+      </div>
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Who must agree</div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Vasant Rao · buyer<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Signs the deed himself</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#2E7D4F">Required</span></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Ananya Rao · administrator<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Operating the platform on his behalf</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#2E7D4F">Acting</span></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Nirmala Rao<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Not a party · notified, not consenting</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#6B7075">Informed</span></div>
+        <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:12px 0 0;text-wrap:pretty">An administrator can gather documents and run the process. Only Vasant can commit his money, and every step he authorises is logged under his name.</p>
+      </div>
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;padding:20px 24px;border-left:3px solid #8F6414">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8F6414">The two missing documents</div>
+        <p style="font-size:13px;line-height:1.6;margin:10px 0 0;text-wrap:pretty">The encumbrance certificate is the one that tells you whether anyone has a claim on this plot. Nothing else in this flow substitutes for it, and no price should be agreed as final until it is read.</p>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ p2 }}" hint-placeholder-val="{{ false }}">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:20px;margin-top:20px;align-items:start">
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:0;overflow:hidden">
+      <div style="background:#F7F5F0;border-bottom:1px solid #E8E5DD;padding:16px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Negotiation · lot VV-R-0846</div>
+          <div style="font-size:14px;font-weight:600;margin-top:5px">Vasant Rao and the seller · 8 messages</div>
+        </div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#8F6414;text-align:right">Tentative · subject to title<br>and site inspection</div>
+      </div>
+      <div style="padding:24px 28px">
+        <div style="display:flex;gap:14px;align-items:flex-start">
+          <div style="flex:none;width:30px;height:30px;border-radius:50%;background:#E8E5DD;color:#1A3A26;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">VR</div>
+          <div style="min-width:0;flex:1">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><span style="font-size:12.5px;font-weight:700">Vasant Rao</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6B7075">16 Aug, 5:40 PM</span></div>
+            <p style="font-size:14px;line-height:1.6;margin:6px 0 0;text-wrap:pretty">I have read everything you sent. Two plots in the same layout sold at ₹290 and ₹305 a foot in the last eighteen months. I would offer ₹36,00,000, subject to the encumbrance certificate and my own site inspection.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;margin-top:20px;padding-top:20px;border-top:1px solid #E8E5DD">
+          <div style="flex:none;width:30px;height:30px;border-radius:50%;background:#245034;color:#F7F5F0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">S</div>
+          <div style="min-width:0;flex:1">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><span style="font-size:12.5px;font-weight:700">Seller</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6B7075">17 Aug, 9:15 AM</span></div>
+            <p style="font-size:14px;line-height:1.6;margin:6px 0 0;text-wrap:pretty">Those two are interior plots. Mine is a corner plot on the tarred road with the electricity pole already at the boundary. ₹40,00,000, and I will pay for the encumbrance search myself.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;margin-top:20px;padding-top:20px;border-top:1px solid #E8E5DD">
+          <div style="flex:none;width:30px;height:30px;border-radius:50%;background:#E8E5DD;color:#1A3A26;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">VR</div>
+          <div style="min-width:0;flex:1">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><span style="font-size:12.5px;font-weight:700">Vasant Rao</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6B7075">19 Aug, 6:02 PM</span></div>
+            <p style="font-size:14px;line-height:1.6;margin:6px 0 0;text-wrap:pretty">₹38,00,000, and the layout completion certificate before I pay anything. If the roads are still the developer's unfinished obligation, that becomes my problem after registration and I would rather know now.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:14px;align-items:flex-start;margin-top:20px;padding-top:20px;border-top:1px solid #E8E5DD">
+          <div style="flex:none;width:30px;height:30px;border-radius:50%;background:#245034;color:#F7F5F0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">S</div>
+          <div style="min-width:0;flex:1">
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><span style="font-size:12.5px;font-weight:700">Seller</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6B7075">20 Aug, 11:48 AM</span></div>
+            <p style="font-size:14px;line-height:1.6;margin:6px 0 0;text-wrap:pretty">Agreed at ₹38,00,000. I will get the completion certificate from the developer, though it may take three weeks. Come and see the plot whenever suits you — I will send my caretaker with the demarcation stones marked.</p>
+          </div>
+        </div>
+
+        <div style="margin-top:22px;padding:16px 18px;background:#F7F5F0;border-radius:6px;border-left:3px solid #8F6414">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#8F6414">Tentative price agreed · 20 Aug 2026</div>
+          <div style="display:flex;gap:34px;flex-wrap:wrap;margin-top:14px">
+            <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Price</div><div style="font-size:24px;font-weight:700;margin-top:5px">₹38,00,000</div><div style="font-size:12px;color:#6B7075;margin-top:3px">₹291 per sq ft</div></div>
+            <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Conditional on</div><div style="font-size:14px;font-weight:600;margin-top:8px">Clean encumbrance certificate<br>Layout completion certificate<br>Site inspection satisfying the buyer</div></div>
+            <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Holds until</div><div style="font-size:14px;font-weight:600;margin-top:8px">30 Sep 2026</div></div>
+          </div>
+        </div>
+        <div style="margin-top:20px;display:flex;justify-content:space-between;align-items:center;gap:20px">
+          <div style="font-size:12.5px;color:#6B7075;max-width:58ch">No money has moved and nothing is binding. A tentative price exists so the diligence is worth paying for — not to commit either side.</div>
+          <div onClick="{{ go3 }}" style="flex:none;padding:11px 20px;background:#1A3A26;color:#F7F5F0;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">Commission title verification</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Recorded sales nearby</div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Same layout, plot 4 · Mar 2025<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Interior · 10 guntha</div></span><span style="flex:none;font-weight:600">₹290 /sq ft</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Same layout, plot 9 · Nov 2025<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Interior · 12 guntha</div></span><span style="flex:none;font-weight:600">₹305 /sq ft</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Adjoining village · Jun 2026<div style="font-size:11.5px;color:#6B7075;margin-top:3px">NA corner plot</div></span><span style="flex:none;font-weight:600">₹334 /sq ft</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Ready reckoner rate · 2026<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Government value, sets stamp duty</div></span><span style="flex:none;font-weight:600">₹268 /sq ft</span></div>
+        <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:12px 0 0;text-wrap:pretty">From registered sub-registrar records, not listings. Asking prices are not evidence of value; these are transactions that happened.</p>
+      </div>
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What diligence will cost</div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Advocate's title search, 30 years</span><span style="flex:none;font-weight:600">₹28,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Licensed surveyor, demarcation</span><span style="flex:none;font-weight:600">₹15,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Registered valuer's report</span><span style="flex:none;font-weight:600">₹22,000</span></div>
+        <div style="display:flex;gap:12px;padding:12px 0;border-top:1px solid #1A3A26;font-size:13.5px;font-weight:700"><span style="min-width:0;flex:1">Spent before you own anything</span><span style="flex:none">₹65,000</span></div>
+        <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:12px 0 0;text-wrap:pretty">Non-refundable if the title turns out to be bad. That is the point of spending it.</p>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ p3 }}" hint-placeholder-val="{{ false }}">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:20px;margin-top:20px;align-items:start">
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px">
+        <div>
+          <h2 style="font-family:'Jost',sans-serif;font-weight:300;font-size:28px;line-height:1.15;color:#1A3A26;margin:0">Title, as an advocate found it</h2>
+          <p style="font-size:14px;line-height:1.65;margin:12px 0 0;max-width:74ch;text-wrap:pretty">Thirty years of records, read at the sub-registrar's office and the talathi's office. Vittavaan engaged the advocate; Vasant paid; the opinion is addressed to Vasant.</p>
+        </div>
+        <div style="flex:none;text-align:right">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#2E7D4F">Opinion</div>
+          <div style="font-size:20px;font-weight:700;margin-top:6px">Marketable, with two conditions</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#6B7075;margin-top:5px">Rao &amp; Bhatia · 29 Aug 2026</div>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E8E5DD">
+        <div style="display:flex;gap:14px;padding-bottom:10px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:#7E6329"><span style="flex:none;width:22px"></span><span style="min-width:0;flex:1">Check</span><span style="flex:none;width:180px">Source</span><span style="flex:none;width:110px;text-align:right">Finding</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:22px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">Chain of title, 1996–2026<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Four transfers, all registered · original owner to developer 2016, developer to seller 2019</div></span><span style="flex:none;width:180px;color:#6B7075">Sub-registrar, Karjat</span><span style="flex:none;width:110px;text-align:right;color:#2E7D4F;font-weight:600">Clear</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:22px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">Encumbrance certificate, 30 years<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">One mortgage by the developer in 2017, discharged and recorded 2018</div></span><span style="flex:none;width:180px;color:#6B7075">Sub-registrar search</span><span style="flex:none;width:110px;text-align:right;color:#2E7D4F;font-weight:600">No live charge</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:22px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">7/12 extract and mutation entries<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Both sellers' names in the ownership column · no "other rights" entry</div></span><span style="flex:none;width:180px;color:#6B7075">Talathi, Kadav</span><span style="flex:none;width:110px;text-align:right;color:#2E7D4F;font-weight:600">Matches</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:22px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">Tenancy and Kul rights<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">No tenant recorded at any point in the 30 years searched</div></span><span style="flex:none;width:180px;color:#6B7075">7/12 · tenancy register</span><span style="flex:none;width:110px;text-align:right;color:#2E7D4F;font-weight:600">None</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:22px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">NA conversion, valid<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Collector's order 2019, conditions complied with · plot is not agricultural land, so no agriculturist restriction applies to the buyer</div></span><span style="flex:none;width:180px;color:#6B7075">Collector, Raigad</span><span style="flex:none;width:110px;text-align:right;color:#2E7D4F;font-weight:600">Valid</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:22px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">Zoning and reservations<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Residential zone in the regional plan · no road widening, no green-zone or no-development overlay on this survey number</div></span><span style="flex:none;width:180px;color:#6B7075">Regional plan, Raigad</span><span style="flex:none;width:110px;text-align:right;color:#2E7D4F;font-weight:600">Clear</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:22px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">Litigation search<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Both sellers' names and the survey number, district court and revenue tribunal</div></span><span style="flex:none;width:180px;color:#6B7075">Court records</span><span style="flex:none;width:110px;text-align:right;color:#2E7D4F;font-weight:600">Nothing found</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px;background:rgba(143,100,20,.05)"><span style="flex:none;width:22px;color:#8F6414">•</span><span style="min-width:0;flex:1;font-weight:600">Condition one · public notice<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Advocate advises a notice in two newspapers, 14 days, inviting objections before completion. Standard for land in this district.</div></span><span style="flex:none;width:180px;color:#8F6414">To be done</span><span style="flex:none;width:110px;text-align:right;color:#8F6414;font-weight:600">₹9,000</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px;background:rgba(143,100,20,.05)"><span style="flex:none;width:22px;color:#8F6414">•</span><span style="min-width:0;flex:1;font-weight:600">Condition two · layout obligations<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">The completion certificate is still not issued. Roads and drains remain the developer's obligation on paper; in practice unfinished infrastructure becomes the plot owners' cost. Advocate advises a written position from the developer.</div></span><span style="flex:none;width:180px;color:#8F6414">Open</span><span style="flex:none;width:110px;text-align:right;color:#8F6414;font-weight:600">Unquantified</span></div>
+      </div>
+
+      <div style="margin-top:22px;padding:16px 18px;background:#F7F5F0;border-radius:6px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#7E6329">In the advocate's words</div>
+        <p style="font-size:14px;line-height:1.65;margin:10px 0 0;max-width:80ch;text-wrap:pretty">The title is marketable and I would advise proceeding, subject to the public notice producing no objection and to the buyer accepting that layout infrastructure may not be completed by the developer. The 2017 mortgage is properly discharged and does not affect the plot.</p>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What we verified, and didn't</div>
+        <div style="display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="flex:none;color:#2E7D4F">✓</span><span style="min-width:0;flex:1">Both sellers' KYC and their match to the 7/12</span></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="flex:none;color:#2E7D4F">✓</span><span style="min-width:0;flex:1">Every document is the genuine registered copy</span></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="flex:none;color:#2E7D4F">✓</span><span style="min-width:0;flex:1">The advocate is on the panel and holds a current licence</span></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="flex:none;color:#B4432E">—</span><span style="min-width:0;flex:1">The advocate's opinion · it is his, addressed to Vasant</span></div>
+        <div style="display:flex;align-items:center;gap:10px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="flex:none;color:#B4432E">—</span><span style="min-width:0;flex:1">Whether ₹291 a foot is a good price</span></div>
+      </div>
+      <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">Why land is different</div>
+        <p style="font-size:13.5px;line-height:1.65;color:rgba(247,245,240,.86);margin:12px 0 0;text-wrap:pretty">A stamp collection is either genuine or not. Land can have a perfect chain of title and still carry a tenancy from 1974, a reservation in a plan nobody reads, or a developer who never built the road. Nine checks, and the two that remain open are the ones that cost money later.</p>
+      </div>
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Next</div>
+        <p style="font-size:13px;line-height:1.6;margin:10px 0 14px">Title reads clean. The plot still has to be the plot in the photographs, in the place the survey plan says it is.</p>
+        <div onClick="{{ go4 }}" style="padding:11px 16px;background:#1A3A26;color:#F7F5F0;border-radius:8px;font-size:13px;font-weight:600;text-align:center;cursor:pointer">Book the site visit</div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ p4 }}" hint-placeholder-val="{{ false }}">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:20px;margin-top:20px;align-items:start">
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:0;overflow:hidden">
+      <div style="background:#F7F5F0;border-bottom:1px solid #E8E5DD;padding:18px 28px;display:flex;justify-content:space-between;align-items:center;gap:20px">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Site visit · 02 Sep 2026, 10:30 AM</div>
+          <div style="font-size:15px;font-weight:600;margin-top:5px">Vasant Rao, Ananya Rao, a licensed surveyor and the seller's caretaker</div>
+        </div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#2E7D4F;text-align:right">Report filed<br>02 Sep, 4:20 PM</div>
+      </div>
+      <div style="padding:26px 28px">
+        <div style="height:200px;background:#F7F5F0;border:1px solid #E8E5DD;border-radius:6px;display:flex;align-items:center;justify-content:center">
+          <div style="text-align:center">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#8F6414">Visit photographs · 34, geotagged</div>
+            <div style="font-size:13px;color:#6B7075;margin-top:8px">Taken on the day, with the survey plan overlaid</div>
+          </div>
+        </div>
+
+        <div style="margin-top:24px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What the surveyor confirmed</div>
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13.5px"><span style="flex:none;width:22px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">Boundaries match the survey plan<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">All four demarcation stones found in place · measured 13,041 sq ft against 13,068 on paper</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">−27 sq ft</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:22px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">Corner plot on the tarred road, as described</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">Confirmed</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:22px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">Electricity pole at the boundary<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">MSEDCL line live · connection would need a fresh application</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">Confirmed</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:22px;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">No encroachment, no structure, no crop<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Vacant · no path used by neighbours across the plot</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">Confirmed</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px;background:rgba(143,100,20,.05)"><span style="flex:none;width:22px;color:#8F6414">•</span><span style="min-width:0;flex:1;font-weight:600">Internal road tarred for 180 m of 240 m<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">The last stretch, including the approach to plots 7 and 8, is compacted murum. This is the layout obligation the advocate flagged.</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8F6414">Incomplete</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px;background:rgba(143,100,20,.05)"><span style="flex:none;width:22px;color:#8F6414">•</span><span style="min-width:0;flex:1;font-weight:600">Storm water drain not built on the west edge<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">The plot is on the low side of the layout. In monsoon, run-off from four plots crosses it.</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8F6414">Not in the listing</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:22px;color:#6B7075">•</span><span style="min-width:0;flex:1;font-weight:600">Borewell is shared with plot 8<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Described as "borewell" in the listing. It exists, on plot 8, by informal arrangement with no written right.</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">Clarified</span></div>
+        </div>
+
+        <div style="margin-top:22px;padding:16px 18px;background:#F7F5F0;border-radius:6px;border-left:3px solid #8F6414">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#8F6414">Three things the listing did not say</div>
+          <p style="font-size:14px;line-height:1.65;margin:10px 0 0;max-width:80ch;text-wrap:pretty">The approach road is unfinished, there is no drain on the low edge, and the water is somebody else's borewell. None of it makes the plot a bad buy. All of it is a reason to reopen the price, and it is why the visit happens before the money and not after.</p>
+        </div>
+
+        <div style="margin-top:20px;display:flex;justify-content:space-between;align-items:center;gap:20px">
+          <div style="font-size:12.5px;color:#6B7075;max-width:56ch">The tentative price was conditional on this inspection satisfying the buyer. It has not, entirely.</div>
+          <div onClick="{{ go5 }}" style="flex:none;padding:11px 20px;background:#1A3A26;color:#F7F5F0;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">Take it to due diligence</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What the findings could cost</div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Approach road, 60 m · shared by 2 plots</span><span style="flex:none;font-weight:600">₹1,40,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Drain on the west edge</span><span style="flex:none;font-weight:600">₹85,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Own borewell</span><span style="flex:none;font-weight:600">₹1,10,000</span></div>
+        <div style="display:flex;gap:12px;padding:12px 0;border-top:1px solid #1A3A26;font-size:13.5px;font-weight:700"><span style="min-width:0;flex:1">If the developer does none of it</span><span style="flex:none">₹3,35,000</span></div>
+        <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:12px 0 0;text-wrap:pretty">Contractor estimates arranged through the surveyor, not our numbers. Roughly ₹26 a foot on a ₹291 price.</p>
+      </div>
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Visit record</div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Photographs, geotagged</span><span style="flex:none;font-weight:600">34</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Surveyor's measured plan</span><span style="flex:none;font-weight:600">Filed</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Caretaker's countersignature</span><span style="flex:none;font-weight:600">On the report</span></div>
+        <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:12px 0 0;text-wrap:pretty">Countersigned on the day, so the seller cannot later dispute what was found.</p>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ p5 }}" hint-placeholder-val="{{ false }}">
+  <div style="display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:20px;margin-top:20px;align-items:start">
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px">
+      <h2 style="font-family:'Jost',sans-serif;font-weight:300;font-size:28px;line-height:1.15;color:#1A3A26;margin:0">Everything that was checked, in one place</h2>
+      <p style="font-size:14px;line-height:1.65;margin:12px 0 0;max-width:76ch;text-wrap:pretty">Four professionals, ₹65,000, twenty-two days. This is the page Vasant reads before he commits, and the page whoever inherits this plot will read in twenty years.</p>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:24px;padding-top:20px;border-top:1px solid #E8E5DD">
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075">Title</div><div style="font-size:18px;font-weight:700;margin-top:7px;color:#2E7D4F">Marketable</div><div style="font-size:12px;color:#6B7075;margin-top:4px">Advocate, 29 Aug</div></div>
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075">Boundaries</div><div style="font-size:18px;font-weight:700;margin-top:7px;color:#2E7D4F">Match plan</div><div style="font-size:12px;color:#6B7075;margin-top:4px">Surveyor, 02 Sep</div></div>
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075">Valuation</div><div style="font-size:18px;font-weight:700;margin-top:7px">₹35,90,000</div><div style="font-size:12px;color:#6B7075;margin-top:4px">Registered valuer, 05 Sep</div></div>
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075">Public notice</div><div style="font-size:18px;font-weight:700;margin-top:7px;color:#2E7D4F">No objection</div><div style="font-size:12px;color:#6B7075;margin-top:4px">14 days to 12 Sep</div></div>
+      </div>
+
+      <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E8E5DD">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">The valuer's number against the price</div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13.5px"><span style="min-width:0;flex:1">Tentative price agreed 20 Aug</span><span style="flex:none;font-weight:600">₹38,00,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Registered valuer's assessment<div style="font-size:11.5px;color:#6B7075;margin-top:3px">After the site findings, ₹275 a foot</div></span><span style="flex:none;font-weight:600">₹35,90,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Infrastructure the buyer may have to fund</span><span style="flex:none;font-weight:600;color:#B4432E">₹3,35,000</span></div>
+        <div style="display:flex;gap:12px;padding:12px 0;border-top:1px solid #1A3A26;font-size:13.5px;font-weight:700"><span style="min-width:0;flex:1">Gap to be settled between the parties</span><span style="flex:none">₹2,10,000 to ₹5,45,000</span></div>
+      </div>
+
+      <div style="margin-top:22px;padding:18px 20px;background:#F7F5F0;border-radius:6px;border-left:3px solid #2E7D4F">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#2E7D4F">Final terms · agreed 15 Sep 2026</div>
+        <div style="display:flex;gap:34px;flex-wrap:wrap;margin-top:14px">
+          <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Price</div><div style="font-size:26px;font-weight:700;margin-top:5px">₹36,20,000</div><div style="font-size:12px;color:#6B7075;margin-top:3px">Down ₹1,80,000 from tentative</div></div>
+          <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Seller does</div><div style="font-size:14px;font-weight:600;margin-top:8px">Written position from the developer<br>on the road, before registration</div></div>
+          <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Buyer accepts</div><div style="font-size:14px;font-weight:600;margin-top:8px">Drain and borewell as they are<br>Shared water, no written right</div></div>
+          <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Registration</div><div style="font-size:14px;font-weight:600;margin-top:8px">Karjat sub-registrar<br>18 Sep 2026, 11:00 AM</div></div>
+        </div>
+      </div>
+
+      <div style="margin-top:22px;padding-top:20px;border-top:1px solid #E8E5DD;display:flex;justify-content:space-between;align-items:center;gap:20px">
+        <div style="display:flex;gap:30px">
+          <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075">Sellers · both</div><div style="font-size:13.5px;font-weight:600;color:#2E7D4F;margin-top:5px">Signed · 15 Sep</div></div>
+          <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075">Vasant Rao</div><div style="font-size:13.5px;font-weight:600;color:#2E7D4F;margin-top:5px">Signed · 15 Sep</div></div>
+        </div>
+        <div onClick="{{ go6 }}" style="flex:none;padding:11px 20px;background:#1A3A26;color:#F7F5F0;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">Go to payment</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Total cost to Vasant</div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Price</span><span style="flex:none;font-weight:600">₹36,20,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Stamp duty · 6% on ₹36,20,000</span><span style="flex:none;font-weight:600">₹2,17,200</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Registration fee · 1%, capped</span><span style="flex:none;font-weight:600">₹30,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Diligence already spent</span><span style="flex:none;font-weight:600">₹65,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Public notice</span><span style="flex:none;font-weight:600">₹9,000</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Platform fee · 0.75%</span><span style="flex:none;font-weight:600">₹27,150</span></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Deed drafting and registration agent</span><span style="flex:none;font-weight:600">₹22,000</span></div>
+        <div style="display:flex;gap:12px;padding:12px 0;border-top:1px solid #1A3A26;font-size:13.5px;font-weight:700"><span style="min-width:0;flex:1">All in</span><span style="flex:none">₹39,90,350</span></div>
+        <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:12px 0 0;text-wrap:pretty">₹3,70,350 above the price. Stamp duty is charged on the higher of price and ready reckoner value — here the price is higher, so it governs.</p>
+      </div>
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;padding:20px 24px;border-left:3px solid #8F6414">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8F6414">Stated once more, plainly</div>
+        <p style="font-size:13px;line-height:1.6;margin:10px 0 0;text-wrap:pretty">₹39,90,350 is 51% of Vasant's assets, moving from deposits paying him interest into land paying him nothing. He has read the valuer's ₹35,90,000 and is paying ₹36,20,000. Both facts are in his record, next to his signature.</p>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <sc-if value="{{ p6 }}" hint-placeholder-val="{{ false }}">
+  <div style="margin-top:20px">
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:20px;align-items:start">
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px">
+        <h2 style="font-family:'Jost',sans-serif;font-weight:300;font-size:28px;line-height:1.15;color:#1A3A26;margin:0">Money moves at the sub-registrar's office</h2>
+        <p style="font-size:14px;line-height:1.65;margin:12px 0 0;max-width:76ch;text-wrap:pretty">For land, payment and registration happen together. Vasant authorises the transfer from his own bank in the room; the seller sees it land in theirs; the deed is executed and registered in the same sitting.</p>
+
+        <div style="margin-top:24px;padding-top:20px;border-top:1px solid #E8E5DD">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">18 Sep 2026 · Karjat sub-registrar</div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13.5px"><span style="flex:none;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">Stamp duty and registration fee paid<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">₹2,47,200 · GRAS challan, from Vasant's SBI account</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">10:40 AM</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">Both sellers and buyer present, biometrics done<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Two witnesses · Ananya Rao attending, not a party</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">11:05 AM</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">Developer's written position on the road, received<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Tarring committed by Mar 2027 · annexed to the deed</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">11:12 AM</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">₹36,20,000 transferred, RTGS<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Vasant's SBI current 8802 → sellers' joint account · authorised in SBI's app, on his phone, in the room</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#2E7D4F">11:26 AM</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">Sellers confirmed credit in their account<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">UTR shown to the sub-registrar and recorded on the deed</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#2E7D4F">11:31 AM</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;color:#2E7D4F">✓</span><span style="min-width:0;flex:1;font-weight:600">Sale deed executed and registered<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Document no. KRJ-4-6812-2026</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#6B7075">11:48 AM</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px;background:rgba(143,100,20,.05)"><span style="flex:none;color:#8F6414">•</span><span style="min-width:0;flex:1;font-weight:600">Mutation of the 7/12 into Vasant's name<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Applied at the talathi's office. Until this entry appears, the revenue record still shows the sellers.</div></span><span style="flex:none;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8F6414">6–10 weeks</span></div>
+        </div>
+
+        <div style="margin-top:22px;padding:16px 18px;background:#F7F5F0;border-radius:6px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#7E6329">Why no escrow here</div>
+          <p style="font-size:14px;line-height:1.65;margin:10px 0 0;max-width:80ch;text-wrap:pretty">The stamp collection needed escrow because handover and payment were days apart. Land registration is simultaneous — the deed is executed only once the seller confirms the credit, and the sub-registrar records the UTR on the document. The registry itself is the escrow.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:24px 26px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">Registered · 18 Sep 2026</div>
+          <div style="font-family:'Jost',sans-serif;font-weight:300;font-size:24px;line-height:1.25;color:#F7F5F0;margin-top:12px">The plot is Vasant's</div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;margin-top:14px;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">Recorded at cost</span><span style="flex:none;font-weight:600">₹36,20,000</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">Acquisition cost</span><span style="flex:none;font-weight:600">₹39,90,350</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">Valuation basis</span><span style="flex:none;font-weight:600;color:#4E9E6A">Registered valuer</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">Counts as verified wealth</span><span style="flex:none;font-weight:600;color:#4E9E6A">Yes</span></div>
+          <p style="font-size:12.5px;line-height:1.6;color:rgba(247,245,240,.6);margin:14px 0 0;text-wrap:pretty">Unlike the stamps, this arrives verified — a registered deed, a registered valuer's report and a stamp duty receipt are exactly what a CA attestation would rest on.</p>
+        </div>
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What changed for Vasant</div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Land</span><span style="flex:none;font-weight:600;color:#2E7D4F">+₹36,20,000</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Deposits drawn down</span><span style="flex:none;font-weight:600;color:#B4432E">−₹39,90,350</span></div>
+          <div style="display:flex;gap:12px;padding:12px 0;border-top:1px solid #1A3A26;font-size:13.5px;font-weight:700"><span style="min-width:0;flex:1">Net worth effect</span><span style="flex:none">−₹3,70,350</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">His net worth now</span><span style="flex:none;font-weight:600">₹74,29,650</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Interest income lost</span><span style="flex:none;font-weight:600;color:#B4432E">−₹2,79,000 a year</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">His liquid assets now</span><span style="flex:none;font-weight:600">₹22,00,000</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Household illiquid share</span><span style="flex:none;font-weight:600;color:#8F6414">66% → 68%</span></div>
+          <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:12px 0 0;text-wrap:pretty">His pension of ₹6,00,000 still covers his recorded costs of ₹8,40,000 only with Nirmala's. The household's medical reserve is untouched.</p>
+        </div>
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">In Vasant's data room · 19 documents</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+            <span style="border:1px solid #E8E5DD;border-radius:2px;padding:5px 10px;font-size:12px">Registered sale deed</span>
+            <span style="border:1px solid #E8E5DD;border-radius:2px;padding:5px 10px;font-size:12px">Title opinion</span>
+            <span style="border:1px solid #E8E5DD;border-radius:2px;padding:5px 10px;font-size:12px">Encumbrance certificate</span>
+            <span style="border:1px solid #E8E5DD;border-radius:2px;padding:5px 10px;font-size:12px">7/12 · pre-sale</span>
+            <span style="border:1px solid #E8E5DD;border-radius:2px;padding:5px 10px;font-size:12px">NA order</span>
+            <span style="border:1px solid #E8E5DD;border-radius:2px;padding:5px 10px;font-size:12px">Sanctioned layout</span>
+            <span style="border:1px solid #E8E5DD;border-radius:2px;padding:5px 10px;font-size:12px">Surveyor's measured plan</span>
+            <span style="border:1px solid #E8E5DD;border-radius:2px;padding:5px 10px;font-size:12px">Site photographs · 34</span>
+            <span style="border:1px solid #E8E5DD;border-radius:2px;padding:5px 10px;font-size:12px">Valuer's report</span>
+            <span style="border:1px solid #E8E5DD;border-radius:2px;padding:5px 10px;font-size:12px">Public notice · both papers</span>
+            <span style="border:1px solid #E8E5DD;border-radius:2px;padding:5px 10px;font-size:12px">Developer's road undertaking</span>
+            <span style="border:1px solid #E8E5DD;border-radius:2px;padding:5px 10px;font-size:12px">Stamp duty challan</span>
+            <span style="border:1px solid #E8E5DD;border-radius:2px;padding:5px 10px;font-size:12px">RTGS advice · UTR</span>
+            <span style="border:1px dashed #8F6414;border-radius:2px;padding:5px 10px;font-size:12px;color:#8F6414">Mutation entry · awaited</span>
+          </div>
+          <div style="margin-top:14px;display:flex;gap:10px">
+            <a href="Vittavaan Gift Transfer.dc.html" style="flex:1;padding:10px 14px;background:#1A3A26;color:#F7F5F0;border-radius:8px;font-size:12.5px;font-weight:600;text-align:center">2027 · gifted to Ananya</a>
+            <a href="Vittavaan Household.dc.html" style="flex:1;padding:10px 14px;border:1px solid #E8E5DD;border-radius:8px;font-size:12.5px;font-weight:600;text-align:center">See the household</a>
+          </div>
+        </div>
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;padding:20px 24px;border-left:3px solid #8F6414">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8F6414">Still open</div>
+          <p style="font-size:13px;line-height:1.6;margin:10px 0 0;text-wrap:pretty">The mutation entry. Until the talathi records Vasant in the 7/12, the revenue record shows the sellers — the deed governs, but the mismatch matters for any future sale, loan or succession. Vittavaan will chase it and prompt at four weeks.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1024}}">
+class Component extends DCLogic {
+  state = { step: 1 };
+  go(n) { return () => this.setState({ step: n }); }
+  renderVals() {
+    const s = this.state.step;
+    const v = {};
+    for (let i = 1; i <= 6; i++) {
+      v["p" + i] = s === i;
+      v["go" + i] = this.go(i);
+      const active = s === i, done = i < s;
+      v["s" + i + "bg"] = active ? "#1A3A26" : (done ? "#F7F5F0" : "#FCFCFC");
+      v["s" + i + "fg"] = active ? "#F7F5F0" : (done ? "#1A3A26" : "#6B7075");
+      v["s" + i + "meta"] = active ? "#C7A664" : (done ? "#2E7D4F" : "#6B7075");
+    }
+    return v;
+  }
+}
+</script>
+</body>
+</html>

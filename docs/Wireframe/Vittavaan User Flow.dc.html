@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#F2EFE8;-webkit-font-smoothing:antialiased}
+  a{color:#1A3A26}
+  a:hover{color:#7E6329}
+</style>
+</helmet>
+
+<div style="width:1440px;margin:0 auto;background:#F2EFE8;background-image:radial-gradient(#D8D3C7 1px,transparent 1px);background-size:22px 22px;font-family:'Manrope',system-ui,sans-serif;color:#282A2E;font-variant-numeric:tabular-nums;padding:44px 44px 72px">
+
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding-bottom:24px;border-bottom:1px solid #C7A664">
+    <div>
+      <img src="brand/lockup-primary.svg" alt="Vittavaan" style="width:190px;display:block">
+      <h1 style="font-family:'Jost',sans-serif;font-weight:200;font-size:50px;line-height:1.04;letter-spacing:-.022em;color:#1A3A26;margin:24px 0 0">One household, five years,<br>fourteen capabilities doing one job</h1>
+      <p style="font-size:16.5px;line-height:1.65;max-width:70ch;margin:18px 0 0;text-wrap:pretty">Everything built so far, arranged as the product it adds up to. The through-line is not a feature list. It is a single household ledger that gets more true over time, and a set of surfaces that each do exactly one thing with it: show it, question it, plan on it, transact against it, or pass it on.</p>
+    </div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#6B7075;text-align:right;line-height:2">Product flow<br>01 Sep 2026<br>v1.0</div>
+  </div>
+
+  <div style="background:#0E2116;border-radius:10px;padding:30px 32px;margin-top:26px">
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">The product in one sentence</div>
+    <p style="font-family:'Jost',sans-serif;font-weight:200;font-size:34px;line-height:1.3;color:#F7F5F0;margin:16px 0 0;max-width:44ch">Know what your household owns, well enough that other people will act on it.</p>
+    <p style="font-size:15px;line-height:1.65;color:rgba(247,245,240,.7);margin:18px 0 0;max-width:88ch;text-wrap:pretty">Every capability follows from that. Analysis is the ledger explained. Planning is the ledger projected. Credit and the marketplace are the ledger accepted by a third party. The resume is the ledger shown to someone. Succession is the ledger surviving you. Nothing works if the first clause is not true, which is why verification is the spine of the whole system rather than a badge on a profile.</p>
+  </div>
+
+  <h2 style="font-family:'Jost',sans-serif;font-weight:400;font-size:28px;color:#1A3A26;margin:46px 0 6px">1 · The spine — how a fact earns its way up</h2>
+  <p style="font-size:15px;line-height:1.65;margin:0 0 20px;max-width:74ch">Every number in Vittavaan sits at one of four levels. What a user is allowed to <em>do</em> with a number depends only on its level, and the same rule applies on every screen.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#8F6414">Level 1</div>
+      <div style="font-size:17px;font-weight:700;margin:8px 0 8px">Self-declared</div>
+      <div style="font-size:13px;line-height:1.6;color:#282A2E">You typed it. The stamp collection at ₹50,00,000, the gold in a locker, a startup mark on paper.</div>
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid #E8E5DD;font-size:12.5px;line-height:1.6;color:#6B7075">Shows in your net worth. Excluded from every figure anyone else relies on.</div>
+    </div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Level 2</div>
+      <div style="font-size:17px;font-weight:700;margin:8px 0 8px">Documented</div>
+      <div style="font-size:13px;line-height:1.6;color:#282A2E">A registered deed, a contract, a receipt. True as a fact, but its current value is still an opinion.</div>
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid #E8E5DD;font-size:12.5px;line-height:1.6;color:#6B7075">Provable ownership. Not yet a number a lender will price.</div>
+    </div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#2E7D4F">Level 3</div>
+      <div style="font-size:17px;font-weight:700;margin:8px 0 8px">Verified</div>
+      <div style="font-size:13px;line-height:1.6;color:#282A2E">An account aggregator feed, a depository holding, a CA attestation, a registered valuer's report.</div>
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid #E8E5DD;font-size:12.5px;line-height:1.6;color:#6B7075">Counts toward credit headroom, the resume and the blackbox profile. Carries an as-of date and goes stale.</div>
+    </div>
+    <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:22px 24px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">Level 4</div>
+      <div style="font-size:17px;font-weight:700;margin:8px 0 8px;color:#F7F5F0">Conduct</div>
+      <div style="font-size:13px;line-height:1.6;color:rgba(247,245,240,.86)">CIBIL and CRIF. Not what you own — how you have behaved with other people's money.</div>
+      <div style="margin-top:14px;padding-top:12px;border-top:1px solid #245034;font-size:12.5px;line-height:1.6;color:rgba(247,245,240,.6)">The half of the picture assets cannot show, and the half lenders price hardest.</div>
+    </div>
+  </div>
+
+  <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;padding:22px 26px;margin-top:16px;border-left:3px solid #C7A664">
+    <p style="font-size:14.5px;line-height:1.7;margin:0;max-width:100ch;text-wrap:pretty">The Rao household is 94% verified by value, and the 6% is the interesting part: a stamp collection recorded at cost, a startup mark that has never been realised, and gold nobody has weighed. Ananya's ₹6,47,00,000 becomes ₹5,94,00,000 the moment a lender looks at it, and the platform's job is to say that before the lender does.</p>
+  </div>
+
+  <h2 style="font-family:'Jost',sans-serif;font-weight:400;font-size:28px;color:#1A3A26;margin:46px 0 6px">2 · Five surfaces, and one way through all of them</h2>
+  <p style="font-size:15px;line-height:1.65;margin:0 0 20px;max-width:74ch">Fourteen capabilities cannot be fourteen destinations. Each surface answers a different question, and a user in a given mood is only ever in one of them.</p>
+
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:20px 24px;display:flex;gap:24px;align-items:flex-start">
+      <div style="flex:none;width:150px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Surface 01</div><div style="font-size:16px;font-weight:700;margin-top:5px">Wealth</div><div style="font-size:11.5px;color:#6B7075;margin-top:4px">Items 1, 6, 9</div></div>
+      <div style="flex:none;width:230px;font-size:14px;line-height:1.6;font-weight:600">"What do we have?"</div>
+      <div style="min-width:0;flex:1;font-size:13.5px;line-height:1.6;color:#282A2E">Net worth, assets, liabilities, expenses, and the household as one picture with six people in it. Every figure carries its verification level and its as-of date.</div>
+      <div style="flex:none;width:200px;text-align:right;font-size:12.5px;line-height:1.7"><a href="Vittavaan Dashboard v3.dc.html">Dashboard</a><br><a href="Vittavaan Household.dc.html">Household</a></div>
+    </div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:20px 24px;display:flex;gap:24px;align-items:flex-start">
+      <div style="flex:none;width:150px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Surface 02</div><div style="font-size:16px;font-weight:700;margin-top:5px">Understand</div><div style="font-size:11.5px;color:#6B7075;margin-top:4px">Items 2, 8, 10</div></div>
+      <div style="flex:none;width:230px;font-size:14px;line-height:1.6;font-weight:600">"Is it working, and how do I know?"</div>
+      <div style="min-width:0;flex:1;font-size:13.5px;line-height:1.6;color:#282A2E">XIRR against TWRR against a benchmark, attribution by class, what it costs to hold, trends only in things you own, and disclosure-only portfolios of people worth learning from.</div>
+      <div style="flex:none;width:200px;text-align:right;font-size:12.5px;line-height:1.7"><a href="Vittavaan Platform.dc.html">Platform · Understand</a></div>
+    </div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:20px 24px;display:flex;gap:24px;align-items:flex-start">
+      <div style="flex:none;width:150px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Surface 03</div><div style="font-size:16px;font-weight:700;margin-top:5px">Plan</div><div style="font-size:11.5px;color:#6B7075;margin-top:4px">Items 4, 5, 7</div></div>
+      <div style="flex:none;width:230px;font-size:14px;line-height:1.6;font-weight:600">"Where is this going?"</div>
+      <div style="min-width:0;flex:1;font-size:13.5px;line-height:1.6;color:#282A2E">Goals funded by named holdings rather than a pot. Calculators that open with your own figures and save back into a goal with their assumptions attached. Prompts from dated facts in your own documents.</div>
+      <div style="flex:none;width:200px;text-align:right;font-size:12.5px;line-height:1.7"><a href="Vittavaan Platform.dc.html">Platform · Plan</a><br><a href="Vittavaan Platform.dc.html">Platform · Calculators</a></div>
+    </div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:20px 24px;display:flex;gap:24px;align-items:flex-start">
+      <div style="flex:none;width:150px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Surface 04</div><div style="font-size:16px;font-weight:700;margin-top:5px">Market</div><div style="font-size:11.5px;color:#6B7075;margin-top:4px">Items 12, 13, 14</div></div>
+      <div style="flex:none;width:230px;font-size:14px;line-height:1.6;font-weight:600">"Someone else needs to act on this."</div>
+      <div style="min-width:0;flex:1;font-size:13.5px;line-height:1.6;color:#282A2E">Credit raised by a blind auction on your anonymised profile. Assets bought and sold with verification, escrow and a data room. Professionals engaged at a stated fee. The only surface where money changes hands, and the only one where we are paid.</div>
+      <div style="flex:none;width:200px;text-align:right;font-size:12.5px;line-height:1.7"><a href="Vittavaan Credit.dc.html">Credit</a><br><a href="Vittavaan Marketplace.dc.html">Marketplace · stamps</a><br><a href="Vittavaan Marketplace Land.dc.html">Marketplace · land</a></div>
+    </div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:20px 24px;display:flex;gap:24px;align-items:flex-start">
+      <div style="flex:none;width:150px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Surface 05</div><div style="font-size:16px;font-weight:700;margin-top:5px">Profile</div><div style="font-size:11.5px;color:#6B7075;margin-top:4px">Item 11</div></div>
+      <div style="flex:none;width:230px;font-size:14px;line-height:1.6;font-weight:600">"Prove it, without showing it."</div>
+      <div style="min-width:0;flex:1;font-size:13.5px;line-height:1.6;color:#282A2E">A financial resume of verified claims — bands, badges, years, counts — chosen field by field, revocable, with a log of who looked. Never a balance, never a leaderboard.</div>
+      <div style="flex:none;width:200px;text-align:right;font-size:12.5px;line-height:1.7"><a href="Vittavaan Financial Resume.dc.html">Financial resume</a></div>
+    </div>
+    <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:20px 24px;display:flex;gap:24px;align-items:flex-start">
+      <div style="flex:none;width:150px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">Across all five</div><div style="font-size:16px;font-weight:700;margin-top:5px;color:#F7F5F0">Ask</div><div style="font-size:11.5px;color:rgba(247,245,240,.5);margin-top:4px">Item 3</div></div>
+      <div style="flex:none;width:230px;font-size:14px;line-height:1.6;font-weight:600;color:#F7F5F0">"Just tell me."</div>
+      <div style="min-width:0;flex:1;font-size:13.5px;line-height:1.6;color:rgba(247,245,240,.86)">One input, always reachable, answering from your ledger and named sources with citations and as-of stamps. Not a section — a way through every section. It computes and explains, never prescribes, and says so when the ledger cannot answer.</div>
+      <div style="flex:none;width:200px;text-align:right;font-size:12.5px;line-height:1.7"><a href="Vittavaan Platform.dc.html" style="color:#C7A664">Platform · Ask</a></div>
+    </div>
+  </div>
+
+  <h2 style="font-family:'Jost',sans-serif;font-weight:400;font-size:28px;color:#1A3A26;margin:46px 0 6px">3 · One household, five years</h2>
+  <p style="font-size:15px;line-height:1.65;margin:0 0 20px;max-width:74ch">Everything built, in the order the Raos lived it. Read down the left column and it is a life. Read down the right and it is the product working.</p>
+
+  <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px 14px">
+    <div style="display:flex;gap:18px;padding-bottom:12px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:#7E6329"><span style="flex:none;width:100px">When</span><span style="flex:none;width:250px">What happened</span><span style="min-width:0;flex:1">What the platform did</span><span style="flex:none;width:150px">Surface</span><span style="flex:none;width:130px;text-align:right">Screen</span></div>
+
+    <div style="display:flex;gap:18px;padding:14px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:100px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075">Aug 2026</span><span style="flex:none;width:250px;font-weight:600">Ananya links accounts and pulls the household together</span><span style="min-width:0;flex:1;color:#282A2E">₹6,47,00,000 across six people, four passive income streams and ₹3,64,00,000 of debt, each figure at its verification level</span><span style="flex:none;width:150px;color:#6B7075">Wealth</span><span style="flex:none;width:130px;text-align:right;font-size:12.5px"><a href="Vittavaan Household.dc.html">Household</a></span></div>
+    <div style="display:flex;gap:18px;padding:14px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:100px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075">Aug 2026</span><span style="flex:none;width:250px;font-weight:600">She asks whether five years of investing has actually worked</span><span style="min-width:0;flex:1;color:#282A2E">14.2% money-weighted, 12.4% if you strip out the two lines that were never realised or independently priced</span><span style="flex:none;width:150px;color:#6B7075">Understand</span><span style="flex:none;width:130px;text-align:right;font-size:12.5px"><a href="Vittavaan Platform.dc.html">Understand</a></span></div>
+    <div style="display:flex;gap:18px;padding:14px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:100px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075">Aug 2026</span><span style="flex:none;width:250px;font-weight:600">Six goals, funded by named holdings</span><span style="min-width:0;flex:1;color:#282A2E">Four on track. Priyanka's education is short ₹34,00,000, and her Sukanya account matures three years after she needs it</span><span style="flex:none;width:150px;color:#6B7075">Plan</span><span style="flex:none;width:130px;text-align:right;font-size:12.5px"><a href="Vittavaan Platform.dc.html">Plan</a></span></div>
+    <div style="display:flex;gap:18px;padding:14px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:100px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075">Aug 2026</span><span style="flex:none;width:250px;font-weight:600">She finds a stamp collection she wants, and needs ₹50,00,000</span><span style="min-width:0;flex:1;color:#282A2E">Nine lenders bid blind on an anonymised profile. 8.45% to 11.20%, and the cheapest is not the safest</span><span style="flex:none;width:150px;color:#6B7075">Market</span><span style="flex:none;width:130px;text-align:right;font-size:12.5px"><a href="Vittavaan Credit.dc.html">Credit</a></span></div>
+    <div style="display:flex;gap:18px;padding:14px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:100px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075">Sep 2026</span><span style="flex:none;width:250px;font-weight:600">She buys the collection at ₹50,00,000</span><span style="min-width:0;flex:1;color:#282A2E">Verification, negotiation, escrow, handover with the expert present. Recorded at cost as self-declared — it drops her verified share</span><span style="flex:none;width:150px;color:#6B7075">Market</span><span style="flex:none;width:130px;text-align:right;font-size:12.5px"><a href="Vittavaan Marketplace.dc.html">Marketplace</a></span></div>
+    <div style="display:flex;gap:18px;padding:14px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:100px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075">Sep 2026</span><span style="flex:none;width:250px;font-weight:600">Her father Vasant buys a plot in Karjat</span><span style="min-width:0;flex:1;color:#282A2E">Title search, site visit, valuer. Three things the listing did not say cut ₹1,80,000 off the price. Arrives verified</span><span style="flex:none;width:150px;color:#6B7075">Market</span><span style="flex:none;width:130px;text-align:right;font-size:12.5px"><a href="Vittavaan Marketplace Land.dc.html">Land</a></span></div>
+    <div style="display:flex;gap:18px;padding:14px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:100px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075">Sep 2027</span><span style="flex:none;width:250px;font-weight:600">Vasant gifts the plot to Ananya</span><span style="min-width:0;flex:1;color:#282A2E">₹48,100 instead of ₹2.3 L, because the concession was confirmed in writing first. Cost base and holding period carry over intact</span><span style="flex:none;width:150px;color:#6B7075">Household</span><span style="flex:none;width:130px;text-align:right;font-size:12.5px"><a href="Vittavaan Gift Transfer.dc.html">Gift</a></span></div>
+    <div style="display:flex;gap:18px;padding:14px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:100px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075">Nov 2027</span><span style="flex:none;width:250px;font-weight:600">The gift makes his 2011 will obsolete</span><span style="min-width:0;flex:1;color:#282A2E">Every clause empty, no residuary clause, executor deceased. New will, and two nomination fixes that cost nothing</span><span style="flex:none;width:150px;color:#6B7075">Household</span><span style="flex:none;width:130px;text-align:right;font-size:12.5px"><a href="Vittavaan Will.dc.html">Will</a></span></div>
+    <div style="display:flex;gap:18px;padding:14px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:100px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075">Mar 2031</span><span style="flex:none;width:250px;font-weight:600">Vasant dies</span><span style="min-width:0;flex:1;color:#282A2E">Estate settled in under five months with no succession certificate, because of two nomination fixes made in 2027</span><span style="flex:none;width:150px;color:#6B7075">Household</span><span style="flex:none;width:130px;text-align:right;font-size:12.5px"><a href="Vittavaan Inheritance.dc.html">Inheritance</a></span></div>
+    <div style="display:flex;gap:18px;padding:14px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:100px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6B7075">Aug 2031</span><span style="flex:none;width:250px;font-weight:600">Nirmala inherits, and has no will of her own</span><span style="min-width:0;flex:1;color:#282A2E">The prompt exists, dated, and waits until she opens her own account. Not a notification, and not shown to her daughter</span><span style="flex:none;width:150px;color:#6B7075">Household</span><span style="flex:none;width:130px;text-align:right;font-size:12.5px"><a href="Vittavaan Inheritance.dc.html">Inheritance</a></span></div>
+
+    <div style="margin-top:16px;padding:16px 18px;background:#F7F5F0;border-radius:6px">
+      <p style="font-size:14px;line-height:1.65;margin:0;max-width:104ch;text-wrap:pretty">Five years, three transactions, two deaths of paperwork, one death. The chain that matters runs diagonally: an August 2026 ledger made a blind credit auction possible, which funded a purchase, which sat next to a plot bought the same month, which was gifted, which invalidated a will, which was rewritten, which is why an estate settled in four months instead of two years. No single feature did that. The continuity did.</p>
+    </div>
+  </div>
+
+  <h2 style="font-family:'Jost',sans-serif;font-weight:400;font-size:28px;color:#1A3A26;margin:46px 0 6px">4 · The same six steps, every time value changes hands</h2>
+  <p style="font-size:15px;line-height:1.65;margin:0 0 20px;max-width:74ch">Credit, a stamp collection, a plot of land, a gift, an estate. Five very different transactions that a user learns once, because they are the same shape.</p>
+
+  <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px 14px">
+    <div style="display:flex;gap:16px;padding-bottom:12px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:#7E6329"><span style="flex:none;width:140px">Step</span><span style="flex:none;width:200px">Credit</span><span style="flex:none;width:200px">Buying an asset</span><span style="flex:none;width:200px">Gifting</span><span style="min-width:0;flex:1">Inheriting</span></div>
+    <div style="display:flex;gap:16px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="flex:none;width:140px;font-weight:700">1 · Intent</span><span style="flex:none;width:200px;color:#282A2E">Register a need</span><span style="flex:none;width:200px;color:#282A2E">Find a listing, request data</span><span style="flex:none;width:200px;color:#282A2E">Who, what, and instead of what</span><span style="min-width:0;flex:1;color:#282A2E">Death certificate, will retrieved</span></div>
+    <div style="display:flex;gap:16px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="flex:none;width:140px;font-weight:700">2 · Verify</span><span style="flex:none;width:200px;color:#282A2E">Blackbox profile from verified wealth</span><span style="flex:none;width:200px;color:#282A2E">Title, authentication, what we did not check</span><span style="flex:none;width:200px;color:#282A2E">Tax, cost base, duty</span><span style="min-width:0;flex:1;color:#282A2E">Estate valued at the date of death</span></div>
+    <div style="display:flex;gap:16px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="flex:none;width:140px;font-weight:700">3 · Negotiate</span><span style="flex:none;width:200px;color:#282A2E">Lenders bid blind, 72 hours</span><span style="flex:none;width:200px;color:#282A2E">Message thread, price, conditions</span><span style="flex:none;width:200px;color:#282A2E">Deed drafted, one clause removed</span><span style="min-width:0;flex:1;color:#282A2E">Claims window, 60 days</span></div>
+    <div style="display:flex;gap:16px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="flex:none;width:140px;font-weight:700">4 · Commit</span><span style="flex:none;width:200px;color:#282A2E">Choose one bid, consent to PII release</span><span style="flex:none;width:200px;color:#282A2E">Agreement, with the rejection clause</span><span style="flex:none;width:200px;color:#282A2E">Registered, both present</span><span style="min-width:0;flex:1;color:#282A2E">Transmission, five institutions</span></div>
+    <div style="display:flex;gap:16px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="flex:none;width:140px;font-weight:700">5 · Settle</span><span style="flex:none;width:200px;color:#282A2E">Drawdown, from the lender's own rails</span><span style="flex:none;width:200px;color:#282A2E">Escrow, or the registry itself</span><span style="flex:none;width:200px;color:#282A2E">No money moves at all</span><span style="min-width:0;flex:1;color:#282A2E">Distribution, executor accounts for it</span></div>
+    <div style="display:flex;gap:16px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="flex:none;width:140px;font-weight:700">6 · Record</span><span style="flex:none;width:200px;color:#282A2E">Facility and pledge on the ledger</span><span style="flex:none;width:200px;color:#282A2E">Asset, cost, documents, data room</span><span style="flex:none;width:200px;color:#282A2E">Both ledgers, cost base intact</span><span style="min-width:0;flex:1;color:#282A2E">Account closed, kept readable forever</span></div>
+
+    <div style="margin-top:16px;padding:16px 18px;background:#F7F5F0;border-radius:6px">
+      <p style="font-size:14px;line-height:1.65;margin:0;max-width:104ch;text-wrap:pretty">Step 2 is where the product earns its money and step 6 is where it earns its next five years. Most platforms do 3, 4 and 5 and leave the user to discover afterwards what they actually bought and what it will cost them in a decade.</p>
+    </div>
+  </div>
+
+  <h2 style="font-family:'Jost',sans-serif;font-weight:400;font-size:28px;color:#1A3A26;margin:46px 0 6px">5 · The wall</h2>
+  <p style="font-size:15px;line-height:1.65;margin:0 0 20px;max-width:74ch">Four of the fourteen capabilities make money. Three of them are the ones users trust. The product only holds together if those two sets never touch.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:24px 26px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Never sells · surfaces 01, 02, 03</div>
+      <div style="font-size:19px;font-weight:700;margin:10px 0 12px">Wealth, Understand, Plan</div>
+      <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">No marketplace call-to-action anywhere on these screens</span></div>
+      <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">"This fund is expensive" appears without a switch button</span></div>
+      <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Life-event prompts state a dated fact and stop</span></div>
+      <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Ask computes and explains; it never recommends a product</span></div>
+    </div>
+    <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:24px 26px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">Earns · surface 04</div>
+      <div style="font-size:19px;font-weight:700;margin:10px 0 12px;color:#F7F5F0">Market</div>
+      <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">Fee stated in the header of every screen, before anything else</span></div>
+      <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">Same rate from every lender, so we have no preferred bid</span></div>
+      <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">Advisor ratings only from clients who paid through an engagement</span></div>
+      <div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">"What we are not telling you: which of these to take"</span></div>
+    </div>
+  </div>
+
+  <h2 style="font-family:'Jost',sans-serif;font-weight:400;font-size:28px;color:#1A3A26;margin:46px 0 6px">6 · Eight rules that hold on every screen</h2>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">01</div><div style="font-size:15.5px;font-weight:700;margin:7px 0 7px">Every number carries where it came from and when</div><div style="font-size:13px;line-height:1.6;color:#6B7075">A figure with no as-of date and no source is not a figure, it is a claim. This is why the household reads 94% verified rather than "₹6.47 Cr".</div></div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">02</div><div style="font-size:15.5px;font-weight:700;margin:7px 0 7px">Say the uncomfortable number in the same breath</div><div style="font-size:13px;line-height:1.6;color:#6B7075">14.2%, and 12.4% without the unrealised lines. ₹50,00,000 agreed, and ₹51,10,500 to complete. The second number is the honest one.</div></div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">03</div><div style="font-size:15.5px;font-weight:700;margin:7px 0 7px">Name what was not checked</div><div style="font-size:13px;line-height:1.6;color:#6B7075">Five sealed stamp plates. Market value, "not our role, never." An unstated gap is read as a guarantee.</div></div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">04</div><div style="font-size:15.5px;font-weight:700;margin:7px 0 7px">Identity is released once, deliberately, to one party</div><div style="font-size:13px;line-height:1.6;color:#6B7075">Nine lenders bid without a name. One learns it, at a moment the user chose, on terms shown on screen, with a log.</div></div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">05</div><div style="font-size:15.5px;font-weight:700;margin:7px 0 7px">Household visibility is granted, never assumed</div><div style="font-size:13px;line-height:1.6;color:#6B7075">Ananya administers her father's account and cannot see his will. Nirmala is notified of the gift, not asked to consent to it.</div></div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">06</div><div style="font-size:15.5px;font-weight:700;margin:7px 0 7px">The platform never moves the money</div><div style="font-size:13px;line-height:1.6;color:#6B7075">The user authorises inside their own bank. We read balances and hold no float. Escrow is a licensed bank's job, or the registry's.</div></div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">07</div><div style="font-size:15.5px;font-weight:700;margin:7px 0 7px">Judgement is bought from a named professional</div><div style="font-size:13px;line-height:1.6;color:#6B7075">Advocates, valuers, CAs. Their opinion is theirs, addressed to the user, dated, and stored. We supply the brief, not the view.</div></div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px"><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">08</div><div style="font-size:15.5px;font-weight:700;margin:7px 0 7px">Nothing is deleted, and the record outlives the account</div><div style="font-size:13px;line-height:1.6;color:#6B7075">A superseded will is kept, marked superseded. A dead man's account stays readable. In 2071 the chain from a 1996 title search is one file.</div></div>
+  </div>
+
+  <h2 style="font-family:'Jost',sans-serif;font-weight:400;font-size:28px;color:#1A3A26;margin:46px 0 6px">7 · What is designed, and what is not</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#2E7D4F">Designed</div>
+      <div style="font-size:13px;line-height:1.9;margin-top:12px">Household ledger and dashboard<br>Data schema, incl. verification<br>Performance and attribution<br>Goals and calculators<br>Ask, with citations<br>Blackbox credit auction<br>Two marketplace flows<br>Financial resume<br>Gift, will, inheritance</div>
+    </div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#8F6414">Sketched, not built</div>
+      <div style="font-size:13px;line-height:1.9;margin-top:12px">Expenses, themes and categories<br>News filtered by holdings<br>Public figures' disclosures<br>Advisory marketplace, in depth<br>Onboarding and account linking<br>Mobile, all of it<br>The seller's side of a listing<br>Notifications and prompts as a system</div>
+    </div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;padding:22px 24px;border-left:3px solid #8F6414">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#8F6414">Blocked on counsel</div>
+      <div style="font-size:13px;line-height:1.65;margin-top:12px">Running a bidding contest between lenders is likely a regulated arrangement, not a listing service. The anonymised profile is personal data under the DPDP Act and needs a k-anonymity test before publishing. Escrow with an embedded payment link and a completion fee approaches payment-aggregator and nodal-account rules. Ask, life-event prompts and any recommendation sit near the advice boundary.</div>
+      <div style="font-size:13px;line-height:1.6;margin-top:12px;font-weight:600">None of these are design problems. All of them decide what ships.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:40px;padding-top:20px;border-top:1px solid #C7A664;display:flex;justify-content:space-between;gap:24px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075">
+    <span>Vittavaan · know what you own</span>
+    <span>Product flow · information, not advice</span>
+    <span>v1.0 · 01 Sep 2026</span>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1400}}"></script>
+</body>
+</html>
