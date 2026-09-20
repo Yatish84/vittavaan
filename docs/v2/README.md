@@ -12,7 +12,6 @@
 | File | Purpose | Status |
 |---|---|---|
 | [`Tech_Stack.md`](./Tech_Stack.md) | Technology choices, rationale, and local dev setup guide | ✅ Draft |
-| [`Glossary.md`](./Glossary.md) | Canonical definitions for all domain terms | 🔲 Planned |
 
 ### Phase 1 — Requirements
 | File | Purpose | Status |
@@ -26,27 +25,27 @@
 ### Phase 2 — Analysis
 | File | Purpose | Status |
 |---|---|---|
-| `Phase2/01_ECB_Object_Model.md` | Entity-Control-Boundary object model | 🔲 Planned |
-| `Phase2/02_Domain_Glossary.md` | Ubiquitous language definitions | 🔲 Planned |
-| `Phase2/03_Sequence_Diagrams.md` | Object interaction for key use cases | 🔲 Planned |
+| [`Phase2/01_ECB_Object_Model.md`](./Phase2/01_ECB_Object_Model.md) | Entity-Control-Boundary object model with Mermaid class diagrams | ✅ Draft |
+| [`Phase2/02_Sequence_Diagrams.md`](./Phase2/02_Sequence_Diagrams.md) | Object interaction for 11 key use cases + 2 background processes | ✅ Draft |
+| [`Phase2/03_Domain_Glossary.md`](./Phase2/03_Domain_Glossary.md) | 71-term ubiquitous language dictionary across 8 sections | ✅ Draft |
 
 ### Phase 3 — System Design
 | File | Purpose | Status |
 |---|---|---|
-| `Phase3/01_Architecture_Overview.md` | Subsystem decomposition, tier diagram | 🔲 Planned |
-| `Phase3/02_API_Design.md` | REST API contracts, endpoint spec | 🔲 Planned |
-| `Phase3/03_Database_Schema.md` | PostgreSQL schema with rationale | 🔲 Planned |
-| `Phase3/04_Auth_and_Authorization.md` | Auth flow, RBAC, ABAC consent proxy | 🔲 Planned |
-| `Phase3/05_Event_and_Background_Jobs.md` | Event bus, background worker design | 🔲 Planned |
-| `Phase3/06_Data_Room_Architecture.md` | Secure document storage design | 🔲 Planned |
+| [`Phase3/01_Architecture_Overview.md`](./Phase3/01_Architecture_Overview.md) | Subsystem decomposition, tier diagram, local/staging/prod mapping | ✅ Draft |
+| [`Phase3/02_API_Design.md`](./Phase3/02_API_Design.md) | Complete REST API — 22 endpoint groups, all request/response shapes | ✅ Draft |
+| [`Phase3/03_Database_Schema.md`](./Phase3/03_Database_Schema.md) | Full PostgreSQL 16 schema — DDL, ER diagram, enums, migration strategy | ✅ Draft |
+| [`Phase3/04_Auth_and_Authorization.md`](./Phase3/04_Auth_and_Authorization.md) | Auth flow, RBAC matrix, ABAC consent proxy, 2FA, session management | ✅ Draft |
+| [`Phase3/05_Event_and_Background_Jobs.md`](./Phase3/05_Event_and_Background_Jobs.md) | Celery job catalog, beat schedule, failure handling, monitoring | ✅ Draft |
+| [`Phase3/06_Data_Room_Architecture.md`](./Phase3/06_Data_Room_Architecture.md) | Secure document storage — upload/download flows, consent immutability | ✅ Draft |
 
 ### Phase 4 — Object Design
 | File | Purpose | Status |
 |---|---|---|
-| `Phase4/01_Calculation_Engine_Contracts.md` | Mathematical contracts for all 8 engines | 🔲 Planned |
-| `Phase4/02_Design_Patterns.md` | Pattern choices with implementation detail | 🔲 Planned |
-| `Phase4/03_Class_Interfaces.md` | Full class interface specifications | 🔲 Planned |
-| `Phase4/04_Legal_Rules_Engine_Design.md` | Versioned rules engine data model | 🔲 Planned |
+| [`Phase4/01_Calculation_Engine_Contracts.md`](./Phase4/01_Calculation_Engine_Contracts.md) | Mathematical formulas for all 8 engines — XIRR, TWRR, drawdown, DSR, funding gap | ✅ Draft |
+| [`Phase4/02_Design_Patterns.md`](./Phase4/02_Design_Patterns.md) | 7 patterns (Strategy, Proxy, Facade, Observer, Adapter, Template, Repository) with Python skeletons | ✅ Draft |
+| [`Phase4/03_Class_Interfaces.md`](./Phase4/03_Class_Interfaces.md) | Python Protocol interfaces, Pydantic schemas, domain dataclasses, error types | ✅ Draft |
+| [`Phase4/04_Legal_Rules_Engine_Design.md`](./Phase4/04_Legal_Rules_Engine_Design.md) | GiftRuleEngine: S.56(2)(x) relative definition, eligibility flowchart, stamp duty, version management | ✅ Draft |
 
 ### Phase 5 — Implementation
 | File | Purpose | Status |
