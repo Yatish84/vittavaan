@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#F2EFE8;-webkit-font-smoothing:antialiased}
+  a{color:#1A3A26;text-decoration:none}
+  a:hover{color:#7E6329}
+</style>
+<template id="__bundler_thumbnail" data-bg-color="#0E2116"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#0E2116"/><g fill="none" stroke="#C7A664" stroke-width="4"><circle cx="100" cy="100" r="26"/><path d="M100 52V38M100 162v-14M148 100h14M38 100h14M134 66l10-10M56 144l10-10M134 134l10 10M56 56l10 10"/></g></svg></template>
+</helmet>
+
+<div style="width:1440px;box-sizing:border-box;min-height:1024px;display:flex;gap:16px;padding:16px;background:#F2EFE8;background-image:radial-gradient(#D8D3C7 1px,transparent 1px);background-size:22px 22px;font-family:'Manrope',system-ui,sans-serif;color:#282A2E;font-variant-numeric:tabular-nums">
+
+  <nav style="width:236px;flex:0 0 236px;box-sizing:border-box;background:#0E2116;border-radius:10px;padding:26px 18px 28px;display:flex;flex-direction:column;gap:24px">
+    <img src="brand/lockup-reversed.svg" alt="Vittavaan" style="width:146px;display:block;margin:4px 0 0 8px">
+    <div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(247,245,240,.4);padding:0 4px 10px">Sections</div>
+      <div style="display:flex;flex-direction:column"><a href="Net worth.dc.html" style="height:36px;display:flex;align-items:center;gap:8px;padding:0 10px;font-size:14px;border-radius:2px;color:rgba(247,245,240,.7)"><span style="flex:none;width:12px;font-size:9px;color:rgba(247,245,240,.55)">▸</span>Portfolio</a><a href="Analysis.dc.html" style="height:36px;display:flex;align-items:center;gap:8px;padding:0 10px;font-size:14px;border-radius:2px;color:rgba(247,245,240,.7)"><span style="flex:none;width:12px;font-size:9px;color:rgba(247,245,240,.55)">▸</span>Analysis</a><a href="Planning.dc.html#goals" style="height:36px;display:flex;align-items:center;gap:8px;padding:0 10px;font-size:14px;border-radius:2px;color:rgba(247,245,240,.7)"><span style="flex:none;width:12px;font-size:9px;color:rgba(247,245,240,.55)">▸</span>Planning</a><a href="All listings.dc.html" style="height:36px;display:flex;align-items:center;gap:8px;padding:0 10px;font-size:14px;border-radius:2px;color:rgba(247,245,240,.7)"><span style="flex:none;width:12px;font-size:9px;color:rgba(247,245,240,.55)">▸</span>Marketplace</a><a href="Peers.dc.html" style="height:36px;display:flex;align-items:center;gap:8px;padding:0 10px;font-size:14px;border-radius:2px;color:rgba(247,245,240,.7)"><span style="flex:none;width:12px"></span>Peers</a><div style="height:36px;display:flex;align-items:center;gap:8px;padding:0 10px;font-size:14px;border-radius:2px;color:#F7F5F0;font-weight:600;background:#245034;border-left:2px solid #C7A664"><span style="flex:none;width:12px;font-size:9px;color:#C7A664">▾</span>Profile</div><div style="display:flex;flex-direction:column;margin:2px 0 6px"><a href="Investor profile.dc.html" style="height:30px;display:flex;align-items:center;padding:0 10px 0 30px;font-size:13px;border-radius:2px;color:rgba(247,245,240,.62)">Investor profile</a><a href="Financial resume.dc.html" style="height:30px;display:flex;align-items:center;padding:0 10px 0 30px;font-size:13px;border-radius:2px;color:rgba(247,245,240,.62)">Financial resume</a></div></div>
+    </div>
+    <div style="margin-top:auto;border-top:1px solid #245034;padding-top:14px;display:flex;flex-direction:column;gap:2px">
+      <a href="Connections.dc.html" style="height:32px;display:flex;align-items:center;padding:0 10px;font-size:13px;border-radius:2px;color:rgba(247,245,240,.66)">Connections</a>
+      <div style="height:32px;display:flex;align-items:center;padding:0 10px;font-size:13px;border-radius:2px;color:#F7F5F0;font-weight:600;background:#245034;border-left:2px solid #C7A664">Settings</div>
+      <div style="display:flex;gap:10px;align-items:center;padding:14px 10px 0">
+        <div style="width:34px;height:34px;border-radius:50%;background:#245034;color:#C7A664;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">AR</div>
+        <div><div style="font-size:13px;font-weight:600;color:#F7F5F0">Ananya Rao</div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(247,245,240,.42);margin-top:2px">81% verified</div></div>
+      </div>
+    </div>
+  </nav>
+
+  <main style="flex:1;min-width:0;padding:12px 8px 24px">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;padding:8px 12px;margin-bottom:16px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075">Profile &nbsp;›&nbsp; Settings</div>
+      <div style="display:flex;gap:4px;align-items:center;flex-wrap:wrap"><div onClick="{{ go1 }}" style="padding:7px 13px;border-radius:6px;font-size:12.5px;font-weight:600;cursor:pointer;background:{{ tab1Bg }};color:{{ tab1Fg }}">You</div><div onClick="{{ go2 }}" style="padding:7px 13px;border-radius:6px;font-size:12.5px;font-weight:600;cursor:pointer;background:{{ tab2Bg }};color:{{ tab2Fg }}">Household</div><div onClick="{{ go3 }}" style="padding:7px 13px;border-radius:6px;font-size:12.5px;font-weight:600;cursor:pointer;background:{{ tab3Bg }};color:{{ tab3Fg }}">Privacy</div><div onClick="{{ go4 }}" style="padding:7px 13px;border-radius:6px;font-size:12.5px;font-weight:600;cursor:pointer;background:{{ tab4Bg }};color:{{ tab4Fg }}">Notifications</div><div onClick="{{ go5 }}" style="padding:7px 13px;border-radius:6px;font-size:12.5px;font-weight:600;cursor:pointer;background:{{ tab5Bg }};color:{{ tab5Fg }}">Display</div><div onClick="{{ go6 }}" style="padding:7px 13px;border-radius:6px;font-size:12.5px;font-weight:600;cursor:pointer;background:{{ tab6Bg }};color:{{ tab6Fg }}">Security</div></div>
+          </div>
+
+    <sc-if value="{{ p1 }}" hint-placeholder-val="{{ true }}">
+    <div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:20px;border-bottom:1px solid #E8E5DD">
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#7E6329">Settings</div><h1 style="font-family:'Jost',sans-serif;font-weight:300;font-size:34px;line-height:1.1;letter-spacing:-.02em;color:#1A3A26;margin:8px 0 0">You</h1></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075;text-align:right">Member since Aug 2026<br>Last change 4 days ago</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:16px;margin-top:20px;align-items:start">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px 12px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Identity</div>
+            <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13.5px"><span style="flex:none;width:180px;color:#6B7075">Legal name</span><span style="min-width:0;flex:1;font-weight:600">Ananya Rao</span><span style="flex:none;width:150px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#2E7D4F">Verified · PAN</span></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:180px;color:#6B7075">Date of birth</span><span style="min-width:0;flex:1;font-weight:600">14 March 1986</span><span style="flex:none;width:150px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#2E7D4F">Verified</span></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:180px;color:#6B7075">PAN</span><span style="min-width:0;flex:1;font-weight:600">•••••4821F</span><span style="flex:none;width:150px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#6B7075">Cannot be changed</span></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:180px;color:#6B7075">Tax residency</span><span style="min-width:0;flex:1;font-weight:600">India · resident</span><span style="flex:none;width:150px;text-align:right;font-size:12.5px"><span style="border:1px solid #E8E5DD;border-radius:6px;padding:6px 12px;cursor:pointer">Change</span></span></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:180px;color:#6B7075">Email and phone</span><span style="min-width:0;flex:1;font-weight:600">a.rao@•••••.com · +91 ••••• 4409</span><span style="flex:none;width:150px;text-align:right;font-size:12.5px"><span style="border:1px solid #E8E5DD;border-radius:6px;padding:6px 12px;cursor:pointer">Change</span></span></div>
+            <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:14px 0 8px">Changing tax residency alters how gains, TDS and every calculator behave. It is not a display preference, so it asks for re-authentication and a reason.</p>
+          </div>
+
+          <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px 12px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Your data</div>
+            <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Export everything<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Holdings, transactions, documents, audit log — machine-readable, no lock-in</div></span><span style="flex:none;width:150px;text-align:right;font-size:12.5px"><span style="border:1px solid #E8E5DD;border-radius:6px;padding:8px 13px;font-weight:600;cursor:pointer">Export</span></span></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Close your account<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Feeds disconnect immediately. Records you are a party to — deeds, agreements, an estate — are retained because a counterparty has rights in them too.</div></span><span style="flex:none;width:150px;text-align:right;font-size:12.5px"><span style="border:1px solid #B4432E;color:#B4432E;border-radius:6px;padding:8px 13px;font-weight:600;cursor:pointer">Close</span></span></div>
+            <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:14px 0 8px">The export is complete and readable without us. If a wealth platform makes leaving hard, it has stopped competing on being useful.</p>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:22px 24px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">What you are paying</div>
+            <div style="font-size:30px;font-weight:700;letter-spacing:-.025em;color:#F7F5F0;margin-top:12px">₹0</div>
+            <div style="font-size:12.5px;color:rgba(247,245,240,.6);margin-top:5px">No subscription on your plan</div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;margin-top:14px;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">Paid to us by lenders, 12 months</span><span style="flex:none;font-weight:600">₹17,500</span></div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">Paid to us on marketplace deals</span><span style="flex:none;font-weight:600">₹62,500</span></div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="min-width:0;flex:1">Paid to advisors, through us</span><span style="flex:none;font-weight:600">₹79,000</span></div>
+            <p style="font-size:12.5px;line-height:1.6;color:rgba(247,245,240,.6);margin:14px 0 0;text-wrap:pretty">Every rupee we have earned from your activity, listed. You should never have to ask how a free product makes money.</p>
+          </div>
+          <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Your roles</div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Owner of your own assets</span><span style="flex:none;font-weight:600">₹2,01,00,000</span></div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Administrator for Vasant</span><span style="flex:none;font-weight:600">Since Aug 2026</span></div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Administrator for Nirmala</span><span style="flex:none;font-weight:600">Since Aug 2026</span></div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Guardian · Rohan, Priyanka</span><span style="flex:none;font-weight:600">Until 18</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ p2 }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:20px;border-bottom:1px solid #E8E5DD">
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#7E6329">Settings</div><h1 style="font-family:'Jost',sans-serif;font-weight:300;font-size:34px;line-height:1.1;letter-spacing:-.02em;color:#1A3A26;margin:8px 0 0">Household and access</h1></div>
+        <div style="padding:9px 16px;background:#1A3A26;color:#F7F5F0;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer">Invite a member</div>
+      </div>
+
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px 12px;margin-top:20px">
+        <div style="display:flex;gap:14px;padding-bottom:10px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:#7E6329"><span style="min-width:0;flex:1">Member</span><span style="flex:none;width:150px">Their role</span><span style="flex:none;width:170px">What you can see</span><span style="flex:none;width:170px">What they see of you</span><span style="flex:none;width:130px;text-align:right">Their assets</span></div>
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Manoj Rao · 40<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Husband. Owns his own account outright.</div></span><span style="flex:none;width:150px">Owner</span><span style="flex:none;width:170px;color:#6B7075">Totals and classes<div style="font-size:11.5px;margin-top:3px">Not individual holdings</div></span><span style="flex:none;width:170px;color:#6B7075">Totals and classes</span><span style="flex:none;width:130px;text-align:right;font-weight:600">₹2,71,00,000</span></div>
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Vasant Rao · 70<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Father. You administer at his request.</div></span><span style="flex:none;width:150px">Owner · you administer</span><span style="flex:none;width:170px;color:#6B7075">Everything except succession</span><span style="flex:none;width:170px;color:#6B7075">Nothing</span><span style="flex:none;width:130px;text-align:right;font-weight:600">₹76,10,000</span></div>
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Nirmala Rao · 66<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Mother.</div></span><span style="flex:none;width:150px">Owner · you administer</span><span style="flex:none;width:170px;color:#6B7075">Everything except succession</span><span style="flex:none;width:170px;color:#6B7075">Nothing</span><span style="flex:none;width:130px;text-align:right;font-weight:600">₹27,90,000</span></div>
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Rohan Rao · 10<div style="font-size:11.5px;color:#8F6414;font-weight:400;margin-top:3px">Control transfers to him on 06 Jul 2034</div></span><span style="flex:none;width:150px">Minor · you are guardian</span><span style="flex:none;width:170px;color:#6B7075">Everything</span><span style="flex:none;width:170px;color:#6B7075">No account yet</span><span style="flex:none;width:130px;text-align:right;font-weight:600">₹38,00,000</span></div>
+        <div style="display:flex;align-items:flex-start;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Priyanka Rao · 7<div style="font-size:11.5px;color:#8F6414;font-weight:400;margin-top:3px">Control transfers to her on 19 Nov 2037</div></span><span style="flex:none;width:150px">Minor · you are guardian</span><span style="flex:none;width:170px;color:#6B7075">Everything</span><span style="flex:none;width:170px;color:#6B7075">No account yet</span><span style="flex:none;width:130px;text-align:right;font-weight:600">₹26,00,000</span></div>
+        <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:14px 0 8px;max-width:100ch;text-wrap:pretty">Being related grants nothing. Manoj shares totals with you and you share totals with him, because you both chose that — and either of you can narrow it tomorrow without asking the other.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What an administrator can never do</div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="flex:none;color:#B4432E">—</span><span style="min-width:0;flex:1">Commit that member's money · sell, gift, borrow, list</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="flex:none;color:#B4432E">—</span><span style="min-width:0;flex:1">Read their succession record, or see that one exists</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="flex:none;color:#B4432E">—</span><span style="min-width:0;flex:1">Release their identity to a lender or counterparty</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="flex:none;color:#B4432E">—</span><span style="min-width:0;flex:1">Add or remove their access to anyone else</span></div>
+          <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:12px 0 0;text-wrap:pretty">You do the work; your father authorises the decisions. When he registered the gift in 2027 you prepared everything and he signed.</p>
+        </div>
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Who has looked, last 30 days</div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">Manoj · household totals</span><span style="flex:none;font-weight:600">14 times</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">You · Vasant's assets</span><span style="flex:none;font-weight:600">9 times</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Kulkarni &amp; Associates · attestation scope</span><span style="flex:none;font-weight:600">3 times</span></div>
+          <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">A lender · your released file</span><span style="flex:none;font-weight:600">6 times</span></div>
+          <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:12px 0 0;text-wrap:pretty">Every read of your data by anyone, including you reading someone else's. Vasant sees the nine.</p>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ p3 }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:20px;border-bottom:1px solid #E8E5DD">
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#7E6329">Settings</div><h1 style="font-family:'Jost',sans-serif;font-weight:300;font-size:34px;line-height:1.1;letter-spacing:-.02em;color:#1A3A26;margin:8px 0 0">Privacy and consents</h1></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075;text-align:right">Everything here is revocable<br>Nothing here is sold</div>
+      </div>
+
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px 12px;margin-top:20px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Who currently holds your identity</div>
+        <div style="display:flex;gap:14px;padding:12px 0 8px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:#7E6329"><span style="min-width:0;flex:1">Party</span><span style="flex:none;width:200px">Why they have it</span><span style="flex:none;width:130px">Released</span><span style="flex:none;width:150px">Deletion due</span><span style="flex:none;width:110px;text-align:right">Action</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">A private bank, west India<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Your ₹50,00,000 facility at 8.45%</div></span><span style="flex:none;width:200px;color:#6B7075">One loan, one purpose</span><span style="flex:none;width:130px;color:#6B7075">01 Sep 2026</span><span style="flex:none;width:150px;color:#6B7075">On repayment + 8 yrs</span><span style="flex:none;width:110px;text-align:right;font-size:12.5px"><span style="border:1px solid #E8E5DD;border-radius:6px;padding:6px 11px;cursor:pointer">View</span></span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Kulkarni &amp; Associates<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Your CA. Attests the property valuations.</div></span><span style="flex:none;width:200px;color:#6B7075">Attestation scope only</span><span style="flex:none;width:130px;color:#6B7075">12 Aug 2026</span><span style="flex:none;width:150px;color:#6B7075">On your instruction</span><span style="flex:none;width:110px;text-align:right;font-size:12.5px"><span style="border:1px solid #B4432E;color:#B4432E;border-radius:6px;padding:6px 11px;cursor:pointer">Revoke</span></span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">A stamp seller<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Counterparty to your Sep 2026 purchase</div></span><span style="flex:none;width:200px;color:#6B7075">Completed transaction</span><span style="flex:none;width:130px;color:#6B7075">08 Sep 2026</span><span style="flex:none;width:150px;color:#8F6414">Retained · both parties</span><span style="flex:none;width:110px;text-align:right;font-size:12.5px"><span style="border:1px solid #E8E5DD;border-radius:6px;padding:6px 11px;cursor:pointer">View</span></span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">A syndicate lead<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Financial resume · claims only, no amounts</div></span><span style="flex:none;width:200px;color:#6B7075">Resume share, expiring</span><span style="flex:none;width:130px;color:#6B7075">22 Aug 2026</span><span style="flex:none;width:150px;color:#6B7075">Link ends 21 Sep</span><span style="flex:none;width:110px;text-align:right;font-size:12.5px"><span style="border:1px solid #B4432E;color:#B4432E;border-radius:6px;padding:6px 11px;cursor:pointer">Revoke</span></span></div>
+        <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:14px 0 8px;max-width:100ch;text-wrap:pretty">A completed transaction cannot be un-shared — your counterparty has the same legal right to the record that you do. Everything else on this list stops the moment you say so.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px 12px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Your choices</div>
+          <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13.5px"><span style="min-width:0;flex:1">Discoverable by name in the marketplace<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Off means you can still buy and sell — nobody can search for you</div></span><span style="flex:none;width:40px;height:22px;border-radius:11px;background:#E8E5DD;display:flex;align-items:center;padding:0 3px"><span style="width:16px;height:16px;border-radius:50%;background:#FCFCFC;display:block"></span></span></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Anonymised data used to improve the product<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Aggregate patterns only, never sold, never shared with a lender</div></span><span style="flex:none;width:40px;height:22px;border-radius:11px;background:#E8E5DD;display:flex;align-items:center;padding:0 3px"><span style="width:16px;height:16px;border-radius:50%;background:#FCFCFC;display:block"></span></span></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Monthly bureau refresh<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Soft pull. Off means your conduct score goes stale and credit bids worsen.</div></span><span style="flex:none;width:40px;height:22px;border-radius:11px;background:#1A3A26;display:flex;align-items:center;justify-content:flex-end;padding:0 3px"><span style="width:16px;height:16px;border-radius:50%;background:#FCFCFC;display:block"></span></span></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Let Ask read documents in the data room<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Off means it answers from figures only, not from your deeds and contracts</div></span><span style="flex:none;width:40px;height:22px;border-radius:11px;background:#1A3A26;display:flex;align-items:center;justify-content:flex-end;padding:0 3px"><span style="width:16px;height:16px;border-radius:50%;background:#FCFCFC;display:block"></span></span></div>
+        </div>
+        <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:22px 24px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">Four things we will never do</div>
+          <div style="display:flex;gap:12px;padding:12px 0;border-top:1px solid #245034;margin-top:12px;font-size:13px;color:rgba(247,245,240,.86)"><span style="flex:none;color:#D97757">—</span><span style="min-width:0;flex:1">Sell your data, in any form, to anyone</span></div>
+          <div style="display:flex;gap:12px;padding:12px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="flex:none;color:#D97757">—</span><span style="min-width:0;flex:1">Release your identity without a signed, scoped consent</span></div>
+          <div style="display:flex;gap:12px;padding:12px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="flex:none;color:#D97757">—</span><span style="min-width:0;flex:1">Use your investor profile to decide what you are offered</span></div>
+          <div style="display:flex;gap:12px;padding:12px 0;border-top:1px solid #245034;font-size:13px;color:rgba(247,245,240,.86)"><span style="flex:none;color:#D97757">—</span><span style="min-width:0;flex:1">Show one household member another's data without a grant</span></div>
+          <p style="font-size:12.5px;line-height:1.6;color:rgba(247,245,240,.6);margin:14px 0 0;text-wrap:pretty">These are not settings. They cannot be switched on, by you or by us.</p>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ p4 }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:20px;border-bottom:1px solid #E8E5DD">
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#7E6329">Settings</div><h1 style="font-family:'Jost',sans-serif;font-weight:300;font-size:34px;line-height:1.1;letter-spacing:-.02em;color:#1A3A26;margin:8px 0 0">What we tell you</h1></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075;text-align:right">14 messages in the last 30 days<br>Your setting: monthly, plus urgent</div>
+      </div>
+
+      <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px 12px;margin-top:20px">
+        <div style="display:flex;gap:14px;padding-bottom:10px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:#7E6329"><span style="min-width:0;flex:1">Tell me about</span><span style="flex:none;width:120px;text-align:center">Email</span><span style="flex:none;width:120px;text-align:center">In app</span><span style="flex:none;width:120px;text-align:center">SMS</span><span style="flex:none;width:170px;text-align:right">Last 30 days</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Something needs a decision within 7 days<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">A consent expiring, a bid window closing, a margin call</div></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#1A3A26"></span></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#1A3A26"></span></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#1A3A26"></span></span><span style="flex:none;width:170px;text-align:right;color:#6B7075">3</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">A feed broke or a valuation went stale</span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#1A3A26"></span></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#1A3A26"></span></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#E8E5DD"></span></span><span style="flex:none;width:170px;text-align:right;color:#6B7075">2</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Monthly summary<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">One email. What moved, what is coming, nothing to click.</div></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#1A3A26"></span></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#E8E5DD"></span></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#E8E5DD"></span></span><span style="flex:none;width:170px;text-align:right;color:#6B7075">1</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">A dated fact from your own documents<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Lease renewal, vesting window, policy renewal, a child's birthday</div></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#1A3A26"></span></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#1A3A26"></span></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#E8E5DD"></span></span><span style="flex:none;width:170px;text-align:right;color:#6B7075">4</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Household activity by someone else<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">A member transacts, a role changes, an access grant is added</div></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#1A3A26"></span></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#1A3A26"></span></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#E8E5DD"></span></span><span style="flex:none;width:170px;text-align:right;color:#6B7075">2</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Market moves and price alerts<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Off by default. Twelve years of behaviour say you do not trade on these.</div></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#E8E5DD"></span></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#E8E5DD"></span></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#E8E5DD"></span></span><span style="flex:none;width:170px;text-align:right;color:#6B7075">0</span></div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Marketplace listings matching your interests<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">The only commercial message we send, and it is off unless you ask</div></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#E8E5DD"></span></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#E8E5DD"></span></span><span style="flex:none;width:120px;text-align:center"><span style="display:inline-block;width:40px;height:22px;border-radius:11px;background:#E8E5DD"></span></span><span style="flex:none;width:170px;text-align:right;color:#6B7075">0</span></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">
+        <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:22px 24px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">Fourteen messages in a month</div>
+          <p style="font-size:13.5px;line-height:1.65;color:rgba(247,245,240,.86);margin:12px 0 0;text-wrap:pretty">Every one of them was a dated fact or a broken feed. None was a suggestion, a market move, or an opportunity.</p>
+          <p style="font-size:13.5px;line-height:1.65;color:rgba(247,245,240,.86);margin:12px 0 0;text-wrap:pretty">If this product is doing its job, most months are quieter than this one, and you should be able to ignore it for a fortnight without missing anything.</p>
+        </div>
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Quiet hours and pauses</div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13.5px"><span style="min-width:0;flex:1">Nothing between 9 PM and 8 AM<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Except a margin call, which cannot wait</div></span><span style="flex:none;width:40px;height:22px;border-radius:11px;background:#1A3A26;display:flex;align-items:center;justify-content:flex-end;padding:0 3px"><span style="width:16px;height:16px;border-radius:50%;background:#FCFCFC;display:block"></span></span></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Pause everything for a period<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Bereavement, travel, or a month you would rather not think about money</div></span><span style="flex:none;font-size:12.5px"><span style="border:1px solid #E8E5DD;border-radius:6px;padding:7px 12px;cursor:pointer">Set a pause</span></span></div>
+          <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:12px 0 0;text-wrap:pretty">A pause holds prompts rather than dropping them. They wait, dated, until you come back.</p>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ p5 }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:20px;border-bottom:1px solid #E8E5DD">
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#7E6329">Settings</div><h1 style="font-family:'Jost',sans-serif;font-weight:300;font-size:34px;line-height:1.1;letter-spacing:-.02em;color:#1A3A26;margin:8px 0 0">How money is shown</h1></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075;text-align:right">Display only<br>Nothing here changes a stored value</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px">
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px 12px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Numbers</div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13.5px"><span style="flex:none;width:170px;color:#6B7075">Number system</span><span style="min-width:0;flex:1"><span style="border:1px solid #1A3A26;background:#1A3A26;color:#F7F5F0;border-radius:6px;padding:6px 12px;font-size:12.5px;font-weight:600;cursor:pointer">Indian · ₹6,47,00,000</span> <span style="border:1px solid #E8E5DD;border-radius:6px;padding:6px 12px;font-size:12.5px;cursor:pointer">International · ₹64,700,000</span></span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:170px;color:#6B7075">Abbreviate</span><span style="min-width:0;flex:1"><span style="border:1px solid #E8E5DD;border-radius:6px;padding:6px 12px;font-size:12.5px;cursor:pointer">₹6.47 Cr</span> <span style="border:1px solid #1A3A26;background:#1A3A26;color:#F7F5F0;border-radius:6px;padding:6px 12px;font-size:12.5px;font-weight:600;cursor:pointer">Full figures</span></span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:170px;color:#6B7075">Financial year</span><span style="min-width:0;flex:1"><span style="border:1px solid #1A3A26;background:#1A3A26;color:#F7F5F0;border-radius:6px;padding:6px 12px;font-size:12.5px;font-weight:600;cursor:pointer">Apr–Mar</span> <span style="border:1px solid #E8E5DD;border-radius:6px;padding:6px 12px;font-size:12.5px;cursor:pointer">Jan–Dec</span></span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="flex:none;width:170px;color:#6B7075">Second currency</span><span style="min-width:0;flex:1;font-weight:600">USD, on the two foreign-denominated goals only</span></div>
+          <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:14px 0 8px">Full figures is the default and we would gently keep it. "₹6.47 Cr" hides ₹4,00,000 of rounding, and the whole product is built on not doing that.</p>
+        </div>
+
+        <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px 12px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What counts in your headline number</div>
+          <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13.5px"><span style="min-width:0;flex:1">Show self-declared holdings in net worth<div style="font-size:11.5px;color:#6B7075;margin-top:3px">₹1,21,00,000. Off would show ₹5,26,00,000 everywhere.</div></span><span style="flex:none;width:40px;height:22px;border-radius:11px;background:#1A3A26;display:flex;align-items:center;justify-content:flex-end;padding:0 3px"><span style="width:16px;height:16px;border-radius:50%;background:#FCFCFC;display:block"></span></span></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Show unrealised gains as return<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Off would report 12.4% instead of 14.2%</div></span><span style="flex:none;width:40px;height:22px;border-radius:11px;background:#1A3A26;display:flex;align-items:center;justify-content:flex-end;padding:0 3px"><span style="width:16px;height:16px;border-radius:50%;background:#FCFCFC;display:block"></span></span></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Include the household, not just you<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Your own share is ₹2,72,00,000 of the ₹6,47,00,000</div></span><span style="flex:none;width:40px;height:22px;border-radius:11px;background:#1A3A26;display:flex;align-items:center;justify-content:flex-end;padding:0 3px"><span style="width:16px;height:16px;border-radius:50%;background:#FCFCFC;display:block"></span></span></div>
+          <div style="display:flex;align-items:center;gap:12px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Net of estimated tax if sold today<div style="font-size:11.5px;color:#6B7075;margin-top:3px">A truer number, and a much slower page. Off by default.</div></span><span style="flex:none;width:40px;height:22px;border-radius:11px;background:#E8E5DD;display:flex;align-items:center;padding:0 3px"><span style="width:16px;height:16px;border-radius:50%;background:#FCFCFC;display:block"></span></span></div>
+          <p style="font-size:12.5px;line-height:1.6;color:#8F6414;margin:14px 0 8px">Turning any of these off never hides a holding. It changes which total is on top, and the screen always says which basis you are on.</p>
+        </div>
+      </div>
+
+      <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:24px 28px;margin-top:16px">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">Your headline, under each setting</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:18px">
+          <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,245,240,.5)">As shown now</div><div style="font-size:26px;font-weight:700;color:#F7F5F0;margin-top:8px">₹6,47,00,000</div><div style="font-size:12.5px;color:rgba(247,245,240,.6);margin-top:4px">Household, everything included</div></div>
+          <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,245,240,.5)">Verified only</div><div style="font-size:26px;font-weight:700;color:#F7F5F0;margin-top:8px">₹5,26,00,000</div><div style="font-size:12.5px;color:rgba(247,245,240,.6);margin-top:4px">What a lender sees</div></div>
+          <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,245,240,.5)">Yours alone</div><div style="font-size:26px;font-weight:700;color:#F7F5F0;margin-top:8px">₹2,72,00,000</div><div style="font-size:12.5px;color:rgba(247,245,240,.6);margin-top:4px">Her own, plus half the joint holdings</div></div>
+          <div><div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,245,240,.5)">After tax if sold today</div><div style="font-size:26px;font-weight:700;color:#F7F5F0;margin-top:8px">₹6,06,00,000</div><div style="font-size:12.5px;color:rgba(247,245,240,.6);margin-top:4px">Estimated, all classes</div></div>
+        </div>
+        <p style="font-size:13px;line-height:1.6;color:rgba(247,245,240,.6);margin:18px 0 0;max-width:96ch;text-wrap:pretty">All four are true. Choosing which one greets you every morning is a real decision, so the alternatives are shown here rather than buried behind a toggle.</p>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ p6 }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding-bottom:20px;border-bottom:1px solid #E8E5DD">
+        <div><div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#7E6329">Settings</div><h1 style="font-family:'Jost',sans-serif;font-weight:300;font-size:34px;line-height:1.1;letter-spacing:-.02em;color:#1A3A26;margin:8px 0 0">Security</h1></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075;text-align:right">You administer four accounts<br>Yours is the weakest link for all of them</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:16px;margin-top:20px;align-items:start">
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px 12px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Getting in</div>
+            <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Passkey on this device<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">No password to phish. Added 12 Aug 2026.</div></span><span style="flex:none;width:150px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#2E7D4F">Active</span></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Second factor<div style="font-size:11.5px;color:#6B7075;font-weight:400;margin-top:3px">Authenticator app. SMS is available and materially weaker.</div></span><span style="flex:none;width:150px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:#2E7D4F">Active</span></div>
+            <div style="display:flex;align-items:center;gap:14px;padding:13px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1;font-weight:600">Recovery<div style="font-size:11.5px;color:#8F6414;font-weight:400;margin-top:3px">Codes generated Aug 2026, never downloaded. Losing your device today would lock out four accounts.</div></span><span style="flex:none;width:150px;text-align:right;font-size:12.5px"><span style="border:1px solid #B4432E;color:#B4432E;border-radius:6px;padding:7px 12px;font-weight:600;cursor:pointer">Fix this</span></span></div>
+          </div>
+
+          <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px 12px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Ask me again before</div>
+            <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13.5px"><span style="min-width:0;flex:1">Releasing your identity to any third party</span><span style="flex:none;width:40px;height:22px;border-radius:11px;background:#1A3A26;display:flex;align-items:center;justify-content:flex-end;padding:0 3px"><span style="width:16px;height:16px;border-radius:50%;background:#FCFCFC;display:block"></span></span></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Committing to any transaction</span><span style="flex:none;width:40px;height:22px;border-radius:11px;background:#1A3A26;display:flex;align-items:center;justify-content:flex-end;padding:0 3px"><span style="width:16px;height:16px;border-radius:50%;background:#FCFCFC;display:block"></span></span></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Changing an access grant or a role</span><span style="flex:none;width:40px;height:22px;border-radius:11px;background:#1A3A26;display:flex;align-items:center;justify-content:flex-end;padding:0 3px"><span style="width:16px;height:16px;border-radius:50%;background:#FCFCFC;display:block"></span></span></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid #E8E5DD;font-size:13.5px"><span style="min-width:0;flex:1">Exporting or closing the account</span><span style="flex:none;width:40px;height:22px;border-radius:11px;background:#1A3A26;display:flex;align-items:center;justify-content:flex-end;padding:0 3px"><span style="width:16px;height:16px;border-radius:50%;background:#FCFCFC;display:block"></span></span></div>
+            <p style="font-size:12.5px;line-height:1.6;color:#6B7075;margin:12px 0 8px">These four cannot be switched off. Reading is easy; committing should not be.</p>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Where you are signed in</div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;margin-top:12px;font-size:13px"><span style="min-width:0;flex:1">MacBook · Pune<div style="font-size:11.5px;color:#6B7075;margin-top:3px">This device, right now</div></span><span style="flex:none;color:#2E7D4F;font-weight:600">Current</span></div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">iPhone · Pune<div style="font-size:11.5px;color:#6B7075;margin-top:3px">Yesterday, 8:14 PM</div></span><span style="flex:none;color:#6B7075">Active</span></div>
+            <div style="display:flex;gap:12px;padding:11px 0;border-top:1px solid #E8E5DD;font-size:13px"><span style="min-width:0;flex:1">Windows · Mumbai<div style="font-size:11.5px;color:#8F6414;margin-top:3px">14 Aug. You have not used this since.</div></span><span style="flex:none;color:#B4432E;font-weight:600;cursor:pointer">End</span></div>
+            <div style="margin-top:14px;padding:10px 14px;border:1px solid #E8E5DD;border-radius:8px;font-size:12.5px;font-weight:600;text-align:center;cursor:pointer">Sign out everywhere else</div>
+          </div>
+          <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:22px 24px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">If something happens to you</div>
+            <p style="font-size:13.5px;line-height:1.65;color:rgba(247,245,240,.86);margin:12px 0 0;text-wrap:pretty">You administer four accounts and hold the only route into this record. Nominate someone who can be granted read access if you are unreachable for 60 days — verified by us, never automatic, and revocable by you at any moment.</p>
+            <div style="margin-top:14px;padding:10px 14px;background:#C7A664;color:#0E2116;border-radius:8px;font-size:12.5px;font-weight:700;text-align:center;cursor:pointer">Nominate someone · not set</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+  </main>
+  <a href="Ask.dc.html" style="position:fixed;right:26px;bottom:26px;display:flex;align-items:center;gap:9px;background:#0E2116;border:1px solid #C7A664;border-radius:24px;padding:12px 18px;box-shadow:0 6px 22px rgba(14,33,22,.22)"><span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">Ask</span><span style="font-size:13px;color:#F7F5F0;font-weight:600">Anything about your money</span></a>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1024}}">
+class Component extends DCLogic {
+  state = { page: 1 };
+  go(n) { return () => this.setState({ page: n }); }
+  renderVals() {
+    const p = this.state.page;
+    const v = {};
+    for (let i = 1; i <= 6; i++) {
+      v["p" + i] = p === i;
+      v["go" + i] = this.go(i);
+      v["tab" + i + "Bg"] = p === i ? "#1A3A26" : "transparent";
+      v["tab" + i + "Fg"] = p === i ? "#F7F5F0" : "#282A2E";
+    }
+    return v;
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#F2EFE8;-webkit-font-smoothing:antialiased}
+  a{color:#1A3A26}
+  a:hover{color:#7E6329}
+</style>
+</helmet>
+
+<div style="width:1440px;box-sizing:border-box;margin:0 auto;background:#F2EFE8;background-image:radial-gradient(#D8D3C7 1px,transparent 1px);background-size:22px 22px;font-family:'Manrope',system-ui,sans-serif;color:#282A2E;font-variant-numeric:tabular-nums;padding:44px 44px 72px">
+
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding-bottom:24px;border-bottom:1px solid #C7A664">
+    <div>
+      <img src="brand/lockup-primary.svg" alt="Vittavaan" style="width:190px;display:block">
+      <h1 style="font-family:'Jost',sans-serif;font-weight:200;font-size:50px;line-height:1.04;letter-spacing:-.022em;color:#1A3A26;margin:24px 0 0">Ananya's five years,<br>screen by screen</h1>
+      <p style="font-size:16.5px;line-height:1.65;max-width:74ch;margin:18px 0 0;text-wrap:pretty">The build brief. Every screen designed so far, in the order one household encounters it, with what the user is doing, what the system has to do behind it, and the states that have to exist for the screen to be honest. Where a rule is not obvious from the design, it is written out. Where something is undecided, it says so rather than guessing.</p>
+    </div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#6B7075;text-align:right;line-height:2">User story · v1.0<br>For engineering<br>01 Sep 2026</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:24px">
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;padding:20px 22px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">Read alongside</div>
+      <div style="font-size:13px;line-height:1.9;margin-top:10px"><a href="Schema.dc.html">Data schema</a> — entities and fields<br><a href="User Flow.dc.html">Product flow</a> — why it is shaped this way<br><a href="User Story.dc.html">Platform map</a> — sequencing and gates</div>
+    </div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;padding:20px 22px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">The cast</div>
+      <div style="font-size:13px;line-height:1.75;margin-top:10px"><strong>Ananya Rao</strong>, 40, ₹70 L · household administrator<br><strong>Manoj Rao</strong>, 40, ₹1 Cr · her husband<br><strong>Rohan</strong> 10, <strong>Priyanka</strong> 7 · minors, guardian folios<br><strong>Vasant</strong> 70 and <strong>Nirmala</strong> 66 · her parents, dependants</div>
+    </div>
+    <div style="background:#0E2116;border-radius:10px;padding:20px 22px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">The rule under everything</div>
+      <div style="font-size:13px;line-height:1.65;color:rgba(247,245,240,.86);margin-top:10px">Every stored value has a source, an as-of timestamp and a verification level. What a user may <em>do</em> with a value is a function of its level, enforced server-side, never in the view.</div>
+    </div>
+  </div>
+
+  <h2 style="font-family:'Jost',sans-serif;font-weight:400;font-size:28px;color:#1A3A26;margin:46px 0 20px">Act one · Getting the ledger true</h2>
+
+  <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:16px;border-bottom:1px solid #E8E5DD">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7E6329;font-weight:500">Scene 00</span><span style="font-family:'Jost',sans-serif;font-weight:400;font-size:22px;color:#1A3A26">She links the accounts</span></div>
+      <div style="flex:none;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Aug 2026 · Ananya<br><a href="Assets and liabilities.dc.html">Connections</a></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px;margin-top:20px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">The story</div>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">Ananya has spreadsheets going back to 2014 and no confidence in them. She connects banks and a depository through an account aggregator, uploads the commercial property papers, and types in the things nothing can fetch — the Sangli land, a startup stake, gold.</p>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">The screen does not congratulate her on being connected. It tells her what proportion of her wealth is now provable, and what is not.</p>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What the system does</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:10px">Consent is per-institution, time-boxed and revocable, with the expiry visible and a renewal prompt before it lapses.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Each fetched holding is written with source, fetch timestamp and level 3. Manual entries land at level 1.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Uploaded documents are OCR'd for dates and amounts but never auto-promote a value's level. A document takes a holding to level 2, no further.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Verified share is computed by value, not by count, and recomputed on every write.</div>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">States to build</div>
+        <div style="font-size:13px;line-height:1.75;margin-top:10px">Nothing linked yet — the true empty state, and the most important screen in the product<br>Fetch failed, stale data shown with its age<br>Consent expiring in 14 days<br>Consent revoked, history retained<br>Duplicate holding detected across two feeds</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px;margin-top:16px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:16px;border-bottom:1px solid #E8E5DD">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7E6329;font-weight:500">Scene 01</span><span style="font-family:'Jost',sans-serif;font-weight:400;font-size:22px;color:#1A3A26">The first honest look</span></div>
+      <div style="flex:none;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Aug 2026 · Ananya<br><a href="Net worth.dc.html">Net worth</a></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px;margin-top:20px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">The story</div>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">₹6,47,00,000, and immediately underneath it the sentence that matters: 94% of it is verified. She has never seen the other 6% named before.</p>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">This is the home screen, and it is the only screen most users will see most days. It answers one question completely rather than five questions partially.</p>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What the system does</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:10px">Net worth is assets minus liabilities across every holder the viewer has rights over, priced at the last close, stamped with that time.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">No figure renders without its as-of. If a price is older than its class's staleness tolerance, it renders marked stale rather than fresh.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Movement is shown against a stated period and never annualised on a home screen.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">No marketplace or product surface may appear here. Enforced as a lint rule, not a convention.</div>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">States to build</div>
+        <div style="font-size:13px;line-height:1.75;margin-top:10px">First run, one account linked<br>Market closed, weekend, holiday<br>A feed down — partial figure, disclosed<br>Net worth negative<br>Single-holder view versus household view</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px;margin-top:16px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:16px;border-bottom:1px solid #E8E5DD">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7E6329;font-weight:500">Scene 02</span><span style="font-family:'Jost',sans-serif;font-weight:400;font-size:22px;color:#1A3A26">She goes looking for the detail</span></div>
+      <div style="flex:none;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Aug 2026 · Ananya<br><a href="Assets and liabilities.dc.html">Assets and liabilities</a></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px;margin-top:20px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">The story</div>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">Net worth, then assets, then one holding. Liabilities with their real rates. Cash flow, where she finds that four passive streams cover 85% of the household's fixed outgo. The data room, where eight years of paper finally has an index.</p>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">Every one of these is a list that drills to a record. The pattern is worth building once, properly.</p>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What the system does</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:10px">One holding record serves every view. Class, holder, quantity, cost, current value, valuation basis, level, as-of, linked documents, linked goals, pledge status.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">A holding pledged against a facility renders as pledged everywhere it appears, without exception.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Liabilities carry rate, type (fixed or floating), reset date, outstanding, schedule and the asset securing them.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Data room documents are attached to an entity, never to a folder. The folder view is derived.</div>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">States to build</div>
+        <div style="font-size:13px;line-height:1.75;margin-top:10px">Holding with no transaction history — XIRR unavailable, say so<br>Asset whose value is a user estimate<br>Document with no expiry versus one that lapses<br>Liability whose floating rate has just reset<br>An asset held jointly by two members</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px;margin-top:16px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:16px;border-bottom:1px solid #E8E5DD">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7E6329;font-weight:500">Scene 03</span><span style="font-family:'Jost',sans-serif;font-weight:400;font-size:22px;color:#1A3A26">She adds the family</span></div>
+      <div style="flex:none;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Aug 2026 · Ananya<br><a href="Household.dc.html">Household</a></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px;margin-top:20px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">The story</div>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">Six people, four of whom own something. Manoj's ESOPs, the children's guardian folios and Sukanya account, her parents' deposits. The picture that emerges is not the total — it is that 52% of the household sits with one person, and the two people with the least are the two who cannot earn more.</p>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">This screen is where the permission model becomes visible, and it is the hardest thing in the product to get right.</p>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What the system does</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:10px">Four roles: owner, administrator, viewer, dependant. Every asset belongs to exactly one member; the household total is derived, never stored.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">An administrator can gather, upload and run processes. Only an owner can commit that owner's money — enforced in the API, with the acting role written into every audit row.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Access is granted by the owner, per member, per asset class, and is revocable. Nothing is visible by default because two people are related.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">A minor's assets are administered until majority, then a transfer of control is scheduled and prompted.</div>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">States to build</div>
+        <div style="font-size:13px;line-height:1.75;margin-top:10px">Member invited, not yet accepted<br>Member who declines to share<br>Member who shares totals but not holdings<br>Minor turning 18<br>Member leaves the household<br>Member dies — see scene 14</div>
+      </div>
+    </div>
+  </div>
+
+  <h2 style="font-family:'Jost',sans-serif;font-weight:400;font-size:28px;color:#1A3A26;margin:46px 0 20px">Act two · Making sense of it</h2>
+
+  <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:16px;border-bottom:1px solid #E8E5DD">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7E6329;font-weight:500">Scene 04</span><span style="font-family:'Jost',sans-serif;font-weight:400;font-size:22px;color:#1A3A26">"Has any of this actually worked?"</span></div>
+      <div style="flex:none;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Aug 2026 · Ananya<br><a href="Analysis.dc.html">Analysis</a></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px;margin-top:20px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">The story</div>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">14.2% money-weighted over five years, against 12.8% time-weighted and a 10.9% benchmark. Then the line that changes how she reads it: two rows of that table are unrealised and self-declared, and without them the number is 12.4%.</p>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">She also learns one flexi-cap scheme costs her ₹2,01,600 a year against a category median of 1.10%. There is no button to switch it.</p>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What the system does</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:10px">XIRR needs every dated cash flow per holding. Where history is incomplete the metric is withheld, never estimated.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Attribution is contribution to total return — average weight times class return — and must sum to the headline. Label it so nobody reads it as class performance.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Every metric is computed twice: with and without level-1 holdings. Both are shown.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Benchmark data is licensed. Confirm terms before the composite index goes anywhere near a screen.</div>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">States to build</div>
+        <div style="font-size:13px;line-height:1.75;margin-top:10px">Under 12 months of history — no XIRR<br>A holding with no benchmark<br>A class held for part of the period only<br>Negative XIRR<br>Costs unavailable for a class</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px;margin-top:16px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:16px;border-bottom:1px solid #E8E5DD">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7E6329;font-weight:500">Scene 05</span><span style="font-family:'Jost',sans-serif;font-weight:400;font-size:22px;color:#1A3A26">Six goals, and the one that does not work</span></div>
+      <div style="flex:none;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Aug 2026 · Ananya<br><a href="Analysis.dc.html">Planning · Goals</a></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px;margin-top:20px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">The story</div>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">She names six things she is saving for and attaches real holdings to each. Four are on track. One depends on a syndicate exit that has no window. And Priyanka's education needs money in 2037 from an account that matures in 2040.</p>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">Nobody had noticed. It took no cleverness — just the maturity date and the target year on the same screen.</p>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What the system does</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:10px">A goal links to specific holdings, not to an amount. Selling a linked holding must warn which goals it defunds.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Projection is deterministic compounding of funded value plus recorded contributions, at assumptions displayed on the same screen and stored with the goal. Never a Monte Carlo the user cannot interrogate.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Liquidity check per goal: compare each funding holding's availability date against the goal date, and flag the mismatch. This is the rule that caught Priyanka's SSY.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Life-event prompts come only from dated facts already in the ledger — lease end, vesting window, policy renewal, a child's birthday. No inferred events.</div>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">States to build</div>
+        <div style="font-size:13px;line-height:1.75;margin-top:10px">Goal with nothing funding it<br>Goal funded by an illiquid asset<br>Goal already met<br>Goal in the past, unclosed<br>Two goals funded by the same holding<br>Assumptions changed — old projection retained</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px;margin-top:16px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:16px;border-bottom:1px solid #E8E5DD">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7E6329;font-weight:500">Scene 06</span><span style="font-family:'Jost',sans-serif;font-weight:400;font-size:22px;color:#1A3A26">Prepay or invest, worked all the way through</span></div>
+      <div style="flex:none;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Aug 2026 · Ananya<br><a href="Analysis.dc.html">Planning · Calculators</a></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px;margin-top:20px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">The story</div>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">The calculator opens already filled with her ₹1.92 Cr at 8.40%. Eleven years out, the two paths are ₹3,50,000 apart — under half a percent a year — and the crossover is 9.6%.</p>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">The answer is that it barely matters, which no calculator has ever told her before. She saves it into the goal, assumptions attached.</p>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What the system does</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:10px">Every calculator seeds from the user's own holdings and liabilities. A blank calculator is a failure state.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Every input is visible and editable. No hidden constant anywhere in the engine.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">A saved result stores its inputs, assumptions and the date, so the user can see in 2029 what they believed in 2026.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Every calculator states what it excludes. Tax deductions, prepayment charges, the value of being debt-free.</div>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">States to build</div>
+        <div style="font-size:13px;line-height:1.75;margin-top:10px">No liability to seed from<br>Inputs producing a nonsense result<br>Saved result whose underlying holding has since been sold<br>Assumptions edited after saving<br>Ten calculators, one shared shell</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:26px 28px;margin-top:16px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:16px;border-bottom:1px solid #245034">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#C7A664;font-weight:500">Scene 07</span><span style="font-family:'Jost',sans-serif;font-weight:400;font-size:22px;color:#F7F5F0">She just asks</span></div>
+      <div style="flex:none;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(247,245,240,.5)">Aug 2026 · Ananya<br><a href="Analysis.dc.html" style="color:#C7A664">Ask</a></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px;margin-top:20px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">The story</div>
+        <p style="font-size:13.5px;line-height:1.65;color:rgba(247,245,240,.86);margin:10px 0 0;text-wrap:pretty">"What did we spend on the Bengaluru flat over three years, and what has it returned including rent?" No dashboard anticipates that question.</p>
+        <p style="font-size:13.5px;line-height:1.65;color:rgba(247,245,240,.86);margin:10px 0 0;text-wrap:pretty">It answers in a table, tags every source, flags that two thirds of the return is her own estimate rather than a market price, and tells her February 2025 is missing because the flat was empty — excluded, not averaged.</p>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">What the system does</div>
+        <div style="font-size:13px;line-height:1.6;color:rgba(247,245,240,.86);margin-top:10px">Retrieval over the user's own ledger plus a whitelist of named public sources. No open-web answers, ever.</div>
+        <div style="font-size:13px;line-height:1.6;color:rgba(247,245,240,.86);margin-top:8px">Arithmetic is done by the same engines the screens use, not by the model. The model composes; it does not compute.</div>
+        <div style="font-size:13px;line-height:1.6;color:rgba(247,245,240,.86);margin-top:8px">Every figure inherits its as-of and level. Level-1 inputs are called out inside the answer.</div>
+        <div style="font-size:13px;line-height:1.6;color:rgba(247,245,240,.86);margin-top:8px">Four hard refusals: no buy/sell/hold, no prediction, no source outside the whitelist, no gap filled with an average. On a gap, say so and offer to link what is missing.</div>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">States to build</div>
+        <div style="font-size:13px;line-height:1.75;color:rgba(247,245,240,.86);margin-top:10px">Ledger cannot answer<br>Partially answerable — answer the part<br>Question asks for advice — refuse and offer a professional<br>Answer spans members the asker cannot see<br>Every answer logged and replayable</div>
+      </div>
+    </div>
+  </div>
+
+  <h2 style="font-family:'Jost',sans-serif;font-weight:400;font-size:28px;color:#1A3A26;margin:46px 0 20px">Act three · Other people act on it</h2>
+
+  <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:16px;border-bottom:1px solid #E8E5DD">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7E6329;font-weight:500">Scene 08</span><span style="font-family:'Jost',sans-serif;font-weight:400;font-size:22px;color:#1A3A26">Proving it without showing it</span></div>
+      <div style="flex:none;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Aug 2026 · Ananya<br><a href="Financial resume.dc.html">Financial resume</a></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px;margin-top:20px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">The story</div>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">A syndicate lead wants to know she can write the cheque. A landlord wants comfort. Neither should learn her net worth.</p>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">She sends a resume of verified claims — "investor since 2014", "operating income above ₹50 L, verified", "96 of 96 instalments on time", "3 exits" — chooses each field, sets an expiry, and can see afterwards who opened it.</p>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What the system does</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:10px">Only level-3 and level-4 facts are publishable. A self-declared figure can never appear on a resume, in any form.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Claims are bands, counts, durations and booleans. No exact amount is ever emitted, and bands are wide enough that a share cannot be reversed into a balance.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">A share is a signed, expiring link to a specific recipient, revocable at any moment, with every open logged and shown to the owner.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Claims re-derive on view. A revoked consent or a lapsed attestation collapses the claim rather than serving a stale one.</div>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">States to build</div>
+        <div style="font-size:13px;line-height:1.75;margin-top:10px">Owner view versus recipient view — genuinely different renders<br>Claim expired mid-view<br>Link revoked after opening<br>Recipient forwards the link — must fail<br>Nothing verified yet — empty resume</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px;margin-top:16px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:16px;border-bottom:1px solid #E8E5DD">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7E6329;font-weight:500">Scene 09</span><span style="font-family:'Jost',sans-serif;font-weight:400;font-size:22px;color:#1A3A26">₹50,00,000, and nine lenders who do not know her name</span></div>
+      <div style="flex:none;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Aug 2026 · Ananya<br><a href="Credit.dc.html">Credit</a></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px;margin-top:20px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">The story</div>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">She registers a need, not an application. Her financial characteristics go out anonymised to 34 empanelled lenders. Nine bid over 72 hours, from 8.45% to 11.20%.</p>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">She picks one. Only then does she sign a consent releasing her identity — to that lender alone. The other eight are told the profile closed, and nothing else.</p>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What the system does</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:10px">The profile is built only from level-3 wealth and level-4 conduct. Self-declared holdings are excluded and the exclusion is shown to the user.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Before publishing, run a re-identification test. Coarsen bands until the profile matches at least k real borrowers; refuse to publish when it cannot. Holdings by class and value only — never by security name.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Bids are structured objects, not documents: APR, EMI, total cost, fees, LTV trigger, cure period, prepayment terms. Comparison is impossible otherwise.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">PII release is a discrete signed event, scoped to one lender, one purpose, with a deletion clock and a revoke path. Repricing after release is logged against the lender and shown on their future bids.</div>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">States to build</div>
+        <div style="font-size:13px;line-height:1.75;margin-top:10px">No bids at all<br>One bid only — no comparison to make<br>Profile fails the k-test<br>User takes none and lets it expire<br>Lender asks a question — user approves the answer<br>Lender reprices after release</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px;margin-top:16px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:16px;border-bottom:1px solid #E8E5DD">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7E6329;font-weight:500">Scene 10</span><span style="font-family:'Jost',sans-serif;font-weight:400;font-size:22px;color:#1A3A26">The stamps — buying something nobody can price</span></div>
+      <div style="flex:none;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Sep 2026 · Ananya<br><a href="Stamp collection.dc.html">Stamp collection</a></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px;margin-top:20px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">The story</div>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">A 24-plate pre-independence collection. She reads what was verified and, more usefully, what was not — five plates sealed since 1994, and no opinion at all on value.</p>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">Eleven messages, ₹58 L down to ₹50 L, escrow, handover at the vault with the expert present. It goes onto her books at cost, self-declared, and drops her verified share.</p>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What the system does</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:10px">Verification is a list of performed checks, each with who, when and outcome — plus an explicit not-checked list. Never a badge, never a score.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">The platform emits no valuation for any listed asset. This is a hard product rule with legal weight.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Escrow is a licensed bank account. Payment is authorised inside the buyer's own bank; we hold no float and cannot initiate a transfer.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">On completion the asset, its cost, the agreement, the thread and every document copy into both parties' data rooms.</div>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">States to build</div>
+        <div style="font-size:13px;line-height:1.75;margin-top:10px">Buyer rejects at handover — escrow returns<br>Seller withdraws mid-negotiation<br>Escrow funded, handover overdue<br>Dispute — funds frozen, mediation<br>Both parties silent to day 21<br>Verification incomplete at listing</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px;margin-top:16px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:16px;border-bottom:1px solid #E8E5DD">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7E6329;font-weight:500">Scene 11</span><span style="font-family:'Jost',sans-serif;font-weight:400;font-size:22px;color:#1A3A26">The plot — the same six steps, a different legal world</span></div>
+      <div style="flex:none;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Sep 2026 · Vasant, Ananya administering<br><a href="Karjat plot.dc.html">Karjat plot</a></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px;margin-top:20px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">The story</div>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">Her father wants land in Karjat. She runs the process; he authorises the money. A title search, then a site visit that finds three things the listing did not say — unfinished approach road, no drain, and the "borewell" is on the neighbour's plot.</p>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">₹38 L becomes ₹36.20 L. Payment and registration happen in the same room; the registry is the escrow.</p>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What the system does</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:10px">Asset class drives the flow. Land adds title search, encumbrance certificate, site visit, public notice and registration; the six-step spine is unchanged.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Comparables come from registered sub-registrar records only. Asking prices are never shown as evidence of value.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Administrator runs every step; the owner's authentication is required at price agreement, at signing and at payment. Each is logged against him, not her.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Mutation is tracked as an open item after completion, with a prompt at four weeks. Registration is not the end of the transaction.</div>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">States to build</div>
+        <div style="font-size:13px;line-height:1.75;margin-top:10px">Title opinion comes back bad — diligence spent, no asset<br>Public notice draws an objection<br>Site visit contradicts the listing<br>Owner declines at the last step<br>Mutation still pending at 12 weeks<br>Seller is two joint owners, one abroad</div>
+      </div>
+    </div>
+  </div>
+
+  <h2 style="font-family:'Jost',sans-serif;font-weight:400;font-size:28px;color:#1A3A26;margin:46px 0 20px">Act four · It passes on</h2>
+
+  <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:16px;border-bottom:1px solid #E8E5DD">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7E6329;font-weight:500">Scene 12</span><span style="font-family:'Jost',sans-serif;font-weight:400;font-size:22px;color:#1A3A26">Her father gives her the plot</span></div>
+      <div style="flex:none;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Sep 2027 · Vasant<br><a href="Gift transfer.dc.html">Gift transfer · five steps</a></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px;margin-top:20px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">The story</div>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">A transfer between two people already on the platform. No buyer, no escrow, and no money moving except duty to the state.</p>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">₹48,100 all in because the advocate confirmed the family concession in writing a week early. The plot arrives in Ananya's ledger carrying his cost base and his 2026 clock.</p>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What the system does</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:10px">An intra-household transfer moves the asset between members and preserves cost base and acquisition date. This is the single most valuable thing the ledger carries, and losing it is the most expensive bug in the product.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Only the owner can initiate a transfer out of their own assets. An administrator cannot, however broad their access.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Other affected members are notified, not asked to consent, unless they have a legal interest. Notification fires at draft, not after registration.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Completion re-runs succession checks on both members and raises a prompt where a will no longer matches the assets.</div>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">States to build</div>
+        <div style="font-size:13px;line-height:1.75;margin-top:10px">Donee is not on the platform<br>Asset is pledged — must block<br>Gift with a life interest reserved<br>Concession refused at the counter<br>Donor changes their mind pre-registration<br>Both ledgers must reconcile to zero net</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:26px 28px;margin-top:16px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:16px;border-bottom:1px solid #E8E5DD">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#7E6329;font-weight:500">Scene 13</span><span style="font-family:'Jost',sans-serif;font-weight:400;font-size:22px;color:#1A3A26">The gift breaks his will</span></div>
+      <div style="flex:none;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#6B7075">Nov 2027 · Vasant<br><a href="Will.dc.html">Will · five steps</a></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px;margin-top:20px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">The story</div>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">His 2011 will leaves "all immovable property" to Ananya. He has none. Every clause is empty, there is no residuary clause, and the executor died in 2021 — so his entire ₹37,70,000 would pass by intestacy.</p>
+        <p style="font-size:13.5px;line-height:1.65;margin:10px 0 0;text-wrap:pretty">The platform assembles a twelve-page brief, records his answers in his own words, and hands both to an advocate. It writes nothing.</p>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">What the system does</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:10px">A will is a record with a date, a location, an executor and a coverage state — never a document we generate or hold as the original.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Coverage is computed: every asset the will names against every asset the ledger holds. Uncovered value is the headline number.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Nomination-versus-will conflicts are surfaced per account. A dead nominee is an error state, not a warning.</div>
+        <div style="font-size:13px;line-height:1.6;margin-top:8px">Succession answers are visible to the owner and their chosen professional only. An administrator with full asset access still cannot read them, and the household view must not reveal that the record exists.</div>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#7E6329">States to build</div>
+        <div style="font-size:13px;line-height:1.75;margin-top:10px">No will at all<br>Will exists, location unknown<br>Executor deceased<br>Beneficiary deceased<br>Two wills, unclear which governs<br>Superseded will retained and marked</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#0E2116;border-radius:10px;box-shadow:0 1px 2px rgba(14,33,22,.12),0 10px 28px rgba(14,33,22,.10);padding:26px 28px;margin-top:16px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:16px;border-bottom:1px solid #245034">
+      <div style="display:flex;gap:18px;align-items:baseline"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#C7A664;font-weight:500">Scene 14</span><span style="font-family:'Jost',sans-serif;font-weight:400;font-size:22px;color:#F7F5F0">Her father dies, and the ledger does its last job</span></div>
+      <div style="flex:none;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(247,245,240,.5)">Mar–Aug 2031 · Ananya as executor<br><a href="Inheritance.dc.html" style="color:#C7A664">Inheritance · five steps</a></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:26px;margin-top:20px">
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">The story</div>
+        <p style="font-size:13.5px;line-height:1.65;color:rgba(247,245,240,.86);margin:10px 0 0;text-wrap:pretty">The product's first act is to go quiet. His account freezes read-only, every prompt to him is suspended, and the screen says nothing here is urgent for thirty days.</p>
+        <p style="font-size:13.5px;line-height:1.65;color:rgba(247,245,240,.86);margin:10px 0 0;text-wrap:pretty">Four months and twenty-six days later the estate is closed, with no succession certificate anywhere — because of two nomination fixes made in 2027 that cost nothing.</p>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#C7A664">What the system does</div>
+        <div style="font-size:13px;line-height:1.6;color:rgba(247,245,240,.86);margin-top:10px">A death event freezes the member's account to read-only, suspends all notifications to them, and opens an estate with a date-of-death valuation snapshot that never moves again.</div>
+        <div style="font-size:13px;line-height:1.6;color:rgba(247,245,240,.86);margin-top:8px">Executor authority is a distinct role derived from the will, separate from any prior administrator access, and every action records which authority was used.</div>
+        <div style="font-size:13px;line-height:1.6;color:rgba(247,245,240,.86);margin-top:8px">Income apportions at the date of death across two returns. Transmitted assets carry cost base and holding period to the beneficiary — the same rule as a gift.</div>
+        <div style="font-size:13px;line-height:1.6;color:rgba(247,245,240,.86);margin-top:8px">Prompts arising from a death are dated and queued, and surface when the affected person next opens their own account. Never pushed, never routed via a relative.</div>
+      </div>
+      <div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:rgba(247,245,240,.7)">States to build</div>
+        <div style="font-size:13px;line-height:1.75;color:rgba(247,245,240,.86);margin-top:10px">No will — intestacy shares computed and labelled as default<br>No nominee — succession certificate path<br>Claim arrives after distribution<br>Executor declines — alternate steps in<br>Estate is insolvent<br>Beneficiary predeceased<br>Account closed but readable indefinitely</div>
+      </div>
+    </div>
+  </div>
+
+  <h2 style="font-family:'Jost',sans-serif;font-weight:400;font-size:28px;color:#1A3A26;margin:46px 0 6px">Cross-cutting · true on every screen</h2>
+  <p style="font-size:15px;line-height:1.65;margin:0 0 20px;max-width:74ch">If a scene above contradicts one of these, the scene is wrong.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px"><div style="font-size:15px;font-weight:700">Verification level gates capability, server-side</div><div style="font-size:13px;line-height:1.6;color:#6B7075;margin-top:6px">Credit headroom, resume claims and blackbox profiles read level 3 and 4 only. A client that forgets is a bug; a server that allows it is a breach.</div></div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px"><div style="font-size:15px;font-weight:700">Every figure ships with as-of and source</div><div style="font-size:13px;line-height:1.6;color:#6B7075;margin-top:6px">Make it impossible to render a number without them — a formatter that takes a bare value should not exist in the codebase.</div></div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px"><div style="font-size:15px;font-weight:700">Staleness is per class, and visible</div><div style="font-size:13px;line-height:1.6;color:#6B7075;margin-top:6px">Listed equity goes stale in a day, property in two years, a collectible in two. Past tolerance, the figure renders marked and is excluded from verified totals.</div></div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px"><div style="font-size:15px;font-weight:700">The platform never holds or moves money</div><div style="font-size:13px;line-height:1.6;color:#6B7075;margin-top:6px">Read-only bank access. Payment is authorised in the user's own bank; escrow is a licensed bank's account. No float, ever.</div></div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px"><div style="font-size:15px;font-weight:700">Six-step transaction spine, one implementation</div><div style="font-size:13px;line-height:1.6;color:#6B7075;margin-top:6px">Intent, verify, negotiate, commit, settle, record. Asset class supplies the checks and the settlement mechanism; the state machine is shared.</div></div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px"><div style="font-size:15px;font-weight:700">Analysis surfaces carry no commercial call to action</div><div style="font-size:13px;line-height:1.6;color:#6B7075;margin-top:6px">Wealth, Understand and Plan cannot link to a paid action. Market states its fee in the header of every screen. Enforce in CI.</div></div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px"><div style="font-size:15px;font-weight:700">Documents attach to entities and are immutable</div><div style="font-size:13px;line-height:1.6;color:#6B7075;margin-top:6px">Superseded, never overwritten or deleted. A document copied to a counterparty's data room is a copy with its own access record.</div></div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px"><div style="font-size:15px;font-weight:700">Every read of another person's data is logged and shown</div><div style="font-size:13px;line-height:1.6;color:#6B7075;margin-top:6px">Administrator views, lender reads, resume opens. The log is the owner's to see, and it is a product surface, not an internal table.</div></div>
+  </div>
+
+  <h2 style="font-family:'Jost',sans-serif;font-weight:400;font-size:28px;color:#1A3A26;margin:46px 0 6px">Not yet designed — do not invent it</h2>
+  <p style="font-size:15px;line-height:1.65;margin:0 0 20px;max-width:78ch">These are named so nobody builds a guess. Each needs a design pass before a ticket.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#8F6414">Screens missing</div>
+      <div style="font-size:13px;line-height:1.9;margin-top:10px">Sign-up and identity verification<br>Expenses — themes, categories, merchants<br>News filtered by holdings<br>Public figures' disclosures<br>Advisory marketplace, in depth<br>The seller's side of any listing<br>Notifications as a system<br>Mobile, all of it</div>
+    </div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;box-shadow:0 1px 2px rgba(26,58,38,.05),0 10px 28px rgba(26,58,38,.04);padding:22px 24px">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#8F6414">Decisions still open</div>
+      <div style="font-size:13px;line-height:1.9;margin-top:10px">Subscription, transaction fees, or both<br>The value of k in the anonymity test<br>Staleness tolerance per asset class<br>Whether administrators may ever transact<br>Retention period after an account closes<br>Which public sources Ask may cite</div>
+    </div>
+    <div style="background:#FCFCFC;border:1px solid #E8E5DD;border-radius:10px;padding:22px 24px;border-left:3px solid #8F6414">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#8F6414">Blocked on counsel, not on design</div>
+      <div style="font-size:13px;line-height:1.65;margin-top:10px">Running a bidding contest between lenders is likely a regulated arrangement rather than a listing service. The anonymised profile is personal data under the DPDP Act. Escrow plus an embedded payment link plus a completion fee approaches payment-aggregator and nodal-account rules. Ask, trends and life-event prompts sit near the advice boundary.</div>
+      <div style="font-size:13px;line-height:1.6;margin-top:10px;font-weight:600">Do not start scenes 09, 10 or 11 before these are answered. Everything else can begin.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:40px;padding-top:20px;border-top:1px solid #C7A664;display:flex;justify-content:space-between;gap:24px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#6B7075">
+    <span>Vittavaan · know what you own</span>
+    <span>User story for engineering · information, not advice</span>
+    <span>v1.0 · 01 Sep 2026</span>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1400}}"></script>
+</body>
+</html>
