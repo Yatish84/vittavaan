@@ -52,20 +52,20 @@ flowchart TB
         MARKET["📊 Market Data (V2)\nNSE · BSE · AA Framework"]
     end
 
-    WEB -->|HTTPS · REST JSON| ROUTER
-    MOB -->|HTTPS · REST JSON| ROUTER
+    WEB -->|"HTTPS · REST JSON"| ROUTER
+    MOB -->|"HTTPS · REST JSON"| ROUTER
     ROUTER --> AUTH
     AUTH --> SERV
     SERV --> PG
     SERV --> REDIS
     SERV --> STORAGE
-    SERV -->|Queue tasks| WORKER
+    SERV -->|"Queue tasks"| WORKER
     BEAT --> WORKER
     WORKER --> PG
     WORKER --> REDIS
 
-    ROUTER <-->|Verify JWT| SUPABASE
-    SERV -.->|Adapter (V2)| MARKET
+    ROUTER <-->|"Verify JWT"| SUPABASE
+    SERV -.->|"Adapter (V2)"| MARKET
 
     style Client fill:#dbeafe,stroke:#3b82f6
     style API fill:#dcfce7,stroke:#22c55e
