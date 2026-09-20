@@ -115,7 +115,8 @@ erDiagram
     }
 
     liquid_assets {
-        UUID asset_id PK_FK
+        UUID asset_id PK, FK
+        UUID asset_id PK "FK"
         TEXT institution_name
         TEXT liquid_sub_type
         TEXT ticker_symbol
@@ -124,7 +125,8 @@ erDiagram
     }
 
     real_estate_assets {
-        UUID asset_id PK_FK
+        UUID asset_id PK, FK
+        UUID asset_id PK "FK"
         TEXT property_type
         TEXT location_address
         FLOAT area_sqft
@@ -135,7 +137,8 @@ erDiagram
     }
 
     alternative_assets {
-        UUID asset_id PK_FK
+        UUID asset_id PK, FK
+        UUID asset_id PK "FK"
         TEXT collection_type
         DATE last_appraisal_date
         TEXT appraiser_name
