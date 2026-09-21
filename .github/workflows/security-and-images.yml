@@ -95,10 +95,17 @@ jobs:
           provenance: mode=max
           sbom: true
           tags: vittavaan-${{ matrix.image }}:${{ github.sha }}-${{ matrix.architecture }}
+      - name: Extract OCI archive for scanning
+        run: |
+          mkdir -p /tmp/vittavaan-${{ matrix.image }}-${{ matrix.architecture }}-oci
+          tar -xf /tmp/vittavaan-${{ matrix.image }}-${{ matrix.architecture }}.tar \
+            -C /tmp/vittavaan-${{ matrix.image }}-${{ matrix.architecture }}-oci
       - name: Scan built image
         uses: aquasecurity/trivy-action@v0.36.0
         with:
-          input: /tmp/vittavaan-${{ matrix.image }}-${{ matrix.architecture }}.tar
+          scan-type: image
+          scan-ref: /tmp/vittavaan-${{ matrix.image }}-${{ matrix.architecture }}-oci
+          scanners: vuln
           severity: HIGH,CRITICAL
           ignore-unfixed: true
           exit-code: "1"

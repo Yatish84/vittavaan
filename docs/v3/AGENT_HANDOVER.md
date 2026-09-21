@@ -5,7 +5,7 @@
 > **Application code status:** Foundation implemented; wealth-management features have not started
 > **Canonical documentation:** `docs/v3/`
 > **Baseline approval:** Owner approved `DEC3-001`–`DEC3-007` on 20 Sep 2026; S1 foundation is authorized.
-> **S1 setup approval:** Owner approved the recommended branch, GitHub CI/registry, platform, package-manager, Valkey-candidate, S3-compatible storage and review defaults on 20 Sep 2026.
+> **S1 setup approval:** Owner approved the recommended branch, GitHub CI/registry, platform, package-manager, Valkey candidate, storage compatible with the S3 API and review defaults on 20 Sep 2026.
 
 ## Mission
 
@@ -61,7 +61,7 @@ v1 and v2 must remain untouched as historical references. Do not move, delete or
 14. All diagrams must be Mermaid.
 15. Initial shared staging targets an OCI Ampere A1 Always Free-eligible VM, sized to the lower documented 2 OCPU/12 GB allowance unless the tenancy console confirms more; it is not accepted as HA or final performance evidence.
 16. The owner approved the v3 baseline, foundation-only S1 scope, technology stack, separate auth-core boundary, OCI staging direction, AWS Mumbai production direction and protected delivery workflow on 20 Sep 2026.
-17. S1 defaults are `main`/`develop`, GitHub Actions/GHCR, macOS ARM64 plus Linux AMD64 CI/WSL2, `uv`, `pnpm`/Corepack, Valkey candidate, S3-compatible local objects and protected checks; compatibility/licence checks still precede final Valkey/object-store locks.
+17. S1 defaults are `main`/`develop`, GitHub Actions/GHCR, macOS ARM64 plus Linux AMD64 CI/WSL2, `uv`, `pnpm`/Corepack, Valkey candidate, local object storage using the S3 API and protected checks; compatibility/licence checks still precede final Valkey/object-store locks.
 
 ## Sources reviewed
 
