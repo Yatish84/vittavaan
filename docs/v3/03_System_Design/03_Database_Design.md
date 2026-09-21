@@ -39,13 +39,13 @@ There is deliberately no `users` table containing login data. `app_principals` i
 |---|---|
 | Identity and access | `app_principals`, `persons`, `principal_person_links`, `households`, `household_memberships`, `access_grants` |
 | Assets and holdings | `asset_classes`, `asset_subtypes`, `holdings`, `ownership_allocations`, `holding_restrictions`, `cost_basis_lots`, `commitments` |
-| Sources and valuation | `sources`, `valuation_events`, `verification_evidence`, `staleness_policies`, `fx_rate_events` |
-| Ledger and liabilities | `transactions`, `income_streams`, `liability_classes`, `liability_subtypes`, `liabilities`, `liability_holding_links`, `liability_schedule_versions`, `liability_schedule_items` |
+| Sources, consent and valuation | `data_consents`, `sources`, `valuation_events`, `verification_evidence`, `staleness_policies`, `fx_rate_events` |
+| Ledger and liabilities | `transactions`, `income_streams`, `liability_classes`, `liability_subtypes`, `liabilities`, `liability_balance_events`, `liability_holding_links`, `liability_schedule_versions`, `liability_schedule_items` |
 | Imports and documents | `import_jobs`, `import_staged_rows`, `reconciliation_decisions`, `documents`, `document_versions`, `document_links`, `document_access_events` |
 | Planning and preferences | `goals`, `goal_funding_links`, `saved_scenarios`, `user_preferences`, `notification_preferences` |
 | Governance and asynchronous processing | `feature_gates`, `approval_records`, `audit_evidence`, `outbox_events`, `idempotency_records`, `projection_checkpoints`, `wealth_projections`, `performance_projections`, `export_jobs`, `closure_cases` |
 
-Total planned tables: **48**.
+Total planned tables: **50**.
 
 ## Complete table-by-table data dictionary
 
@@ -261,6 +261,7 @@ Canonical asset position. Shared columns support all classes; bounded JSONB hold
 | `quantity` | CHK | `NUMERIC(30,12)` | NULL | Units when applicable |
 | `identifier_type` | CHK | `TEXT` | NULL | ISIN, ticker, folio, property reference, etc. |
 | `identifier_ciphertext` | - | `BYTEA` | NULL | Encrypted sensitive identifier |
+| `subtype_schema_version` | CHK | `TEXT` | NOT NULL | Exact field-schema version used for validation |
 | `subtype_attributes` | - | `JSONB` | NOT NULL, {} | Schema-validated subtype fields |
 | `status` | CHK | `TEXT` | NOT NULL, ACTIVE | ACTIVE, CLOSED, DISPOSED, or ARCHIVED |
 | `acquired_on` | - | `DATE` | NULL | Known acquisition date |
@@ -379,7 +380,41 @@ erDiagram
     PERSONS ||--o{ COMMITMENTS : responsible
 ```
 
-## Sources and valuation
+## Sources, consent and valuation
+
+### `data_consents`
+
+Purpose-bound authorization or recorded processing basis for collecting data from an external provider/source. This is distinct from household access grants and never expands application authorization.
+
+| Column | Key / constraint | PostgreSQL type | Nullability / default | Meaning |
+|---|---|---|---|---|
+| `data_consent_id` | PK | `UUID` | NOT NULL, generated | Consent identifier |
+| `subject_person_id` | FK persons.person_id | `UUID` | NOT NULL | Person whose data is covered |
+| `principal_id` | FK app_principals.principal_id | `UUID` | NOT NULL | Principal completing the ceremony |
+| `provider_code` | - | `TEXT` | NOT NULL | Approved provider/source code |
+| `processing_basis` | CHK | `TEXT` | NOT NULL | CONSENT or another approved documented basis |
+| `purpose_codes` | CHK | `TEXT[]` | NOT NULL | Non-empty approved purposes |
+| `data_category_codes` | CHK | `TEXT[]` | NOT NULL | Non-empty approved categories |
+| `external_reference_hash` | UQ scope | `TEXT` | NULL | Non-reversible provider consent reference |
+| `status` | CHK | `TEXT` | NOT NULL | PENDING, ACTIVE, EXPIRED, REVOKED, or ACTION_REQUIRED |
+| `granted_at` | - | `TIMESTAMPTZ` | NULL | Effective grant time |
+| `expires_at` | CHK | `TIMESTAMPTZ` | NULL | Expiry time |
+| `revoked_at` | CHK | `TIMESTAMPTZ` | NULL | Revocation time |
+| `consent_document_id` | FK documents.document_id | `UUID` | NULL | Supporting consent artefact |
+| `policy_version` | - | `TEXT` | NOT NULL | Notice/purpose policy version |
+| `created_at` | - | `TIMESTAMPTZ` | NOT NULL, now() | Creation time |
+| `updated_at` | - | `TIMESTAMPTZ` | NOT NULL, now() | Last state update |
+| `version` | CHK | `BIGINT` | NOT NULL, 1 | Optimistic-lock version |
+
+Direct relationships:
+
+```mermaid
+erDiagram
+    PERSONS ||--o{ DATA_CONSENTS : subject
+    APP_PRINCIPALS ||--o{ DATA_CONSENTS : acts
+    DOCUMENTS o|--o{ DATA_CONSENTS : evidences
+    DATA_CONSENTS o|--o{ SOURCES : authorizes
+```
 
 ### `sources`
 
@@ -390,6 +425,7 @@ Provenance record for manual, imported, connected, calculated, or operator-enter
 | `source_id` | PK | `UUID` | NOT NULL, generated | Source identifier |
 | `source_type` | CHK | `TEXT` | NOT NULL | MANUAL, IMPORT, CONNECTOR, CALCULATED, or OPERATOR |
 | `provider_code` | - | `TEXT` | NULL | Provider or institution code |
+| `data_consent_id` | FK data_consents.data_consent_id | `UUID` | NULL | Consent/basis used for collection, when applicable |
 | `external_reference_hash` | - | `TEXT` | NULL | Non-reversible external reference |
 | `trust_tier` | CHK | `TEXT` | NOT NULL | VERIFIED, DECLARED, ESTIMATED, or UNKNOWN |
 | `captured_by_principal_id` | FK app_principals.principal_id | `UUID` | NULL | Capturing actor |
@@ -404,6 +440,7 @@ erDiagram
     SOURCES ||--o{ VALUATION_EVENTS : supplies
     SOURCES ||--o{ TRANSACTIONS : supplies
     SOURCES ||--o{ DOCUMENT_VERSIONS : supplies
+    DATA_CONSENTS o|--o{ SOURCES : authorizes
 ```
 
 ### `valuation_events`
@@ -620,6 +657,7 @@ Canonical debt or obligation record; balances are derived from dated schedule/va
 | `household_id` | FK households.household_id | `UUID` | NULL | Household context |
 | `liability_class_code` | FK liability_classes.liability_class_code | `TEXT` | NOT NULL | Top-level class |
 | `liability_subtype_code` | FK liability_subtypes.liability_subtype_code | `TEXT` | NOT NULL | Subtype |
+| `name` | - | `TEXT` | NOT NULL | User-recognizable liability label |
 | `lender_name` | - | `TEXT` | NULL | Lender display name |
 | `account_reference_ciphertext` | - | `BYTEA` | NULL | Encrypted account reference |
 | `original_principal_minor_units` | CHK | `BIGINT` | NULL | Original borrowed amount |
@@ -628,6 +666,7 @@ Canonical debt or obligation record; balances are derived from dated schedule/va
 | `rate_type` | CHK | `TEXT` | NULL | FIXED, FLOATING, or MIXED |
 | `started_on` | - | `DATE` | NULL | Origination date |
 | `matures_on` | CHK | `DATE` | NULL | Maturity date |
+| `subtype_schema_version` | CHK | `TEXT` | NOT NULL | Exact field-schema version used for validation |
 | `subtype_attributes` | - | `JSONB` | NOT NULL, {} | Schema-validated subtype details |
 | `status` | CHK | `TEXT` | NOT NULL, ACTIVE | ACTIVE, PAID_OFF, CLOSED, or DEFAULTED |
 | `source_id` | FK sources.source_id | `UUID` | NULL | Source |
@@ -641,7 +680,37 @@ Direct relationships:
 erDiagram
     PERSONS ||--o{ LIABILITIES : borrows
     LIABILITY_SUBTYPES ||--o{ LIABILITIES : classifies
+    LIABILITIES ||--o{ LIABILITY_BALANCE_EVENTS : measured
     LIABILITIES ||--o{ LIABILITY_SCHEDULE_VERSIONS : scheduled
+```
+
+### `liability_balance_events`
+
+Immutable dated assertion of a liability's direct or contingent outstanding amount. This supports manual statements and obligations that have no complete amortization schedule; corrections supersede rather than overwrite.
+
+| Column | Key / constraint | PostgreSQL type | Nullability / default | Meaning |
+|---|---|---|---|---|
+| `liability_balance_event_id` | PK | `UUID` | NOT NULL, generated | Balance assertion identifier |
+| `liability_id` | FK liabilities.liability_id | `UUID` | NOT NULL | Measured liability |
+| `source_id` | FK sources.source_id | `UUID` | NOT NULL | Provenance |
+| `as_of_at` | - | `TIMESTAMPTZ` | NOT NULL | Balance effective time |
+| `outstanding_minor_units` | CHK | `BIGINT` | NOT NULL | Non-negative direct outstanding amount |
+| `contingent_exposure_minor_units` | CHK | `BIGINT` | NULL | Non-negative contingent exposure, kept separate from direct debt |
+| `currency` | CHK | `CHAR(3)` | NOT NULL | Contract ISO currency |
+| `balance_method` | CHK | `TEXT` | NOT NULL | STATEMENT, SCHEDULE_RECONCILED, DECLARED, COURT_ORDER, TAX_NOTICE, or MODELLED |
+| `verification_state` | CHK | `TEXT` | NOT NULL | DOCUMENTED, VERIFIED, DECLARED, ESTIMATED, or UNKNOWN |
+| `supersedes_event_id` | FK liability_balance_events.liability_balance_event_id | `UUID` | NULL | Corrected prior assertion |
+| `recorded_by_principal_id` | FK app_principals.principal_id | `UUID` | NOT NULL | Recording actor |
+| `recorded_at` | - | `TIMESTAMPTZ` | NOT NULL, now() | Append time |
+| `metadata` | - | `JSONB` | NOT NULL, {} | Bounded method details only |
+
+Direct relationships:
+
+```mermaid
+erDiagram
+    LIABILITIES ||--o{ LIABILITY_BALANCE_EVENTS : measured
+    SOURCES ||--o{ LIABILITY_BALANCE_EVENTS : supplies
+    LIABILITY_BALANCE_EVENTS o|--o| LIABILITY_BALANCE_EVENTS : supersedes
 ```
 
 ### `liability_holding_links`
@@ -1321,12 +1390,14 @@ erDiagram
 |---|---|
 | Every FK | B-tree index on the FK, unless already the leftmost prefix of a stronger index |
 | `valuation_events` | `(holding_id, as_of_at DESC, recorded_at DESC)`; unique partial index for a non-superseded source observation |
+| `liability_balance_events` | `(liability_id, as_of_at DESC, recorded_at DESC)`; partial index for non-superseded current selection |
 | `transactions` | `(person_id, trade_date DESC)`, `(holding_id, trade_date DESC)`; scoped unique external hash |
 | `ownership_allocations` | GiST/exclusion protection against invalid overlapping effective ranges; deferred validation that active percentages total 100 |
 | `liability_schedule_items` | Unique `(liability_schedule_version_id, installment_number)`; index on `due_on` |
 | `import_staged_rows` | Unique `(import_job_id, row_number)`; index on validation state |
 | `document_versions` | Unique `(document_id, version_number)`, unique `storage_key`, index on scan state |
 | `notification_preferences` | Unique `(principal_id, event_type, channel)` |
+| `data_consents` | `(subject_person_id, status, expires_at)`; scoped unique provider reference; partial index for active/expiring records |
 | `idempotency_records` | Unique `(principal_id, operation_code, idempotency_key)`; expiry index |
 | `outbox_events` | Partial index on `(next_attempt_at, created_at)` where `published_at IS NULL` |
 | Projections | Unique natural scope/period keys plus `last_event_position` |
@@ -1352,4 +1423,3 @@ These choices must be finalized before physical DDL is approved:
 4. Encryption provider, key hierarchy, rotation procedure, and searchable-field threat model.
 5. Partition thresholds based on load tests and realistic event-volume forecasts.
 6. Whether high-volume polymorphic links merit dedicated typed link tables in the first release.
-

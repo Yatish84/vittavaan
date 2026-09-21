@@ -1,0 +1,118 @@
+name: security-and-images
+
+on:
+  pull_request:
+  push:
+    branches: [main, develop]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: security-images-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_ENABLE_COMMENTS: "false"
+
+  dependencies-and-filesystem:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.4"
+          python-version: "3.12.13"
+      - name: Audit locked Python runtime dependencies
+        run: |
+          uv sync --frozen --no-dev
+          uv run --with pip-audit==2.10.1 pip-audit --local --skip-editable
+      - uses: pnpm/action-setup@v4
+        with:
+          version: "12.5.1"
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm audit --prod --audit-level high
+      - name: Scan repository dependencies, secrets and configuration
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,secret,misconfig
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
+          version: v0.74.0
+
+  multi-platform-images:
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - image: api
+            dockerfile: Dockerfile.api
+            platform: linux/amd64
+            architecture: amd64
+            runner: ubuntu-24.04
+          - image: api
+            dockerfile: Dockerfile.api
+            platform: linux/arm64
+            architecture: arm64
+            runner: ubuntu-24.04-arm
+          - image: web
+            dockerfile: Dockerfile.web
+            platform: linux/amd64
+            architecture: amd64
+            runner: ubuntu-24.04
+          - image: web
+            dockerfile: Dockerfile.web
+            platform: linux/arm64
+            architecture: arm64
+            runner: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v6
+      - uses: docker/setup-buildx-action@v4
+      - name: Build native OCI image with SBOM and provenance
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: ${{ matrix.dockerfile }}
+          platforms: ${{ matrix.platform }}
+          outputs: type=oci,dest=/tmp/vittavaan-${{ matrix.image }}-${{ matrix.architecture }}.tar
+          provenance: mode=max
+          sbom: true
+          tags: vittavaan-${{ matrix.image }}:${{ github.sha }}-${{ matrix.architecture }}
+      - name: Scan built image
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          input: /tmp/vittavaan-${{ matrix.image }}-${{ matrix.architecture }}.tar
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
+          version: v0.74.0
+
+  object-store-image:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Scan pinned RustFS image
+        uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: rustfs/rustfs:1.0.0@sha256:8cc9801755448b71a786705ce76692c77e14936cccd87cf2fc31842e58f4d1ff
+          scanners: vuln
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: "1"
+          version: v0.74.0

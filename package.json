@@ -1,0 +1,15 @@
+{
+  "name": "vittavaan",
+  "private": true,
+  "packageManager": "pnpm@12.5.1",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "build": "pnpm --filter @vittavaan/web build",
+    "dev": "pnpm --filter @vittavaan/web dev",
+    "lint": "pnpm --filter @vittavaan/web lint",
+    "test": "pnpm --filter @vittavaan/web test",
+    "typecheck": "pnpm --filter @vittavaan/web typecheck"
+  }
+}

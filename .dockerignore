@@ -1,0 +1,13 @@
+.git
+.github
+.venv
+node_modules
+**/node_modules
+**/dist
+runtime
+tmp
+.DS_Store
+docs
+coverage
+htmlcov
+*.tfstate*

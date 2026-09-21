@@ -6,6 +6,7 @@
 |---|---|---|---|---|---|
 | Auth-core bridge | verifier boundary | local principal only | bootstrap | cache invalidation | Auth-core integration, threat model |
 | Household/access | module/policy | people/membership/grants | household/grant routes | grant expiry/events | Threat model |
+| Source consent | consent/policy boundary | consent/source link | consent/source routes | consent expiry/change | Auth/connector/import design |
 | Shared holdings | holding module | holding/allocations | holding/ownership routes | projection invalidation | Import design |
 | Append-only ledger/valuation | fact path | events/lots/transactions | append/correct routes | projection events | Projection design |
 | Imports | worker path | jobs/staged rows/decisions | workflow routes | parse/commit jobs | Import architecture |
@@ -28,4 +29,3 @@
 ## Phase result
 
 Phase 3 is complete at draft level: every beta module has a runtime boundary, persistence home, API surface, event/job behavior and security/operations treatment. These documents require reconciliation during object design and test-plan creation before approval for implementation.
-

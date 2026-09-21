@@ -1,0 +1,53 @@
+name: quality
+
+on:
+  pull_request:
+  push:
+    branches: [main, develop]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.4"
+          python-version: "3.12.13"
+          enable-cache: true
+      - run: uv sync --frozen
+      - run: uv run ruff check .
+      - run: uv run mypy
+      - run: PYTHONPATH=backend uv run pytest
+
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v4
+        with:
+          version: "12.5.1"
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - run: pnpm test
+      - run: pnpm build
+      - run: uv run python scripts/check-secret-canaries.py
+
+  compose-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: ./scripts/bootstrap-local.sh
+      - run: docker compose -f compose.yaml -f compose.local.yaml config --quiet

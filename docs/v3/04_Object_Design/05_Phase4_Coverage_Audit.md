@@ -17,11 +17,10 @@
 ## Remaining detail assigned to delivery/testing
 
 - Concrete Pydantic/TypeScript schemas generated from OpenAPI.
-- Full subtype-specific form/schema field dictionary.
+- Concrete generated form schemas from the now-complete subtype field dictionary and 93-code seed mapping.
 - Golden numerical test vectors and tolerances.
 - Benchmark/look-through algorithms after licensed sources are chosen.
 - Exact calculator inventory beyond invest/prepay and goal funding.
 - Professional-reviewed legal calculation contracts remain gated.
 
 Phase 4 is complete at draft level and is sufficient to prepare implementation structure, code standards and test specifications without writing application code.
-

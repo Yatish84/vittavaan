@@ -1,6 +1,6 @@
 # Vittavaan v3 — Canonical Documentation Index
 
-> **Status:** Active rebuild  
+> **Status:** Owner-approved implementation baseline; S1 foundation authorized
 > **Started:** 20 Sep 2026  
 > **Canonical inputs:** the 25 files in `docs/v2/Wireframe/`, the asset-class operator PDF, the implemented sibling `auth-core` repository, and validated v2 domain work.  
 > **Rule:** v1 and v2 are historical references. Where they conflict with v3, v3 governs.
@@ -37,6 +37,7 @@ flowchart TD
 | Governance | [Progress Tracker](./00_Governance/03_Progress_Tracker.md) | Active |
 | Governance | [Traceability Matrix](./00_Governance/04_Traceability_Matrix.md) | Draft |
 | Governance | [End-to-End Consistency Audit](./00_Governance/05_End_to_End_Consistency_Audit.md) | Draft |
+| Governance | [Owner Review and Decision Checklist](./00_Governance/06_Owner_Review_and_Decision_Checklist.md) | Review required |
 | Requirements | [Product Scope and Release Boundaries](./01_Requirements/01_Product_Scope_and_Release_Boundaries.md) | Draft |
 | Requirements | [Actors and System Boundary](./01_Requirements/02_Actors_and_System_Boundary.md) | Draft |
 | Requirements | [Functional Requirements](./01_Requirements/03_Functional_Requirements.md) | Draft |
@@ -48,6 +49,7 @@ flowchart TD
 | Analysis | [ECB Object Model](./02_Analysis/03_ECB_Object_Model.md) | Draft |
 | Analysis | [Sequence and State Diagrams](./02_Analysis/04_Sequence_and_State_Diagrams.md) | Draft |
 | Analysis | [Requirements-to-Domain Coverage](./02_Analysis/05_Requirements_to_Domain_Coverage.md) | Draft |
+| Analysis | [Asset and Liability Field Dictionary](./02_Analysis/06_Asset_and_Liability_Field_Dictionary.md) | Draft |
 | System design | [Auth-Core Integration](./03_System_Design/01_Auth_Core_Integration.md) | Draft |
 | System design | [Architecture Overview](./03_System_Design/02_Architecture_Overview.md) | Draft |
 | System design | [Database Design](./03_System_Design/03_Database_Design.md) | Draft |
@@ -58,6 +60,7 @@ flowchart TD
 | System design | [Security and Threat Model](./03_System_Design/08_Security_and_Threat_Model.md) | Draft |
 | System design | [Observability and Operations](./03_System_Design/09_Observability_and_Operations_Design.md) | Draft |
 | System design | [Phase 3 Coverage Audit](./03_System_Design/10_Phase3_Coverage_Audit.md) | Draft |
+| System design | [Catalogue Seeds, Validation and Indexes](./03_System_Design/11_Catalogue_Seeds_Validation_and_Indexes.md) | Draft |
 | Object design | [Shared Types and Interfaces](./04_Object_Design/01_Shared_Types_and_Interfaces.md) | Draft |
 | Object design | [Calculation Contracts](./04_Object_Design/02_Calculation_Contracts.md) | Draft |
 | Object design | [Domain Algorithms](./04_Object_Design/03_Domain_Algorithms.md) | Draft |
@@ -66,12 +69,17 @@ flowchart TD
 | Delivery | [Implementation Roadmap](./05_Delivery/01_Implementation_Roadmap.md) | Draft |
 | Delivery | [Project Structure and Standards](./05_Delivery/02_Project_Structure_and_Standards.md) | Draft |
 | Delivery | [Sprint and Milestone Plan](./05_Delivery/03_Sprint_and_Milestone_Plan.md) | Draft |
+| Delivery | [S1 Repository Foundation Backlog](./05_Delivery/04_S1_Repository_Foundation_Backlog.md) | In progress |
+| Delivery | [Implementation and Verification Log](./05_Delivery/05_Implementation_and_Verification_Log.md) | Active audit trail |
+| Delivery | [Developer Onboarding and Troubleshooting](./05_Delivery/06_Developer_Onboarding_and_Troubleshooting.md) | In progress |
 | Testing | [Test Strategy](./06_Testing/01_Test_Strategy.md) | Draft |
 | Testing | [Test Personas and Golden Scenarios](./06_Testing/02_Test_Personas_and_Golden_Scenarios.md) | Draft |
 | Testing | [Security, Performance and Recovery Plan](./06_Testing/03_Security_Performance_and_Recovery_Test_Plan.md) | Draft |
 | Operations | [Infrastructure and Environments](./07_Operations/01_Infrastructure_and_Environments.md) | Draft |
 | Operations | [CI/CD and Release Management](./07_Operations/02_CI_CD_and_Release_Management.md) | Draft |
 | Operations | [Runbooks and Incident Response](./07_Operations/03_Runbooks_and_Incident_Response.md) | Draft |
+| Operations | [Local-to-OCI Deployment Specification](./07_Operations/04_Local_to_OCI_Deployment_Specification.md) | Draft |
+| Operations | [OCI Staging Deployment Runbook](./07_Operations/05_OCI_Staging_Deployment_Runbook.md) | Draft |
 | Handover | [Agent Handover](./AGENT_HANDOVER.md) | Active |
 
 ## Non-negotiable product rules

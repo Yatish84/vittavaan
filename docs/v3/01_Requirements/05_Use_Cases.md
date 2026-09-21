@@ -208,3 +208,58 @@
 
 **Extensions:** Expiry auto-revokes effective access; no grant may exceed grantor authority; document permission is independent where required; client-side hiding never substitutes for response filtering.
 
+## UC3-CONSENT-001 — Grant, Review and Revoke Source Consent
+
+**Primary actor:** Person providing consent
+**Requirements:** FR3-CONSENT-001–005, FR3-IMPORT-007–008
+**Wireframes:** Consents, Connections, Account setup
+
+**Preconditions:** The actor is authenticated, represents the consent subject, and the provider/purpose/data-category contract is approved for the environment. A placeholder connector cannot request operational consent.
+
+**Main success flow:**
+
+1. The actor opens Consents and selects a supported source/provider.
+2. The system displays the exact purposes, data categories, duration, withdrawal effect and retention treatment.
+3. The actor confirms through the required auth-core reauthentication/consent ceremony.
+4. The API validates subject authority and records an immutable consent artefact/reference plus effective consent state.
+5. The connector receives only the allowed provider, person, purposes and categories.
+6. Collection/imported facts retain the consent and source provenance used at collection time.
+7. The Consents surface shows grant time, expiry, current state and available actions.
+8. On revocation, future collection stops promptly and the action is audited; retained prior facts follow their documented legal/retention basis.
+
+**Extensions:** An expired consent cannot start a fetch; provider callback state mismatch is rejected; a provider outage does not silently revoke consent; revoked consent does not erase shared or legally retained facts; a changed purpose/category set requires a new consent rather than broadening the old one; an inactive connector is labelled unavailable and cannot create a misleading active record.
+
+**Postconditions:** Future processing is limited to an effective compatible consent or another explicitly recorded basis, and grant/revocation evidence remains auditable.
+
+## UC3-LIAB-001 — Add and Maintain a Liability
+
+**Primary actor:** Borrower/owner or granted administrator
+**Requirements:** FR3-LEDGER-001–003, FR3-LEDGER-008
+**Wireframes:** Liabilities, Holding, Account setup
+
+**Main success flow:**
+
+1. The actor selects one of the liability catalogue subtypes and identifies direct, contingent, tax or court-ordered nature.
+2. The form loads universal and versioned subtype fields.
+3. The actor enters borrower, lender/authority, currency, terms, dates, rate/reset facts and source.
+4. The actor records a dated direct balance or contingent exposure and, where applicable, a versioned repayment schedule.
+5. The actor links financed/pledged holdings without duplicating them.
+6. The API validates authority, subtype schema, balance nature, collateral and schedule consistency.
+7. Liability terms, balance event, links and outbox/audit evidence commit atomically.
+8. Projections display direct debt in net worth and contingent exposure separately with provenance/as-of state.
+
+**Extensions:** A balance correction appends a superseding event; incomplete schedules remain partial rather than invented; floating debt without required benchmark/reset is rejected; guarantee crystallization creates a new direct-balance fact and preserves contingent history; paid-off status requires an accepted zero balance or explained residual; unauthorized collateral linkage is rejected without exposing the holding.
+
+**Postconditions:** The obligation is represented once with reproducible terms, dated balance and correct direct/contingent treatment.
+
+## UC3-PREF-001 — Change Application Preferences
+
+**Primary actor:** Authenticated principal
+**Requirements:** FR3-SET-001–002
+**Wireframe:** Settings
+
+**Main success flow:** The actor opens Settings; reviews display currency, locale/time zone, accessibility and notification choices plus current access visibility; changes permitted preferences; the API validates values and expected version; preferences commit; subsequent presentation changes without altering stored financial facts; the action is audited where material.
+
+**Extensions:** A concurrent update returns a version conflict; unsupported locale/time zone/channel is rejected; mandatory security/legal notifications cannot be disabled; display-currency change recalculates presentation through dated FX facts and never rewrites native amounts; reduced-motion/text-scale settings apply accessibly on the next render.
+
+**Postconditions:** Principal preferences are updated independently of financial facts and access authority.

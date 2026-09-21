@@ -17,16 +17,19 @@ classDiagram
     class Household
     class HouseholdMembership
     class AccessGrant
+    class SourceConsent
     class AuthorityContext
     class ApplicationBootstrapControl
     class HouseholdControl
     class AccessGrantControl
+    class ConsentControl
     class AuthBoundary
     class HouseholdBoundary
 
     AuthBoundary --> ApplicationBootstrapControl
     HouseholdBoundary --> HouseholdControl
     HouseholdBoundary --> AccessGrantControl
+    HouseholdBoundary --> ConsentControl
     ApplicationBootstrapControl --> AuthenticatedPrincipal
     HouseholdControl --> Person
     HouseholdControl --> Household
@@ -34,15 +37,17 @@ classDiagram
     Person "1" --> "0..*" HouseholdMembership
     AccessGrantControl --> AccessGrant
     AccessGrantControl --> AuthorityContext
+    ConsentControl --> SourceConsent
 ```
 
-**Aggregate roots:** `Household`, `AccessGrant`. `Person` has independent identity; membership changes are guarded through `Household`.
+**Aggregate roots:** `Household`, `AccessGrant`, `SourceConsent`. `Person` has independent identity; membership changes are guarded through `Household`. Consent governs a purpose/provider/data-category processing basis and never substitutes for an access grant.
 
 **Controls:**
 
 - `ApplicationBootstrapControl`: verifies identity context, provisions local principal, resolves allowed entry scopes.
 - `HouseholdControl`: creates people/memberships, applies role/guardian rules, calculates permitted household composition.
 - `AccessGrantControl`: grants, filters, expires and revokes access; creates authorization audit evidence.
+- `ConsentControl`: records purpose-bound source consent, validates effective provider/category scope, expires/revokes future collection and preserves evidence.
 - `AuthorityPolicy`: evaluates ownership, role, grant, purpose and feature state for one action.
 
 ## Holding and ledger module
@@ -231,4 +236,3 @@ classDiagram
 - Calculation engines do not query unrestricted repositories or authorize callers.
 - Repositories do not call controls.
 - Read projections do not become authoritative facts.
-

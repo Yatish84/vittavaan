@@ -74,6 +74,16 @@
 | FR3-IMPORT-007 | MUST | Connector consent, health, last success and failure fields shall exist even while live connector adapters are disabled. |
 | FR3-IMPORT-008 | GATED | Live connectors may activate only after vendor, consent, reconciliation, security and operations approval. |
 
+## Source and processing consent
+
+| ID | Priority | Requirement |
+|---|---|---|
+| FR3-CONSENT-001 | MUST | Consent shall be purpose-bound and distinct from household access grants, contract necessity and other documented processing bases. |
+| FR3-CONSENT-002 | MUST | A consent record shall identify subject, provider/source, approved purposes and data categories, grant/expiry/revocation times, status and supporting artefact where applicable. |
+| FR3-CONSENT-003 | MUST | Revocation or expiry shall prevent future connector collection promptly while preserving previously obtained financial facts only under the approved retention/processing policy. |
+| FR3-CONSENT-004 | MUST | The Consents surface shall show active, expiring, expired, revoked and action-required states without suggesting that a placeholder connector is live. |
+| FR3-CONSENT-005 | MUST | A connector or source job shall prove an effective compatible consent or another explicitly approved processing basis before collection; household membership alone is insufficient. |
+
 ## Documents and provenance
 
 | ID | Priority | Requirement |
@@ -138,4 +148,3 @@
 | FR3-GATE-004 | Marketplace workflows shall never represent Vittavaan as valuer or custodian and shall use approved external escrow/payment arrangements. |
 | FR3-GATE-005 | Estate/gift/inheritance workflows shall use versioned professionally reviewed legal rules and owner/executor authority. |
 | FR3-GATE-006 | Advisor discovery/ratings/payments shall activate only under approved credential, conflict, engagement and regulatory policies. |
-

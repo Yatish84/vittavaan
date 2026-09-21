@@ -1,0 +1,29 @@
+services:
+  api:
+    ports: ["127.0.0.1:8000:8000"]
+  web:
+    ports: ["127.0.0.1:5173:8080"]
+  integration-test:
+    profiles: ["test"]
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    environment:
+      APP_ENV: test
+      APP_RELEASE_ID: integration-test
+      DATABASE_URL: postgresql+asyncpg://vittavaan:local-postgres-only@postgres:5432/vittavaan
+      REDIS_URL: redis://:local-valkey-only@valkey:6379/0
+      VITTAVAAN_INTEGRATION_DATABASE_URL: postgresql+asyncpg://vittavaan_app:local-app-role-only@postgres:5432/vittavaan
+      VITTAVAAN_INTEGRATION_MIGRATION_DATABASE_URL: postgresql+asyncpg://vittavaan_migrator:local-migrator-role-only@postgres:5432/vittavaan
+      VITTAVAAN_INTEGRATION_REDIS_URL: redis://:local-valkey-only@valkey:6379/0
+      VITTAVAAN_INTEGRATION_OBJECT_ENDPOINT: http://object-store:9000
+      VITTAVAAN_INTEGRATION_OBJECT_ACCESS_KEY_FILE: /run/secrets/object_store_access_key
+      VITTAVAAN_INTEGRATION_OBJECT_SECRET_KEY_FILE: /run/secrets/object_store_secret_key
+    secrets: [object_store_access_key, object_store_secret_key]
+    depends_on:
+      migration: { condition: service_completed_successfully }
+      postgres: { condition: service_healthy }
+      valkey: { condition: service_healthy }
+      object-store: { condition: service_healthy }
+      worker: { condition: service_started }
+    networks: [app, data]

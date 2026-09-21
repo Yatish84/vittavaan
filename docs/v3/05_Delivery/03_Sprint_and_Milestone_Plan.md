@@ -6,8 +6,8 @@ Two-week iterations are assumed for planning; scope is accepted by outcome rathe
 
 | Sprint | Outcome | Primary trace families |
 |---|---|---|
-| S0 Documentation approval | Reconciled v3 baseline, open decisions/gates owned | All |
-| S1 Repository foundation | Monorepo, local stack, CI, configuration, health and telemetry | NFR3-MAINT/OPS/SEC |
+| S0 Documentation approval — COMPLETE 20 Sep 2026 | Reconciled v3 baseline, open decisions/gates owned | All |
+| S1 Repository foundation — IN PROGRESS | Monorepo, local stack, CI, configuration, health and telemetry; detailed in [S1 Repository Foundation Backlog](./04_S1_Repository_Foundation_Backlog.md) and recorded in the [Implementation and Verification Log](./05_Implementation_and_Verification_Log.md) | NFR3-MAINT/OPS/SEC |
 | S2 Auth/bootstrap | Auth-core handoff/verifier, local principal, first-run and denial behavior | UC3-IAM-001, FR3-IAM |
 | S3 Household/access | People, households, memberships, grants, scope selector and ownership authority | UC3-HH-001, UC3-GRANT-001, FR3-HH |
 | S4 Holding catalogue | Universal holding, allocations, priority-1 subtype forms and manual entry | UC3-HOLD-001, FR3-HOLD |
@@ -40,4 +40,3 @@ Two-week iterations are assumed for planning; scope is accepted by outcome rathe
 ## Release gates
 
 Alpha uses synthetic data; controlled beta requires threat-model review, restore drill, auth-core contract testing, independent security review scheduling and approved privacy/legal baseline. Production requires all SLO instrumentation, operational ownership, penetration-test disposition and manual approval.
-

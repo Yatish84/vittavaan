@@ -1,0 +1,135 @@
+name: vittavaan
+services:
+  postgres:
+    image: postgres:17.11-alpine
+    environment:
+      POSTGRES_DB: vittavaan
+      POSTGRES_USER: vittavaan
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+    secrets: [postgres_password]
+    volumes: [postgres_data:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vittavaan -d vittavaan"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks: [data]
+
+  valkey:
+    image: valkey/valkey:8.1-alpine
+    command: ["valkey-server", "--requirepass", "local-valkey-only", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
+    healthcheck:
+      test: ["CMD", "valkey-cli", "-a", "local-valkey-only", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks: [data]
+
+  object-store:
+    image: rustfs/rustfs:1.0.0@sha256:8cc9801755448b71a786705ce76692c77e14936cccd87cf2fc31842e58f4d1ff
+    entrypoint: ["/bin/sh", "/bootstrap/start-object-store.sh"]
+    secrets: [object_store_access_key, object_store_secret_key]
+    volumes:
+      - object_data_rustfs:/data
+      - ./scripts/start-object-store.sh:/bootstrap/start-object-store.sh:ro
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:9000/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+    networks: [data]
+
+  database-bootstrap:
+    image: postgres:17.11-alpine
+    command: ["/bootstrap/configure_roles.sh"]
+    secrets: [postgres_password, postgres_app_password, postgres_migrator_password]
+    volumes:
+      - ./database/bootstrap:/bootstrap:ro
+    depends_on:
+      postgres: { condition: service_healthy }
+    restart: "no"
+    networks: [data]
+
+  migration:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    command: [".venv/bin/alembic", "upgrade", "head"]
+    environment:
+      APP_ENV: local
+      APP_RELEASE_ID: compose-development
+      DATABASE_URL_FILE: /run/secrets/migration_database_url
+      REDIS_URL_FILE: /run/secrets/redis_url
+    secrets: [migration_database_url, redis_url]
+    depends_on:
+      database-bootstrap: { condition: service_completed_successfully }
+    restart: "no"
+    networks: [data]
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    environment:
+      APP_ENV: local
+      APP_RELEASE_ID: compose-development
+      PUBLIC_WEB_URL: http://localhost:5173
+      PUBLIC_API_URL: http://localhost:8000/api/v1
+      DATABASE_URL_FILE: /run/secrets/database_url
+      REDIS_URL_FILE: /run/secrets/redis_url
+    secrets: [database_url, redis_url]
+    depends_on:
+      migration: { condition: service_completed_successfully }
+      valkey: { condition: service_healthy }
+      object-store: { condition: service_healthy }
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health/ready')"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+    networks: [app, data]
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    command: ["celery", "-A", "vittavaan.boundary.worker:celery_app", "worker", "--loglevel=INFO", "--concurrency=1"]
+    environment:
+      APP_ENV: local
+      APP_RELEASE_ID: compose-development
+      DATABASE_URL_FILE: /run/secrets/database_url
+      REDIS_URL_FILE: /run/secrets/redis_url
+    secrets: [database_url, redis_url]
+    depends_on:
+      migration: { condition: service_completed_successfully }
+      valkey: { condition: service_healthy }
+      object-store: { condition: service_healthy }
+    networks: [app, data]
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    depends_on:
+      api: { condition: service_healthy }
+    networks: [app]
+
+networks:
+  app: {}
+  data:
+    internal: true
+
+volumes:
+  postgres_data: {}
+  object_data_rustfs: {}
+
+secrets:
+  postgres_password: { file: ./runtime/secrets/postgres_password }
+  postgres_app_password: { file: ./runtime/secrets/postgres_app_password }
+  postgres_migrator_password: { file: ./runtime/secrets/postgres_migrator_password }
+  database_url: { file: ./runtime/secrets/database_url }
+  migration_database_url: { file: ./runtime/secrets/migration_database_url }
+  redis_url: { file: ./runtime/secrets/redis_url }
+  object_store_access_key: { file: ./runtime/secrets/object_store_access_key }
+  object_store_secret_key: { file: ./runtime/secrets/object_store_secret_key }

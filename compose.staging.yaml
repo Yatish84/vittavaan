@@ -1,0 +1,13 @@
+services:
+  api:
+    restart: unless-stopped
+    read_only: true
+    tmpfs: [/tmp]
+  worker:
+    restart: unless-stopped
+    read_only: true
+    tmpfs: [/tmp]
+  web:
+    restart: unless-stopped
+  object-store:
+    restart: unless-stopped

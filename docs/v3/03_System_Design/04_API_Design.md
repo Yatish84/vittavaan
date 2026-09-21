@@ -72,6 +72,8 @@ Use RFC 9457-style problem details. `401` means authentication is absent/invalid
 | `GET/POST /liabilities` | List/create direct or contingent obligation. |
 | `GET/PATCH /liabilities/{id}` | Detail/update terms with version. |
 | `POST /liabilities/{id}/archive` | Close/archive obligation. |
+| `GET/POST /liabilities/{id}/balance-events` | Read/append dated direct or contingent balance assertion. |
+| `POST /liabilities/{id}/balance-events/{event_id}/correct` | Append a superseding balance correction. |
 | `GET/POST /liabilities/{id}/schedules` | Versioned expected schedule. |
 | `GET/POST /liabilities/{id}/security-links` | Linked collateral/pledge details. |
 
@@ -87,6 +89,16 @@ Use RFC 9457-style problem details. `401` means authentication is absent/invalid
 | `POST /imports/{id}/commit` | Confirm exact job version/selected rows. |
 | `POST /imports/{id}/cancel` | Cancel pre-commit remaining work. |
 | `GET /imports/{id}/error-report` | Authorized expiring report artifact. |
+
+## Sources and consent
+
+| Method/path | Purpose |
+|---|---|
+| `GET /sources` | List permitted manual/import/connector sources with freshness and capability state. |
+| `GET /consents` | List the subject's purpose-bound active/historical consent records. |
+| `POST /consents` | Begin/record an approved consent ceremony using an idempotency key. |
+| `GET /consents/{id}` | Read authorized purpose, categories, provider, evidence and lifecycle state. |
+| `POST /consents/{id}/revoke` | Revoke future collection without silently deleting retained prior facts. |
 
 ## Documents
 
@@ -165,4 +177,3 @@ Query parameters use a typed `scope_type`, `scope_id`, `as_of`/period and `basis
 - Enum additions require tolerant generated clients or an API version/review.
 - Breaking field/semantic changes require a new version or negotiated deprecation window.
 - Every endpoint maps to requirements/use cases and has positive/negative authorization contract tests.
-

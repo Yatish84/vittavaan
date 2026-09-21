@@ -36,6 +36,7 @@ sequenceDiagram
 | `principal.bootstrapped.v1` | First-run metrics/audit only. |
 | `household.membership_changed.v1` | Authorization cache invalidation, household projections. |
 | `access_grant.changed.v1` | Authorization cache invalidation, expiry scheduler, audit notifications. |
+| `data_consent.changed.v1` | Connector authorization cache, expiry/revocation scheduler and audit notification. |
 | `holding.changed.v1` | Wealth, allocation, liquidity, analysis and goal projections. |
 | `ownership_schedule.changed.v1` | Historical/current projections and permission-dependent views. |
 | `valuation.appended.v1` | Wealth/performance/goal projections and staleness schedule. |
@@ -57,6 +58,7 @@ sequenceDiagram
 | Document scan | Upload event | Document version + checksum + scanner policy. |
 | Metadata/OCR proposal | Clean scan event | Document version + extractor version. |
 | Grant expiry | Indexed periodic sweep + scheduled time | Grant ID + expiry. |
+| Consent expiry/revocation enforcement | Indexed periodic sweep + provider callback/event | Consent ID + state version. |
 | Staleness transition | Scheduled policy boundary/sweep | Fact/policy/effective boundary. |
 | Export compilation | User request | Export job version. |
 | Retention/anonymization | Approved schedule | Record class + policy + cutoff checkpoint. |
@@ -90,4 +92,3 @@ Projection records include source checkpoint, calculation/policy versions, calcu
 - Cache entries contain no broader data than the requesting authorization context allows.
 - Grant/revocation/membership events invalidate authorization-dependent keys immediately.
 - Cache loss affects latency, not correctness.
-
