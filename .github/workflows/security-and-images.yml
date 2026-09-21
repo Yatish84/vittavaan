@@ -95,16 +95,21 @@ jobs:
           provenance: mode=max
           sbom: true
           tags: vittavaan-${{ matrix.image }}:${{ github.sha }}-${{ matrix.architecture }}
-      - name: Extract OCI archive for scanning
-        run: |
-          mkdir -p /tmp/vittavaan-${{ matrix.image }}-${{ matrix.architecture }}-oci
-          tar -xf /tmp/vittavaan-${{ matrix.image }}-${{ matrix.architecture }}.tar \
-            -C /tmp/vittavaan-${{ matrix.image }}-${{ matrix.architecture }}-oci
+      - name: Load native image for vulnerability scanning
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: ${{ matrix.dockerfile }}
+          platforms: ${{ matrix.platform }}
+          load: true
+          provenance: false
+          sbom: false
+          tags: vittavaan-${{ matrix.image }}:${{ github.sha }}-${{ matrix.architecture }}-scan
       - name: Scan built image
         uses: aquasecurity/trivy-action@v0.36.0
         with:
           scan-type: image
-          scan-ref: /tmp/vittavaan-${{ matrix.image }}-${{ matrix.architecture }}-oci
+          image-ref: vittavaan-${{ matrix.image }}:${{ github.sha }}-${{ matrix.architecture }}-scan
           scanners: vuln
           severity: HIGH,CRITICAL
           ignore-unfixed: true
