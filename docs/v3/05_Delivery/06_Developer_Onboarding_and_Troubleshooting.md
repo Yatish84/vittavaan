@@ -188,7 +188,7 @@ If a test command is interrupted, rerun it. Tests use isolated synthetic identif
 
 | Work package | Status | Evidence location or remaining requirement |
 |---|---|---|
-| S1-FND-001 Toolchain | In progress | Versions/locks and local security evidence exist; baseline commit/tag and hosted platform evidence remain. |
+| S1-FND-001 Toolchain | Verified | Versions/locks, local checks and the hosted `develop` baseline pass. |
 | S1-FND-002 Structure | Verified locally | Architecture test includes a planted forbidden-import proof. |
 | S1-FND-003 API shell | Verified locally | Safe errors, correlation, deterministic OpenAPI and health tests pass. |
 | S1-FND-004 Web shell | Verified locally | Strict lint/types/test/build and non-root production image pass. |
@@ -198,7 +198,7 @@ If a test command is interrupted, rerun it. Tests use isolated synthetic identif
 | S1-FND-008 Migrations | Verified locally | Dedicated migration role, repeatability, concurrency lock and head-aware readiness pass. |
 | S1-FND-009 Telemetry | Verified locally | Safe logs/traces plus bounded HTTP/dependency/pool/queue/worker metrics pass. |
 | S1-FND-010 Test harness | Verified locally | 20 fast backend tests at 80% coverage, one web test and six integration tests pass. |
-| S1-FND-011 CI/supply chain | In progress | Workflows and clean local scans exist; first hosted GitHub AMD64/ARM64/SBOM/provenance run remains. |
+| S1-FND-011 CI/supply chain | Verified | Hosted quality/security runs pass, including native AMD64/ARM64 API/web builds, scans, SBOM and provenance evidence. |
 | S1-FND-012 Developer experience | Verified locally | This guide was followed in an isolated clean repository copy with new dependency directories, containers and data volumes; setup, fast checks and six integration tests passed. |
 
-S1 must remain **in progress** until the remaining CI evidence gap is closed and the owner approves the completion report.
+All twelve S1 work packages have implementation evidence. S1 remains **review ready**, not closed, until the owner approves this completion report and authorizes S2.

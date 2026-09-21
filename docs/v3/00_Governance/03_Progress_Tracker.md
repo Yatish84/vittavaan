@@ -41,7 +41,7 @@
 | Phase 4 coverage audit | Draft | Phase 3 decisions reconciled to object contracts; remaining test/delivery detail recorded. |
 | Delivery structure/standards | Draft | Monorepo, dependency, language, API, migration and review standards added. |
 | Sprint roadmap | Draft | S0–S12 outcomes mapped to trace families and release gates. |
-| S1 implementation backlog | In progress | Ten foundation slices are recorded. The stack, automated quality checks, cross-process runtime monitoring, forced worker re-delivery, least-privilege database accounts, private S3-compatible object storage, local security checks and plain-English onboarding guide are verified locally. A from-zero isolated-copy rehearsal also passed after exposing and correcting a migration transaction defect. Hosted GitHub evidence and owner baseline approval remain. |
+| S1 implementation backlog | Review ready | Eleven foundation slices are recorded. Local, clean-copy and hosted GitHub evidence now pass, including native AMD64/ARM64 builds, image scans, leaked-secret/dependency checks, SBOM and provenance generation. The baseline is on `develop`; owner approval to close S1 and begin S2 remains. |
 | Testing and traceability | Draft | Test pyramid, personas, golden scenarios, security/load/recovery and end-to-end matrix added. |
 | Operations/deployment | Draft | OCI Always Free single-VM staging, local/CI Compose parity, multi-architecture immutable deployment, safeguards and exit path added; AWS India remains the production and production-shaped performance target. |
 | Local-to-OCI deployment specification | Draft | Compose topology/overlays, ARM64/AMD64 images, conservative resource/storage budgets, Terraform resources, network/TLS, configuration/secrets, auth-core, manifest, rollback, recovery and cost guardrails specified. |
@@ -69,7 +69,9 @@ The eighth slice added bounded database-pool, worker-queue and cross-process wor
 
 The ninth slice selected digest-pinned RustFS 1.0.0 for local S3-compatible testing after rejecting a functionally successful SeaweedFS candidate that failed the HIGH vulnerability gate. RustFS is Apache-2.0, non-root, ARM64/AMD64 and scan-clean at the enforced threshold. A signed create/upload/download/delete integration probe passes; the real-service suite now has six tests.
 
-The tenth slice added the plain-English onboarding/troubleshooting guide and rehearsed it in an isolated repository copy with fresh language dependencies, containers and data volumes. That rehearsal found that the advisory-lock transaction could roll back Alembic's version marker on a truly empty database; the migration transaction boundary was corrected and a second from-zero run passed all setup, fast and six real-service integration checks. Hosted GitHub workflow evidence and the owner-authorized baseline commit remain.
+The tenth slice added the plain-English onboarding/troubleshooting guide and rehearsed it in an isolated repository copy with fresh language dependencies, containers and data volumes. That rehearsal found that the advisory-lock transaction could roll back Alembic's version marker on a truly empty database; the migration transaction boundary was corrected and a second from-zero run passed all setup, fast and six real-service integration checks.
+
+The eleventh slice created and pushed the owner-authorized `develop` baseline. After correcting three workflow integration defects without weakening a gate, the hosted quality and security workflows passed. API and web images built and scanned natively on Linux AMD64 and ARM64, with SBOM/provenance build records retained. S1 is ready for owner completion review; S2 has not started.
 
 No wealth-management feature has been implemented. There are no portfolio, asset, liability, household or local-authentication workflows yet. Those remain assigned to later sprints under the approved scope and auth-core boundary.
 

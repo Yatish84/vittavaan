@@ -1,7 +1,7 @@
 # Vittavaan v3 — Agent Handover
 
 > **Last updated:** 21 Sep 2026
-> **Current phase:** S1 Repository Foundation implementation
+> **Current phase:** S1 Repository Foundation completion review
 > **Application code status:** Foundation implemented; wealth-management features have not started
 > **Canonical documentation:** `docs/v3/`
 > **Baseline approval:** Owner approved `DEC3-001`–`DEC3-007` on 20 Sep 2026; S1 foundation is authorized.
@@ -163,22 +163,22 @@ Verified evidence from the first slice:
 - database-pool, worker-queue depth/oldest-age and cross-process worker completion/runtime metrics are exported with bounded labels. Workers share only predefined aggregate counters through an expiring Valkey hash; no task IDs, arguments or business values are stored. `make recovery-drill` force-kills the worker during a synthetic task and proves the same task is re-delivered and completed after restart. Fast checks cover 20 backend tests at 80% coverage, and 6 real-service integration tests pass.
 - digest-pinned RustFS 1.0.0 provides the private local S3-compatible service. It is Apache-2.0, non-root UID/GID 10001, ARM64/AMD64 and passed the HIGH/CRITICAL image scan. The sixth integration test proves authenticated create/upload/download/delete cleanup. SeaweedFS 4.47 was rejected after a functional pass because Trivy found fixable HIGH `CVE-2026-84445`; do not reintroduce it without a patched, rescanned release.
 - the onboarding path was repeated in an isolated repository copy without `.git`, existing language dependencies, runtime secrets, caches, containers or data volumes. It exposed and fixed an Alembic/advisory-lock transaction bug that rolled back the version marker only on a truly new database. A second from-zero run passed `make setup`, `make check` and all six integration tests.
+- the owner-authorized `develop` baseline is on GitHub. Hosted quality run `35620607835` and security/images run `35620607828` pass at commit `e8376e9a98c92ded2d4ac3b6c6439c50fbb9ae26`. API and web build and scan natively on Linux AMD64 and ARM64; dependency, repository, secret and RustFS scans pass; SBOM/provenance build records were generated.
 
 This is foundation only. Do not describe it as working wealth-management functionality and do not add authentication features owned by auth-core.
 
 ## Next work, in order
 
-1. Continue the twelve-package S1 backlog from the verified foundation slice; do not implement product features early.
-2. Push/trigger the GitHub workflows and retain the first native AMD64/ARM64 build and hosted security-scan evidence; do not mark it verified merely because the workflow file exists.
-3. Preserve the completed clean-copy onboarding rehearsal and final evidence mapping, then record the baseline commit/tag when approved changes are committed.
-4. Add element-level wireframe trace IDs during each owning sprint; do not delay S1 for purely presentational trace granularity.
-5. Resolve Sections B-E by their stated sprint/release gates, especially auth-core values, catalogue approval, retention, OCI limits and RPO/RTO.
+1. Present the S1 completion evidence to the owner and obtain explicit approval before starting S2.
+2. After approval, verify the external auth-core issuer, audience, JWKS/revocation topology and redirect origins before implementing S2 integration.
+3. Add element-level wireframe trace IDs during each owning sprint; do not delay S2 for purely presentational trace granularity.
+4. Resolve Sections B-E by their stated sprint/release gates, especially auth-core values, catalogue approval, retention, OCI limits and RPO/RTO.
 
 ## Exact next implementation sequence
 
 This is the executable queue for the next coding agent. Work from the top and stop at any owner decision or external-access boundary instead of silently bypassing it.
 
-### Next 1 — Obtain hosted GitHub evidence
+### Next 1 — Obtain hosted GitHub evidence (complete)
 
 **Goal:** prove the already-defined workflows on real GitHub Intel and ARM machines.
 
@@ -187,7 +187,7 @@ This is the executable queue for the next coding agent. Work from the top and st
 3. Capture the workflow URL, commit SHA, job conclusions and image-build platforms in `05_Delivery/05_Implementation_and_Verification_Log.md`.
 4. Fix reproducible application/workflow failures and rerun. Do not hide or waive a failed security finding. Document infrastructure/transient failures separately.
 
-**Done when:** quality and security workflows pass on GitHub; API and web build natively for Linux AMD64 and ARM64; dependency, secret, filesystem and built-image scans pass; SBOM/provenance generation is evidenced. A workflow file existing locally is not completion evidence.
+**Done when:** complete. Quality run `35620607835` and security/images run `35620607828` passed for `e8376e9a98c92ded2d4ac3b6c6439c50fbb9ae26`.
 
 ### Next 2 — Complete remaining reliability/capacity evidence
 

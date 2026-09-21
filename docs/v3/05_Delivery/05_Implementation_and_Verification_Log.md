@@ -388,5 +388,42 @@ The clean PostgreSQL volume exposed a migration transaction defect that an alrea
 
 ## Next planned work
 
-1. Run the new workflow on GitHub and retain native ARM64/AMD64 and security-scan evidence.
-2. Obtain owner authorization for the baseline commit/push, then capture hosted workflow evidence and complete the S1 report.
+1. Present the completed S1 evidence to the owner and obtain approval before beginning S2.
+2. After approval, begin S2 with the external auth-core contract verification defined in the sprint plan; do not implement authentication inside Vittavaan.
+
+### 21 Sep 2026 — S1 hosted CI and baseline slice 11
+
+**Status:** Verified; S1 is ready for owner completion review.
+
+**Baseline**
+
+- Branch: `develop`
+- Foundation commit: `8fba18be1787c4e7cf8183d40651f58cfa2327c4`
+- Passing hosted-evidence commit: `e8376e9a98c92ded2d4ac3b6c6439c50fbb9ae26`
+- Quality workflow: <https://github.com/Yatish84/vittavaan/actions/runs/35620607835>
+- Security and images workflow: <https://github.com/Yatish84/vittavaan/actions/runs/35620607828>
+
+**Hosted evidence**
+
+| Check | Result |
+|---|---|
+| Backend lint, strict types and tests | Passed on GitHub Ubuntu |
+| Web lint, types, test, build and secret canary | Passed on GitHub Ubuntu |
+| Compose contract | Passed after local-only secret bootstrap |
+| Git history leaked-secret scan | Passed |
+| Python and JavaScript dependency audits | Passed |
+| Repository vulnerability/secret/configuration scan | Passed at the enforced HIGH/CRITICAL threshold |
+| RustFS pinned-image scan | Passed at the enforced HIGH/CRITICAL threshold |
+| API native AMD64 build and image scan | Passed |
+| API native ARM64 build and image scan | Passed |
+| Web native AMD64 build and image scan | Passed |
+| Web native ARM64 build and image scan | Passed |
+| SBOM and provenance generation | Passed for all four native image builds; build records retained as workflow artifacts |
+
+**Issues found and resolved during the hosted run**
+
+1. The web job called `uv` without installing it. The dependency-free canary script now uses the runner's `python3` directly.
+2. Gitleaks correctly stopped the workflow, but the findings were two false positives for the literal phrase “S3-compatible”; wording was clarified without adding a scanner exception. A local repeat and the hosted Git-history scan then passed.
+3. Trivy could not directly scan the attested OCI archive format. The workflow now retains the native attested OCI build and uses the same native build cache to load an equivalent image into the runner for vulnerability scanning. This keeps both provenance/SBOM evidence and image vulnerability enforcement.
+
+The remaining gate is the owner's explicit acceptance of the S1 completion report and authorization to begin S2.
