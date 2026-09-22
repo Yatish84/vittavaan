@@ -616,3 +616,11 @@ The first real cross-service run exposed a case-sensitive contract mismatch: aut
 | Storage notation | Physical columns and logical JSON paths are explicitly distinguished |
 | Requirement vocabulary | Mandatory, Conditional, Optional, System-generated/calculated and Sensitive are defined |
 | Navigation and formatting | 93 linked index entries, 93 expandable subtype sections and status-first sorting verified |
+
+### 22 Sep 2026 — GitHub-readable asset matrix pages
+
+**Finding:** GitHub could not preview the 2.15 MB combined asset matrix, preventing the owner from opening the formatted document.
+
+**Change:** The generator now writes a compact asset index and 19 asset class files. Each index link opens the relevant class file at the selected subtype's expandable section. The field definitions, colored tags, row order and self-contained subtype tables are preserved.
+
+**Verification:** The index is about 11 KB; the largest class file is about 215 KB. All 93 subtypes and 16,786 field rows remain. Generator output and links were checked locally.

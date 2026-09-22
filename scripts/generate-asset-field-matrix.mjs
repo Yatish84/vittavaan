@@ -1,7 +1,8 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 
 const sourcePath = "docs/v3/02_Analysis/07_India_Subtype_Attribute_Schemas.md";
 const outputPath = "docs/v3/02_Analysis/08_Asset_Field_Requirement_Matrix.md";
+const classDirectory = "docs/v3/02_Analysis/asset_field_matrix";
 const source = await readFile(sourcePath, "utf8");
 const assetSection = source
   .split("## Asset schemas")[1]
@@ -120,6 +121,10 @@ function sortedByRequirement(fields) {
 
 function anchor(assetSubtype) {
   return `asset-subtype-${assetSubtype.toLowerCase().replaceAll("_", "-")}`;
+}
+
+function classPath(assetClass) {
+  return `asset_field_matrix/${assetClass}.md`;
 }
 
 const commonRows = [
@@ -333,39 +338,34 @@ for (const row of rows.slice(0, 93)) {
     indexClass = row.assetClass;
     output.push(`- **\`${indexClass}\`**`);
   }
-  output.push(`  - [\`${row.assetSubtype}\`](#${anchor(row.assetSubtype)})`);
+  output.push(`  - [\`${row.assetSubtype}\`](${classPath(row.assetClass)}#${anchor(row.assetSubtype)})`);
 }
 output.push("");
-output.push("## Fields common to every asset");
-output.push("");
-output.push("These normalized fields apply to every asset. They are also repeated inside every subtype table below so each subtype is a complete, standalone checklist.");
-output.push("");
-output.push("| `table_name.column_name` | Description | Note |");
-output.push("|---|---|---|");
-for (const [path, description, requirement] of sortedByRequirement(commonRows)) {
-  output.push(`| \`${path}\` | ${description} | ${note(requirement)} |`);
-}
-output.push("");
-output.push("## Fields available to any asset when applicable");
-output.push("");
-output.push("| `table_name.column_name` | Description | Note |");
-output.push("|---|---|---|");
-for (const field of sortedByRequirement(crossCuttingRows)) {
-  output.push(`| \`holdings.subtype_attributes.${field[0]}\` | ${field[1]} | ${note(field[2])} |`);
-}
-output.push("");
-output.push("## Subtype-by-subtype fields");
+output.push("Each linked class page contains the complete field table for every subtype in that class. Open a subtype there to see its fields, including the shared holding, ownership, valuation and related table columns.");
 output.push("");
 
-let currentClass = "";
+const classPages = new Map();
 let totalFields = 0;
 let totalMatrixRows = 0;
 for (const row of rows.slice(0, 93)) {
-  if (row.assetClass !== currentClass) {
-    currentClass = row.assetClass;
-    output.push(`## Asset class: \`${currentClass}\``);
-    output.push("");
+  if (!classPages.has(row.assetClass)) {
+    const page = [
+      `# Asset class: \`${row.assetClass}\``,
+      "",
+      "[← All asset subtypes](../08_Asset_Field_Requirement_Matrix.md)",
+      "",
+      "Each subtype below expands into its complete field checklist. The status tags and storage path notation are explained in the [matrix index](../08_Asset_Field_Requirement_Matrix.md#status-tags).",
+      "",
+      "## Subtypes in this class",
+      "",
+    ];
+    for (const classRow of rows.filter((candidate) => candidate.assetClass === row.assetClass)) {
+      page.push(`- [\`${classRow.assetSubtype}\`](#${anchor(classRow.assetSubtype)})`);
+    }
+    page.push("");
+    classPages.set(row.assetClass, page);
   }
+  const page = classPages.get(row.assetClass);
   const fields = expandedFields(row);
   totalFields += fields.length;
   const subtypeRows = fields.map((field) => [
@@ -381,19 +381,19 @@ for (const row of rows.slice(0, 93)) {
   }
   for (const field of subtypeRows) completeRows.set(field[0], field);
   totalMatrixRows += completeRows.size;
-  output.push(`<a id="${anchor(row.assetSubtype)}"></a>`);
-  output.push("");
-  output.push("<details>");
-  output.push(`<summary><strong>Asset subtype: <code>${row.assetSubtype}</code></strong></summary>`);
-  output.push("");
-  output.push("| `table_name.column_name` | Description | Note |");
-  output.push("|---|---|---|");
+  page.push(`<a id="${anchor(row.assetSubtype)}"></a>`);
+  page.push("");
+  page.push("<details>");
+  page.push(`<summary><strong>Asset subtype: <code>${row.assetSubtype}</code></strong></summary>`);
+  page.push("");
+  page.push("| `table_name.column_name` | Description | Note |");
+  page.push("|---|---|---|");
   for (const [path, description, requirement] of sortedByRequirement([...completeRows.values()])) {
-    output.push(`| \`${path}\` | ${description} | ${note(requirement)} |`);
+    page.push(`| \`${path}\` | ${description} | ${note(requirement)} |`);
   }
-  output.push("");
-  output.push("</details>");
-  output.push("");
+  page.push("");
+  page.push("</details>");
+  page.push("");
 }
 
 output.push("## Completeness and maintenance rules");
@@ -406,5 +406,9 @@ output.push("- A subtype field cannot be moved into or out of normalized storage
 output.push("- Mandatory is a business activation rule. Database `NOT NULL` constraints are documented separately in `03_Database_Design.md`.");
 output.push("");
 
+await mkdir(classDirectory, { recursive: true });
 await writeFile(outputPath, `${output.join("\n")}\n`, "utf8");
-console.log(`Generated ${outputPath}: 93 subtypes, ${totalFields} subtype fields, ${totalMatrixRows} complete matrix rows.`);
+for (const [assetClass, page] of classPages) {
+  await writeFile(`${classDirectory}/${assetClass}.md`, `${page.join("\n")}\n`, "utf8");
+}
+console.log(`Generated index and ${classPages.size} class pages: 93 subtypes, ${totalFields} subtype fields, ${totalMatrixRows} complete matrix rows.`);
