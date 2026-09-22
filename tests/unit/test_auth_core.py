@@ -97,6 +97,65 @@ async def test_rejects_malformed_bearer_token_without_network_call() -> None:
 
 
 @pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "failure",
+    [
+        httpx.ConnectError("verifier offline"),
+        httpx.ReadTimeout("verifier timed out"),
+    ],
+)
+async def test_verifier_network_failure_fails_closed(failure: httpx.RequestError) -> None:
+    def unavailable(request: httpx.Request) -> httpx.Response:
+        raise failure
+
+    adapter = verifier(httpx.MockTransport(unavailable))
+
+    with pytest.raises(AuthVerifierUnavailableError):
+        await adapter.verify("signed-token")
+
+
+@pytest.mark.asyncio
+async def test_verifier_server_error_fails_closed() -> None:
+    adapter = verifier(httpx.MockTransport(lambda _request: httpx.Response(503)))
+
+    with pytest.raises(AuthVerifierUnavailableError):
+        await adapter.verify("signed-token")
+
+
+@pytest.mark.asyncio
+async def test_verifier_recovers_after_temporary_outage() -> None:
+    attempts = 0
+
+    def temporarily_unavailable(request: httpx.Request) -> httpx.Response:
+        nonlocal attempts
+        attempts += 1
+        if attempts == 1:
+            raise httpx.ConnectError("verifier offline", request=request)
+        return httpx.Response(
+            200,
+            json={
+                "user_id": "user-1",
+                "session_id": "session-1",
+                "family_id": "family-1",
+                "jti": "token-1",
+                "client_type": "WEB",
+                "assurance": ["password"],
+                "roles": [],
+                "IssuedAt": "2026-09-22T12:00:00Z",
+            },
+        )
+
+    adapter = verifier(httpx.MockTransport(temporarily_unavailable))
+
+    with pytest.raises(AuthVerifierUnavailableError):
+        await adapter.verify("signed-token")
+    identity = await adapter.verify("signed-token")
+
+    assert identity.auth_subject == "user-1"
+    assert attempts == 2
+
+
+@pytest.mark.asyncio
 async def test_handoff_exchange_uses_server_credential_and_returns_token() -> None:
     async def handle(request: httpx.Request) -> httpx.Response:
         assert request.headers["X-Handoff-Client-Secret"] == "private-client-secret"
@@ -139,4 +198,25 @@ async def test_handoff_exchange_maps_replayed_code_to_safe_rejection() -> None:
     with pytest.raises(AuthHandoffRejectedError):
         await adapter.exchange(
             code="replayed-code", return_url="http://localhost:5173/auth/return"
+        )
+
+
+@pytest.mark.asyncio
+async def test_handoff_exchange_outage_fails_closed() -> None:
+    def unavailable(request: httpx.Request) -> httpx.Response:
+        raise httpx.ConnectError("auth API offline", request=request)
+
+    http_client = httpx.AsyncClient(
+        transport=httpx.MockTransport(unavailable), base_url="http://auth-core:8000"
+    )
+    adapter = AuthCoreHandoffClient(
+        base_url="http://unused",
+        client_secret="private-client-secret",
+        timeout_seconds=2,
+        client=http_client,
+    )
+
+    with pytest.raises(AuthVerifierUnavailableError):
+        await adapter.exchange(
+            code="single-use-code", return_url="http://localhost:5173/auth/return"
         )

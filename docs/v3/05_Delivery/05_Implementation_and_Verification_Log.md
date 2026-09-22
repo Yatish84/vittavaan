@@ -564,3 +564,28 @@ The first real cross-service run exposed a case-sensitive contract mismatch: aut
 | Liability catalogue coverage | 13 of 13 liability subtypes have a matching schema entry |
 | Markdown integrity | Code fences balanced and `git diff --check` clean |
 | Schema boundary | Current value, balance, ownership and derived metrics remain outside unrestricted subtype JSON |
+
+### 22 Sep 2026 — S2 cross-service failure and recovery verification
+
+**Status:** S2-06 complete locally; hosted checks and shared-staging configuration remain.
+
+**Implemented**
+
+- Expanded auth-core's real Go verifier tests to prove rejection of malformed, expired, wrong-issuer, wrong-audience, unknown-key and wrong-signature tokens in addition to its existing revocation coverage.
+- Expanded Vittavaan adapter tests to prove that connection errors, timeouts and upstream server errors fail closed, and that a later request succeeds after a temporary outage.
+- Added explicit handoff-exchange outage coverage so an unavailable auth API cannot yield an application session.
+
+**Verified**
+
+| Check | Result |
+|---|---|
+| Auth-core Go verifier suite | Passed with valid, malformed, expired, wrong issuer/audience/key/signature and revoked cases |
+| Vittavaan focused authentication/bootstrap suite | 19 passed |
+| Real verifier outage | Protected bootstrap returned safe HTTP 503 with no access |
+| Real verifier recovery | Verifier became healthy and the same invalid credential returned normal HTTP 401 |
+| Data impact | No database or user data was stopped, deleted or changed by the drill |
+
+**Remaining release evidence**
+
+- Run the S2 commits through hosted quality and security workflows.
+- Provision and record the shared-staging HTTPS URLs, return origin, verifier placement, issuer, audience and independently managed handoff secret before claiming staging readiness.

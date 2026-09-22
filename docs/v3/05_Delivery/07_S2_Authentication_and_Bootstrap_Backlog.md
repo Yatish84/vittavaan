@@ -92,7 +92,7 @@ The implemented contract uses a random, 60-second, single-use handoff code. The 
 
 ### S2-06 — Cross-service verification and operations
 
-**Status:** In progress. The valid local flow, bootstrap, single-use enforcement and replay rejection pass against running auth-core and Vittavaan stacks. The remaining negative token and outage matrix must still be executed.
+**Status:** Complete locally on 22 Sep 2026. The valid flow, bootstrap, single-use enforcement, replay rejection, complete negative-token matrix and a real verifier outage/recovery drill pass. Hosted checks and shared-staging values remain release evidence, not missing local implementation.
 
 Prove valid, malformed, expired, wrong-audience, wrong-issuer, unknown-key and revoked cases. Verify verifier outages fail closed and recover. Record staging configuration requirements and runbooks.
 

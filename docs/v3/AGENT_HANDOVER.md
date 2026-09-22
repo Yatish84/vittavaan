@@ -2,7 +2,7 @@
 
 > **Last updated:** 22 Sep 2026
 > **Current phase:** S2 Authentication and Application Bootstrap
-> **Application code status:** S1 foundation complete; S2-01 through S2-05 complete locally; S2-06 in progress; wealth-management features have not started
+> **Application code status:** S1 foundation complete; S2-01 through S2-06 complete locally; hosted S2 checks and shared-staging values remain; wealth-management features have not started
 > **Canonical documentation:** `docs/v3/`
 > **Baseline approval:** Owner approved `DEC3-001`–`DEC3-007` on 20 Sep 2026; S1 foundation is authorized.
 > **S1 setup approval:** Owner approved the recommended branch, GitHub CI/registry, platform, package-manager, Valkey candidate, storage compatible with the S3 API and review defaults on 20 Sep 2026.
@@ -186,8 +186,9 @@ This is the executable queue for the next coding agent. Work from the top and st
 1. Preserve completed S2-01 through S2-03. Configuration, verifier integration, the `app_principals` migration and concurrent idempotency checks pass locally.
 2. Preserve completed S2-04 frontend work: the typed client and accessible loading, first-run, ready, unauthenticated, unavailable and denied states pass tests; the production shell deliberately remains signed out until S2-05 supplies an in-memory identity context.
 3. Preserve completed S2-05: auth-core issues a 60-second, single-use, return-URL-bound code; Vittavaan exchanges it server-to-server with a private secret and holds the access token in memory only. Never reintroduce token URLs, `localStorage` or `sessionStorage`.
-4. Complete S2-06 against the running services. The valid flow and handoff replay rejection pass; add explicit expired, malformed, wrong issuer/audience/key, revoked and verifier/auth-core unavailable cases.
-5. Record independently provisioned staging URLs, HTTPS return origin, verifier placement, issuer/audience and matching handoff secret before claiming shared staging readiness.
+4. Preserve completed S2-06 coverage: auth-core directly tests malformed, expired, wrong issuer, wrong audience, unknown key, wrong signature and revoked tokens; Vittavaan tests connection failure, timeout, server failure and recovery. A real local verifier stop/start drill returned safe HTTP 503 during outage and normal HTTP 401 after recovery.
+5. Run and record the hosted quality/security checks for the S2 commits.
+6. Record independently provisioned staging URLs, HTTPS return origin, verifier placement, issuer/audience and matching handoff secret before claiming shared staging readiness.
 
 S2 is complete only when the backlog acceptance criteria and hosted checks pass. Shared staging cannot be claimed complete until environment-specific auth-core URLs, issuer, audience and return origins are recorded.
 
@@ -217,4 +218,4 @@ S2 is complete only when the backlog acceptance criteria and hosted checks pass.
 
 ## Repository state warning
 
-At this handover checkpoint, S2-01 through S2-05 and their documentation are intentional local changes that have not yet been committed or pushed. The coordinated auth-core repository also has intentional handoff changes mixed with pre-existing owner frontend/branding work; stage paths deliberately. Historical wireframe changes and unrelated owner work remain owner-owned. Do not revert, discard, reset or broadly rewrite existing work.
+At this handover checkpoint, the S2-06 verification additions and their documentation may be the only intentional uncommitted changes; inspect both repositories before acting. Earlier S2-01 through S2-05 work is already committed and pushed. Historical wireframe changes and unrelated owner work remain owner-owned. Do not revert, discard, reset or broadly rewrite existing work.
