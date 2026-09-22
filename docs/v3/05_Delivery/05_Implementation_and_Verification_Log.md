@@ -427,3 +427,119 @@ The clean PostgreSQL volume exposed a migration transaction defect that an alrea
 3. Trivy could not directly scan the attested OCI archive format. The workflow now retains the native attested OCI build and uses the same native build cache to load an equivalent image into the runner for vulnerability scanning. This keeps both provenance/SBOM evidence and image vulnerability enforcement.
 
 The remaining gate is the owner's explicit acceptance of the S1 completion report and authorization to begin S2.
+
+### 21 Sep 2026 — S2 contract and auth-core verifier slices 1–2
+
+**Status:** Verified locally; S2 remains in progress.
+
+**Owner direction**
+
+The owner retained the original sprint plan and authorized S2. The separate demo-first proposal is not implementation authority.
+
+**Implemented**
+
+- Confirmed the existing auth-core Go `GET /verify` service as the revocation-aware identity boundary. Vittavaan does not implement passwords, OTPs, MFA, recovery, refresh tokens or token decoding.
+- Added validated settings for the auth-core web/verifier locations, same-origin return URL, bounded verifier timeout and approved client types.
+- Added an immutable domain identity that carries authentication facts but grants no household or wealth permissions.
+- Added a strict, fail-closed HTTP adapter. It forwards a bearer token only to auth-core, disables redirects, accepts only the expected response structure and never stores or logs the token.
+- Added a reusable protected-route dependency with safe, distinct HTTP 401 and 503 problem responses.
+- Added local/Compose configuration seams. Deployment-specific URLs, issuer, audience and browser handoff remain staging decisions.
+
+**Verified**
+
+| Check | Result |
+|---|---|
+| Python lint | Passed |
+| Python strict typing | Passed |
+| Backend unit, architecture and OpenAPI contract tests | 32 passed; 82% aggregate coverage |
+| Valid auth-core response mapping | Passed |
+| Rejected token and unapproved client type | Safely returned unauthenticated behavior |
+| Malformed verifier response and verifier outage | Failed closed; no protected access |
+| Missing/wrong browser authorization scheme | Safe HTTP 401 with bearer challenge |
+| Existing public OpenAPI contract | Unchanged and passed |
+
+**Next**
+
+Implement S2-03: the minimal local principal database record and idempotent persistence. This record links an auth-core subject to Vittavaan but does not duplicate credentials or grant household access.
+
+### 22 Sep 2026 — S2 local principal and bootstrap API slices 3–4
+
+**Status:** S2-03 complete locally; S2-04 back-end complete locally; S2 remains in progress.
+
+**Implemented**
+
+- Added migration `20260921_0002` for the minimal `app_principals` table exactly as specified in the database design: local UUID, unique auth subject, constrained principal type/status, first/last-seen and audit timestamps, and optimistic version.
+- Added no email, phone, password, factor, token, session or household-permission columns.
+- Added a PostgreSQL repository that creates at most one row per auth subject and safely updates `last_seen_at` on repeat entry.
+- Added application rules that reject locally `SUSPENDED` or `CLOSED` principals even when auth-core verifies the caller.
+- Added authenticated `GET /api/v1/bootstrap`. Until S3 creates person/household links, it returns empty permitted scopes and routes the user to `/account-setup`.
+- Updated the deterministic OpenAPI contract with the protected bootstrap endpoint and bearer security scheme.
+
+**Verified**
+
+| Check | Result |
+|---|---|
+| Fast backend suite after API contract update | 37 passed; 83% aggregate coverage |
+| Real PostgreSQL integration suite | 7 passed in Linux ARM64 Docker |
+| Concurrent first entry for one synthetic auth subject | Exactly one row and one stable principal ID |
+| Restricted application database account | Insert, update, select and cleanup passed without schema privileges |
+| Suspended local principal with valid identity | HTTP 403 safe denial |
+| First-run bootstrap response | Stable principal summary, empty scopes and `/account-setup` route |
+| Migration/readiness head | `20260921_0002` |
+
+**Important limit**
+
+The browser handoff is not yet implemented. The S2-04 frontend client/states and all S2-05/S2-06 cross-service work remain open. No token transport workaround was introduced.
+
+### 22 Sep 2026 — S2 frontend bootstrap states
+
+**Status:** S2-04 complete locally; S2-05 requires a coordinated auth-core decision/change.
+
+**Implemented**
+
+- Added a typed frontend bootstrap client that accepts a token only as an in-memory argument, makes a no-cache same-origin request and rejects redirects.
+- Added runtime response-shape validation so an unexpected or incomplete success response fails closed.
+- Added accessible loading, first-run, ready, signed-out, denied and temporary-unavailable states, including a retry action only for temporary failures.
+- Added a same-origin `/api` reverse proxy in the production web server and matching local Vite development proxy.
+- Left the production shell safely signed out. It does not inspect URLs, `localStorage` or `sessionStorage` for an access token.
+
+**Verified**
+
+| Check | Result |
+|---|---|
+| Frontend lint and strict types | Passed |
+| Frontend tests | 7 passed across 3 files |
+| Production frontend build | Passed |
+| First-run, 401, 403 and retry states | Passed |
+| Request security options and response validation | Passed |
+
+**Finding before S2-05**
+
+The current auth-core web implementation writes `vittavaan.accessToken` to browser `sessionStorage` after login. That is an auth-core implementation fact, not an instruction to Vittavaan. It conflicts with the approved Vittavaan rule that access tokens must not be placed in persistent browser storage. S2-05 therefore needs an explicitly reviewed, coordinated handoff—recommended as a short-lived, single-use, state-bound exchange—before either repository is changed further.
+
+### 22 Sep 2026 — Secure auth-core browser handoff
+
+**Status:** S2-05 complete locally; S2-06 cross-service negative and outage cases remain.
+
+**Implemented**
+
+- Added a coordinated auth-core contract that converts a valid web session into a random 60-second, single-use code bound to an exact allow-listed return URL.
+- Added a private server-to-server exchange protected by a separate client secret. Only the one-time code and browser state travel through the URL; the access token does not.
+- Removed auth-core's access-token `sessionStorage` writes from direct and Google login completion.
+- Added Vittavaan start and exchange endpoints, an `HttpOnly` state cookie, immediate URL cleanup and in-memory-only access-token handling.
+- Added production safeguards that reject the documented local handoff secret and require HTTPS for public auth/return URLs.
+
+**Verified**
+
+| Check | Result |
+|---|---|
+| Auth-core focused backend checks | 11 handoff/API tests passed, including real Redis TTL and consume-once behavior |
+| Auth-core focused frontend checks | 11 tests plus lint and strict types passed |
+| Vittavaan focused backend checks | 18 tests passed after OpenAPI regeneration |
+| Vittavaan frontend checks | 10 tests across 4 files plus lint, strict types and production build passed |
+| Real two-stack login-to-bootstrap flow | `session_ready`, bootstrap HTTP 200, `first_run=true` |
+| Reuse of consumed handoff code | Rejected with HTTP 400 |
+
+**Integration finding and correction**
+
+The first real cross-service run exposed a case-sensitive contract mismatch: auth-core correctly emits client type `WEB`, while Vittavaan had initially allowed lowercase `web`. Vittavaan failed closed with HTTP 401. Its default and deployment configuration were corrected to `WEB`, after which the complete flow passed. This is retained as regression coverage and operational evidence.

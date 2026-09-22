@@ -69,9 +69,10 @@ flowchart TD
 | Delivery | [Implementation Roadmap](./05_Delivery/01_Implementation_Roadmap.md) | Draft |
 | Delivery | [Project Structure and Standards](./05_Delivery/02_Project_Structure_and_Standards.md) | Draft |
 | Delivery | [Sprint and Milestone Plan](./05_Delivery/03_Sprint_and_Milestone_Plan.md) | Draft |
-| Delivery | [S1 Repository Foundation Backlog](./05_Delivery/04_S1_Repository_Foundation_Backlog.md) | In progress |
+| Delivery | [S1 Repository Foundation Backlog](./05_Delivery/04_S1_Repository_Foundation_Backlog.md) | Complete |
 | Delivery | [Implementation and Verification Log](./05_Delivery/05_Implementation_and_Verification_Log.md) | Active audit trail |
-| Delivery | [Developer Onboarding and Troubleshooting](./05_Delivery/06_Developer_Onboarding_and_Troubleshooting.md) | In progress |
+| Delivery | [Developer Onboarding and Troubleshooting](./05_Delivery/06_Developer_Onboarding_and_Troubleshooting.md) | Active |
+| Delivery | [S2 Authentication and Bootstrap Backlog](./05_Delivery/07_S2_Authentication_and_Bootstrap_Backlog.md) | In progress |
 | Testing | [Test Strategy](./06_Testing/01_Test_Strategy.md) | Draft |
 | Testing | [Test Personas and Golden Scenarios](./06_Testing/02_Test_Personas_and_Golden_Scenarios.md) | Draft |
 | Testing | [Security, Performance and Recovery Plan](./06_Testing/03_Security_Performance_and_Recovery_Test_Plan.md) | Draft |

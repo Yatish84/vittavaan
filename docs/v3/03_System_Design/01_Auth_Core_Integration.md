@@ -22,7 +22,13 @@ sequenceDiagram
     App->>AuthWeb: Redirect with allow-listed return target and state
     AuthWeb->>AuthAPI: Complete login/MFA/session workflow
     AuthAPI-->>AuthWeb: Short-lived access token; refresh in HttpOnly cookie
-    AuthWeb-->>App: Approved handoff/redirect
+    AuthWeb->>AuthAPI: Request one-time code for exact return URL
+    AuthAPI-->>AuthWeb: 60-second single-use code
+    AuthWeb-->>App: Redirect with code and matching state only
+    App->>WealthAPI: Exchange code and state
+    WealthAPI->>AuthAPI: Private server-to-server exchange
+    AuthAPI-->>WealthAPI: Access token after consuming code
+    WealthAPI-->>App: Access token held in memory only
     App->>WealthAPI: Bootstrap request with bearer access token
     WealthAPI->>Verify: Validate signature, claims and revocation
     Verify-->>WealthAPI: Verified identity context
@@ -32,7 +38,7 @@ sequenceDiagram
     App-->>User: Render authorized default scope
 ```
 
-The final browser handoff shape must reuse an existing auth-core contract or be added to auth-core as a reviewed contract. Tokens must not be placed in URLs, browser local storage, logs or analytics.
+The browser handoff is now implemented locally as a state-bound, single-use code exchange. Auth-core permits only exact configured return URLs, consumes each code atomically, and revalidates the underlying session before returning a token to Vittavaan's server. Vittavaan uses an `HttpOnly`, `SameSite=Lax` state cookie, performs the private exchange, removes the code and state from the browser URL, and keeps the returned access token only in memory. Tokens must not be placed in URLs, persistent browser storage, logs or analytics.
 
 ## Required token checks
 
@@ -97,11 +103,10 @@ flowchart TD
 - Legally retained financial/audit facts use pseudonymous references after identity erasure.
 - Cross-service workflows use idempotent requests, correlation IDs and signed service authentication; no shared database writes.
 
-## Implementation questions to resolve before coding
+## Deployment questions still to resolve
 
 - Final Vittavaan audience value and issuer URLs per environment.
 - Whether the Go verifier is a sidecar, shared gateway or internal service in each environment.
-- Exact auth-core return-target/handoff endpoint and CSRF/state binding.
+- Exact shared-staging domains, internal service addresses and independently provisioned handoff secret.
 - Workspace-to-household mapping policy; auth-core workspace membership must not silently grant household financial access.
 - Cross-service export/closure orchestration contract.
-

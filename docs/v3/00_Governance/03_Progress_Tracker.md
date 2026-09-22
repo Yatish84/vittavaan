@@ -1,8 +1,8 @@
 # v3 Progress Tracker
 
-> Updated: 21 Sep 2026
+> Updated: 22 Sep 2026
 
-> Baseline: Owner approved `DEC3-001` through `DEC3-007` on 20 Sep 2026. S0 is complete and S1 Repository Foundation is in progress. Product-feature implementation has not started.
+> Baseline: Owner approved `DEC3-001` through `DEC3-007` on 20 Sep 2026. S0 and S1 are complete. On 21 Sep 2026 the owner retained the original sprint plan and authorized S2 Authentication and Application Bootstrap. Wealth-feature implementation has not started.
 
 ## Documentation rebuild
 
@@ -12,8 +12,8 @@
 | Governance and source precedence | Draft | Reconcile after the first complete cross-document pass. |
 | Wireframe coverage matrix | Draft | Add element-level IDs and route/state acceptance mapping. |
 | Product scope/release boundaries | Draft | Convert to stable requirement IDs. |
-| Asset/liability catalogue | Draft | Complete subtype contracts and seed mapping added; finalize the documented owner/legal/valuation-policy decisions. |
-| Subtype field dictionary | Draft | Universal fields, reusable field profiles, complete asset seed mapping, all 13 liability contracts and conditional validation rules added; owner/specialist decisions remain listed. |
+| Asset/liability catalogue | Draft | Complete PDF subtype contracts and seed mapping added. The colleague JSON was reviewed as a field-template reference without narrowing the larger catalogue; finalize the documented owner/legal/valuation-policy decisions. |
+| Subtype field dictionary | Draft | Universal fields, reusable profiles, complete asset seeds, all 13 PDF liability contracts, conditional rules and a field-capture/form-family crosswalk for the colleague JSON are documented. |
 | Catalogue seeds/constraints | Draft | Deterministic seed package, schema versioning, persistence rules, database constraints, index matrix, API behavior and verification evidence specified. |
 | Auth-core integration | Draft | Confirm audience, redirect and deployment-specific values during implementation planning. |
 | Actors and system boundary | Draft | Formal actor distinctions, authority matrix and trust boundaries added. |
@@ -27,7 +27,7 @@
 | Requirements/domain coverage | Draft | All beta requirement families have entity/control/boundary homes; ten system-design gaps carried forward. |
 | Architecture overview | Draft | Modular-monolith boundaries, deployment topology, write/read paths, scaling and degradation behavior added. |
 | API contracts | Draft | v1 conventions, errors, endpoint surface, projection envelopes, idempotency and evolution added. |
-| Database design | Draft | Expanded to a 50-table implementation dictionary; subtype schema versions, append-only liability balances and first-class source consent cover the detailed field contracts. Physical DDL awaits the listed implementation decisions. |
+| Database design | Draft | Expanded to a 50-table implementation dictionary; subtype schema versions, append-only balances, source consent and the asset/liability field-template storage mapping cover the detailed field contracts. Physical DDL awaits the listed implementation decisions. |
 | Events/jobs/projections | Draft | Outbox guarantees, events, jobs, retries, projection invalidation and cache rules added. |
 | Imports/reconciliation | Draft | Staging, normalized proposals, matching, chunk commit and future adapter behavior added. |
 | Data room | Draft | Quarantine, scanning, object security, links, lifecycle and retention added. |
@@ -41,7 +41,8 @@
 | Phase 4 coverage audit | Draft | Phase 3 decisions reconciled to object contracts; remaining test/delivery detail recorded. |
 | Delivery structure/standards | Draft | Monorepo, dependency, language, API, migration and review standards added. |
 | Sprint roadmap | Draft | S0–S12 outcomes mapped to trace families and release gates. |
-| S1 implementation backlog | Review ready | Eleven foundation slices are recorded. Local, clean-copy and hosted GitHub evidence now pass, including native AMD64/ARM64 builds, image scans, leaked-secret/dependency checks, SBOM and provenance generation. The baseline is on `develop`; owner approval to close S1 and begin S2 remains. |
+| S1 implementation backlog | Complete | Eleven foundation slices are recorded. Local, clean-copy and hosted GitHub evidence pass, including native AMD64/ARM64 builds, scans, SBOM and provenance. Owner accepted the original plan and authorized progression to S2 on 21 Sep 2026. |
+| S2 authentication/bootstrap | In progress | S2-01 through S2-05 are locally complete. A real two-stack test completed login, one-time handoff and first-run bootstrap; replay was denied. S2-06 still requires the complete negative token/outage matrix and hosted checks. |
 | Testing and traceability | Draft | Test pyramid, personas, golden scenarios, security/load/recovery and end-to-end matrix added. |
 | Operations/deployment | Draft | OCI Always Free single-VM staging, local/CI Compose parity, multi-architecture immutable deployment, safeguards and exit path added; AWS India remains the production and production-shaped performance target. |
 | Local-to-OCI deployment specification | Draft | Compose topology/overlays, ARM64/AMD64 images, conservative resource/storage budgets, Terraform resources, network/TLS, configuration/secrets, auth-core, manifest, rollback, recovery and cost guardrails specified. |
@@ -51,7 +52,7 @@
 
 ## Implementation status
 
-S1 foundation implementation is **in progress**. On 20 Sep 2026 the first local slice was built and verified: the web shell, API, worker, PostgreSQL and Valkey all became healthy through Docker Compose; both API health endpoints responded; the web page was served; and Alembic applied baseline revision `20260920_0001` to PostgreSQL. Backend and frontend lint, type, unit-test and build checks also pass locally.
+S1 foundation is complete and S2 authentication/application bootstrap is **in progress**. S2-01 through S2-05 are locally complete; the remaining S2-06 work is the full negative cross-service matrix, outage/recovery proof and hosted verification. On 20 Sep 2026 the first local foundation slice was built and verified: the web shell, API, worker, PostgreSQL and Valkey all became healthy through Docker Compose; both API health endpoints responded; the web page was served; and Alembic applied baseline revision `20260920_0001` to PostgreSQL. Backend and frontend lint, type, unit-test and build checks also pass locally.
 
 The second verified slice added automatic backend layer-direction checks, a planted invalid-import proof, safe RFC 9457-style error responses, and deterministic OpenAPI generation/drift detection. The detailed commands, results and limitations are recorded in `05_Delivery/05_Implementation_and_Verification_Log.md`.
 

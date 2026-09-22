@@ -23,7 +23,13 @@ def test_openapi_is_deterministic_and_matches_committed_contract() -> None:
 
     assert first == second
     assert first == committed
-    assert set(json.loads(first)["paths"]) == {"/health/live", "/health/ready"}
+    assert set(json.loads(first)["paths"]) == {
+        "/api/v1/bootstrap",
+        "/api/v1/auth/handoff/exchange",
+        "/api/v1/auth/handoff/start",
+        "/health/live",
+        "/health/ready",
+    }
     assert (
         hashlib.sha256(first.encode()).hexdigest() == hashlib.sha256(committed.encode()).hexdigest()
     )

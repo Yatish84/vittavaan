@@ -1301,6 +1301,7 @@ Rebuildable performance and return read model with explicit calculation metadata
 | `absolute_return_minor_units` | - | `BIGINT` | NOT NULL | Absolute return |
 | `return_pct` | CHK | `NUMERIC(14,8)` | NULL | Calculated return |
 | `method` | CHK | `TEXT` | NOT NULL | TWRR, XIRR, or SIMPLE |
+| `metrics` | - | `JSONB` | NOT NULL, {} | Bounded derived/sourced metrics such as volatility or benchmark beta, each carrying period, source/benchmark and calculation version |
 | `calculation_state` | CHK | `TEXT` | NOT NULL | COMPLETE, PARTIAL, or UNAVAILABLE |
 | `exclusions` | - | `TEXT[]` | NOT NULL, {} | Excluded items |
 | `last_event_position` | CHK | `BIGINT` | NOT NULL | Applied event position |
@@ -1366,6 +1367,36 @@ erDiagram
     APP_PRINCIPALS ||--o{ CLOSURE_CASES : subject
     APP_PRINCIPALS o|--o{ CLOSURE_CASES : approves
 ```
+
+## Asset/liability field-template storage mapping
+
+The colleague JSON was reviewed only as a reference for fields that may be captured for each asset or liability type. Its sample records and values are not part of the database design. The normalized model deliberately separates basic details, dated values, ownership, transactions, schedules and calculations instead of placing every field in one record.
+
+```mermaid
+flowchart LR
+    F[Asset/liability form fields] --> M{Kind of information?}
+    M -->|Asset identity/details| H[holdings + subtype attributes]
+    M -->|Liability identity/details| L[liabilities + subtype attributes]
+    H --> O[ownership_allocations]
+    H --> V[valuation_events]
+    H --> C[cost_basis_lots / transactions]
+    L --> B[liability_balance_events]
+    L --> Q[liability_schedule_versions/items]
+    M -->|Calculated result| P[wealth/performance projections]
+```
+
+| Form-field concept | Database destination | Important invariant |
+|---|---|---|
+| Asset/liability type | Versioned class and subtype catalogue | Selected subtype determines the field schema and validation rules. |
+| Owner/borrower | `ownership_allocations.person_id` or `liabilities.borrower_person_id` | Authentication principals are not substituted for people or economic ownership. |
+| Current asset value | `valuation_events` | Append-only, sourced, dated and currency-qualified. |
+| Invested amount | `cost_basis_lots` and/or `transactions` | Cost basis is not current value. |
+| Current liability balance | `liability_balance_events` | Append-only balance fact; distinct from sanctioned limit. |
+| EMI and term details | `liability_schedule_versions/items` plus liability dates/rate | A changed schedule creates a new version. |
+| Type-specific details | Schema-validated `subtype_attributes`, valuation/balance method metadata, or dedicated related tables | Flexible fields cannot bypass encryption, ownership, provenance, range or calculation rules. |
+| Returns, weights, utilization, LTV and holding period | `performance_projections`, `wealth_projections`, or request-time derived output | Derived values retain inputs, period/as-of and calculation version; clients cannot write them as facts. |
+
+The exact field disposition and form-family coverage are maintained in `02_Analysis/06_Asset_and_Liability_Field_Dictionary.md`. Each subtype schema must be tested for required, optional, conditional and calculated fields, including rejection of a purported calculated value as an authoritative fact.
 
 ## Cross-table implementation rules
 

@@ -76,9 +76,15 @@ services:
       APP_RELEASE_ID: compose-development
       PUBLIC_WEB_URL: http://localhost:5173
       PUBLIC_API_URL: http://localhost:8000/api/v1
+      AUTH_CORE_WEB_URL: http://localhost:3000
+      AUTH_CORE_API_URL: http://host.docker.internal:8001
+      AUTH_CORE_VERIFIER_URL: http://host.docker.internal:8081
+      AUTH_RETURN_URL: http://localhost:5173/auth/return
+      AUTH_ALLOWED_CLIENT_TYPES: '["WEB"]'
+      AUTH_CORE_HANDOFF_CLIENT_SECRET_FILE: /run/secrets/auth_core_handoff_client_secret
       DATABASE_URL_FILE: /run/secrets/database_url
       REDIS_URL_FILE: /run/secrets/redis_url
-    secrets: [database_url, redis_url]
+    secrets: [database_url, redis_url, auth_core_handoff_client_secret]
     depends_on:
       migration: { condition: service_completed_successfully }
       valkey: { condition: service_healthy }
@@ -88,6 +94,7 @@ services:
       interval: 10s
       timeout: 3s
       retries: 10
+    extra_hosts: ["host.docker.internal:host-gateway"]
     networks: [app, data]
 
   worker:
@@ -133,3 +140,4 @@ secrets:
   redis_url: { file: ./runtime/secrets/redis_url }
   object_store_access_key: { file: ./runtime/secrets/object_store_access_key }
   object_store_secret_key: { file: ./runtime/secrets/object_store_secret_key }
+  auth_core_handoff_client_secret: { file: ./runtime/secrets/auth_core_handoff_client_secret }

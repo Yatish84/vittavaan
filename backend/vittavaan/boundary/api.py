@@ -1,20 +1,37 @@
 """FastAPI application factory and foundation health contracts."""
 
+import hmac
+import secrets
 from collections.abc import AsyncIterator, Awaitable, Callable
 from contextlib import asynccontextmanager
 from time import perf_counter
+from typing import Annotated, cast
+from urllib.parse import urlencode
 from uuid import UUID, uuid4
 
 import structlog
-from fastapi import FastAPI, Request, Response, status
+from fastapi import Depends, FastAPI, HTTPException, Request, Response, status
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, PlainTextResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import AsyncEngine
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
+from vittavaan.application.principal_bootstrap import (
+    LocalPrincipalDeniedError,
+    PrincipalBootstrapControl,
+)
+from vittavaan.boundary.authentication import require_verified_identity
 from vittavaan.config import Settings, get_settings
+from vittavaan.domain.identity import VerifiedIdentity
+from vittavaan.domain.principal import PrincipalStatus, PrincipalType
+from vittavaan.infrastructure.auth_core import (
+    AuthCoreHandoffClient,
+    AuthCoreVerifier,
+    AuthHandoffRejectedError,
+    AuthVerifierUnavailableError,
+)
 from vittavaan.infrastructure.cache import (
     cache_ready,
     create_cache,
@@ -26,6 +43,7 @@ from vittavaan.infrastructure.database import (
     database_pool_status,
     database_ready,
 )
+from vittavaan.infrastructure.principals import PostgresPrincipalRepository
 from vittavaan.logging import configure_logging
 from vittavaan.telemetry import MetricsRegistry, configure_local_tracing, tracer
 
@@ -47,6 +65,46 @@ class ProblemDetails(BaseModel):
     status: int
     detail: str
     instance: str
+
+
+class BootstrapPrincipalResponse(BaseModel):
+    """Safe application-local identity returned to the frontend."""
+
+    principal_id: UUID
+    principal_type: PrincipalType
+    status: PrincipalStatus
+
+
+class BootstrapResponse(BaseModel):
+    """Minimum S2 entry state; S3 adds authorized household scopes."""
+
+    principal: BootstrapPrincipalResponse
+    first_run_required: bool
+    next_route: str
+    permitted_person_ids: list[UUID]
+    permitted_household_ids: list[UUID]
+
+
+class HandoffStartResponse(BaseModel):
+    authorization_url: str
+
+
+class HandoffExchangeRequest(BaseModel):
+    code: str = Field(min_length=32, max_length=256)
+    state: str = Field(min_length=32, max_length=256)
+
+
+class HandoffExchangeResponse(BaseModel):
+    access_token: str
+    token_type: str = "Bearer"
+
+
+def _handoff_cookie_name(settings: Settings) -> str:
+    return (
+        "vittavaan_handoff_state"
+        if settings.APP_ENV in {"local", "test"}
+        else "__Host-vittavaan_handoff_state"
+    )
 
 
 def _correlation_id(raw_value: str | None) -> str:
@@ -73,8 +131,22 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         engine = create_engine(str(runtime_settings.DATABASE_URL))
         cache = create_cache(str(runtime_settings.REDIS_URL))
+        auth_core_verifier = AuthCoreVerifier(
+            base_url=str(runtime_settings.AUTH_CORE_VERIFIER_URL),
+            timeout_seconds=runtime_settings.AUTH_VERIFIER_TIMEOUT_SECONDS,
+            allowed_client_types=runtime_settings.AUTH_ALLOWED_CLIENT_TYPES,
+        )
+        auth_core_handoff = AuthCoreHandoffClient(
+            base_url=str(runtime_settings.AUTH_CORE_API_URL),
+            client_secret=cast(str, runtime_settings.AUTH_CORE_HANDOFF_CLIENT_SECRET),
+            timeout_seconds=runtime_settings.AUTH_VERIFIER_TIMEOUT_SECONDS,
+        )
+        principal_bootstrap = PrincipalBootstrapControl(PostgresPrincipalRepository(engine))
         app.state.database_engine = engine
         app.state.cache = cache
+        app.state.auth_core_verifier = auth_core_verifier
+        app.state.auth_core_handoff = auth_core_handoff
+        app.state.principal_bootstrap = principal_bootstrap
         logger.info(
             "service_started",
             service="api",
@@ -84,6 +156,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         try:
             yield
         finally:
+            await auth_core_handoff.close()
+            await auth_core_verifier.close()
             await cache.aclose()
             await engine.dispose()
             logger.info("service_stopped", service="api")
@@ -101,16 +175,44 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             detail=detail,
             instance=request.url.path,
         )
-        return JSONResponse(
+        response = JSONResponse(
             status_code=error_status,
             content=problem.model_dump(),
             media_type="application/problem+json",
         )
+        response.headers["Cache-Control"] = "no-store"
+        return response
 
     @app.exception_handler(StarletteHTTPException)
     async def http_exception_handler(
         request: Request, exception: StarletteHTTPException
     ) -> JSONResponse:
+        if exception.status_code == status.HTTP_401_UNAUTHORIZED:
+            response = problem_response(
+                request,
+                error_status=status.HTTP_401_UNAUTHORIZED,
+                title="Authentication required",
+                detail="Sign in again to continue.",
+                error_type="urn:vittavaan:problem:authentication-required",
+            )
+            response.headers["WWW-Authenticate"] = "Bearer"
+            return response
+        if exception.status_code == status.HTTP_503_SERVICE_UNAVAILABLE:
+            return problem_response(
+                request,
+                error_status=status.HTTP_503_SERVICE_UNAVAILABLE,
+                title="Authentication temporarily unavailable",
+                detail="Please try again shortly.",
+                error_type="urn:vittavaan:problem:authentication-unavailable",
+            )
+        if exception.status_code == status.HTTP_403_FORBIDDEN:
+            return problem_response(
+                request,
+                error_status=status.HTTP_403_FORBIDDEN,
+                title="Application access denied",
+                detail="This Vittavaan profile cannot be used.",
+                error_type="urn:vittavaan:problem:application-access-denied",
+            )
         if exception.status_code == status.HTTP_404_NOT_FOUND:
             return problem_response(
                 request,
@@ -186,6 +288,84 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     @app.get("/health/live", response_model=HealthResponse)
     async def live() -> HealthResponse:
         return HealthResponse(status="live", release_id=runtime_settings.APP_RELEASE_ID)
+
+    @app.post("/api/v1/auth/handoff/start", response_model=HandoffStartResponse)
+    async def start_auth_handoff(response: Response) -> HandoffStartResponse:
+        state_value = secrets.token_urlsafe(32)
+        query = urlencode(
+            {
+                "return_url": str(runtime_settings.AUTH_RETURN_URL),
+                "state": state_value,
+            }
+        )
+        response.set_cookie(
+            _handoff_cookie_name(runtime_settings),
+            state_value,
+            max_age=300,
+            secure=runtime_settings.APP_ENV not in {"local", "test"},
+            httponly=True,
+            samesite="lax",
+            path="/",
+        )
+        response.headers["Cache-Control"] = "no-store"
+        return HandoffStartResponse(
+            authorization_url=f"{str(runtime_settings.AUTH_CORE_WEB_URL).rstrip('/')}/login?{query}"
+        )
+
+    @app.post("/api/v1/auth/handoff/exchange", response_model=HandoffExchangeResponse)
+    async def exchange_auth_handoff(
+        payload: HandoffExchangeRequest,
+        request: Request,
+        response: Response,
+    ) -> HandoffExchangeResponse:
+        cookie_name = _handoff_cookie_name(runtime_settings)
+        expected_state = request.cookies.get(cookie_name)
+        if not expected_state or not hmac.compare_digest(expected_state, payload.state):
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
+        handoff = cast(AuthCoreHandoffClient, request.app.state.auth_core_handoff)
+        try:
+            access_token = await handoff.exchange(
+                code=payload.code,
+                return_url=str(runtime_settings.AUTH_RETURN_URL),
+            )
+        except AuthHandoffRejectedError as exc:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST) from exc
+        except AuthVerifierUnavailableError as exc:
+            raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE) from exc
+        response.delete_cookie(
+            cookie_name,
+            secure=runtime_settings.APP_ENV not in {"local", "test"},
+            httponly=True,
+            samesite="lax",
+            path="/",
+        )
+        response.headers["Cache-Control"] = "no-store"
+        return HandoffExchangeResponse(access_token=access_token)
+
+    @app.get("/api/v1/bootstrap", response_model=BootstrapResponse)
+    async def bootstrap(
+        request: Request,
+        identity: Annotated[VerifiedIdentity, Depends(require_verified_identity)],
+    ) -> BootstrapResponse:
+        control = cast(PrincipalBootstrapControl, request.app.state.principal_bootstrap)
+        try:
+            result = await control.bootstrap(identity)
+        except LocalPrincipalDeniedError as exc:
+            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN) from exc
+        principal = result.principal
+        # Person/household links intentionally begin in S3. Until then every
+        # authenticated principal is routed to the first-run experience.
+        return BootstrapResponse(
+            principal=BootstrapPrincipalResponse(
+                principal_id=principal.principal_id,
+                principal_type=principal.principal_type,
+                status=principal.status,
+            ),
+            first_run_required=True,
+            next_route="/account-setup",
+            permitted_person_ids=[],
+            permitted_household_ids=[],
+        )
 
     @app.get("/health/ready", response_model=HealthResponse)
     async def ready(request: Request, response: Response) -> HealthResponse:

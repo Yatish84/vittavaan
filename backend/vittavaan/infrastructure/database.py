@@ -6,7 +6,7 @@ from typing import cast
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 
-FOUNDATION_SCHEMA_HEAD = "20260920_0001"
+FOUNDATION_SCHEMA_HEAD = "20260921_0002"
 
 
 def create_engine(database_url: str) -> AsyncEngine:

@@ -881,6 +881,7 @@ dependencies = [
     { name = "boto3" },
     { name = "celery", extra = ["redis"] },
     { name = "fastapi" },
+    { name = "httpx" },
     { name = "opentelemetry-api" },
     { name = "opentelemetry-sdk" },
     { name = "pydantic-settings" },
@@ -891,7 +892,6 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
-    { name = "httpx" },
     { name = "mypy" },
     { name = "pytest" },
     { name = "pytest-asyncio" },
@@ -906,6 +906,7 @@ requires-dist = [
     { name = "boto3", specifier = ">=1.40,<2" },
     { name = "celery", extras = ["redis"], specifier = ">=5.5,<6" },
     { name = "fastapi", specifier = ">=0.116,<1" },
+    { name = "httpx", specifier = ">=0.28,<1" },
     { name = "opentelemetry-api", specifier = ">=1.36,<2" },
     { name = "opentelemetry-sdk", specifier = ">=1.36,<2" },
     { name = "pydantic-settings", specifier = ">=2.10,<3" },
@@ -916,7 +917,6 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "httpx", specifier = ">=0.28,<1" },
     { name = "mypy", specifier = ">=1.17,<2" },
     { name = "pytest", specifier = ">=8.4,<9" },
     { name = "pytest-asyncio", specifier = ">=1.1,<2" },

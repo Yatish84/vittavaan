@@ -19,6 +19,7 @@ from vittavaan.infrastructure.database import (
     create_engine,
     database_ready,
 )
+from vittavaan.infrastructure.principals import PostgresPrincipalRepository
 
 pytestmark = pytest.mark.integration
 
@@ -110,6 +111,37 @@ async def test_application_role_cannot_modify_database_structure() -> None:
     finally:
         await app_engine.dispose()
         await migration_engine.dispose()
+
+
+@pytest.mark.asyncio
+async def test_principal_bootstrap_is_idempotent_and_uses_application_role() -> None:
+    database_url = required_environment("VITTAVAAN_INTEGRATION_DATABASE_URL")
+    engine = create_engine(database_url)
+    repository = PostgresPrincipalRepository(engine)
+    auth_subject_id = f"integration-user-{uuid4()}"
+    first_seen = datetime.now(UTC)
+    later_seen = first_seen + timedelta(seconds=1)
+    try:
+        first, repeated = await asyncio.gather(
+            repository.bootstrap(auth_subject_id=auth_subject_id, seen_at=first_seen),
+            repository.bootstrap(auth_subject_id=auth_subject_id, seen_at=later_seen),
+        )
+        assert first.principal.principal_id == repeated.principal.principal_id
+        assert first.created is not repeated.created
+        assert max(first.principal.last_seen_at, repeated.principal.last_seen_at) == later_seen
+
+        async with engine.begin() as connection:
+            count = await connection.scalar(
+                text("SELECT count(*) FROM app_principals WHERE auth_subject_id = :subject"),
+                {"subject": auth_subject_id},
+            )
+            assert count == 1
+            await connection.execute(
+                text("DELETE FROM app_principals WHERE auth_subject_id = :subject"),
+                {"subject": auth_subject_id},
+            )
+    finally:
+        await engine.dispose()
 
 
 @pytest.mark.asyncio

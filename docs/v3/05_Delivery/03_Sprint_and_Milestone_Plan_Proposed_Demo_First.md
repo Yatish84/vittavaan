@@ -1,6 +1,6 @@
 # Proposed Demo-First Sprint and Milestone Plan
 
-> **Status:** Proposal for owner review — not approved and not yet the canonical delivery plan
+> **Status:** Not selected by the owner on 21 Sep 2026; retained only as decision history
 >
 > **Created:** 21 Sep 2026
 >
@@ -255,4 +255,4 @@ The owner should confirm these points before this proposal replaces the current 
 6. S4 remains responsible for complete asset-catalogue coverage.
 7. Two-week sprint cadence remains a planning assumption, with outcome—not date—determining completion.
 
-Until these points are approved and the governance/traceability documents are reconciled, the original [Sprint and Milestone Plan](./03_Sprint_and_Milestone_Plan.md) remains authoritative.
+The owner chose to continue with the original [Sprint and Milestone Plan](./03_Sprint_and_Milestone_Plan.md). This proposal must not be used as implementation authority unless a later recorded decision reopens it.

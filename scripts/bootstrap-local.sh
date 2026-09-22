@@ -28,5 +28,8 @@ fi
 if [ ! -s "$secret_dir/object_store_secret_key" ]; then
   printf '%s' 'local-object-secret-not-for-shared-use' > "$secret_dir/object_store_secret_key"
 fi
+if [ ! -s "$secret_dir/auth_core_handoff_client_secret" ]; then
+  printf '%s' 'local-handoff-client-secret-change-me' > "$secret_dir/auth_core_handoff_client_secret"
+fi
 
 printf '%s\n' 'Local-only secret files are ready under runtime/secrets.'

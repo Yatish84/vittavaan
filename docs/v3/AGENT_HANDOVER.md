@@ -1,11 +1,12 @@
 # Vittavaan v3 — Agent Handover
 
-> **Last updated:** 21 Sep 2026
-> **Current phase:** S1 Repository Foundation completion review
-> **Application code status:** Foundation implemented; wealth-management features have not started
+> **Last updated:** 22 Sep 2026
+> **Current phase:** S2 Authentication and Application Bootstrap
+> **Application code status:** S1 foundation complete; S2-01 through S2-05 complete locally; S2-06 in progress; wealth-management features have not started
 > **Canonical documentation:** `docs/v3/`
 > **Baseline approval:** Owner approved `DEC3-001`–`DEC3-007` on 20 Sep 2026; S1 foundation is authorized.
 > **S1 setup approval:** Owner approved the recommended branch, GitHub CI/registry, platform, package-manager, Valkey candidate, storage compatible with the S3 API and review defaults on 20 Sep 2026.
+> **S1 completion/S2 authorization:** Owner chose the original sprint plan and authorized proceeding to S2 on 21 Sep 2026. The demo-first proposal is retained as unselected decision history.
 
 ## Mission
 
@@ -27,8 +28,8 @@ This file is the canonical continuation guide. A replacement coding agent should
 | Purpose | Command | Expected result at handover |
 |---|---|---|
 | Prepare local-only secrets | `./scripts/bootstrap-local.sh` | Files created/refreshed under ignored `runtime/secrets/` |
-| Fast quality checks | `make check` | 20 backend tests, 80% line coverage, web lint/type/test pass |
-| Full container/integration check | `make integration` | Stack healthy and 6 integration tests pass |
+| Fast quality checks | `make check` | 43 backend tests, 81% line coverage, plus 10 web tests and lint/type checks pass |
+| Full container/integration check | `make integration` | Stack healthy and 7 integration tests pass |
 | Forced worker recovery drill | `make recovery-drill` | Active synthetic task is re-delivered and completes after worker replacement |
 | Start the local application | `make up` | Web/API/worker/PostgreSQL/Valkey healthy after bootstrap/migration |
 | Stop containers, retain data | `make down` | Containers/networks removed; images and named data volume retained |
@@ -67,6 +68,7 @@ v1 and v2 must remain untouched as historical references. Do not move, delete or
 
 - All Markdown documentation under `docs/v1/` and `docs/v2/` was inventoried; v2 handover and relevant requirements/design sections were read closely.
 - All 25 current files in `docs/v2/Wireframe/` were inventoried and their visible structure/headings extracted.
+- The operator asset-class PDF and colleague-provided JSON were reconciled. Treat the JSON only as a reference for fields a form may capture for each asset/liability type; ignore its sample values and records. The field-capture disposition is documented without replacing the richer PDF-derived catalogue.
 - The full text of `User Story.dc.html`, `User Flow.dc.html` and `Schema.dc.html` was reviewed for invariants, states and open decisions.
 - Both pages of `docs/v2/Wireframe/uploads/Wealth Monitoring - Asset Classes - Operator.pdf` were extracted and visually inspected.
 - `../auth-core/AGENTS.md`, README, client reuse strategy, session/token foundation, security architecture and OpenAPI/JWKS boundaries were inspected.
@@ -169,60 +171,23 @@ This is foundation only. Do not describe it as working wealth-management functio
 
 ## Next work, in order
 
-1. Present the S1 completion evidence to the owner and obtain explicit approval before starting S2.
-2. After approval, verify the external auth-core issuer, audience, JWKS/revocation topology and redirect origins before implementing S2 integration.
-3. Add element-level wireframe trace IDs during each owning sprint; do not delay S2 for purely presentational trace granularity.
-4. Resolve Sections B-E by their stated sprint/release gates, especially auth-core values, catalogue approval, retention, OCI limits and RPO/RTO.
+1. Execute `05_Delivery/07_S2_Authentication_and_Bootstrap_Backlog.md` in order.
+2. Consume auth-core's existing Go verifier for signature/claim/revocation checks; do not reproduce authentication inside Vittavaan.
+3. Reconfirm deployment-specific issuer, audience, verifier URL and redirect origins before shared staging; local defaults are not production approval.
+4. Add element-level wireframe trace IDs during each owning sprint; do not delay S2 for purely presentational trace granularity.
+5. Resolve Sections B-E by their stated sprint/release gates, especially catalogue approval, retention, OCI limits and RPO/RTO.
 
 ## Exact next implementation sequence
 
 This is the executable queue for the next coding agent. Work from the top and stop at any owner decision or external-access boundary instead of silently bypassing it.
 
-### Next 1 — Obtain hosted GitHub evidence (complete)
+1. Preserve completed S2-01 through S2-03. Configuration, verifier integration, the `app_principals` migration and concurrent idempotency checks pass locally.
+2. Preserve completed S2-04 frontend work: the typed client and accessible loading, first-run, ready, unauthenticated, unavailable and denied states pass tests; the production shell deliberately remains signed out until S2-05 supplies an in-memory identity context.
+3. Preserve completed S2-05: auth-core issues a 60-second, single-use, return-URL-bound code; Vittavaan exchanges it server-to-server with a private secret and holds the access token in memory only. Never reintroduce token URLs, `localStorage` or `sessionStorage`.
+4. Complete S2-06 against the running services. The valid flow and handoff replay rejection pass; add explicit expired, malformed, wrong issuer/audience/key, revoked and verifier/auth-core unavailable cases.
+5. Record independently provisioned staging URLs, HTTPS return origin, verifier placement, issuer/audience and matching handoff secret before claiming shared staging readiness.
 
-**Goal:** prove the already-defined workflows on real GitHub Intel and ARM machines.
-
-1. Inspect `.github/workflows/quality.yml` and `.github/workflows/security-and-images.yml`; do not redesign them without a demonstrated failure.
-2. If the owner has authorized committing and pushing, create a narrowly scoped commit that preserves all intentional work, push it to the agreed branch and observe both workflows. If push/commit authorization is absent, report that this external step is awaiting owner approval and continue only with independent local tasks.
-3. Capture the workflow URL, commit SHA, job conclusions and image-build platforms in `05_Delivery/05_Implementation_and_Verification_Log.md`.
-4. Fix reproducible application/workflow failures and rerun. Do not hide or waive a failed security finding. Document infrastructure/transient failures separately.
-
-**Done when:** complete. Quality run `35620607835` and security/images run `35620607828` passed for `e8376e9a98c92ded2d4ac3b6c6439c50fbb9ae26`.
-
-### Next 2 — Complete remaining reliability/capacity evidence
-
-**Goal:** close the worker and runtime-observability gaps already identified in S1.
-
-1. Preserve the completed database-pool, queue depth/oldest-age and cross-process worker completion/runtime metrics and their label-rejection tests.
-2. Preserve the worker aggregate boundary: predefined task aliases/outcomes/buckets only, a 24-hour expiry, and no task IDs, correlation IDs, arguments, users, resources or financial values.
-3. Preserve `make recovery-drill`: it uses a recovery-only five-second visibility timeout, force-kills an active worker, and has passed re-delivery of the same task ID. Normal runtime must retain its one-hour timeout.
-4. This reliability/capacity item is complete. Continue with **Next 3 — Complete S3-compatible local object storage**.
-
-**Done when:** metrics and tests pass, deliberate interruption/re-delivery is demonstrated, `make check` and `make integration` remain green, and evidence is recorded.
-
-### Next 3 — Complete S3-compatible local object storage (complete)
-
-**Goal:** satisfy `S1-FND-007` without implementing the future Data Room feature.
-
-Completed with RustFS 1.0.0. Preserve the digest pin, non-root execution, private network, secret files and isolated cleanup test. Keep real document upload, metadata tables, malware processing and business authorization out of S1. OCI/AWS use the portable S3 boundary; do not assume every vendor-specific S3 extension is supported.
-
-**Done when:** clean local startup is healthy on ARM64, the isolated S3-compatible probe passes and cleans up after itself, no object-store secret is exposed, and the Compose contract remains suitable for OCI staging.
-
-### Next 4 — Finish developer onboarding and S1 evidence
-
-**Goal:** allow a new developer—not only the authoring agent—to reproduce the foundation.
-
-1. Preserve the twelve-package status/evidence checklist in `05_Delivery/06_Developer_Onboarding_and_Troubleshooting.md`; only toolchain/hosted CI remains explicitly in progress.
-2. The root README and detailed onboarding guide now cover prerequisites, first setup, start/stop, tests, logs, safe recovery, external auth and common Docker/database/Valkey/worker/object-store/platform failures.
-3. The equivalent clean-environment rehearsal is complete: a repository copy excluding `.git`, `.venv`, `node_modules`, runtime secrets and caches passed `make setup`, `make check` and a fresh-volume `make integration`. Preserve this evidence.
-4. Obtain the hosted GitHub CI evidence described in Next 1.
-5. Reconcile the final trace/evidence index, progress tracker, implementation log and this handover; then present the S1 completion report to the owner.
-
-**Done when:** every S1 acceptance criterion is either evidenced or explicitly open, all required checks pass, and the owner can review a concise S1 completion report. The clean-environment criterion is satisfied; do not declare S1 complete while hosted CI or another mandatory criterion is pending.
-
-### After S1 owner approval
-
-Begin S2 exactly as defined in `05_Delivery/03_Sprint_and_Milestone_Plan.md`. S2 integrates the existing external auth-core contract; it does not create Vittavaan login, password, OTP, MFA, token-refresh or recovery features. Reconfirm auth-core issuer, audience, JWKS/revocation topology and redirect origins before implementation.
+S2 is complete only when the backlog acceptance criteria and hosted checks pass. Shared staging cannot be claimed complete until environment-specific auth-core URLs, issuer, audience and return origins are recorded.
 
 ## Resolved v2 contradictions to preserve during implementation
 
@@ -246,8 +211,8 @@ Begin S2 exactly as defined in `05_Delivery/03_Sprint_and_Milestone_Plan.md`. S2
 - Treat legal statements as requiring jurisdiction/effective-date/source/review metadata.
 - Add Mermaid diagrams where relationships or state transitions materially improve clarity.
 - Update the implementation log, progress tracker and this handover after every completed implementation slice; update the README whenever operator/developer instructions change.
-- Implement only the currently approved sprint. Do not begin S2 or wealth-management features until the S1 completion gate and owner approval are recorded.
+- Implement only the currently approved S2 sprint. Do not begin S3 or later wealth-management features until the S2 completion gate and owner approval are recorded.
 
 ## Repository state warning
 
-The repository currently contains extensive intentional, uncommitted documentation and S1 foundation work. Historical wireframe moves/replacements and any unrelated owner changes must be treated as owner-owned. Inspect paths before staging; do not revert, discard, reset or broadly rewrite existing work. Record an exact baseline commit only after the owner authorizes committing the intended scope.
+At this handover checkpoint, S2-01 through S2-05 and their documentation are intentional local changes that have not yet been committed or pushed. The coordinated auth-core repository also has intentional handoff changes mixed with pre-existing owner frontend/branding work; stage paths deliberately. Historical wireframe changes and unrelated owner work remain owner-owned. Do not revert, discard, reset or broadly rewrite existing work.

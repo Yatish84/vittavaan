@@ -369,6 +369,58 @@ Any asset can additionally be marked `offshore=true`; this requires jurisdiction
 | `GUARANTEE_COSIGNED` | Guaranteed/co-signed obligation | primary borrower reference R; guarantor role R; maximum contingent exposure R; crystallization trigger R; crystallized state/date C. Excluded from direct debt until crystallized. |
 | `LEGAL_COURT_DEBT` | Legal/court-linked debt | authority/court and case reference R; payee O; ordered amount/date R; compliance dates C; appeal/dispute state R. |
 
+## Field-template reference reconciliation
+
+The colleague JSON is treated only as a reference for the information a form may capture for each asset or liability type. Its example values, record identifiers, owners and record count are irrelevant to this dictionary. The PDF-derived seed catalogue and the requirements in this document remain authoritative where the JSON groups multiple products into one broad type.
+
+### Field capture crosswalk
+
+| Field suggested by the JSON template | V3 field or calculation | Capture behavior |
+|---|---|---|
+| Current value | `valuation_events.value_minor_units/currency` | User-entered or imported dated valuation with method and source; currency is explicit rather than fixed to INR. |
+| Invested amount | `cost_basis_lots` and/or `transactions` | User-entered or imported cost/contribution fact; it is not treated as current value. |
+| Sanctioned amount | Liability subtype sanctioned/drawing-limit field | User-entered or imported facility limit; it is not included as outstanding debt. |
+| `units_held` | `holdings.quantity`, SEC/FUND `units` | Stored decimal quantity. |
+| `nav_or_cmp` | Valuation-event method metadata and unit price | Store source and as-of time; total current value remains the valuation event. |
+| `interest_rate`, `maturity_date` | Profile rate/maturity fields or liability columns | Typed percentage/date with subtype validation. |
+| `appraised_value` | `valuation_events` with `APPRAISAL` method | Never duplicated as an unqualified current-value attribute. |
+| `annualized_return`, `irr` | `performance_projections.return_pct` with `method` and period | Derived from dated values/cash flows; never accepted as an authoritative client fact. |
+| `portfolio_weight_pct` | Derived wealth-projection breakdown | Recomputed for the requested person/household scope and as-of time. |
+| `volatility_beta` | Versioned performance/risk metric | Store only as calculated or sourced metric with period, benchmark, source and calculation version. |
+| `moic`, `tvpi`, `dpi` | PRIVATE derived metrics | Calculate only when the required contributions, distributions and valuations are complete. |
+| `holding_period_months` | Acquisition/start and disposal/as-of dates | Derived; do not persist a competing duration. |
+| `rental_yield` | Income stream plus selected property valuation | Derived with period, exclusions and calculation version. |
+| `occupancy_rate` | PROPERTY `occupancy_or_tenancy` facts; optional derived metric | Retain effective dates and source rather than an unexplained percentage. |
+| `loan_to_value_ltv` | Linked liability plus selected asset valuation | Derived at a stated as-of time. |
+| `authenticity_index` | `authenticity_state` plus `verification_evidence` | Ask for evidence/status rather than presenting an unexplained numeric score as verified truth. A sourced score may remain bounded evidence metadata. |
+| `illiquidity_premium` | Modelled valuation-event metadata | Requires model/version, assumptions, source and as-of time. |
+| `regulatory_risk_score` | SPECIAL structured risk assessment | Optional sourced assessment with scale, method, jurisdiction and as-of date; never an unsupported system claim. |
+| `lender_name`, `outstanding_principal` | `liabilities.lender_name`, latest `liability_balance_events` | Current outstanding is an append-only dated balance assertion. |
+| `emi_amount`, `tenure_months` | Versioned liability schedule; tenure may derive from dates | Schedule facts take precedence over a loose metadata value. |
+| `repayment_history_score` | Protected, sourced liability subtype assessment | Optional imported/provider field; requires score scale, provider, consent and as-of date. It should not normally be a manually invented score. |
+| `billing_cycle_date`, `due_date` | Card statement/schedule dates | Use full dates and the applicable statement period, not an ambiguous day number. |
+| `credit_limit` | Card/OD/BNPL subtype limit | Limit is not outstanding debt. |
+| `outstanding_due` | Latest `liability_balance_events.outstanding_minor_units` | Dated balance assertion with currency and source. |
+| `interest_charges_applied` | Schedule item, transaction or balance-event metadata | Store the observed charge and period; do not mix it into principal silently. |
+| `usage_percentage` | Outstanding divided by limit | Derived for a matching as-of date; unavailable when either input is missing. |
+| `authority_or_court`, `case_or_reference_no` | Tax/legal subtype fields | Sensitive references are encrypted or masked in responses. |
+| `penalty_components` | Typed tax/legal charge components | Store base amount, interest, penalty, currency, source and as-of separately where supplied. |
+
+### Asset/liability form coverage represented by the template
+
+| Form family | Applicable types | Fields confirmed by this review |
+|---|---|---|
+| Listed security/fund | Public equities, mutual funds | Quantity, unit price/NAV, invested amount, current value; returns, portfolio weight and beta are derived or sourced metrics. |
+| Interest-bearing asset | Bonds, cash/deposits, P2P lending, small savings/pensions | Principal/cost, current value, interest rate and maturity, with the detailed subtype adding issuer, account or scheme information. |
+| Private/alternative investment | Private equity, hedge funds | Invested/current value; MOIC, TVPI, DPI and holding period use cash-flow/date inputs and are calculated where possible. |
+| Property | Real estate | Invested/current or appraised value, occupancy facts and income; rental yield, IRR and LTV are derived from linked facts. |
+| Specialized or unusual asset | Commodities, crypto/digital assets, derivatives, insurance-linked securities, franchises, carbon credits, sports, entertainment and data/AI interests | Appraisal/market value, evidence/authenticity, liquidity and regulatory-risk context, plus the richer subtype-profile fields above. |
+| Instalment loan | Mortgage, personal, vehicle, education, business/MSME, gold, securities-backed and co-signed liabilities | Lender, original/sanctioned amount, outstanding balance, interest rate, EMI/schedule and term; collateral/co-borrower fields depend on subtype. |
+| Revolving facility | Credit card, overdraft/cash credit and BNPL | Provider/issuer, limit, outstanding balance, statement/billing dates and charges; utilization is calculated. |
+| Tax/legal obligation | GST/tax dues and court-linked debts | Authority, reference, due date, base amount, interest/penalty components, dispute/compliance state and current balance. |
+
+This reconciliation confirms the suggested fields are covered, but it does not mean every suggested item should be typed by the user. The UI contract must label every field as one of: user-entered fact, imported fact, optional sourced assessment, or system-calculated result. Calculated results must not be presented as editable source data.
+
 ## Cross-field validation rules
 
 1. Active subtype code must resolve to the schema version recorded on the aggregate; schema upgrades never reinterpret old JSON silently.
