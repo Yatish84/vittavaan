@@ -380,6 +380,13 @@ for (const row of rows.slice(0, 93)) {
     completeRows.set(expanded[0], expanded);
   }
   for (const field of subtypeRows) completeRows.set(field[0], field);
+  if (row.assetClass === "TRAD_SECURITY" && row.assetSubtype === "PUBLIC_EQUITY") {
+    completeRows.set("holdings.quantity", [
+      "holdings.quantity",
+      "Number of shares held; must be positive for an active public equity holding.",
+      "Mandatory — positive share quantity for an active holding",
+    ]);
+  }
   totalMatrixRows += completeRows.size;
   page.push(`<a id="${anchor(row.assetSubtype)}"></a>`);
   page.push("");

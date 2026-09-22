@@ -26,6 +26,7 @@ Each subtype below expands into its complete field checklist. The status tags an
 | `holdings.asset_subtype_code` | Selected asset subtype. | 🟥 **MANDATORY** — Required. |
 | `holdings.name` | User-facing name for the holding. | 🟥 **MANDATORY** — Required. |
 | `holdings.currency` | Native ISO 4217 currency used for the holding. | 🟥 **MANDATORY** — Required. |
+| `holdings.quantity` | Number of shares held; must be positive for an active public equity holding. | 🟥 **MANDATORY** — Positive share quantity for an active holding. |
 | `holdings.subtype_attributes` | Validated object containing only the subtype fields listed below. | 🟥 **MANDATORY** — May be empty only when the subtype schema permits it. |
 | `holdings.status` | Lifecycle state: ACTIVE, CLOSED, DISPOSED or ARCHIVED. | 🟥 **MANDATORY** — Defaults to ACTIVE. |
 | `sources.source_type` | How the information was obtained: manual, import, connector, calculated or operator. | 🟥 **MANDATORY** — Required for each provenance record. |
@@ -37,7 +38,6 @@ Each subtype below expands into its complete field checklist. The status tags an
 | `holdings.subtype_attributes.security_name` | Security name. Expected value: `str`. | 🟥 **MANDATORY** — Required. |
 | `holdings.subtype_attributes.listing_status` | Listing status. Expected value: `enum('LISTED','SUSPENDED','DELISTED','UNLISTED')`. | 🟥 **MANDATORY** — Required. |
 | `holdings.household_id` | Household in which the holding is shown. | 🟧 **CONDITIONAL** — Mandatory when included in a household portfolio. |
-| `holdings.quantity` | Units, shares, weight or other quantity when the asset is quantity-based. | 🟧 **CONDITIONAL** — Required when applicable. |
 | `holdings.identifier_type` | Kind of primary identifier, such as ISIN, folio or property reference. | 🟧 **CONDITIONAL** — Required when applicable. |
 | `holdings.identifier_ciphertext` | Encrypted primary identifier value. | 🟧 **CONDITIONAL** — Sensitive. |
 | `sources.data_consent_id` | Consent or lawful collection basis used by a connected source. | 🟧 **CONDITIONAL** — When collection depends on consent. |

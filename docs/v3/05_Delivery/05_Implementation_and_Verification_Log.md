@@ -624,3 +624,7 @@ The first real cross-service run exposed a case-sensitive contract mismatch: aut
 **Change:** The generator now writes a compact asset index and 19 asset class files. Each index link opens the relevant class file at the selected subtype's expandable section. The field definitions, colored tags, row order and self-contained subtype tables are preserved.
 
 **Verification:** The index is about 11 KB; the largest class file is about 215 KB. All 93 subtypes and 16,786 field rows remain. Generator output and links were checked locally.
+
+### 22 Sep 2026 — Public equity share quantity clarification
+
+The asset matrix initially repeated the generic `holdings.quantity` rule as Conditional for `PUBLIC_EQUITY`. The generic database column is nullable because some other asset types do not have units. For an active public equity holding, however, a positive share quantity is mandatory. The subtype schema, generator and traditional-securities matrix now state that specific rule.
