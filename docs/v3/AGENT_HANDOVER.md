@@ -1,8 +1,8 @@
 # Vittavaan v3 — Agent Handover
 
 > **Last updated:** 22 Sep 2026
-> **Current phase:** S2 Authentication and Application Bootstrap
-> **Application code status:** S1 foundation complete; S2-01 through S2-06 complete locally; hosted S2 checks and shared-staging values remain; wealth-management features have not started
+> **Current phase:** S2 Authentication and Application Bootstrap completion review
+> **Application code status:** S1 foundation complete; S2-01 through S2-06 and hosted Vittavaan checks pass; owner completion review and shared-staging values remain; wealth-management features have not started
 > **Canonical documentation:** `docs/v3/`
 > **Baseline approval:** Owner approved `DEC3-001`–`DEC3-007` on 20 Sep 2026; S1 foundation is authorized.
 > **S1 setup approval:** Owner approved the recommended branch, GitHub CI/registry, platform, package-manager, Valkey candidate, storage compatible with the S3 API and review defaults on 20 Sep 2026.
@@ -187,8 +187,9 @@ This is the executable queue for the next coding agent. Work from the top and st
 2. Preserve completed S2-04 frontend work: the typed client and accessible loading, first-run, ready, unauthenticated, unavailable and denied states pass tests; the production shell deliberately remains signed out until S2-05 supplies an in-memory identity context.
 3. Preserve completed S2-05: auth-core issues a 60-second, single-use, return-URL-bound code; Vittavaan exchanges it server-to-server with a private secret and holds the access token in memory only. Never reintroduce token URLs, `localStorage` or `sessionStorage`.
 4. Preserve completed S2-06 coverage: auth-core directly tests malformed, expired, wrong issuer, wrong audience, unknown key, wrong signature and revoked tokens; Vittavaan tests connection failure, timeout, server failure and recovery. A real local verifier stop/start drill returned safe HTTP 503 during outage and normal HTTP 401 after recovery.
-5. Run and record the hosted quality/security checks for the S2 commits.
-6. Record independently provisioned staging URLs, HTTPS return origin, verifier placement, issuer/audience and matching handoff secret before claiming shared staging readiness.
+5. Preserve hosted evidence for Vittavaan commit `6f188b5`: quality run `35761393813` and security/images run `35761393907` passed. Auth-core has no GitHub workflow on its feature branch; its full local lint, type, test and validation suite passed at `78add1f`.
+6. Obtain the owner's S2 completion decision before beginning S3.
+7. Record independently provisioned staging URLs, HTTPS return origin, verifier placement, issuer/audience and matching handoff secret before claiming shared staging readiness.
 
 S2 is complete only when the backlog acceptance criteria and hosted checks pass. Shared staging cannot be claimed complete until environment-specific auth-core URLs, issuer, audience and return origins are recorded.
 

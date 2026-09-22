@@ -567,7 +567,7 @@ The first real cross-service run exposed a case-sensitive contract mismatch: aut
 
 ### 22 Sep 2026 — S2 cross-service failure and recovery verification
 
-**Status:** S2-06 complete locally; hosted checks and shared-staging configuration remain.
+**Status:** S2-06 complete; S2 is ready for owner completion review. Shared-staging configuration remains.
 
 **Implemented**
 
@@ -584,8 +584,10 @@ The first real cross-service run exposed a case-sensitive contract mismatch: aut
 | Real verifier outage | Protected bootstrap returned safe HTTP 503 with no access |
 | Real verifier recovery | Verifier became healthy and the same invalid credential returned normal HTTP 401 |
 | Data impact | No database or user data was stopped, deleted or changed by the drill |
+| Vittavaan hosted quality | Passed: <https://github.com/Yatish84/vittavaan/actions/runs/35761393813> |
+| Vittavaan hosted security/images | Passed: <https://github.com/Yatish84/vittavaan/actions/runs/35761393907> |
+| Auth-core full local suite | 105 API tests, 33 web tests and Go verifier tests passed; lint, strict types, documentation, Compose and migration validation passed |
 
 **Remaining release evidence**
 
-- Run the S2 commits through hosted quality and security workflows.
 - Provision and record the shared-staging HTTPS URLs, return origin, verifier placement, issuer, audience and independently managed handoff secret before claiming staging readiness.

@@ -1,6 +1,6 @@
 # S2 Authentication and Application Bootstrap Backlog
 
-> **Status:** Authorized and in progress
+> **Status:** Implementation complete; ready for owner completion review
 >
 > **Owner decision:** Continue with the original sprint plan; do not use the demo-first proposal as implementation authority.
 >
@@ -92,7 +92,7 @@ The implemented contract uses a random, 60-second, single-use handoff code. The 
 
 ### S2-06 — Cross-service verification and operations
 
-**Status:** Complete locally on 22 Sep 2026. The valid flow, bootstrap, single-use enforcement, replay rejection, complete negative-token matrix and a real verifier outage/recovery drill pass. Hosted checks and shared-staging values remain release evidence, not missing local implementation.
+**Status:** Complete on 22 Sep 2026. The valid flow, bootstrap, single-use enforcement, replay rejection, complete negative-token matrix, a real verifier outage/recovery drill and hosted quality/security checks pass. Shared-staging values remain deployment inputs, not missing application implementation.
 
 Prove valid, malformed, expired, wrong-audience, wrong-issuer, unknown-key and revoked cases. Verify verifier outages fail closed and recover. Record staging configuration requirements and runbooks.
 
