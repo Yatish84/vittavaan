@@ -24,6 +24,27 @@ const inheritance = new Map([
 ]);
 
 const rowByKey = new Map(rows.map((row) => [`${row.assetClass}/${row.assetSubtype}`, row]));
+const mandatoryQuantitySubtypes = new Set([
+  "TRAD_SECURITY/PUBLIC_EQUITY",
+  "TRAD_SECURITY/GOVERNMENT_BOND",
+  "TRAD_SECURITY/MUNICIPAL_BOND",
+  "TRAD_SECURITY/CORPORATE_BOND",
+  "TRAD_SECURITY/DEBENTURE",
+  "TRAD_SECURITY/COMMERCIAL_PAPER",
+  "TRAD_SECURITY/CERTIFICATE_OF_DEPOSIT",
+  "FUND/MUTUAL_FUND",
+  "FUND/MONEY_MARKET_FUND",
+  "REAL_ASSET/REIT",
+  "DIGITAL_ASSET/CRYPTO_TOKEN",
+  "DIGITAL_ASSET/NFT",
+  "DIGITAL_ASSET/TOKENIZED_ASSET",
+  "INSURANCE_SECURITY/CAT_BOND",
+  "DERIVATIVE/EQUITY_OPTION",
+  "DERIVATIVE/CONVERTIBLE_SECURITY",
+]);
+for (const key of mandatoryQuantitySubtypes) {
+  if (!rowByKey.has(key)) throw new Error(`Unknown mandatory quantity subtype: ${key}`);
+}
 const markerMeaning = {
   R: "Mandatory",
   C: "Conditional",
@@ -73,10 +94,10 @@ function title(name) {
 }
 
 const statusPresentation = {
-  mandatory: { rank: 0, tag: "🟥 **MANDATORY**" },
-  conditional: { rank: 1, tag: "🟧 **CONDITIONAL**" },
-  optional: { rank: 2, tag: "🟦 **OPTIONAL**" },
-  system: { rank: 3, tag: "🟪 **SYSTEM**" },
+  mandatory: { rank: 0, tag: "<code>🟥 MANDATORY</code>" },
+  conditional: { rank: 1, tag: "<code>🟧 CONDITIONAL</code>" },
+  optional: { rank: 2, tag: "<code>🟦 OPTIONAL</code>" },
+  system: { rank: 3, tag: "<code>🟪 SYSTEM</code>" },
 };
 
 function requirementStatus(requirement) {
@@ -88,24 +109,22 @@ function requirementStatus(requirement) {
 }
 
 function note(requirement) {
-  const status = requirementStatus(requirement);
-  let detail = requirement;
-  if (status === "mandatory") {
-    detail = requirement === "Mandatory"
-      ? "Required."
-      : requirement.replace(/^Mandatory\s+—\s+/i, "").replace(/^Mandatory for\s+/i, "Required for ");
-  } else if (status === "conditional") {
-    detail = requirement === "Conditional"
-      ? "Required when applicable."
-      : requirement.replace(/^Conditional\s+—\s+/i, "");
-  } else if (status === "optional") {
-    detail = requirement === "Optional"
-      ? "May be supplied."
-      : requirement.replace(/^Optional\s+—\s+/i, "");
+  if (/^(Mandatory|Conditional|Optional|System-generated|System-calculated|System-managed)$/.test(requirement)) {
+    return "";
   }
+  let detail = requirement
+    .replace(/^(Mandatory|Conditional|Optional|System-generated|System-calculated|System-managed)\s+—\s+/i, "")
+    .replace(/^Mandatory for\s+/i, "Required for ")
+    .replace(/^System-generated\s+/i, "")
+    .replace(/^System-calculated\s+/i, "")
+    .replace(/^System-managed\s+/i, "");
   detail = detail.replace(/^./, (character) => character.toUpperCase());
   if (!/[.!?]$/.test(detail)) detail += ".";
-  return `${statusPresentation[status].tag} — ${detail}`;
+  return detail;
+}
+
+function firstCell(path, requirement) {
+  return `${statusPresentation[requirementStatus(requirement)].tag} \`${path}\``;
 }
 
 function sortedByRequirement(fields) {
@@ -135,9 +154,9 @@ const commonRows = [
   ["holdings.asset_subtype_code", "Selected asset subtype.", "Mandatory"],
   ["holdings.name", "User-facing name for the holding.", "Mandatory"],
   ["holdings.currency", "Native ISO 4217 currency used for the holding.", "Mandatory"],
-  ["holdings.quantity", "Units, shares, weight or other quantity when the asset is quantity-based.", "Conditional"],
-  ["holdings.identifier_type", "Kind of primary identifier, such as ISIN, folio or property reference.", "Conditional"],
-  ["holdings.identifier_ciphertext", "Encrypted primary identifier value.", "Conditional — sensitive"],
+  ["holdings.quantity", "Units, shares, weight or other quantity when the asset is quantity-based.", "Conditional — only when measured as units; omit for non-unitized assets"],
+  ["holdings.identifier_type", "Kind of primary identifier, such as ISIN, folio or property reference.", "Conditional — when a canonical identifier is recorded"],
+  ["holdings.identifier_ciphertext", "Encrypted primary identifier value.", "Conditional — when a canonical identifier is recorded; sensitive"],
   ["holdings.subtype_schema_version", "Exact subtype field-schema version used to validate the record.", "System-generated"],
   ["holdings.subtype_attributes", "Validated object containing only the subtype fields listed below.", "Mandatory — may be empty only when the subtype schema permits it"],
   ["holdings.status", "Lifecycle state: ACTIVE, CLOSED, DISPOSED or ARCHIVED.", "Mandatory — defaults to ACTIVE"],
@@ -319,16 +338,25 @@ output.push("A path such as `holdings.subtype_attributes.interest_rate_pct` mean
 output.push("");
 output.push("## Status tags");
 output.push("");
-output.push("Every note starts with a colored tag. Rows inside each subtype are sorted in the order shown here.");
+output.push("Each field path starts with a small colored tag. Rows inside each subtype are sorted in the order shown here. The Notes column is blank unless a condition or other qualification matters.");
 output.push("");
 output.push("| Tag | Plain-English meaning |");
 output.push("|---|---|");
-output.push("| 🟥 **MANDATORY** | Must be present before the holding can become active, or before the named related record can be created. |");
-output.push("| 🟧 **CONDITIONAL** | Must be present only when the stated feature or circumstance applies. |");
-output.push("| 🟦 **OPTIONAL** | May be supplied; absence means unknown or not applicable. |");
-output.push("| 🟪 **SYSTEM** | Generated, calculated or lifecycle-managed by Vittavaan rather than entered freely by a user. |");
+output.push("| <code>🟥 MANDATORY</code> | Must be present before the holding can become active, or before the named related record can be created. |");
+output.push("| <code>🟧 CONDITIONAL</code> | Must be present only when the stated feature or circumstance applies. |");
+output.push("| <code>🟦 OPTIONAL</code> | May be supplied; absence means unknown or not applicable. |");
+output.push("| <code>🟪 SYSTEM</code> | Generated, calculated or lifecycle-managed by Vittavaan rather than entered freely by a user. |");
 output.push("");
-output.push("A note also states when information is sensitive. Sensitive values must be encrypted or represented by a protected reference and masked in normal responses.");
+output.push("A note may also identify sensitive information. Sensitive values must be encrypted or represented by a protected reference and masked in normal responses.");
+output.push("");
+output.push("## Quantity rule audit");
+output.push("");
+output.push(`The \`holdings.quantity\` requirement was reviewed across all ${rows.slice(0, 93).length} asset subtypes. It is mandatory for an active holding in ${mandatoryQuantitySubtypes.size} explicitly unit based subtypes (listed below). For other subtypes, it is conditional when the holding is represented in units; it is not needed for assets such as a bank account or a property. The physical database column remains nullable because it serves all asset types.`);
+output.push("");
+for (const key of mandatoryQuantitySubtypes) {
+  const [assetClass, assetSubtype] = key.split("/");
+  output.push(`- [\`${assetSubtype}\`](${classPath(assetClass)}#${anchor(assetSubtype)})`);
+}
 output.push("");
 output.push("## Asset subtype index");
 output.push("");
@@ -380,11 +408,11 @@ for (const row of rows.slice(0, 93)) {
     completeRows.set(expanded[0], expanded);
   }
   for (const field of subtypeRows) completeRows.set(field[0], field);
-  if (row.assetClass === "TRAD_SECURITY" && row.assetSubtype === "PUBLIC_EQUITY") {
+  if (mandatoryQuantitySubtypes.has(`${row.assetClass}/${row.assetSubtype}`)) {
     completeRows.set("holdings.quantity", [
       "holdings.quantity",
-      "Number of shares held; must be positive for an active public equity holding.",
-      "Mandatory — positive share quantity for an active holding",
+      "Positive number of shares, units, tokens or contracts held in an active position.",
+      "Mandatory — positive quantity for an active holding",
     ]);
   }
   totalMatrixRows += completeRows.size;
@@ -393,10 +421,10 @@ for (const row of rows.slice(0, 93)) {
   page.push("<details>");
   page.push(`<summary><strong>Asset subtype: <code>${row.assetSubtype}</code></strong></summary>`);
   page.push("");
-  page.push("| `table_name.column_name` | Description | Note |");
+  page.push("| Status and `table_name.column_name` | Description | Notes |");
   page.push("|---|---|---|");
   for (const [path, description, requirement] of sortedByRequirement([...completeRows.values()])) {
-    page.push(`| \`${path}\` | ${description} | ${note(requirement)} |`);
+    page.push(`| ${firstCell(path, requirement)} | ${description} | ${note(requirement)} |`);
   }
   page.push("");
   page.push("</details>");

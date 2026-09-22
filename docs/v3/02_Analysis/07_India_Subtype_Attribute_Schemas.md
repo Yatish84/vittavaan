@@ -48,6 +48,8 @@ All schemas use `additionalProperties: false`, reject empty strings, have bounde
 | EMI and repayment schedule | `liability_schedule_versions/items` |
 | Collateral/financed asset | `liability_holding_links` |
 
+`holdings.quantity` is required for an active, explicitly unit-based position such as a listed security, mutual fund, REIT, token, catastrophe bond, equity option or convertible security. For other subtypes it is used only when the position is actually measured in units. The asset field requirement matrix lists the exact mandatory-quantity subtypes; the shared database column stays nullable for non-unitized assets.
+
 ## Cross-cutting optional asset attributes
 
 These may be composed into any asset subtype when applicable:

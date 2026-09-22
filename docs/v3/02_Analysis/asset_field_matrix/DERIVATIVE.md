@@ -17,188 +17,188 @@ Each subtype below expands into its complete field checklist. The status tags an
 <details>
 <summary><strong>Asset subtype: <code>EQUITY_OPTION</code></strong></summary>
 
-| `table_name.column_name` | Description | Note |
+| Status and `table_name.column_name` | Description | Notes |
 |---|---|---|
-| `holdings.owner_person_id` | Person primarily accountable for the holding. | 🟥 **MANDATORY** — Required. |
-| `holdings.asset_class_code` | Selected top-level asset class. | 🟥 **MANDATORY** — Required. |
-| `holdings.asset_subtype_code` | Selected asset subtype. | 🟥 **MANDATORY** — Required. |
-| `holdings.name` | User-facing name for the holding. | 🟥 **MANDATORY** — Required. |
-| `holdings.currency` | Native ISO 4217 currency used for the holding. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes` | Validated object containing only the subtype fields listed below. | 🟥 **MANDATORY** — May be empty only when the subtype schema permits it. |
-| `holdings.status` | Lifecycle state: ACTIVE, CLOSED, DISPOSED or ARCHIVED. | 🟥 **MANDATORY** — Defaults to ACTIVE. |
-| `sources.source_type` | How the information was obtained: manual, import, connector, calculated or operator. | 🟥 **MANDATORY** — Required for each provenance record. |
-| `sources.trust_tier` | Evidence tier: verified, declared, estimated or unknown. | 🟥 **MANDATORY** — Required for each provenance record. |
-| `ownership_allocations.person_id` | Person receiving an ownership share. | 🟥 **MANDATORY** — Required for each ownership allocation. |
-| `ownership_allocations.ownership_pct` | Effective ownership percentage for the person. | 🟥 **MANDATORY** — Required for each ownership allocation. |
-| `ownership_allocations.effective_from` | Date from which the ownership share applies. | 🟥 **MANDATORY** — Required for each ownership allocation. |
-| `holdings.subtype_attributes.underlying_ref` | Underlying ref. Expected value: `str`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.option_type` | Option type. Expected value: `enum('CALL','PUT')`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.position_side` | Position side. Expected value: `enum('LONG','SHORT')`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.strike_price` | Strike price. Expected value: `money`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.expiry_date` | Expiry date. Expected value: `date`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.contract_multiplier` | Contract multiplier. Expected value: `dec>0`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.settlement_type` | Settlement type. Expected value: `enum`. | 🟥 **MANDATORY** — Required. |
-| `holdings.household_id` | Household in which the holding is shown. | 🟧 **CONDITIONAL** — Mandatory when included in a household portfolio. |
-| `holdings.quantity` | Units, shares, weight or other quantity when the asset is quantity-based. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `holdings.identifier_type` | Kind of primary identifier, such as ISIN, folio or property reference. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `holdings.identifier_ciphertext` | Encrypted primary identifier value. | 🟧 **CONDITIONAL** — Sensitive. |
-| `sources.data_consent_id` | Consent or lawful collection basis used by a connected source. | 🟧 **CONDITIONAL** — When collection depends on consent. |
-| `valuation_events.value_minor_units` | Observed or appraised value in the valuation currency. | 🟧 **CONDITIONAL** — Required before the asset contributes to net worth. |
-| `valuation_events.currency` | ISO 4217 currency of the valuation. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `valuation_events.as_of_at` | Date and time to which the valuation applies. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `valuation_events.source_id` | Source or manual-entry provenance for the valuation. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `valuation_events.valuation_method` | How the value was determined: market, appraisal, declared, modelled or cost. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `cost_basis_lots.quantity` | Units acquired in the lot. | 🟧 **CONDITIONAL** — When the asset is quantity-based. |
-| `cost_basis_lots.cost_amount_minor_units` | Acquisition cost in minor currency units. | 🟧 **CONDITIONAL** — Required when recording a cost lot. |
-| `cost_basis_lots.currency` | ISO 4217 currency of the acquisition cost. | 🟧 **CONDITIONAL** — Required when recording a cost lot. |
-| `cost_basis_lots.acquired_on` | Acquisition date for the lot. | 🟧 **CONDITIONAL** — Required when recording a cost lot. |
-| `holding_restrictions.restriction_type` | Approved restriction type. | 🟧 **CONDITIONAL** — Required when a restriction exists. |
-| `holding_restrictions.effective_from` | Date from which the restriction applies. | 🟧 **CONDITIONAL** — Required when a restriction exists. |
-| `holding_restrictions.status` | Restriction state: active, released or disputed. | 🟧 **CONDITIONAL** — Required when a restriction exists. |
-| `commitments.person_id` | Person responsible for funding the commitment. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `commitments.committed_minor_units` | Total committed amount in minor currency units. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `commitments.drawn_minor_units` | Amount already drawn. | 🟧 **CONDITIONAL** — Defaults to zero when a commitment exists. |
-| `commitments.currency` | ISO 4217 currency of the commitment. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `commitments.status` | Commitment state: open, partly drawn, fulfilled or cancelled. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `transactions.person_id` | Person who owns the transaction. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.source_id` | Provenance source for the transaction. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.transaction_type` | Type such as buy, sell, income, fee, tax or transfer. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.quantity` | Signed number of units affected. | 🟧 **CONDITIONAL** — When the transaction changes quantity. |
-| `transactions.amount_minor_units` | Signed cash amount in minor currency units. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.currency` | ISO 4217 transaction currency. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `income_streams.person_id` | Person receiving the income. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.name` | Display name of the income stream. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.income_type` | Income type such as rent, dividend, interest or pension. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.amount_minor_units` | Expected income amount in minor currency units. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.currency` | ISO 4217 income currency. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.frequency` | Expected payment frequency. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.starts_on` | Income start date. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.status` | Income-stream state: active, paused or ended. | 🟧 **CONDITIONAL** — Defaults to active when an income stream exists. |
-| `liability_holding_links.liability_id` | Liability secured by, financing or associated with the asset. | 🟧 **CONDITIONAL** — Required when the asset is linked to a liability. |
-| `liability_holding_links.link_type` | Relationship type: secured by, finances or associated with. | 🟧 **CONDITIONAL** — Required when linked to a liability. |
-| `liability_holding_links.effective_from` | Date from which the liability link applies. | 🟧 **CONDITIONAL** — Required when linked to a liability. |
-| `documents.owner_person_id` | Person who owns the document. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `documents.document_type` | Approved document type. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `documents.title` | Sanitized document title. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `documents.retention_class` | Retention policy applied to the document. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `document_versions.original_filename` | Sanitized original filename. | 🟧 **CONDITIONAL** — Required when a document is uploaded. |
-| `document_links.document_id` | Document linked to the asset. | 🟧 **CONDITIONAL** — Required when creating a document link. |
-| `document_links.link_purpose` | Purpose such as evidence, contract or statement. | 🟧 **CONDITIONAL** — Required when creating a document link. |
-| `verification_evidence.valuation_event_id` | Valuation supported by the evidence. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `verification_evidence.document_id` | Supporting document. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `verification_evidence.evidence_type` | Approved evidence type. | 🟧 **CONDITIONAL** — Required when verification evidence is recorded. |
-| `holdings.subtype_attributes.jurisdiction` | Country governing the offshore holding. | 🟧 **CONDITIONAL** — Mandatory when offshore is true. |
-| `holdings.subtype_attributes.tax_residency_relevance` | Whether the offshore holding is relevant to tax-residency reporting. | 🟧 **CONDITIONAL** — Mandatory when offshore is true. |
-| `holdings.subtype_attributes.reporting_status` | Current foreign-asset reporting state. | 🟧 **CONDITIONAL** — Mandatory when offshore is true. |
-| `holdings.acquired_on` | Known acquisition date. | 🟦 **OPTIONAL** — May be supplied. |
-| `sources.provider_code` | Provider or institution code when applicable. | 🟦 **OPTIONAL** — May be supplied. |
-| `sources.external_reference_hash` | Non-reversible hash of an external source reference. | 🟦 **OPTIONAL** — May be supplied. |
-| `sources.metadata` | Allow-listed, source-specific provenance metadata. | 🟦 **OPTIONAL** — Defaults to an empty object. |
-| `ownership_allocations.effective_to` | Date on which the ownership share stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `ownership_allocations.source_id` | Evidence source supporting the ownership allocation. | 🟦 **OPTIONAL** — May be supplied. |
-| `valuation_events.confidence` | Optional confidence score from 0 to 1. | 🟦 **OPTIONAL** — May be supplied. |
-| `valuation_events.supersedes_event_id` | Prior valuation corrected by this event. | 🟦 **OPTIONAL** — May be supplied. |
-| `valuation_events.metadata` | Bounded, method-specific valuation details. | 🟦 **OPTIONAL** — Defaults to an empty object. |
-| `cost_basis_lots.source_id` | Source supporting the acquisition lot. | 🟦 **OPTIONAL** — May be supplied. |
-| `cost_basis_lots.supersedes_lot_id` | Prior acquisition lot corrected by this lot. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.liability_id` | Liability causing or associated with the restriction. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.counterparty_reference` | Bounded reference to the restriction counterparty. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.effective_to` | Date on which the restriction stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.source_id` | Evidence source supporting the restriction. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.due_on` | Known commitment due date. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.window_start` | Start of the permitted draw window. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.window_end` | End of the permitted draw window. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.source_id` | Source supporting the commitment. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.external_transaction_hash` | Scoped deduplication hash for an imported transaction. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.trade_date` | Trade or business-effective date. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.settled_at` | Settlement timestamp. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.description` | Sanitized transaction description. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.supersedes_transaction_id` | Prior transaction corrected by this event. | 🟦 **OPTIONAL** — May be supplied. |
-| `income_streams.ends_on` | Income end date. | 🟦 **OPTIONAL** — May be supplied. |
-| `income_streams.growth_rate_pct` | Optional expected annual growth rate. | 🟦 **OPTIONAL** — May be supplied. |
-| `income_streams.source_id` | Source supporting the income stream. | 🟦 **OPTIONAL** — May be supplied. |
-| `liability_holding_links.allocation_pct` | Optional share of the liability attributed to this asset. | 🟦 **OPTIONAL** — May be supplied. |
-| `liability_holding_links.effective_to` | Date on which the liability link stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.document_date` | Business-effective date printed on the document. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.expires_on` | Document expiry date. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.source_id` | Source from which the document originated. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.supersedes_version_id` | Prior document version replaced by this version. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_links.effective_to` | Timestamp when the document link stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `verification_evidence.expires_at` | Evidence expiry timestamp. | 🟦 **OPTIONAL** — May be supplied. |
-| `verification_evidence.notes` | Bounded verification notes. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.offshore` | Whether the holding is outside India. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.foreign_account_ref` | Protected foreign account reference. | 🟦 **OPTIONAL** — Sensitive. |
-| `holdings.subtype_attributes.custodian_name` | Name of the custodian. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.custody_account_ref` | Protected custody-account reference. | 🟦 **OPTIONAL** — Sensitive. |
-| `holdings.subtype_attributes.beneficial_owner_declaration` | Whether beneficial ownership has been declared. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.notes` | Bounded non-secret notes about the asset. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.exercise_style` | Exercise style. Expected value: `enum`. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.exchange_code` | Exchange code. Expected value: `str`. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.holding_id` | Unique identifier for the holding. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.subtype_schema_version` | Exact subtype field-schema version used to validate the record. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.created_by_principal_id` | Application principal that created the record. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.created_at` | Creation timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.updated_at` | Most recent update timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.version` | Optimistic-lock version used to prevent conflicting updates. | 🟪 **SYSTEM** — System-generated. |
-| `sources.source_id` | Unique identifier for the provenance record referenced by valuations, transactions and evidence. | 🟪 **SYSTEM** — System-generated. |
-| `sources.captured_by_principal_id` | Application principal that captured the information. | 🟪 **SYSTEM** — System-generated when a person or operator captured it. |
-| `sources.captured_at` | Timestamp when the information was captured. | 🟪 **SYSTEM** — System-generated. |
-| `sources.created_at` | Creation timestamp for the provenance record. | 🟪 **SYSTEM** — System-generated. |
-| `ownership_allocations.ownership_allocation_id` | Unique identifier for an ownership allocation. | 🟪 **SYSTEM** — System-generated. |
-| `ownership_allocations.holding_id` | Holding to which the ownership allocation belongs. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `ownership_allocations.created_at` | Creation timestamp for the ownership allocation. | 🟪 **SYSTEM** — System-generated. |
-| `valuation_events.valuation_event_id` | Unique identifier for an immutable valuation observation. | 🟪 **SYSTEM** — System-generated. |
-| `valuation_events.holding_id` | Holding valued by the observation. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `valuation_events.recorded_by_principal_id` | Application principal that recorded the valuation. | 🟪 **SYSTEM** — System-generated. |
-| `valuation_events.recorded_at` | Timestamp when the valuation was recorded. | 🟪 **SYSTEM** — System-generated. |
-| `cost_basis_lots.cost_basis_lot_id` | Unique identifier for an acquisition-cost lot. | 🟪 **SYSTEM** — System-generated. |
-| `cost_basis_lots.holding_id` | Holding acquired through the lot. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `cost_basis_lots.recorded_by_principal_id` | Application principal that recorded the lot. | 🟪 **SYSTEM** — System-generated. |
-| `cost_basis_lots.recorded_at` | Timestamp when the lot was recorded. | 🟪 **SYSTEM** — System-generated. |
-| `holding_restrictions.restriction_id` | Unique identifier for a lien, pledge, lock-in, freeze or legal restriction. | 🟪 **SYSTEM** — System-generated. |
-| `holding_restrictions.holding_id` | Holding affected by the restriction. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `holding_restrictions.created_at` | Creation timestamp for the restriction record. | 🟪 **SYSTEM** — System-generated. |
-| `commitments.commitment_id` | Unique identifier for an undrawn or contingent commitment. | 🟪 **SYSTEM** — System-generated. |
-| `commitments.holding_id` | Holding associated with the commitment. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `commitments.version` | Optimistic-lock version for the commitment. | 🟪 **SYSTEM** — System-generated. |
-| `transactions.transaction_id` | Unique identifier for an immutable ledger event. | 🟪 **SYSTEM** — System-generated. |
-| `transactions.holding_id` | Holding affected by the transaction. | 🟪 **SYSTEM** — System-generated when recorded from the holding. |
-| `transactions.recorded_at` | Timestamp when the transaction was recorded. | 🟪 **SYSTEM** — System-generated. |
-| `income_streams.income_stream_id` | Unique identifier for recurring or expected income. | 🟪 **SYSTEM** — System-generated. |
-| `income_streams.holding_id` | Asset producing the income. | 🟪 **SYSTEM** — System-generated when created from the holding. |
-| `income_streams.version` | Optimistic-lock version for the income stream. | 🟪 **SYSTEM** — System-generated. |
-| `liability_holding_links.liability_holding_link_id` | Unique identifier linking the asset to a liability. | 🟪 **SYSTEM** — System-generated. |
-| `liability_holding_links.holding_id` | Asset participating in the liability relationship. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `liability_holding_links.created_at` | Creation timestamp for the liability link. | 🟪 **SYSTEM** — System-generated. |
-| `documents.document_id` | Unique identifier for supporting document metadata. | 🟪 **SYSTEM** — System-generated. |
-| `documents.lifecycle_state` | Document processing and availability state. | 🟪 **SYSTEM** — System-managed. |
-| `documents.current_version_id` | Current clean document version. | 🟪 **SYSTEM** — System-managed. |
-| `documents.created_by_principal_id` | Application principal that created the document. | 🟪 **SYSTEM** — System-generated. |
-| `documents.created_at` | Document creation timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `documents.updated_at` | Document update timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `documents.version` | Optimistic-lock version for document metadata. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.document_version_id` | Unique identifier for an immutable document version. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.document_id` | Parent document. | 🟪 **SYSTEM** — System-generated from the parent document. |
-| `document_versions.version_number` | Monotonic version number within the document. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.storage_zone` | Quarantine or clean object-storage zone. | 🟪 **SYSTEM** — System-managed. |
-| `document_versions.storage_key` | Random non-personal object-storage key. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.checksum_sha256` | SHA-256 integrity digest. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.mime_type` | Server-detected MIME type. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.size_bytes` | Validated object size. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.scan_state` | Malware scanning state. | 🟪 **SYSTEM** — System-managed. |
-| `document_versions.scanner_policy_version` | Scanning-policy version used. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.uploaded_at` | Upload timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `document_links.document_link_id` | Unique identifier linking a document to the asset. | 🟪 **SYSTEM** — System-generated. |
-| `document_links.domain_type` | Approved domain-object type. | 🟪 **SYSTEM** — System-generated for an asset link. |
-| `document_links.domain_id` | Application-validated target identifier. | 🟪 **SYSTEM** — System-generated for an asset link. |
-| `document_links.holding_id` | Holding to which the document is linked. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `document_links.effective_from` | Timestamp from which the document link applies. | 🟪 **SYSTEM** — System-generated unless explicitly effective later. |
-| `document_links.created_by_principal_id` | Application principal that created the link. | 🟪 **SYSTEM** — System-generated. |
-| `verification_evidence.verification_evidence_id` | Unique identifier for evidence supporting a valuation or fact. | 🟪 **SYSTEM** — System-generated. |
-| `verification_evidence.verification_state` | Pending, verified, rejected or expired state. | 🟪 **SYSTEM** — System-managed. |
-| `verification_evidence.verified_by_principal_id` | Application principal that performed verification. | 🟪 **SYSTEM** — System-generated when verified or rejected. |
-| `verification_evidence.verified_at` | Verification timestamp. | 🟪 **SYSTEM** — System-generated when verified or rejected. |
-| `verification_evidence.created_at` | Evidence creation timestamp. | 🟪 **SYSTEM** — System-generated. |
+| <code>🟥 MANDATORY</code> `holdings.owner_person_id` | Person primarily accountable for the holding. |  |
+| <code>🟥 MANDATORY</code> `holdings.asset_class_code` | Selected top-level asset class. |  |
+| <code>🟥 MANDATORY</code> `holdings.asset_subtype_code` | Selected asset subtype. |  |
+| <code>🟥 MANDATORY</code> `holdings.name` | User-facing name for the holding. |  |
+| <code>🟥 MANDATORY</code> `holdings.currency` | Native ISO 4217 currency used for the holding. |  |
+| <code>🟥 MANDATORY</code> `holdings.quantity` | Positive number of shares, units, tokens or contracts held in an active position. | Positive quantity for an active holding. |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes` | Validated object containing only the subtype fields listed below. | May be empty only when the subtype schema permits it. |
+| <code>🟥 MANDATORY</code> `holdings.status` | Lifecycle state: ACTIVE, CLOSED, DISPOSED or ARCHIVED. | Defaults to ACTIVE. |
+| <code>🟥 MANDATORY</code> `sources.source_type` | How the information was obtained: manual, import, connector, calculated or operator. | Required for each provenance record. |
+| <code>🟥 MANDATORY</code> `sources.trust_tier` | Evidence tier: verified, declared, estimated or unknown. | Required for each provenance record. |
+| <code>🟥 MANDATORY</code> `ownership_allocations.person_id` | Person receiving an ownership share. | Required for each ownership allocation. |
+| <code>🟥 MANDATORY</code> `ownership_allocations.ownership_pct` | Effective ownership percentage for the person. | Required for each ownership allocation. |
+| <code>🟥 MANDATORY</code> `ownership_allocations.effective_from` | Date from which the ownership share applies. | Required for each ownership allocation. |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.underlying_ref` | Underlying ref. Expected value: `str`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.option_type` | Option type. Expected value: `enum('CALL','PUT')`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.position_side` | Position side. Expected value: `enum('LONG','SHORT')`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.strike_price` | Strike price. Expected value: `money`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.expiry_date` | Expiry date. Expected value: `date`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.contract_multiplier` | Contract multiplier. Expected value: `dec>0`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.settlement_type` | Settlement type. Expected value: `enum`. |  |
+| <code>🟧 CONDITIONAL</code> `holdings.household_id` | Household in which the holding is shown. | Mandatory when included in a household portfolio. |
+| <code>🟧 CONDITIONAL</code> `holdings.identifier_type` | Kind of primary identifier, such as ISIN, folio or property reference. | When a canonical identifier is recorded. |
+| <code>🟧 CONDITIONAL</code> `holdings.identifier_ciphertext` | Encrypted primary identifier value. | When a canonical identifier is recorded; sensitive. |
+| <code>🟧 CONDITIONAL</code> `sources.data_consent_id` | Consent or lawful collection basis used by a connected source. | When collection depends on consent. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.value_minor_units` | Observed or appraised value in the valuation currency. | Required before the asset contributes to net worth. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.currency` | ISO 4217 currency of the valuation. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.as_of_at` | Date and time to which the valuation applies. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.source_id` | Source or manual-entry provenance for the valuation. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.valuation_method` | How the value was determined: market, appraisal, declared, modelled or cost. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.quantity` | Units acquired in the lot. | When the asset is quantity-based. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.cost_amount_minor_units` | Acquisition cost in minor currency units. | Required when recording a cost lot. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.currency` | ISO 4217 currency of the acquisition cost. | Required when recording a cost lot. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.acquired_on` | Acquisition date for the lot. | Required when recording a cost lot. |
+| <code>🟧 CONDITIONAL</code> `holding_restrictions.restriction_type` | Approved restriction type. | Required when a restriction exists. |
+| <code>🟧 CONDITIONAL</code> `holding_restrictions.effective_from` | Date from which the restriction applies. | Required when a restriction exists. |
+| <code>🟧 CONDITIONAL</code> `holding_restrictions.status` | Restriction state: active, released or disputed. | Required when a restriction exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.person_id` | Person responsible for funding the commitment. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.committed_minor_units` | Total committed amount in minor currency units. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.drawn_minor_units` | Amount already drawn. | Defaults to zero when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.currency` | ISO 4217 currency of the commitment. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.status` | Commitment state: open, partly drawn, fulfilled or cancelled. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `transactions.person_id` | Person who owns the transaction. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.source_id` | Provenance source for the transaction. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.transaction_type` | Type such as buy, sell, income, fee, tax or transfer. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.quantity` | Signed number of units affected. | When the transaction changes quantity. |
+| <code>🟧 CONDITIONAL</code> `transactions.amount_minor_units` | Signed cash amount in minor currency units. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.currency` | ISO 4217 transaction currency. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `income_streams.person_id` | Person receiving the income. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.name` | Display name of the income stream. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.income_type` | Income type such as rent, dividend, interest or pension. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.amount_minor_units` | Expected income amount in minor currency units. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.currency` | ISO 4217 income currency. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.frequency` | Expected payment frequency. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.starts_on` | Income start date. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.status` | Income-stream state: active, paused or ended. | Defaults to active when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `liability_holding_links.liability_id` | Liability secured by, financing or associated with the asset. | Required when the asset is linked to a liability. |
+| <code>🟧 CONDITIONAL</code> `liability_holding_links.link_type` | Relationship type: secured by, finances or associated with. | Required when linked to a liability. |
+| <code>🟧 CONDITIONAL</code> `liability_holding_links.effective_from` | Date from which the liability link applies. | Required when linked to a liability. |
+| <code>🟧 CONDITIONAL</code> `documents.owner_person_id` | Person who owns the document. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `documents.document_type` | Approved document type. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `documents.title` | Sanitized document title. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `documents.retention_class` | Retention policy applied to the document. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `document_versions.original_filename` | Sanitized original filename. | Required when a document is uploaded. |
+| <code>🟧 CONDITIONAL</code> `document_links.document_id` | Document linked to the asset. | Required when creating a document link. |
+| <code>🟧 CONDITIONAL</code> `document_links.link_purpose` | Purpose such as evidence, contract or statement. | Required when creating a document link. |
+| <code>🟧 CONDITIONAL</code> `verification_evidence.valuation_event_id` | Valuation supported by the evidence. |  |
+| <code>🟧 CONDITIONAL</code> `verification_evidence.document_id` | Supporting document. |  |
+| <code>🟧 CONDITIONAL</code> `verification_evidence.evidence_type` | Approved evidence type. | Required when verification evidence is recorded. |
+| <code>🟧 CONDITIONAL</code> `holdings.subtype_attributes.jurisdiction` | Country governing the offshore holding. | Mandatory when offshore is true. |
+| <code>🟧 CONDITIONAL</code> `holdings.subtype_attributes.tax_residency_relevance` | Whether the offshore holding is relevant to tax-residency reporting. | Mandatory when offshore is true. |
+| <code>🟧 CONDITIONAL</code> `holdings.subtype_attributes.reporting_status` | Current foreign-asset reporting state. | Mandatory when offshore is true. |
+| <code>🟦 OPTIONAL</code> `holdings.acquired_on` | Known acquisition date. |  |
+| <code>🟦 OPTIONAL</code> `sources.provider_code` | Provider or institution code when applicable. |  |
+| <code>🟦 OPTIONAL</code> `sources.external_reference_hash` | Non-reversible hash of an external source reference. |  |
+| <code>🟦 OPTIONAL</code> `sources.metadata` | Allow-listed, source-specific provenance metadata. | Defaults to an empty object. |
+| <code>🟦 OPTIONAL</code> `ownership_allocations.effective_to` | Date on which the ownership share stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `ownership_allocations.source_id` | Evidence source supporting the ownership allocation. |  |
+| <code>🟦 OPTIONAL</code> `valuation_events.confidence` | Optional confidence score from 0 to 1. |  |
+| <code>🟦 OPTIONAL</code> `valuation_events.supersedes_event_id` | Prior valuation corrected by this event. |  |
+| <code>🟦 OPTIONAL</code> `valuation_events.metadata` | Bounded, method-specific valuation details. | Defaults to an empty object. |
+| <code>🟦 OPTIONAL</code> `cost_basis_lots.source_id` | Source supporting the acquisition lot. |  |
+| <code>🟦 OPTIONAL</code> `cost_basis_lots.supersedes_lot_id` | Prior acquisition lot corrected by this lot. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.liability_id` | Liability causing or associated with the restriction. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.counterparty_reference` | Bounded reference to the restriction counterparty. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.effective_to` | Date on which the restriction stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.source_id` | Evidence source supporting the restriction. |  |
+| <code>🟦 OPTIONAL</code> `commitments.due_on` | Known commitment due date. |  |
+| <code>🟦 OPTIONAL</code> `commitments.window_start` | Start of the permitted draw window. |  |
+| <code>🟦 OPTIONAL</code> `commitments.window_end` | End of the permitted draw window. |  |
+| <code>🟦 OPTIONAL</code> `commitments.source_id` | Source supporting the commitment. |  |
+| <code>🟦 OPTIONAL</code> `transactions.external_transaction_hash` | Scoped deduplication hash for an imported transaction. |  |
+| <code>🟦 OPTIONAL</code> `transactions.trade_date` | Trade or business-effective date. |  |
+| <code>🟦 OPTIONAL</code> `transactions.settled_at` | Settlement timestamp. |  |
+| <code>🟦 OPTIONAL</code> `transactions.description` | Sanitized transaction description. |  |
+| <code>🟦 OPTIONAL</code> `transactions.supersedes_transaction_id` | Prior transaction corrected by this event. |  |
+| <code>🟦 OPTIONAL</code> `income_streams.ends_on` | Income end date. |  |
+| <code>🟦 OPTIONAL</code> `income_streams.growth_rate_pct` | Optional expected annual growth rate. |  |
+| <code>🟦 OPTIONAL</code> `income_streams.source_id` | Source supporting the income stream. |  |
+| <code>🟦 OPTIONAL</code> `liability_holding_links.allocation_pct` | Optional share of the liability attributed to this asset. |  |
+| <code>🟦 OPTIONAL</code> `liability_holding_links.effective_to` | Date on which the liability link stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.document_date` | Business-effective date printed on the document. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.expires_on` | Document expiry date. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.source_id` | Source from which the document originated. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.supersedes_version_id` | Prior document version replaced by this version. |  |
+| <code>🟦 OPTIONAL</code> `document_links.effective_to` | Timestamp when the document link stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `verification_evidence.expires_at` | Evidence expiry timestamp. |  |
+| <code>🟦 OPTIONAL</code> `verification_evidence.notes` | Bounded verification notes. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.offshore` | Whether the holding is outside India. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.foreign_account_ref` | Protected foreign account reference. | Sensitive. |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.custodian_name` | Name of the custodian. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.custody_account_ref` | Protected custody-account reference. | Sensitive. |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.beneficial_owner_declaration` | Whether beneficial ownership has been declared. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.notes` | Bounded non-secret notes about the asset. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.exercise_style` | Exercise style. Expected value: `enum`. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.exchange_code` | Exchange code. Expected value: `str`. |  |
+| <code>🟪 SYSTEM</code> `holdings.holding_id` | Unique identifier for the holding. |  |
+| <code>🟪 SYSTEM</code> `holdings.subtype_schema_version` | Exact subtype field-schema version used to validate the record. |  |
+| <code>🟪 SYSTEM</code> `holdings.created_by_principal_id` | Application principal that created the record. |  |
+| <code>🟪 SYSTEM</code> `holdings.created_at` | Creation timestamp. |  |
+| <code>🟪 SYSTEM</code> `holdings.updated_at` | Most recent update timestamp. |  |
+| <code>🟪 SYSTEM</code> `holdings.version` | Optimistic-lock version used to prevent conflicting updates. |  |
+| <code>🟪 SYSTEM</code> `sources.source_id` | Unique identifier for the provenance record referenced by valuations, transactions and evidence. |  |
+| <code>🟪 SYSTEM</code> `sources.captured_by_principal_id` | Application principal that captured the information. | When a person or operator captured it. |
+| <code>🟪 SYSTEM</code> `sources.captured_at` | Timestamp when the information was captured. |  |
+| <code>🟪 SYSTEM</code> `sources.created_at` | Creation timestamp for the provenance record. |  |
+| <code>🟪 SYSTEM</code> `ownership_allocations.ownership_allocation_id` | Unique identifier for an ownership allocation. |  |
+| <code>🟪 SYSTEM</code> `ownership_allocations.holding_id` | Holding to which the ownership allocation belongs. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `ownership_allocations.created_at` | Creation timestamp for the ownership allocation. |  |
+| <code>🟪 SYSTEM</code> `valuation_events.valuation_event_id` | Unique identifier for an immutable valuation observation. |  |
+| <code>🟪 SYSTEM</code> `valuation_events.holding_id` | Holding valued by the observation. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `valuation_events.recorded_by_principal_id` | Application principal that recorded the valuation. |  |
+| <code>🟪 SYSTEM</code> `valuation_events.recorded_at` | Timestamp when the valuation was recorded. |  |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.cost_basis_lot_id` | Unique identifier for an acquisition-cost lot. |  |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.holding_id` | Holding acquired through the lot. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.recorded_by_principal_id` | Application principal that recorded the lot. |  |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.recorded_at` | Timestamp when the lot was recorded. |  |
+| <code>🟪 SYSTEM</code> `holding_restrictions.restriction_id` | Unique identifier for a lien, pledge, lock-in, freeze or legal restriction. |  |
+| <code>🟪 SYSTEM</code> `holding_restrictions.holding_id` | Holding affected by the restriction. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `holding_restrictions.created_at` | Creation timestamp for the restriction record. |  |
+| <code>🟪 SYSTEM</code> `commitments.commitment_id` | Unique identifier for an undrawn or contingent commitment. |  |
+| <code>🟪 SYSTEM</code> `commitments.holding_id` | Holding associated with the commitment. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `commitments.version` | Optimistic-lock version for the commitment. |  |
+| <code>🟪 SYSTEM</code> `transactions.transaction_id` | Unique identifier for an immutable ledger event. |  |
+| <code>🟪 SYSTEM</code> `transactions.holding_id` | Holding affected by the transaction. | When recorded from the holding. |
+| <code>🟪 SYSTEM</code> `transactions.recorded_at` | Timestamp when the transaction was recorded. |  |
+| <code>🟪 SYSTEM</code> `income_streams.income_stream_id` | Unique identifier for recurring or expected income. |  |
+| <code>🟪 SYSTEM</code> `income_streams.holding_id` | Asset producing the income. | When created from the holding. |
+| <code>🟪 SYSTEM</code> `income_streams.version` | Optimistic-lock version for the income stream. |  |
+| <code>🟪 SYSTEM</code> `liability_holding_links.liability_holding_link_id` | Unique identifier linking the asset to a liability. |  |
+| <code>🟪 SYSTEM</code> `liability_holding_links.holding_id` | Asset participating in the liability relationship. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `liability_holding_links.created_at` | Creation timestamp for the liability link. |  |
+| <code>🟪 SYSTEM</code> `documents.document_id` | Unique identifier for supporting document metadata. |  |
+| <code>🟪 SYSTEM</code> `documents.lifecycle_state` | Document processing and availability state. |  |
+| <code>🟪 SYSTEM</code> `documents.current_version_id` | Current clean document version. |  |
+| <code>🟪 SYSTEM</code> `documents.created_by_principal_id` | Application principal that created the document. |  |
+| <code>🟪 SYSTEM</code> `documents.created_at` | Document creation timestamp. |  |
+| <code>🟪 SYSTEM</code> `documents.updated_at` | Document update timestamp. |  |
+| <code>🟪 SYSTEM</code> `documents.version` | Optimistic-lock version for document metadata. |  |
+| <code>🟪 SYSTEM</code> `document_versions.document_version_id` | Unique identifier for an immutable document version. |  |
+| <code>🟪 SYSTEM</code> `document_versions.document_id` | Parent document. | From the parent document. |
+| <code>🟪 SYSTEM</code> `document_versions.version_number` | Monotonic version number within the document. |  |
+| <code>🟪 SYSTEM</code> `document_versions.storage_zone` | Quarantine or clean object-storage zone. |  |
+| <code>🟪 SYSTEM</code> `document_versions.storage_key` | Random non-personal object-storage key. |  |
+| <code>🟪 SYSTEM</code> `document_versions.checksum_sha256` | SHA-256 integrity digest. |  |
+| <code>🟪 SYSTEM</code> `document_versions.mime_type` | Server-detected MIME type. |  |
+| <code>🟪 SYSTEM</code> `document_versions.size_bytes` | Validated object size. |  |
+| <code>🟪 SYSTEM</code> `document_versions.scan_state` | Malware scanning state. |  |
+| <code>🟪 SYSTEM</code> `document_versions.scanner_policy_version` | Scanning-policy version used. |  |
+| <code>🟪 SYSTEM</code> `document_versions.uploaded_at` | Upload timestamp. |  |
+| <code>🟪 SYSTEM</code> `document_links.document_link_id` | Unique identifier linking a document to the asset. |  |
+| <code>🟪 SYSTEM</code> `document_links.domain_type` | Approved domain-object type. | For an asset link. |
+| <code>🟪 SYSTEM</code> `document_links.domain_id` | Application-validated target identifier. | For an asset link. |
+| <code>🟪 SYSTEM</code> `document_links.holding_id` | Holding to which the document is linked. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `document_links.effective_from` | Timestamp from which the document link applies. | Unless explicitly effective later. |
+| <code>🟪 SYSTEM</code> `document_links.created_by_principal_id` | Application principal that created the link. |  |
+| <code>🟪 SYSTEM</code> `verification_evidence.verification_evidence_id` | Unique identifier for evidence supporting a valuation or fact. |  |
+| <code>🟪 SYSTEM</code> `verification_evidence.verification_state` | Pending, verified, rejected or expired state. |  |
+| <code>🟪 SYSTEM</code> `verification_evidence.verified_by_principal_id` | Application principal that performed verification. | When verified or rejected. |
+| <code>🟪 SYSTEM</code> `verification_evidence.verified_at` | Verification timestamp. | When verified or rejected. |
+| <code>🟪 SYSTEM</code> `verification_evidence.created_at` | Evidence creation timestamp. |  |
 
 </details>
 
@@ -207,186 +207,186 @@ Each subtype below expands into its complete field checklist. The status tags an
 <details>
 <summary><strong>Asset subtype: <code>FUTURE</code></strong></summary>
 
-| `table_name.column_name` | Description | Note |
+| Status and `table_name.column_name` | Description | Notes |
 |---|---|---|
-| `holdings.owner_person_id` | Person primarily accountable for the holding. | 🟥 **MANDATORY** — Required. |
-| `holdings.asset_class_code` | Selected top-level asset class. | 🟥 **MANDATORY** — Required. |
-| `holdings.asset_subtype_code` | Selected asset subtype. | 🟥 **MANDATORY** — Required. |
-| `holdings.name` | User-facing name for the holding. | 🟥 **MANDATORY** — Required. |
-| `holdings.currency` | Native ISO 4217 currency used for the holding. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes` | Validated object containing only the subtype fields listed below. | 🟥 **MANDATORY** — May be empty only when the subtype schema permits it. |
-| `holdings.status` | Lifecycle state: ACTIVE, CLOSED, DISPOSED or ARCHIVED. | 🟥 **MANDATORY** — Defaults to ACTIVE. |
-| `sources.source_type` | How the information was obtained: manual, import, connector, calculated or operator. | 🟥 **MANDATORY** — Required for each provenance record. |
-| `sources.trust_tier` | Evidence tier: verified, declared, estimated or unknown. | 🟥 **MANDATORY** — Required for each provenance record. |
-| `ownership_allocations.person_id` | Person receiving an ownership share. | 🟥 **MANDATORY** — Required for each ownership allocation. |
-| `ownership_allocations.ownership_pct` | Effective ownership percentage for the person. | 🟥 **MANDATORY** — Required for each ownership allocation. |
-| `ownership_allocations.effective_from` | Date from which the ownership share applies. | 🟥 **MANDATORY** — Required for each ownership allocation. |
-| `holdings.subtype_attributes.underlying_ref` | Underlying ref. Expected value: `str`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.position_side` | Position side. Expected value: `enum`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.expiry_date` | Expiry date. Expected value: `date`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.contract_quantity` | Contract quantity. Expected value: `dec>0`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.contract_multiplier` | Contract multiplier. Expected value: `dec>0`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.settlement_type` | Settlement type. Expected value: `enum`. | 🟥 **MANDATORY** — Required. |
-| `holdings.household_id` | Household in which the holding is shown. | 🟧 **CONDITIONAL** — Mandatory when included in a household portfolio. |
-| `holdings.quantity` | Units, shares, weight or other quantity when the asset is quantity-based. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `holdings.identifier_type` | Kind of primary identifier, such as ISIN, folio or property reference. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `holdings.identifier_ciphertext` | Encrypted primary identifier value. | 🟧 **CONDITIONAL** — Sensitive. |
-| `sources.data_consent_id` | Consent or lawful collection basis used by a connected source. | 🟧 **CONDITIONAL** — When collection depends on consent. |
-| `valuation_events.value_minor_units` | Observed or appraised value in the valuation currency. | 🟧 **CONDITIONAL** — Required before the asset contributes to net worth. |
-| `valuation_events.currency` | ISO 4217 currency of the valuation. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `valuation_events.as_of_at` | Date and time to which the valuation applies. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `valuation_events.source_id` | Source or manual-entry provenance for the valuation. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `valuation_events.valuation_method` | How the value was determined: market, appraisal, declared, modelled or cost. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `cost_basis_lots.quantity` | Units acquired in the lot. | 🟧 **CONDITIONAL** — When the asset is quantity-based. |
-| `cost_basis_lots.cost_amount_minor_units` | Acquisition cost in minor currency units. | 🟧 **CONDITIONAL** — Required when recording a cost lot. |
-| `cost_basis_lots.currency` | ISO 4217 currency of the acquisition cost. | 🟧 **CONDITIONAL** — Required when recording a cost lot. |
-| `cost_basis_lots.acquired_on` | Acquisition date for the lot. | 🟧 **CONDITIONAL** — Required when recording a cost lot. |
-| `holding_restrictions.restriction_type` | Approved restriction type. | 🟧 **CONDITIONAL** — Required when a restriction exists. |
-| `holding_restrictions.effective_from` | Date from which the restriction applies. | 🟧 **CONDITIONAL** — Required when a restriction exists. |
-| `holding_restrictions.status` | Restriction state: active, released or disputed. | 🟧 **CONDITIONAL** — Required when a restriction exists. |
-| `commitments.person_id` | Person responsible for funding the commitment. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `commitments.committed_minor_units` | Total committed amount in minor currency units. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `commitments.drawn_minor_units` | Amount already drawn. | 🟧 **CONDITIONAL** — Defaults to zero when a commitment exists. |
-| `commitments.currency` | ISO 4217 currency of the commitment. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `commitments.status` | Commitment state: open, partly drawn, fulfilled or cancelled. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `transactions.person_id` | Person who owns the transaction. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.source_id` | Provenance source for the transaction. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.transaction_type` | Type such as buy, sell, income, fee, tax or transfer. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.quantity` | Signed number of units affected. | 🟧 **CONDITIONAL** — When the transaction changes quantity. |
-| `transactions.amount_minor_units` | Signed cash amount in minor currency units. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.currency` | ISO 4217 transaction currency. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `income_streams.person_id` | Person receiving the income. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.name` | Display name of the income stream. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.income_type` | Income type such as rent, dividend, interest or pension. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.amount_minor_units` | Expected income amount in minor currency units. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.currency` | ISO 4217 income currency. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.frequency` | Expected payment frequency. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.starts_on` | Income start date. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.status` | Income-stream state: active, paused or ended. | 🟧 **CONDITIONAL** — Defaults to active when an income stream exists. |
-| `liability_holding_links.liability_id` | Liability secured by, financing or associated with the asset. | 🟧 **CONDITIONAL** — Required when the asset is linked to a liability. |
-| `liability_holding_links.link_type` | Relationship type: secured by, finances or associated with. | 🟧 **CONDITIONAL** — Required when linked to a liability. |
-| `liability_holding_links.effective_from` | Date from which the liability link applies. | 🟧 **CONDITIONAL** — Required when linked to a liability. |
-| `documents.owner_person_id` | Person who owns the document. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `documents.document_type` | Approved document type. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `documents.title` | Sanitized document title. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `documents.retention_class` | Retention policy applied to the document. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `document_versions.original_filename` | Sanitized original filename. | 🟧 **CONDITIONAL** — Required when a document is uploaded. |
-| `document_links.document_id` | Document linked to the asset. | 🟧 **CONDITIONAL** — Required when creating a document link. |
-| `document_links.link_purpose` | Purpose such as evidence, contract or statement. | 🟧 **CONDITIONAL** — Required when creating a document link. |
-| `verification_evidence.valuation_event_id` | Valuation supported by the evidence. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `verification_evidence.document_id` | Supporting document. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `verification_evidence.evidence_type` | Approved evidence type. | 🟧 **CONDITIONAL** — Required when verification evidence is recorded. |
-| `holdings.subtype_attributes.jurisdiction` | Country governing the offshore holding. | 🟧 **CONDITIONAL** — Mandatory when offshore is true. |
-| `holdings.subtype_attributes.tax_residency_relevance` | Whether the offshore holding is relevant to tax-residency reporting. | 🟧 **CONDITIONAL** — Mandatory when offshore is true. |
-| `holdings.subtype_attributes.reporting_status` | Current foreign-asset reporting state. | 🟧 **CONDITIONAL** — Mandatory when offshore is true. |
-| `holdings.acquired_on` | Known acquisition date. | 🟦 **OPTIONAL** — May be supplied. |
-| `sources.provider_code` | Provider or institution code when applicable. | 🟦 **OPTIONAL** — May be supplied. |
-| `sources.external_reference_hash` | Non-reversible hash of an external source reference. | 🟦 **OPTIONAL** — May be supplied. |
-| `sources.metadata` | Allow-listed, source-specific provenance metadata. | 🟦 **OPTIONAL** — Defaults to an empty object. |
-| `ownership_allocations.effective_to` | Date on which the ownership share stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `ownership_allocations.source_id` | Evidence source supporting the ownership allocation. | 🟦 **OPTIONAL** — May be supplied. |
-| `valuation_events.confidence` | Optional confidence score from 0 to 1. | 🟦 **OPTIONAL** — May be supplied. |
-| `valuation_events.supersedes_event_id` | Prior valuation corrected by this event. | 🟦 **OPTIONAL** — May be supplied. |
-| `valuation_events.metadata` | Bounded, method-specific valuation details. | 🟦 **OPTIONAL** — Defaults to an empty object. |
-| `cost_basis_lots.source_id` | Source supporting the acquisition lot. | 🟦 **OPTIONAL** — May be supplied. |
-| `cost_basis_lots.supersedes_lot_id` | Prior acquisition lot corrected by this lot. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.liability_id` | Liability causing or associated with the restriction. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.counterparty_reference` | Bounded reference to the restriction counterparty. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.effective_to` | Date on which the restriction stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.source_id` | Evidence source supporting the restriction. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.due_on` | Known commitment due date. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.window_start` | Start of the permitted draw window. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.window_end` | End of the permitted draw window. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.source_id` | Source supporting the commitment. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.external_transaction_hash` | Scoped deduplication hash for an imported transaction. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.trade_date` | Trade or business-effective date. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.settled_at` | Settlement timestamp. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.description` | Sanitized transaction description. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.supersedes_transaction_id` | Prior transaction corrected by this event. | 🟦 **OPTIONAL** — May be supplied. |
-| `income_streams.ends_on` | Income end date. | 🟦 **OPTIONAL** — May be supplied. |
-| `income_streams.growth_rate_pct` | Optional expected annual growth rate. | 🟦 **OPTIONAL** — May be supplied. |
-| `income_streams.source_id` | Source supporting the income stream. | 🟦 **OPTIONAL** — May be supplied. |
-| `liability_holding_links.allocation_pct` | Optional share of the liability attributed to this asset. | 🟦 **OPTIONAL** — May be supplied. |
-| `liability_holding_links.effective_to` | Date on which the liability link stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.document_date` | Business-effective date printed on the document. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.expires_on` | Document expiry date. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.source_id` | Source from which the document originated. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.supersedes_version_id` | Prior document version replaced by this version. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_links.effective_to` | Timestamp when the document link stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `verification_evidence.expires_at` | Evidence expiry timestamp. | 🟦 **OPTIONAL** — May be supplied. |
-| `verification_evidence.notes` | Bounded verification notes. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.offshore` | Whether the holding is outside India. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.foreign_account_ref` | Protected foreign account reference. | 🟦 **OPTIONAL** — Sensitive. |
-| `holdings.subtype_attributes.custodian_name` | Name of the custodian. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.custody_account_ref` | Protected custody-account reference. | 🟦 **OPTIONAL** — Sensitive. |
-| `holdings.subtype_attributes.beneficial_owner_declaration` | Whether beneficial ownership has been declared. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.notes` | Bounded non-secret notes about the asset. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.exchange_code` | Exchange code. Expected value: `str`. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.holding_id` | Unique identifier for the holding. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.subtype_schema_version` | Exact subtype field-schema version used to validate the record. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.created_by_principal_id` | Application principal that created the record. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.created_at` | Creation timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.updated_at` | Most recent update timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.version` | Optimistic-lock version used to prevent conflicting updates. | 🟪 **SYSTEM** — System-generated. |
-| `sources.source_id` | Unique identifier for the provenance record referenced by valuations, transactions and evidence. | 🟪 **SYSTEM** — System-generated. |
-| `sources.captured_by_principal_id` | Application principal that captured the information. | 🟪 **SYSTEM** — System-generated when a person or operator captured it. |
-| `sources.captured_at` | Timestamp when the information was captured. | 🟪 **SYSTEM** — System-generated. |
-| `sources.created_at` | Creation timestamp for the provenance record. | 🟪 **SYSTEM** — System-generated. |
-| `ownership_allocations.ownership_allocation_id` | Unique identifier for an ownership allocation. | 🟪 **SYSTEM** — System-generated. |
-| `ownership_allocations.holding_id` | Holding to which the ownership allocation belongs. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `ownership_allocations.created_at` | Creation timestamp for the ownership allocation. | 🟪 **SYSTEM** — System-generated. |
-| `valuation_events.valuation_event_id` | Unique identifier for an immutable valuation observation. | 🟪 **SYSTEM** — System-generated. |
-| `valuation_events.holding_id` | Holding valued by the observation. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `valuation_events.recorded_by_principal_id` | Application principal that recorded the valuation. | 🟪 **SYSTEM** — System-generated. |
-| `valuation_events.recorded_at` | Timestamp when the valuation was recorded. | 🟪 **SYSTEM** — System-generated. |
-| `cost_basis_lots.cost_basis_lot_id` | Unique identifier for an acquisition-cost lot. | 🟪 **SYSTEM** — System-generated. |
-| `cost_basis_lots.holding_id` | Holding acquired through the lot. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `cost_basis_lots.recorded_by_principal_id` | Application principal that recorded the lot. | 🟪 **SYSTEM** — System-generated. |
-| `cost_basis_lots.recorded_at` | Timestamp when the lot was recorded. | 🟪 **SYSTEM** — System-generated. |
-| `holding_restrictions.restriction_id` | Unique identifier for a lien, pledge, lock-in, freeze or legal restriction. | 🟪 **SYSTEM** — System-generated. |
-| `holding_restrictions.holding_id` | Holding affected by the restriction. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `holding_restrictions.created_at` | Creation timestamp for the restriction record. | 🟪 **SYSTEM** — System-generated. |
-| `commitments.commitment_id` | Unique identifier for an undrawn or contingent commitment. | 🟪 **SYSTEM** — System-generated. |
-| `commitments.holding_id` | Holding associated with the commitment. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `commitments.version` | Optimistic-lock version for the commitment. | 🟪 **SYSTEM** — System-generated. |
-| `transactions.transaction_id` | Unique identifier for an immutable ledger event. | 🟪 **SYSTEM** — System-generated. |
-| `transactions.holding_id` | Holding affected by the transaction. | 🟪 **SYSTEM** — System-generated when recorded from the holding. |
-| `transactions.recorded_at` | Timestamp when the transaction was recorded. | 🟪 **SYSTEM** — System-generated. |
-| `income_streams.income_stream_id` | Unique identifier for recurring or expected income. | 🟪 **SYSTEM** — System-generated. |
-| `income_streams.holding_id` | Asset producing the income. | 🟪 **SYSTEM** — System-generated when created from the holding. |
-| `income_streams.version` | Optimistic-lock version for the income stream. | 🟪 **SYSTEM** — System-generated. |
-| `liability_holding_links.liability_holding_link_id` | Unique identifier linking the asset to a liability. | 🟪 **SYSTEM** — System-generated. |
-| `liability_holding_links.holding_id` | Asset participating in the liability relationship. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `liability_holding_links.created_at` | Creation timestamp for the liability link. | 🟪 **SYSTEM** — System-generated. |
-| `documents.document_id` | Unique identifier for supporting document metadata. | 🟪 **SYSTEM** — System-generated. |
-| `documents.lifecycle_state` | Document processing and availability state. | 🟪 **SYSTEM** — System-managed. |
-| `documents.current_version_id` | Current clean document version. | 🟪 **SYSTEM** — System-managed. |
-| `documents.created_by_principal_id` | Application principal that created the document. | 🟪 **SYSTEM** — System-generated. |
-| `documents.created_at` | Document creation timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `documents.updated_at` | Document update timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `documents.version` | Optimistic-lock version for document metadata. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.document_version_id` | Unique identifier for an immutable document version. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.document_id` | Parent document. | 🟪 **SYSTEM** — System-generated from the parent document. |
-| `document_versions.version_number` | Monotonic version number within the document. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.storage_zone` | Quarantine or clean object-storage zone. | 🟪 **SYSTEM** — System-managed. |
-| `document_versions.storage_key` | Random non-personal object-storage key. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.checksum_sha256` | SHA-256 integrity digest. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.mime_type` | Server-detected MIME type. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.size_bytes` | Validated object size. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.scan_state` | Malware scanning state. | 🟪 **SYSTEM** — System-managed. |
-| `document_versions.scanner_policy_version` | Scanning-policy version used. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.uploaded_at` | Upload timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `document_links.document_link_id` | Unique identifier linking a document to the asset. | 🟪 **SYSTEM** — System-generated. |
-| `document_links.domain_type` | Approved domain-object type. | 🟪 **SYSTEM** — System-generated for an asset link. |
-| `document_links.domain_id` | Application-validated target identifier. | 🟪 **SYSTEM** — System-generated for an asset link. |
-| `document_links.holding_id` | Holding to which the document is linked. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `document_links.effective_from` | Timestamp from which the document link applies. | 🟪 **SYSTEM** — System-generated unless explicitly effective later. |
-| `document_links.created_by_principal_id` | Application principal that created the link. | 🟪 **SYSTEM** — System-generated. |
-| `verification_evidence.verification_evidence_id` | Unique identifier for evidence supporting a valuation or fact. | 🟪 **SYSTEM** — System-generated. |
-| `verification_evidence.verification_state` | Pending, verified, rejected or expired state. | 🟪 **SYSTEM** — System-managed. |
-| `verification_evidence.verified_by_principal_id` | Application principal that performed verification. | 🟪 **SYSTEM** — System-generated when verified or rejected. |
-| `verification_evidence.verified_at` | Verification timestamp. | 🟪 **SYSTEM** — System-generated when verified or rejected. |
-| `verification_evidence.created_at` | Evidence creation timestamp. | 🟪 **SYSTEM** — System-generated. |
+| <code>🟥 MANDATORY</code> `holdings.owner_person_id` | Person primarily accountable for the holding. |  |
+| <code>🟥 MANDATORY</code> `holdings.asset_class_code` | Selected top-level asset class. |  |
+| <code>🟥 MANDATORY</code> `holdings.asset_subtype_code` | Selected asset subtype. |  |
+| <code>🟥 MANDATORY</code> `holdings.name` | User-facing name for the holding. |  |
+| <code>🟥 MANDATORY</code> `holdings.currency` | Native ISO 4217 currency used for the holding. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes` | Validated object containing only the subtype fields listed below. | May be empty only when the subtype schema permits it. |
+| <code>🟥 MANDATORY</code> `holdings.status` | Lifecycle state: ACTIVE, CLOSED, DISPOSED or ARCHIVED. | Defaults to ACTIVE. |
+| <code>🟥 MANDATORY</code> `sources.source_type` | How the information was obtained: manual, import, connector, calculated or operator. | Required for each provenance record. |
+| <code>🟥 MANDATORY</code> `sources.trust_tier` | Evidence tier: verified, declared, estimated or unknown. | Required for each provenance record. |
+| <code>🟥 MANDATORY</code> `ownership_allocations.person_id` | Person receiving an ownership share. | Required for each ownership allocation. |
+| <code>🟥 MANDATORY</code> `ownership_allocations.ownership_pct` | Effective ownership percentage for the person. | Required for each ownership allocation. |
+| <code>🟥 MANDATORY</code> `ownership_allocations.effective_from` | Date from which the ownership share applies. | Required for each ownership allocation. |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.underlying_ref` | Underlying ref. Expected value: `str`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.position_side` | Position side. Expected value: `enum`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.expiry_date` | Expiry date. Expected value: `date`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.contract_quantity` | Contract quantity. Expected value: `dec>0`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.contract_multiplier` | Contract multiplier. Expected value: `dec>0`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.settlement_type` | Settlement type. Expected value: `enum`. |  |
+| <code>🟧 CONDITIONAL</code> `holdings.household_id` | Household in which the holding is shown. | Mandatory when included in a household portfolio. |
+| <code>🟧 CONDITIONAL</code> `holdings.quantity` | Units, shares, weight or other quantity when the asset is quantity-based. | Only when measured as units; omit for non-unitized assets. |
+| <code>🟧 CONDITIONAL</code> `holdings.identifier_type` | Kind of primary identifier, such as ISIN, folio or property reference. | When a canonical identifier is recorded. |
+| <code>🟧 CONDITIONAL</code> `holdings.identifier_ciphertext` | Encrypted primary identifier value. | When a canonical identifier is recorded; sensitive. |
+| <code>🟧 CONDITIONAL</code> `sources.data_consent_id` | Consent or lawful collection basis used by a connected source. | When collection depends on consent. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.value_minor_units` | Observed or appraised value in the valuation currency. | Required before the asset contributes to net worth. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.currency` | ISO 4217 currency of the valuation. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.as_of_at` | Date and time to which the valuation applies. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.source_id` | Source or manual-entry provenance for the valuation. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.valuation_method` | How the value was determined: market, appraisal, declared, modelled or cost. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.quantity` | Units acquired in the lot. | When the asset is quantity-based. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.cost_amount_minor_units` | Acquisition cost in minor currency units. | Required when recording a cost lot. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.currency` | ISO 4217 currency of the acquisition cost. | Required when recording a cost lot. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.acquired_on` | Acquisition date for the lot. | Required when recording a cost lot. |
+| <code>🟧 CONDITIONAL</code> `holding_restrictions.restriction_type` | Approved restriction type. | Required when a restriction exists. |
+| <code>🟧 CONDITIONAL</code> `holding_restrictions.effective_from` | Date from which the restriction applies. | Required when a restriction exists. |
+| <code>🟧 CONDITIONAL</code> `holding_restrictions.status` | Restriction state: active, released or disputed. | Required when a restriction exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.person_id` | Person responsible for funding the commitment. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.committed_minor_units` | Total committed amount in minor currency units. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.drawn_minor_units` | Amount already drawn. | Defaults to zero when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.currency` | ISO 4217 currency of the commitment. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.status` | Commitment state: open, partly drawn, fulfilled or cancelled. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `transactions.person_id` | Person who owns the transaction. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.source_id` | Provenance source for the transaction. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.transaction_type` | Type such as buy, sell, income, fee, tax or transfer. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.quantity` | Signed number of units affected. | When the transaction changes quantity. |
+| <code>🟧 CONDITIONAL</code> `transactions.amount_minor_units` | Signed cash amount in minor currency units. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.currency` | ISO 4217 transaction currency. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `income_streams.person_id` | Person receiving the income. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.name` | Display name of the income stream. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.income_type` | Income type such as rent, dividend, interest or pension. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.amount_minor_units` | Expected income amount in minor currency units. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.currency` | ISO 4217 income currency. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.frequency` | Expected payment frequency. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.starts_on` | Income start date. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.status` | Income-stream state: active, paused or ended. | Defaults to active when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `liability_holding_links.liability_id` | Liability secured by, financing or associated with the asset. | Required when the asset is linked to a liability. |
+| <code>🟧 CONDITIONAL</code> `liability_holding_links.link_type` | Relationship type: secured by, finances or associated with. | Required when linked to a liability. |
+| <code>🟧 CONDITIONAL</code> `liability_holding_links.effective_from` | Date from which the liability link applies. | Required when linked to a liability. |
+| <code>🟧 CONDITIONAL</code> `documents.owner_person_id` | Person who owns the document. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `documents.document_type` | Approved document type. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `documents.title` | Sanitized document title. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `documents.retention_class` | Retention policy applied to the document. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `document_versions.original_filename` | Sanitized original filename. | Required when a document is uploaded. |
+| <code>🟧 CONDITIONAL</code> `document_links.document_id` | Document linked to the asset. | Required when creating a document link. |
+| <code>🟧 CONDITIONAL</code> `document_links.link_purpose` | Purpose such as evidence, contract or statement. | Required when creating a document link. |
+| <code>🟧 CONDITIONAL</code> `verification_evidence.valuation_event_id` | Valuation supported by the evidence. |  |
+| <code>🟧 CONDITIONAL</code> `verification_evidence.document_id` | Supporting document. |  |
+| <code>🟧 CONDITIONAL</code> `verification_evidence.evidence_type` | Approved evidence type. | Required when verification evidence is recorded. |
+| <code>🟧 CONDITIONAL</code> `holdings.subtype_attributes.jurisdiction` | Country governing the offshore holding. | Mandatory when offshore is true. |
+| <code>🟧 CONDITIONAL</code> `holdings.subtype_attributes.tax_residency_relevance` | Whether the offshore holding is relevant to tax-residency reporting. | Mandatory when offshore is true. |
+| <code>🟧 CONDITIONAL</code> `holdings.subtype_attributes.reporting_status` | Current foreign-asset reporting state. | Mandatory when offshore is true. |
+| <code>🟦 OPTIONAL</code> `holdings.acquired_on` | Known acquisition date. |  |
+| <code>🟦 OPTIONAL</code> `sources.provider_code` | Provider or institution code when applicable. |  |
+| <code>🟦 OPTIONAL</code> `sources.external_reference_hash` | Non-reversible hash of an external source reference. |  |
+| <code>🟦 OPTIONAL</code> `sources.metadata` | Allow-listed, source-specific provenance metadata. | Defaults to an empty object. |
+| <code>🟦 OPTIONAL</code> `ownership_allocations.effective_to` | Date on which the ownership share stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `ownership_allocations.source_id` | Evidence source supporting the ownership allocation. |  |
+| <code>🟦 OPTIONAL</code> `valuation_events.confidence` | Optional confidence score from 0 to 1. |  |
+| <code>🟦 OPTIONAL</code> `valuation_events.supersedes_event_id` | Prior valuation corrected by this event. |  |
+| <code>🟦 OPTIONAL</code> `valuation_events.metadata` | Bounded, method-specific valuation details. | Defaults to an empty object. |
+| <code>🟦 OPTIONAL</code> `cost_basis_lots.source_id` | Source supporting the acquisition lot. |  |
+| <code>🟦 OPTIONAL</code> `cost_basis_lots.supersedes_lot_id` | Prior acquisition lot corrected by this lot. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.liability_id` | Liability causing or associated with the restriction. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.counterparty_reference` | Bounded reference to the restriction counterparty. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.effective_to` | Date on which the restriction stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.source_id` | Evidence source supporting the restriction. |  |
+| <code>🟦 OPTIONAL</code> `commitments.due_on` | Known commitment due date. |  |
+| <code>🟦 OPTIONAL</code> `commitments.window_start` | Start of the permitted draw window. |  |
+| <code>🟦 OPTIONAL</code> `commitments.window_end` | End of the permitted draw window. |  |
+| <code>🟦 OPTIONAL</code> `commitments.source_id` | Source supporting the commitment. |  |
+| <code>🟦 OPTIONAL</code> `transactions.external_transaction_hash` | Scoped deduplication hash for an imported transaction. |  |
+| <code>🟦 OPTIONAL</code> `transactions.trade_date` | Trade or business-effective date. |  |
+| <code>🟦 OPTIONAL</code> `transactions.settled_at` | Settlement timestamp. |  |
+| <code>🟦 OPTIONAL</code> `transactions.description` | Sanitized transaction description. |  |
+| <code>🟦 OPTIONAL</code> `transactions.supersedes_transaction_id` | Prior transaction corrected by this event. |  |
+| <code>🟦 OPTIONAL</code> `income_streams.ends_on` | Income end date. |  |
+| <code>🟦 OPTIONAL</code> `income_streams.growth_rate_pct` | Optional expected annual growth rate. |  |
+| <code>🟦 OPTIONAL</code> `income_streams.source_id` | Source supporting the income stream. |  |
+| <code>🟦 OPTIONAL</code> `liability_holding_links.allocation_pct` | Optional share of the liability attributed to this asset. |  |
+| <code>🟦 OPTIONAL</code> `liability_holding_links.effective_to` | Date on which the liability link stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.document_date` | Business-effective date printed on the document. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.expires_on` | Document expiry date. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.source_id` | Source from which the document originated. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.supersedes_version_id` | Prior document version replaced by this version. |  |
+| <code>🟦 OPTIONAL</code> `document_links.effective_to` | Timestamp when the document link stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `verification_evidence.expires_at` | Evidence expiry timestamp. |  |
+| <code>🟦 OPTIONAL</code> `verification_evidence.notes` | Bounded verification notes. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.offshore` | Whether the holding is outside India. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.foreign_account_ref` | Protected foreign account reference. | Sensitive. |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.custodian_name` | Name of the custodian. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.custody_account_ref` | Protected custody-account reference. | Sensitive. |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.beneficial_owner_declaration` | Whether beneficial ownership has been declared. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.notes` | Bounded non-secret notes about the asset. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.exchange_code` | Exchange code. Expected value: `str`. |  |
+| <code>🟪 SYSTEM</code> `holdings.holding_id` | Unique identifier for the holding. |  |
+| <code>🟪 SYSTEM</code> `holdings.subtype_schema_version` | Exact subtype field-schema version used to validate the record. |  |
+| <code>🟪 SYSTEM</code> `holdings.created_by_principal_id` | Application principal that created the record. |  |
+| <code>🟪 SYSTEM</code> `holdings.created_at` | Creation timestamp. |  |
+| <code>🟪 SYSTEM</code> `holdings.updated_at` | Most recent update timestamp. |  |
+| <code>🟪 SYSTEM</code> `holdings.version` | Optimistic-lock version used to prevent conflicting updates. |  |
+| <code>🟪 SYSTEM</code> `sources.source_id` | Unique identifier for the provenance record referenced by valuations, transactions and evidence. |  |
+| <code>🟪 SYSTEM</code> `sources.captured_by_principal_id` | Application principal that captured the information. | When a person or operator captured it. |
+| <code>🟪 SYSTEM</code> `sources.captured_at` | Timestamp when the information was captured. |  |
+| <code>🟪 SYSTEM</code> `sources.created_at` | Creation timestamp for the provenance record. |  |
+| <code>🟪 SYSTEM</code> `ownership_allocations.ownership_allocation_id` | Unique identifier for an ownership allocation. |  |
+| <code>🟪 SYSTEM</code> `ownership_allocations.holding_id` | Holding to which the ownership allocation belongs. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `ownership_allocations.created_at` | Creation timestamp for the ownership allocation. |  |
+| <code>🟪 SYSTEM</code> `valuation_events.valuation_event_id` | Unique identifier for an immutable valuation observation. |  |
+| <code>🟪 SYSTEM</code> `valuation_events.holding_id` | Holding valued by the observation. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `valuation_events.recorded_by_principal_id` | Application principal that recorded the valuation. |  |
+| <code>🟪 SYSTEM</code> `valuation_events.recorded_at` | Timestamp when the valuation was recorded. |  |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.cost_basis_lot_id` | Unique identifier for an acquisition-cost lot. |  |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.holding_id` | Holding acquired through the lot. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.recorded_by_principal_id` | Application principal that recorded the lot. |  |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.recorded_at` | Timestamp when the lot was recorded. |  |
+| <code>🟪 SYSTEM</code> `holding_restrictions.restriction_id` | Unique identifier for a lien, pledge, lock-in, freeze or legal restriction. |  |
+| <code>🟪 SYSTEM</code> `holding_restrictions.holding_id` | Holding affected by the restriction. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `holding_restrictions.created_at` | Creation timestamp for the restriction record. |  |
+| <code>🟪 SYSTEM</code> `commitments.commitment_id` | Unique identifier for an undrawn or contingent commitment. |  |
+| <code>🟪 SYSTEM</code> `commitments.holding_id` | Holding associated with the commitment. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `commitments.version` | Optimistic-lock version for the commitment. |  |
+| <code>🟪 SYSTEM</code> `transactions.transaction_id` | Unique identifier for an immutable ledger event. |  |
+| <code>🟪 SYSTEM</code> `transactions.holding_id` | Holding affected by the transaction. | When recorded from the holding. |
+| <code>🟪 SYSTEM</code> `transactions.recorded_at` | Timestamp when the transaction was recorded. |  |
+| <code>🟪 SYSTEM</code> `income_streams.income_stream_id` | Unique identifier for recurring or expected income. |  |
+| <code>🟪 SYSTEM</code> `income_streams.holding_id` | Asset producing the income. | When created from the holding. |
+| <code>🟪 SYSTEM</code> `income_streams.version` | Optimistic-lock version for the income stream. |  |
+| <code>🟪 SYSTEM</code> `liability_holding_links.liability_holding_link_id` | Unique identifier linking the asset to a liability. |  |
+| <code>🟪 SYSTEM</code> `liability_holding_links.holding_id` | Asset participating in the liability relationship. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `liability_holding_links.created_at` | Creation timestamp for the liability link. |  |
+| <code>🟪 SYSTEM</code> `documents.document_id` | Unique identifier for supporting document metadata. |  |
+| <code>🟪 SYSTEM</code> `documents.lifecycle_state` | Document processing and availability state. |  |
+| <code>🟪 SYSTEM</code> `documents.current_version_id` | Current clean document version. |  |
+| <code>🟪 SYSTEM</code> `documents.created_by_principal_id` | Application principal that created the document. |  |
+| <code>🟪 SYSTEM</code> `documents.created_at` | Document creation timestamp. |  |
+| <code>🟪 SYSTEM</code> `documents.updated_at` | Document update timestamp. |  |
+| <code>🟪 SYSTEM</code> `documents.version` | Optimistic-lock version for document metadata. |  |
+| <code>🟪 SYSTEM</code> `document_versions.document_version_id` | Unique identifier for an immutable document version. |  |
+| <code>🟪 SYSTEM</code> `document_versions.document_id` | Parent document. | From the parent document. |
+| <code>🟪 SYSTEM</code> `document_versions.version_number` | Monotonic version number within the document. |  |
+| <code>🟪 SYSTEM</code> `document_versions.storage_zone` | Quarantine or clean object-storage zone. |  |
+| <code>🟪 SYSTEM</code> `document_versions.storage_key` | Random non-personal object-storage key. |  |
+| <code>🟪 SYSTEM</code> `document_versions.checksum_sha256` | SHA-256 integrity digest. |  |
+| <code>🟪 SYSTEM</code> `document_versions.mime_type` | Server-detected MIME type. |  |
+| <code>🟪 SYSTEM</code> `document_versions.size_bytes` | Validated object size. |  |
+| <code>🟪 SYSTEM</code> `document_versions.scan_state` | Malware scanning state. |  |
+| <code>🟪 SYSTEM</code> `document_versions.scanner_policy_version` | Scanning-policy version used. |  |
+| <code>🟪 SYSTEM</code> `document_versions.uploaded_at` | Upload timestamp. |  |
+| <code>🟪 SYSTEM</code> `document_links.document_link_id` | Unique identifier linking a document to the asset. |  |
+| <code>🟪 SYSTEM</code> `document_links.domain_type` | Approved domain-object type. | For an asset link. |
+| <code>🟪 SYSTEM</code> `document_links.domain_id` | Application-validated target identifier. | For an asset link. |
+| <code>🟪 SYSTEM</code> `document_links.holding_id` | Holding to which the document is linked. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `document_links.effective_from` | Timestamp from which the document link applies. | Unless explicitly effective later. |
+| <code>🟪 SYSTEM</code> `document_links.created_by_principal_id` | Application principal that created the link. |  |
+| <code>🟪 SYSTEM</code> `verification_evidence.verification_evidence_id` | Unique identifier for evidence supporting a valuation or fact. |  |
+| <code>🟪 SYSTEM</code> `verification_evidence.verification_state` | Pending, verified, rejected or expired state. |  |
+| <code>🟪 SYSTEM</code> `verification_evidence.verified_by_principal_id` | Application principal that performed verification. | When verified or rejected. |
+| <code>🟪 SYSTEM</code> `verification_evidence.verified_at` | Verification timestamp. | When verified or rejected. |
+| <code>🟪 SYSTEM</code> `verification_evidence.created_at` | Evidence creation timestamp. |  |
 
 </details>
 
@@ -395,188 +395,188 @@ Each subtype below expands into its complete field checklist. The status tags an
 <details>
 <summary><strong>Asset subtype: <code>FX_FORWARD_SWAP</code></strong></summary>
 
-| `table_name.column_name` | Description | Note |
+| Status and `table_name.column_name` | Description | Notes |
 |---|---|---|
-| `holdings.owner_person_id` | Person primarily accountable for the holding. | 🟥 **MANDATORY** — Required. |
-| `holdings.asset_class_code` | Selected top-level asset class. | 🟥 **MANDATORY** — Required. |
-| `holdings.asset_subtype_code` | Selected asset subtype. | 🟥 **MANDATORY** — Required. |
-| `holdings.name` | User-facing name for the holding. | 🟥 **MANDATORY** — Required. |
-| `holdings.currency` | Native ISO 4217 currency used for the holding. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes` | Validated object containing only the subtype fields listed below. | 🟥 **MANDATORY** — May be empty only when the subtype schema permits it. |
-| `holdings.status` | Lifecycle state: ACTIVE, CLOSED, DISPOSED or ARCHIVED. | 🟥 **MANDATORY** — Defaults to ACTIVE. |
-| `sources.source_type` | How the information was obtained: manual, import, connector, calculated or operator. | 🟥 **MANDATORY** — Required for each provenance record. |
-| `sources.trust_tier` | Evidence tier: verified, declared, estimated or unknown. | 🟥 **MANDATORY** — Required for each provenance record. |
-| `ownership_allocations.person_id` | Person receiving an ownership share. | 🟥 **MANDATORY** — Required for each ownership allocation. |
-| `ownership_allocations.ownership_pct` | Effective ownership percentage for the person. | 🟥 **MANDATORY** — Required for each ownership allocation. |
-| `ownership_allocations.effective_from` | Date from which the ownership share applies. | 🟥 **MANDATORY** — Required for each ownership allocation. |
-| `holdings.subtype_attributes.instrument_kind` | Instrument kind. Expected value: `enum('FORWARD','SWAP')`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.buy_currency` | Buy currency. Expected value: `ISO4217`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.sell_currency` | Sell currency. Expected value: `ISO4217`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.buy_amount` | Buy amount. Expected value: `money`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.sell_amount` | Sell amount. Expected value: `money`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.contract_rate` | Contract rate. Expected value: `dec`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.settlement_date` | Settlement date. Expected value: `date`. | 🟥 **MANDATORY** — Required. |
-| `holdings.household_id` | Household in which the holding is shown. | 🟧 **CONDITIONAL** — Mandatory when included in a household portfolio. |
-| `holdings.quantity` | Units, shares, weight or other quantity when the asset is quantity-based. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `holdings.identifier_type` | Kind of primary identifier, such as ISIN, folio or property reference. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `holdings.identifier_ciphertext` | Encrypted primary identifier value. | 🟧 **CONDITIONAL** — Sensitive. |
-| `sources.data_consent_id` | Consent or lawful collection basis used by a connected source. | 🟧 **CONDITIONAL** — When collection depends on consent. |
-| `valuation_events.value_minor_units` | Observed or appraised value in the valuation currency. | 🟧 **CONDITIONAL** — Required before the asset contributes to net worth. |
-| `valuation_events.currency` | ISO 4217 currency of the valuation. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `valuation_events.as_of_at` | Date and time to which the valuation applies. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `valuation_events.source_id` | Source or manual-entry provenance for the valuation. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `valuation_events.valuation_method` | How the value was determined: market, appraisal, declared, modelled or cost. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `cost_basis_lots.quantity` | Units acquired in the lot. | 🟧 **CONDITIONAL** — When the asset is quantity-based. |
-| `cost_basis_lots.cost_amount_minor_units` | Acquisition cost in minor currency units. | 🟧 **CONDITIONAL** — Required when recording a cost lot. |
-| `cost_basis_lots.currency` | ISO 4217 currency of the acquisition cost. | 🟧 **CONDITIONAL** — Required when recording a cost lot. |
-| `cost_basis_lots.acquired_on` | Acquisition date for the lot. | 🟧 **CONDITIONAL** — Required when recording a cost lot. |
-| `holding_restrictions.restriction_type` | Approved restriction type. | 🟧 **CONDITIONAL** — Required when a restriction exists. |
-| `holding_restrictions.effective_from` | Date from which the restriction applies. | 🟧 **CONDITIONAL** — Required when a restriction exists. |
-| `holding_restrictions.status` | Restriction state: active, released or disputed. | 🟧 **CONDITIONAL** — Required when a restriction exists. |
-| `commitments.person_id` | Person responsible for funding the commitment. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `commitments.committed_minor_units` | Total committed amount in minor currency units. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `commitments.drawn_minor_units` | Amount already drawn. | 🟧 **CONDITIONAL** — Defaults to zero when a commitment exists. |
-| `commitments.currency` | ISO 4217 currency of the commitment. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `commitments.status` | Commitment state: open, partly drawn, fulfilled or cancelled. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `transactions.person_id` | Person who owns the transaction. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.source_id` | Provenance source for the transaction. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.transaction_type` | Type such as buy, sell, income, fee, tax or transfer. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.quantity` | Signed number of units affected. | 🟧 **CONDITIONAL** — When the transaction changes quantity. |
-| `transactions.amount_minor_units` | Signed cash amount in minor currency units. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.currency` | ISO 4217 transaction currency. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `income_streams.person_id` | Person receiving the income. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.name` | Display name of the income stream. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.income_type` | Income type such as rent, dividend, interest or pension. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.amount_minor_units` | Expected income amount in minor currency units. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.currency` | ISO 4217 income currency. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.frequency` | Expected payment frequency. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.starts_on` | Income start date. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.status` | Income-stream state: active, paused or ended. | 🟧 **CONDITIONAL** — Defaults to active when an income stream exists. |
-| `liability_holding_links.liability_id` | Liability secured by, financing or associated with the asset. | 🟧 **CONDITIONAL** — Required when the asset is linked to a liability. |
-| `liability_holding_links.link_type` | Relationship type: secured by, finances or associated with. | 🟧 **CONDITIONAL** — Required when linked to a liability. |
-| `liability_holding_links.effective_from` | Date from which the liability link applies. | 🟧 **CONDITIONAL** — Required when linked to a liability. |
-| `documents.owner_person_id` | Person who owns the document. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `documents.document_type` | Approved document type. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `documents.title` | Sanitized document title. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `documents.retention_class` | Retention policy applied to the document. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `document_versions.original_filename` | Sanitized original filename. | 🟧 **CONDITIONAL** — Required when a document is uploaded. |
-| `document_links.document_id` | Document linked to the asset. | 🟧 **CONDITIONAL** — Required when creating a document link. |
-| `document_links.link_purpose` | Purpose such as evidence, contract or statement. | 🟧 **CONDITIONAL** — Required when creating a document link. |
-| `verification_evidence.valuation_event_id` | Valuation supported by the evidence. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `verification_evidence.document_id` | Supporting document. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `verification_evidence.evidence_type` | Approved evidence type. | 🟧 **CONDITIONAL** — Required when verification evidence is recorded. |
-| `holdings.subtype_attributes.jurisdiction` | Country governing the offshore holding. | 🟧 **CONDITIONAL** — Mandatory when offshore is true. |
-| `holdings.subtype_attributes.tax_residency_relevance` | Whether the offshore holding is relevant to tax-residency reporting. | 🟧 **CONDITIONAL** — Mandatory when offshore is true. |
-| `holdings.subtype_attributes.reporting_status` | Current foreign-asset reporting state. | 🟧 **CONDITIONAL** — Mandatory when offshore is true. |
-| `holdings.acquired_on` | Known acquisition date. | 🟦 **OPTIONAL** — May be supplied. |
-| `sources.provider_code` | Provider or institution code when applicable. | 🟦 **OPTIONAL** — May be supplied. |
-| `sources.external_reference_hash` | Non-reversible hash of an external source reference. | 🟦 **OPTIONAL** — May be supplied. |
-| `sources.metadata` | Allow-listed, source-specific provenance metadata. | 🟦 **OPTIONAL** — Defaults to an empty object. |
-| `ownership_allocations.effective_to` | Date on which the ownership share stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `ownership_allocations.source_id` | Evidence source supporting the ownership allocation. | 🟦 **OPTIONAL** — May be supplied. |
-| `valuation_events.confidence` | Optional confidence score from 0 to 1. | 🟦 **OPTIONAL** — May be supplied. |
-| `valuation_events.supersedes_event_id` | Prior valuation corrected by this event. | 🟦 **OPTIONAL** — May be supplied. |
-| `valuation_events.metadata` | Bounded, method-specific valuation details. | 🟦 **OPTIONAL** — Defaults to an empty object. |
-| `cost_basis_lots.source_id` | Source supporting the acquisition lot. | 🟦 **OPTIONAL** — May be supplied. |
-| `cost_basis_lots.supersedes_lot_id` | Prior acquisition lot corrected by this lot. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.liability_id` | Liability causing or associated with the restriction. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.counterparty_reference` | Bounded reference to the restriction counterparty. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.effective_to` | Date on which the restriction stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.source_id` | Evidence source supporting the restriction. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.due_on` | Known commitment due date. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.window_start` | Start of the permitted draw window. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.window_end` | End of the permitted draw window. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.source_id` | Source supporting the commitment. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.external_transaction_hash` | Scoped deduplication hash for an imported transaction. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.trade_date` | Trade or business-effective date. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.settled_at` | Settlement timestamp. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.description` | Sanitized transaction description. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.supersedes_transaction_id` | Prior transaction corrected by this event. | 🟦 **OPTIONAL** — May be supplied. |
-| `income_streams.ends_on` | Income end date. | 🟦 **OPTIONAL** — May be supplied. |
-| `income_streams.growth_rate_pct` | Optional expected annual growth rate. | 🟦 **OPTIONAL** — May be supplied. |
-| `income_streams.source_id` | Source supporting the income stream. | 🟦 **OPTIONAL** — May be supplied. |
-| `liability_holding_links.allocation_pct` | Optional share of the liability attributed to this asset. | 🟦 **OPTIONAL** — May be supplied. |
-| `liability_holding_links.effective_to` | Date on which the liability link stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.document_date` | Business-effective date printed on the document. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.expires_on` | Document expiry date. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.source_id` | Source from which the document originated. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.supersedes_version_id` | Prior document version replaced by this version. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_links.effective_to` | Timestamp when the document link stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `verification_evidence.expires_at` | Evidence expiry timestamp. | 🟦 **OPTIONAL** — May be supplied. |
-| `verification_evidence.notes` | Bounded verification notes. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.offshore` | Whether the holding is outside India. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.foreign_account_ref` | Protected foreign account reference. | 🟦 **OPTIONAL** — Sensitive. |
-| `holdings.subtype_attributes.custodian_name` | Name of the custodian. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.custody_account_ref` | Protected custody-account reference. | 🟦 **OPTIONAL** — Sensitive. |
-| `holdings.subtype_attributes.beneficial_owner_declaration` | Whether beneficial ownership has been declared. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.notes` | Bounded non-secret notes about the asset. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.counterparty_ref` | Counterparty ref. Expected value: `ref`. | 🟦 **OPTIONAL** — Sensitive. |
-| `holdings.subtype_attributes.deliverability` | Deliverability. Expected value: `enum`. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.holding_id` | Unique identifier for the holding. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.subtype_schema_version` | Exact subtype field-schema version used to validate the record. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.created_by_principal_id` | Application principal that created the record. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.created_at` | Creation timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.updated_at` | Most recent update timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.version` | Optimistic-lock version used to prevent conflicting updates. | 🟪 **SYSTEM** — System-generated. |
-| `sources.source_id` | Unique identifier for the provenance record referenced by valuations, transactions and evidence. | 🟪 **SYSTEM** — System-generated. |
-| `sources.captured_by_principal_id` | Application principal that captured the information. | 🟪 **SYSTEM** — System-generated when a person or operator captured it. |
-| `sources.captured_at` | Timestamp when the information was captured. | 🟪 **SYSTEM** — System-generated. |
-| `sources.created_at` | Creation timestamp for the provenance record. | 🟪 **SYSTEM** — System-generated. |
-| `ownership_allocations.ownership_allocation_id` | Unique identifier for an ownership allocation. | 🟪 **SYSTEM** — System-generated. |
-| `ownership_allocations.holding_id` | Holding to which the ownership allocation belongs. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `ownership_allocations.created_at` | Creation timestamp for the ownership allocation. | 🟪 **SYSTEM** — System-generated. |
-| `valuation_events.valuation_event_id` | Unique identifier for an immutable valuation observation. | 🟪 **SYSTEM** — System-generated. |
-| `valuation_events.holding_id` | Holding valued by the observation. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `valuation_events.recorded_by_principal_id` | Application principal that recorded the valuation. | 🟪 **SYSTEM** — System-generated. |
-| `valuation_events.recorded_at` | Timestamp when the valuation was recorded. | 🟪 **SYSTEM** — System-generated. |
-| `cost_basis_lots.cost_basis_lot_id` | Unique identifier for an acquisition-cost lot. | 🟪 **SYSTEM** — System-generated. |
-| `cost_basis_lots.holding_id` | Holding acquired through the lot. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `cost_basis_lots.recorded_by_principal_id` | Application principal that recorded the lot. | 🟪 **SYSTEM** — System-generated. |
-| `cost_basis_lots.recorded_at` | Timestamp when the lot was recorded. | 🟪 **SYSTEM** — System-generated. |
-| `holding_restrictions.restriction_id` | Unique identifier for a lien, pledge, lock-in, freeze or legal restriction. | 🟪 **SYSTEM** — System-generated. |
-| `holding_restrictions.holding_id` | Holding affected by the restriction. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `holding_restrictions.created_at` | Creation timestamp for the restriction record. | 🟪 **SYSTEM** — System-generated. |
-| `commitments.commitment_id` | Unique identifier for an undrawn or contingent commitment. | 🟪 **SYSTEM** — System-generated. |
-| `commitments.holding_id` | Holding associated with the commitment. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `commitments.version` | Optimistic-lock version for the commitment. | 🟪 **SYSTEM** — System-generated. |
-| `transactions.transaction_id` | Unique identifier for an immutable ledger event. | 🟪 **SYSTEM** — System-generated. |
-| `transactions.holding_id` | Holding affected by the transaction. | 🟪 **SYSTEM** — System-generated when recorded from the holding. |
-| `transactions.recorded_at` | Timestamp when the transaction was recorded. | 🟪 **SYSTEM** — System-generated. |
-| `income_streams.income_stream_id` | Unique identifier for recurring or expected income. | 🟪 **SYSTEM** — System-generated. |
-| `income_streams.holding_id` | Asset producing the income. | 🟪 **SYSTEM** — System-generated when created from the holding. |
-| `income_streams.version` | Optimistic-lock version for the income stream. | 🟪 **SYSTEM** — System-generated. |
-| `liability_holding_links.liability_holding_link_id` | Unique identifier linking the asset to a liability. | 🟪 **SYSTEM** — System-generated. |
-| `liability_holding_links.holding_id` | Asset participating in the liability relationship. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `liability_holding_links.created_at` | Creation timestamp for the liability link. | 🟪 **SYSTEM** — System-generated. |
-| `documents.document_id` | Unique identifier for supporting document metadata. | 🟪 **SYSTEM** — System-generated. |
-| `documents.lifecycle_state` | Document processing and availability state. | 🟪 **SYSTEM** — System-managed. |
-| `documents.current_version_id` | Current clean document version. | 🟪 **SYSTEM** — System-managed. |
-| `documents.created_by_principal_id` | Application principal that created the document. | 🟪 **SYSTEM** — System-generated. |
-| `documents.created_at` | Document creation timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `documents.updated_at` | Document update timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `documents.version` | Optimistic-lock version for document metadata. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.document_version_id` | Unique identifier for an immutable document version. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.document_id` | Parent document. | 🟪 **SYSTEM** — System-generated from the parent document. |
-| `document_versions.version_number` | Monotonic version number within the document. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.storage_zone` | Quarantine or clean object-storage zone. | 🟪 **SYSTEM** — System-managed. |
-| `document_versions.storage_key` | Random non-personal object-storage key. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.checksum_sha256` | SHA-256 integrity digest. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.mime_type` | Server-detected MIME type. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.size_bytes` | Validated object size. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.scan_state` | Malware scanning state. | 🟪 **SYSTEM** — System-managed. |
-| `document_versions.scanner_policy_version` | Scanning-policy version used. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.uploaded_at` | Upload timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `document_links.document_link_id` | Unique identifier linking a document to the asset. | 🟪 **SYSTEM** — System-generated. |
-| `document_links.domain_type` | Approved domain-object type. | 🟪 **SYSTEM** — System-generated for an asset link. |
-| `document_links.domain_id` | Application-validated target identifier. | 🟪 **SYSTEM** — System-generated for an asset link. |
-| `document_links.holding_id` | Holding to which the document is linked. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `document_links.effective_from` | Timestamp from which the document link applies. | 🟪 **SYSTEM** — System-generated unless explicitly effective later. |
-| `document_links.created_by_principal_id` | Application principal that created the link. | 🟪 **SYSTEM** — System-generated. |
-| `verification_evidence.verification_evidence_id` | Unique identifier for evidence supporting a valuation or fact. | 🟪 **SYSTEM** — System-generated. |
-| `verification_evidence.verification_state` | Pending, verified, rejected or expired state. | 🟪 **SYSTEM** — System-managed. |
-| `verification_evidence.verified_by_principal_id` | Application principal that performed verification. | 🟪 **SYSTEM** — System-generated when verified or rejected. |
-| `verification_evidence.verified_at` | Verification timestamp. | 🟪 **SYSTEM** — System-generated when verified or rejected. |
-| `verification_evidence.created_at` | Evidence creation timestamp. | 🟪 **SYSTEM** — System-generated. |
+| <code>🟥 MANDATORY</code> `holdings.owner_person_id` | Person primarily accountable for the holding. |  |
+| <code>🟥 MANDATORY</code> `holdings.asset_class_code` | Selected top-level asset class. |  |
+| <code>🟥 MANDATORY</code> `holdings.asset_subtype_code` | Selected asset subtype. |  |
+| <code>🟥 MANDATORY</code> `holdings.name` | User-facing name for the holding. |  |
+| <code>🟥 MANDATORY</code> `holdings.currency` | Native ISO 4217 currency used for the holding. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes` | Validated object containing only the subtype fields listed below. | May be empty only when the subtype schema permits it. |
+| <code>🟥 MANDATORY</code> `holdings.status` | Lifecycle state: ACTIVE, CLOSED, DISPOSED or ARCHIVED. | Defaults to ACTIVE. |
+| <code>🟥 MANDATORY</code> `sources.source_type` | How the information was obtained: manual, import, connector, calculated or operator. | Required for each provenance record. |
+| <code>🟥 MANDATORY</code> `sources.trust_tier` | Evidence tier: verified, declared, estimated or unknown. | Required for each provenance record. |
+| <code>🟥 MANDATORY</code> `ownership_allocations.person_id` | Person receiving an ownership share. | Required for each ownership allocation. |
+| <code>🟥 MANDATORY</code> `ownership_allocations.ownership_pct` | Effective ownership percentage for the person. | Required for each ownership allocation. |
+| <code>🟥 MANDATORY</code> `ownership_allocations.effective_from` | Date from which the ownership share applies. | Required for each ownership allocation. |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.instrument_kind` | Instrument kind. Expected value: `enum('FORWARD','SWAP')`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.buy_currency` | Buy currency. Expected value: `ISO4217`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.sell_currency` | Sell currency. Expected value: `ISO4217`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.buy_amount` | Buy amount. Expected value: `money`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.sell_amount` | Sell amount. Expected value: `money`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.contract_rate` | Contract rate. Expected value: `dec`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.settlement_date` | Settlement date. Expected value: `date`. |  |
+| <code>🟧 CONDITIONAL</code> `holdings.household_id` | Household in which the holding is shown. | Mandatory when included in a household portfolio. |
+| <code>🟧 CONDITIONAL</code> `holdings.quantity` | Units, shares, weight or other quantity when the asset is quantity-based. | Only when measured as units; omit for non-unitized assets. |
+| <code>🟧 CONDITIONAL</code> `holdings.identifier_type` | Kind of primary identifier, such as ISIN, folio or property reference. | When a canonical identifier is recorded. |
+| <code>🟧 CONDITIONAL</code> `holdings.identifier_ciphertext` | Encrypted primary identifier value. | When a canonical identifier is recorded; sensitive. |
+| <code>🟧 CONDITIONAL</code> `sources.data_consent_id` | Consent or lawful collection basis used by a connected source. | When collection depends on consent. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.value_minor_units` | Observed or appraised value in the valuation currency. | Required before the asset contributes to net worth. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.currency` | ISO 4217 currency of the valuation. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.as_of_at` | Date and time to which the valuation applies. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.source_id` | Source or manual-entry provenance for the valuation. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.valuation_method` | How the value was determined: market, appraisal, declared, modelled or cost. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.quantity` | Units acquired in the lot. | When the asset is quantity-based. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.cost_amount_minor_units` | Acquisition cost in minor currency units. | Required when recording a cost lot. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.currency` | ISO 4217 currency of the acquisition cost. | Required when recording a cost lot. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.acquired_on` | Acquisition date for the lot. | Required when recording a cost lot. |
+| <code>🟧 CONDITIONAL</code> `holding_restrictions.restriction_type` | Approved restriction type. | Required when a restriction exists. |
+| <code>🟧 CONDITIONAL</code> `holding_restrictions.effective_from` | Date from which the restriction applies. | Required when a restriction exists. |
+| <code>🟧 CONDITIONAL</code> `holding_restrictions.status` | Restriction state: active, released or disputed. | Required when a restriction exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.person_id` | Person responsible for funding the commitment. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.committed_minor_units` | Total committed amount in minor currency units. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.drawn_minor_units` | Amount already drawn. | Defaults to zero when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.currency` | ISO 4217 currency of the commitment. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.status` | Commitment state: open, partly drawn, fulfilled or cancelled. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `transactions.person_id` | Person who owns the transaction. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.source_id` | Provenance source for the transaction. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.transaction_type` | Type such as buy, sell, income, fee, tax or transfer. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.quantity` | Signed number of units affected. | When the transaction changes quantity. |
+| <code>🟧 CONDITIONAL</code> `transactions.amount_minor_units` | Signed cash amount in minor currency units. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.currency` | ISO 4217 transaction currency. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `income_streams.person_id` | Person receiving the income. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.name` | Display name of the income stream. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.income_type` | Income type such as rent, dividend, interest or pension. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.amount_minor_units` | Expected income amount in minor currency units. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.currency` | ISO 4217 income currency. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.frequency` | Expected payment frequency. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.starts_on` | Income start date. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.status` | Income-stream state: active, paused or ended. | Defaults to active when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `liability_holding_links.liability_id` | Liability secured by, financing or associated with the asset. | Required when the asset is linked to a liability. |
+| <code>🟧 CONDITIONAL</code> `liability_holding_links.link_type` | Relationship type: secured by, finances or associated with. | Required when linked to a liability. |
+| <code>🟧 CONDITIONAL</code> `liability_holding_links.effective_from` | Date from which the liability link applies. | Required when linked to a liability. |
+| <code>🟧 CONDITIONAL</code> `documents.owner_person_id` | Person who owns the document. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `documents.document_type` | Approved document type. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `documents.title` | Sanitized document title. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `documents.retention_class` | Retention policy applied to the document. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `document_versions.original_filename` | Sanitized original filename. | Required when a document is uploaded. |
+| <code>🟧 CONDITIONAL</code> `document_links.document_id` | Document linked to the asset. | Required when creating a document link. |
+| <code>🟧 CONDITIONAL</code> `document_links.link_purpose` | Purpose such as evidence, contract or statement. | Required when creating a document link. |
+| <code>🟧 CONDITIONAL</code> `verification_evidence.valuation_event_id` | Valuation supported by the evidence. |  |
+| <code>🟧 CONDITIONAL</code> `verification_evidence.document_id` | Supporting document. |  |
+| <code>🟧 CONDITIONAL</code> `verification_evidence.evidence_type` | Approved evidence type. | Required when verification evidence is recorded. |
+| <code>🟧 CONDITIONAL</code> `holdings.subtype_attributes.jurisdiction` | Country governing the offshore holding. | Mandatory when offshore is true. |
+| <code>🟧 CONDITIONAL</code> `holdings.subtype_attributes.tax_residency_relevance` | Whether the offshore holding is relevant to tax-residency reporting. | Mandatory when offshore is true. |
+| <code>🟧 CONDITIONAL</code> `holdings.subtype_attributes.reporting_status` | Current foreign-asset reporting state. | Mandatory when offshore is true. |
+| <code>🟦 OPTIONAL</code> `holdings.acquired_on` | Known acquisition date. |  |
+| <code>🟦 OPTIONAL</code> `sources.provider_code` | Provider or institution code when applicable. |  |
+| <code>🟦 OPTIONAL</code> `sources.external_reference_hash` | Non-reversible hash of an external source reference. |  |
+| <code>🟦 OPTIONAL</code> `sources.metadata` | Allow-listed, source-specific provenance metadata. | Defaults to an empty object. |
+| <code>🟦 OPTIONAL</code> `ownership_allocations.effective_to` | Date on which the ownership share stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `ownership_allocations.source_id` | Evidence source supporting the ownership allocation. |  |
+| <code>🟦 OPTIONAL</code> `valuation_events.confidence` | Optional confidence score from 0 to 1. |  |
+| <code>🟦 OPTIONAL</code> `valuation_events.supersedes_event_id` | Prior valuation corrected by this event. |  |
+| <code>🟦 OPTIONAL</code> `valuation_events.metadata` | Bounded, method-specific valuation details. | Defaults to an empty object. |
+| <code>🟦 OPTIONAL</code> `cost_basis_lots.source_id` | Source supporting the acquisition lot. |  |
+| <code>🟦 OPTIONAL</code> `cost_basis_lots.supersedes_lot_id` | Prior acquisition lot corrected by this lot. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.liability_id` | Liability causing or associated with the restriction. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.counterparty_reference` | Bounded reference to the restriction counterparty. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.effective_to` | Date on which the restriction stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.source_id` | Evidence source supporting the restriction. |  |
+| <code>🟦 OPTIONAL</code> `commitments.due_on` | Known commitment due date. |  |
+| <code>🟦 OPTIONAL</code> `commitments.window_start` | Start of the permitted draw window. |  |
+| <code>🟦 OPTIONAL</code> `commitments.window_end` | End of the permitted draw window. |  |
+| <code>🟦 OPTIONAL</code> `commitments.source_id` | Source supporting the commitment. |  |
+| <code>🟦 OPTIONAL</code> `transactions.external_transaction_hash` | Scoped deduplication hash for an imported transaction. |  |
+| <code>🟦 OPTIONAL</code> `transactions.trade_date` | Trade or business-effective date. |  |
+| <code>🟦 OPTIONAL</code> `transactions.settled_at` | Settlement timestamp. |  |
+| <code>🟦 OPTIONAL</code> `transactions.description` | Sanitized transaction description. |  |
+| <code>🟦 OPTIONAL</code> `transactions.supersedes_transaction_id` | Prior transaction corrected by this event. |  |
+| <code>🟦 OPTIONAL</code> `income_streams.ends_on` | Income end date. |  |
+| <code>🟦 OPTIONAL</code> `income_streams.growth_rate_pct` | Optional expected annual growth rate. |  |
+| <code>🟦 OPTIONAL</code> `income_streams.source_id` | Source supporting the income stream. |  |
+| <code>🟦 OPTIONAL</code> `liability_holding_links.allocation_pct` | Optional share of the liability attributed to this asset. |  |
+| <code>🟦 OPTIONAL</code> `liability_holding_links.effective_to` | Date on which the liability link stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.document_date` | Business-effective date printed on the document. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.expires_on` | Document expiry date. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.source_id` | Source from which the document originated. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.supersedes_version_id` | Prior document version replaced by this version. |  |
+| <code>🟦 OPTIONAL</code> `document_links.effective_to` | Timestamp when the document link stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `verification_evidence.expires_at` | Evidence expiry timestamp. |  |
+| <code>🟦 OPTIONAL</code> `verification_evidence.notes` | Bounded verification notes. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.offshore` | Whether the holding is outside India. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.foreign_account_ref` | Protected foreign account reference. | Sensitive. |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.custodian_name` | Name of the custodian. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.custody_account_ref` | Protected custody-account reference. | Sensitive. |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.beneficial_owner_declaration` | Whether beneficial ownership has been declared. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.notes` | Bounded non-secret notes about the asset. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.counterparty_ref` | Counterparty ref. Expected value: `ref`. | Sensitive. |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.deliverability` | Deliverability. Expected value: `enum`. |  |
+| <code>🟪 SYSTEM</code> `holdings.holding_id` | Unique identifier for the holding. |  |
+| <code>🟪 SYSTEM</code> `holdings.subtype_schema_version` | Exact subtype field-schema version used to validate the record. |  |
+| <code>🟪 SYSTEM</code> `holdings.created_by_principal_id` | Application principal that created the record. |  |
+| <code>🟪 SYSTEM</code> `holdings.created_at` | Creation timestamp. |  |
+| <code>🟪 SYSTEM</code> `holdings.updated_at` | Most recent update timestamp. |  |
+| <code>🟪 SYSTEM</code> `holdings.version` | Optimistic-lock version used to prevent conflicting updates. |  |
+| <code>🟪 SYSTEM</code> `sources.source_id` | Unique identifier for the provenance record referenced by valuations, transactions and evidence. |  |
+| <code>🟪 SYSTEM</code> `sources.captured_by_principal_id` | Application principal that captured the information. | When a person or operator captured it. |
+| <code>🟪 SYSTEM</code> `sources.captured_at` | Timestamp when the information was captured. |  |
+| <code>🟪 SYSTEM</code> `sources.created_at` | Creation timestamp for the provenance record. |  |
+| <code>🟪 SYSTEM</code> `ownership_allocations.ownership_allocation_id` | Unique identifier for an ownership allocation. |  |
+| <code>🟪 SYSTEM</code> `ownership_allocations.holding_id` | Holding to which the ownership allocation belongs. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `ownership_allocations.created_at` | Creation timestamp for the ownership allocation. |  |
+| <code>🟪 SYSTEM</code> `valuation_events.valuation_event_id` | Unique identifier for an immutable valuation observation. |  |
+| <code>🟪 SYSTEM</code> `valuation_events.holding_id` | Holding valued by the observation. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `valuation_events.recorded_by_principal_id` | Application principal that recorded the valuation. |  |
+| <code>🟪 SYSTEM</code> `valuation_events.recorded_at` | Timestamp when the valuation was recorded. |  |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.cost_basis_lot_id` | Unique identifier for an acquisition-cost lot. |  |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.holding_id` | Holding acquired through the lot. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.recorded_by_principal_id` | Application principal that recorded the lot. |  |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.recorded_at` | Timestamp when the lot was recorded. |  |
+| <code>🟪 SYSTEM</code> `holding_restrictions.restriction_id` | Unique identifier for a lien, pledge, lock-in, freeze or legal restriction. |  |
+| <code>🟪 SYSTEM</code> `holding_restrictions.holding_id` | Holding affected by the restriction. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `holding_restrictions.created_at` | Creation timestamp for the restriction record. |  |
+| <code>🟪 SYSTEM</code> `commitments.commitment_id` | Unique identifier for an undrawn or contingent commitment. |  |
+| <code>🟪 SYSTEM</code> `commitments.holding_id` | Holding associated with the commitment. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `commitments.version` | Optimistic-lock version for the commitment. |  |
+| <code>🟪 SYSTEM</code> `transactions.transaction_id` | Unique identifier for an immutable ledger event. |  |
+| <code>🟪 SYSTEM</code> `transactions.holding_id` | Holding affected by the transaction. | When recorded from the holding. |
+| <code>🟪 SYSTEM</code> `transactions.recorded_at` | Timestamp when the transaction was recorded. |  |
+| <code>🟪 SYSTEM</code> `income_streams.income_stream_id` | Unique identifier for recurring or expected income. |  |
+| <code>🟪 SYSTEM</code> `income_streams.holding_id` | Asset producing the income. | When created from the holding. |
+| <code>🟪 SYSTEM</code> `income_streams.version` | Optimistic-lock version for the income stream. |  |
+| <code>🟪 SYSTEM</code> `liability_holding_links.liability_holding_link_id` | Unique identifier linking the asset to a liability. |  |
+| <code>🟪 SYSTEM</code> `liability_holding_links.holding_id` | Asset participating in the liability relationship. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `liability_holding_links.created_at` | Creation timestamp for the liability link. |  |
+| <code>🟪 SYSTEM</code> `documents.document_id` | Unique identifier for supporting document metadata. |  |
+| <code>🟪 SYSTEM</code> `documents.lifecycle_state` | Document processing and availability state. |  |
+| <code>🟪 SYSTEM</code> `documents.current_version_id` | Current clean document version. |  |
+| <code>🟪 SYSTEM</code> `documents.created_by_principal_id` | Application principal that created the document. |  |
+| <code>🟪 SYSTEM</code> `documents.created_at` | Document creation timestamp. |  |
+| <code>🟪 SYSTEM</code> `documents.updated_at` | Document update timestamp. |  |
+| <code>🟪 SYSTEM</code> `documents.version` | Optimistic-lock version for document metadata. |  |
+| <code>🟪 SYSTEM</code> `document_versions.document_version_id` | Unique identifier for an immutable document version. |  |
+| <code>🟪 SYSTEM</code> `document_versions.document_id` | Parent document. | From the parent document. |
+| <code>🟪 SYSTEM</code> `document_versions.version_number` | Monotonic version number within the document. |  |
+| <code>🟪 SYSTEM</code> `document_versions.storage_zone` | Quarantine or clean object-storage zone. |  |
+| <code>🟪 SYSTEM</code> `document_versions.storage_key` | Random non-personal object-storage key. |  |
+| <code>🟪 SYSTEM</code> `document_versions.checksum_sha256` | SHA-256 integrity digest. |  |
+| <code>🟪 SYSTEM</code> `document_versions.mime_type` | Server-detected MIME type. |  |
+| <code>🟪 SYSTEM</code> `document_versions.size_bytes` | Validated object size. |  |
+| <code>🟪 SYSTEM</code> `document_versions.scan_state` | Malware scanning state. |  |
+| <code>🟪 SYSTEM</code> `document_versions.scanner_policy_version` | Scanning-policy version used. |  |
+| <code>🟪 SYSTEM</code> `document_versions.uploaded_at` | Upload timestamp. |  |
+| <code>🟪 SYSTEM</code> `document_links.document_link_id` | Unique identifier linking a document to the asset. |  |
+| <code>🟪 SYSTEM</code> `document_links.domain_type` | Approved domain-object type. | For an asset link. |
+| <code>🟪 SYSTEM</code> `document_links.domain_id` | Application-validated target identifier. | For an asset link. |
+| <code>🟪 SYSTEM</code> `document_links.holding_id` | Holding to which the document is linked. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `document_links.effective_from` | Timestamp from which the document link applies. | Unless explicitly effective later. |
+| <code>🟪 SYSTEM</code> `document_links.created_by_principal_id` | Application principal that created the link. |  |
+| <code>🟪 SYSTEM</code> `verification_evidence.verification_evidence_id` | Unique identifier for evidence supporting a valuation or fact. |  |
+| <code>🟪 SYSTEM</code> `verification_evidence.verification_state` | Pending, verified, rejected or expired state. |  |
+| <code>🟪 SYSTEM</code> `verification_evidence.verified_by_principal_id` | Application principal that performed verification. | When verified or rejected. |
+| <code>🟪 SYSTEM</code> `verification_evidence.verified_at` | Verification timestamp. | When verified or rejected. |
+| <code>🟪 SYSTEM</code> `verification_evidence.created_at` | Evidence creation timestamp. |  |
 
 </details>
 
@@ -585,188 +585,188 @@ Each subtype below expands into its complete field checklist. The status tags an
 <details>
 <summary><strong>Asset subtype: <code>COMMODITY_DERIVATIVE</code></strong></summary>
 
-| `table_name.column_name` | Description | Note |
+| Status and `table_name.column_name` | Description | Notes |
 |---|---|---|
-| `holdings.owner_person_id` | Person primarily accountable for the holding. | 🟥 **MANDATORY** — Required. |
-| `holdings.asset_class_code` | Selected top-level asset class. | 🟥 **MANDATORY** — Required. |
-| `holdings.asset_subtype_code` | Selected asset subtype. | 🟥 **MANDATORY** — Required. |
-| `holdings.name` | User-facing name for the holding. | 🟥 **MANDATORY** — Required. |
-| `holdings.currency` | Native ISO 4217 currency used for the holding. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes` | Validated object containing only the subtype fields listed below. | 🟥 **MANDATORY** — May be empty only when the subtype schema permits it. |
-| `holdings.status` | Lifecycle state: ACTIVE, CLOSED, DISPOSED or ARCHIVED. | 🟥 **MANDATORY** — Defaults to ACTIVE. |
-| `sources.source_type` | How the information was obtained: manual, import, connector, calculated or operator. | 🟥 **MANDATORY** — Required for each provenance record. |
-| `sources.trust_tier` | Evidence tier: verified, declared, estimated or unknown. | 🟥 **MANDATORY** — Required for each provenance record. |
-| `ownership_allocations.person_id` | Person receiving an ownership share. | 🟥 **MANDATORY** — Required for each ownership allocation. |
-| `ownership_allocations.ownership_pct` | Effective ownership percentage for the person. | 🟥 **MANDATORY** — Required for each ownership allocation. |
-| `ownership_allocations.effective_from` | Date from which the ownership share applies. | 🟥 **MANDATORY** — Required for each ownership allocation. |
-| `holdings.subtype_attributes.underlying_commodity` | Underlying commodity. Expected value: `str`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.instrument_kind` | Instrument kind. Expected value: `enum`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.position_side` | Position side. Expected value: `enum`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.quantity_and_unit` | Quantity and unit. Expected value: `object`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.expiry_date` | Expiry date. Expected value: `date`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.settlement_type` | Settlement type. Expected value: `enum`. | 🟥 **MANDATORY** — Required. |
-| `holdings.household_id` | Household in which the holding is shown. | 🟧 **CONDITIONAL** — Mandatory when included in a household portfolio. |
-| `holdings.quantity` | Units, shares, weight or other quantity when the asset is quantity-based. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `holdings.identifier_type` | Kind of primary identifier, such as ISIN, folio or property reference. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `holdings.identifier_ciphertext` | Encrypted primary identifier value. | 🟧 **CONDITIONAL** — Sensitive. |
-| `sources.data_consent_id` | Consent or lawful collection basis used by a connected source. | 🟧 **CONDITIONAL** — When collection depends on consent. |
-| `valuation_events.value_minor_units` | Observed or appraised value in the valuation currency. | 🟧 **CONDITIONAL** — Required before the asset contributes to net worth. |
-| `valuation_events.currency` | ISO 4217 currency of the valuation. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `valuation_events.as_of_at` | Date and time to which the valuation applies. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `valuation_events.source_id` | Source or manual-entry provenance for the valuation. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `valuation_events.valuation_method` | How the value was determined: market, appraisal, declared, modelled or cost. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `cost_basis_lots.quantity` | Units acquired in the lot. | 🟧 **CONDITIONAL** — When the asset is quantity-based. |
-| `cost_basis_lots.cost_amount_minor_units` | Acquisition cost in minor currency units. | 🟧 **CONDITIONAL** — Required when recording a cost lot. |
-| `cost_basis_lots.currency` | ISO 4217 currency of the acquisition cost. | 🟧 **CONDITIONAL** — Required when recording a cost lot. |
-| `cost_basis_lots.acquired_on` | Acquisition date for the lot. | 🟧 **CONDITIONAL** — Required when recording a cost lot. |
-| `holding_restrictions.restriction_type` | Approved restriction type. | 🟧 **CONDITIONAL** — Required when a restriction exists. |
-| `holding_restrictions.effective_from` | Date from which the restriction applies. | 🟧 **CONDITIONAL** — Required when a restriction exists. |
-| `holding_restrictions.status` | Restriction state: active, released or disputed. | 🟧 **CONDITIONAL** — Required when a restriction exists. |
-| `commitments.person_id` | Person responsible for funding the commitment. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `commitments.committed_minor_units` | Total committed amount in minor currency units. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `commitments.drawn_minor_units` | Amount already drawn. | 🟧 **CONDITIONAL** — Defaults to zero when a commitment exists. |
-| `commitments.currency` | ISO 4217 currency of the commitment. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `commitments.status` | Commitment state: open, partly drawn, fulfilled or cancelled. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `transactions.person_id` | Person who owns the transaction. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.source_id` | Provenance source for the transaction. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.transaction_type` | Type such as buy, sell, income, fee, tax or transfer. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.quantity` | Signed number of units affected. | 🟧 **CONDITIONAL** — When the transaction changes quantity. |
-| `transactions.amount_minor_units` | Signed cash amount in minor currency units. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.currency` | ISO 4217 transaction currency. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `income_streams.person_id` | Person receiving the income. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.name` | Display name of the income stream. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.income_type` | Income type such as rent, dividend, interest or pension. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.amount_minor_units` | Expected income amount in minor currency units. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.currency` | ISO 4217 income currency. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.frequency` | Expected payment frequency. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.starts_on` | Income start date. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.status` | Income-stream state: active, paused or ended. | 🟧 **CONDITIONAL** — Defaults to active when an income stream exists. |
-| `liability_holding_links.liability_id` | Liability secured by, financing or associated with the asset. | 🟧 **CONDITIONAL** — Required when the asset is linked to a liability. |
-| `liability_holding_links.link_type` | Relationship type: secured by, finances or associated with. | 🟧 **CONDITIONAL** — Required when linked to a liability. |
-| `liability_holding_links.effective_from` | Date from which the liability link applies. | 🟧 **CONDITIONAL** — Required when linked to a liability. |
-| `documents.owner_person_id` | Person who owns the document. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `documents.document_type` | Approved document type. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `documents.title` | Sanitized document title. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `documents.retention_class` | Retention policy applied to the document. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `document_versions.original_filename` | Sanitized original filename. | 🟧 **CONDITIONAL** — Required when a document is uploaded. |
-| `document_links.document_id` | Document linked to the asset. | 🟧 **CONDITIONAL** — Required when creating a document link. |
-| `document_links.link_purpose` | Purpose such as evidence, contract or statement. | 🟧 **CONDITIONAL** — Required when creating a document link. |
-| `verification_evidence.valuation_event_id` | Valuation supported by the evidence. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `verification_evidence.document_id` | Supporting document. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `verification_evidence.evidence_type` | Approved evidence type. | 🟧 **CONDITIONAL** — Required when verification evidence is recorded. |
-| `holdings.subtype_attributes.jurisdiction` | Country governing the offshore holding. | 🟧 **CONDITIONAL** — Mandatory when offshore is true. |
-| `holdings.subtype_attributes.tax_residency_relevance` | Whether the offshore holding is relevant to tax-residency reporting. | 🟧 **CONDITIONAL** — Mandatory when offshore is true. |
-| `holdings.subtype_attributes.reporting_status` | Current foreign-asset reporting state. | 🟧 **CONDITIONAL** — Mandatory when offshore is true. |
-| `holdings.subtype_attributes.strike_price` | Strike price. Expected value: `money`. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `holdings.acquired_on` | Known acquisition date. | 🟦 **OPTIONAL** — May be supplied. |
-| `sources.provider_code` | Provider or institution code when applicable. | 🟦 **OPTIONAL** — May be supplied. |
-| `sources.external_reference_hash` | Non-reversible hash of an external source reference. | 🟦 **OPTIONAL** — May be supplied. |
-| `sources.metadata` | Allow-listed, source-specific provenance metadata. | 🟦 **OPTIONAL** — Defaults to an empty object. |
-| `ownership_allocations.effective_to` | Date on which the ownership share stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `ownership_allocations.source_id` | Evidence source supporting the ownership allocation. | 🟦 **OPTIONAL** — May be supplied. |
-| `valuation_events.confidence` | Optional confidence score from 0 to 1. | 🟦 **OPTIONAL** — May be supplied. |
-| `valuation_events.supersedes_event_id` | Prior valuation corrected by this event. | 🟦 **OPTIONAL** — May be supplied. |
-| `valuation_events.metadata` | Bounded, method-specific valuation details. | 🟦 **OPTIONAL** — Defaults to an empty object. |
-| `cost_basis_lots.source_id` | Source supporting the acquisition lot. | 🟦 **OPTIONAL** — May be supplied. |
-| `cost_basis_lots.supersedes_lot_id` | Prior acquisition lot corrected by this lot. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.liability_id` | Liability causing or associated with the restriction. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.counterparty_reference` | Bounded reference to the restriction counterparty. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.effective_to` | Date on which the restriction stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.source_id` | Evidence source supporting the restriction. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.due_on` | Known commitment due date. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.window_start` | Start of the permitted draw window. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.window_end` | End of the permitted draw window. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.source_id` | Source supporting the commitment. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.external_transaction_hash` | Scoped deduplication hash for an imported transaction. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.trade_date` | Trade or business-effective date. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.settled_at` | Settlement timestamp. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.description` | Sanitized transaction description. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.supersedes_transaction_id` | Prior transaction corrected by this event. | 🟦 **OPTIONAL** — May be supplied. |
-| `income_streams.ends_on` | Income end date. | 🟦 **OPTIONAL** — May be supplied. |
-| `income_streams.growth_rate_pct` | Optional expected annual growth rate. | 🟦 **OPTIONAL** — May be supplied. |
-| `income_streams.source_id` | Source supporting the income stream. | 🟦 **OPTIONAL** — May be supplied. |
-| `liability_holding_links.allocation_pct` | Optional share of the liability attributed to this asset. | 🟦 **OPTIONAL** — May be supplied. |
-| `liability_holding_links.effective_to` | Date on which the liability link stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.document_date` | Business-effective date printed on the document. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.expires_on` | Document expiry date. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.source_id` | Source from which the document originated. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.supersedes_version_id` | Prior document version replaced by this version. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_links.effective_to` | Timestamp when the document link stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `verification_evidence.expires_at` | Evidence expiry timestamp. | 🟦 **OPTIONAL** — May be supplied. |
-| `verification_evidence.notes` | Bounded verification notes. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.offshore` | Whether the holding is outside India. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.foreign_account_ref` | Protected foreign account reference. | 🟦 **OPTIONAL** — Sensitive. |
-| `holdings.subtype_attributes.custodian_name` | Name of the custodian. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.custody_account_ref` | Protected custody-account reference. | 🟦 **OPTIONAL** — Sensitive. |
-| `holdings.subtype_attributes.beneficial_owner_declaration` | Whether beneficial ownership has been declared. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.notes` | Bounded non-secret notes about the asset. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.exchange_code` | Exchange code. Expected value: `str`. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.delivery_location` | Delivery location. Expected value: `str`. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.holding_id` | Unique identifier for the holding. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.subtype_schema_version` | Exact subtype field-schema version used to validate the record. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.created_by_principal_id` | Application principal that created the record. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.created_at` | Creation timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.updated_at` | Most recent update timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.version` | Optimistic-lock version used to prevent conflicting updates. | 🟪 **SYSTEM** — System-generated. |
-| `sources.source_id` | Unique identifier for the provenance record referenced by valuations, transactions and evidence. | 🟪 **SYSTEM** — System-generated. |
-| `sources.captured_by_principal_id` | Application principal that captured the information. | 🟪 **SYSTEM** — System-generated when a person or operator captured it. |
-| `sources.captured_at` | Timestamp when the information was captured. | 🟪 **SYSTEM** — System-generated. |
-| `sources.created_at` | Creation timestamp for the provenance record. | 🟪 **SYSTEM** — System-generated. |
-| `ownership_allocations.ownership_allocation_id` | Unique identifier for an ownership allocation. | 🟪 **SYSTEM** — System-generated. |
-| `ownership_allocations.holding_id` | Holding to which the ownership allocation belongs. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `ownership_allocations.created_at` | Creation timestamp for the ownership allocation. | 🟪 **SYSTEM** — System-generated. |
-| `valuation_events.valuation_event_id` | Unique identifier for an immutable valuation observation. | 🟪 **SYSTEM** — System-generated. |
-| `valuation_events.holding_id` | Holding valued by the observation. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `valuation_events.recorded_by_principal_id` | Application principal that recorded the valuation. | 🟪 **SYSTEM** — System-generated. |
-| `valuation_events.recorded_at` | Timestamp when the valuation was recorded. | 🟪 **SYSTEM** — System-generated. |
-| `cost_basis_lots.cost_basis_lot_id` | Unique identifier for an acquisition-cost lot. | 🟪 **SYSTEM** — System-generated. |
-| `cost_basis_lots.holding_id` | Holding acquired through the lot. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `cost_basis_lots.recorded_by_principal_id` | Application principal that recorded the lot. | 🟪 **SYSTEM** — System-generated. |
-| `cost_basis_lots.recorded_at` | Timestamp when the lot was recorded. | 🟪 **SYSTEM** — System-generated. |
-| `holding_restrictions.restriction_id` | Unique identifier for a lien, pledge, lock-in, freeze or legal restriction. | 🟪 **SYSTEM** — System-generated. |
-| `holding_restrictions.holding_id` | Holding affected by the restriction. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `holding_restrictions.created_at` | Creation timestamp for the restriction record. | 🟪 **SYSTEM** — System-generated. |
-| `commitments.commitment_id` | Unique identifier for an undrawn or contingent commitment. | 🟪 **SYSTEM** — System-generated. |
-| `commitments.holding_id` | Holding associated with the commitment. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `commitments.version` | Optimistic-lock version for the commitment. | 🟪 **SYSTEM** — System-generated. |
-| `transactions.transaction_id` | Unique identifier for an immutable ledger event. | 🟪 **SYSTEM** — System-generated. |
-| `transactions.holding_id` | Holding affected by the transaction. | 🟪 **SYSTEM** — System-generated when recorded from the holding. |
-| `transactions.recorded_at` | Timestamp when the transaction was recorded. | 🟪 **SYSTEM** — System-generated. |
-| `income_streams.income_stream_id` | Unique identifier for recurring or expected income. | 🟪 **SYSTEM** — System-generated. |
-| `income_streams.holding_id` | Asset producing the income. | 🟪 **SYSTEM** — System-generated when created from the holding. |
-| `income_streams.version` | Optimistic-lock version for the income stream. | 🟪 **SYSTEM** — System-generated. |
-| `liability_holding_links.liability_holding_link_id` | Unique identifier linking the asset to a liability. | 🟪 **SYSTEM** — System-generated. |
-| `liability_holding_links.holding_id` | Asset participating in the liability relationship. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `liability_holding_links.created_at` | Creation timestamp for the liability link. | 🟪 **SYSTEM** — System-generated. |
-| `documents.document_id` | Unique identifier for supporting document metadata. | 🟪 **SYSTEM** — System-generated. |
-| `documents.lifecycle_state` | Document processing and availability state. | 🟪 **SYSTEM** — System-managed. |
-| `documents.current_version_id` | Current clean document version. | 🟪 **SYSTEM** — System-managed. |
-| `documents.created_by_principal_id` | Application principal that created the document. | 🟪 **SYSTEM** — System-generated. |
-| `documents.created_at` | Document creation timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `documents.updated_at` | Document update timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `documents.version` | Optimistic-lock version for document metadata. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.document_version_id` | Unique identifier for an immutable document version. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.document_id` | Parent document. | 🟪 **SYSTEM** — System-generated from the parent document. |
-| `document_versions.version_number` | Monotonic version number within the document. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.storage_zone` | Quarantine or clean object-storage zone. | 🟪 **SYSTEM** — System-managed. |
-| `document_versions.storage_key` | Random non-personal object-storage key. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.checksum_sha256` | SHA-256 integrity digest. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.mime_type` | Server-detected MIME type. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.size_bytes` | Validated object size. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.scan_state` | Malware scanning state. | 🟪 **SYSTEM** — System-managed. |
-| `document_versions.scanner_policy_version` | Scanning-policy version used. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.uploaded_at` | Upload timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `document_links.document_link_id` | Unique identifier linking a document to the asset. | 🟪 **SYSTEM** — System-generated. |
-| `document_links.domain_type` | Approved domain-object type. | 🟪 **SYSTEM** — System-generated for an asset link. |
-| `document_links.domain_id` | Application-validated target identifier. | 🟪 **SYSTEM** — System-generated for an asset link. |
-| `document_links.holding_id` | Holding to which the document is linked. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `document_links.effective_from` | Timestamp from which the document link applies. | 🟪 **SYSTEM** — System-generated unless explicitly effective later. |
-| `document_links.created_by_principal_id` | Application principal that created the link. | 🟪 **SYSTEM** — System-generated. |
-| `verification_evidence.verification_evidence_id` | Unique identifier for evidence supporting a valuation or fact. | 🟪 **SYSTEM** — System-generated. |
-| `verification_evidence.verification_state` | Pending, verified, rejected or expired state. | 🟪 **SYSTEM** — System-managed. |
-| `verification_evidence.verified_by_principal_id` | Application principal that performed verification. | 🟪 **SYSTEM** — System-generated when verified or rejected. |
-| `verification_evidence.verified_at` | Verification timestamp. | 🟪 **SYSTEM** — System-generated when verified or rejected. |
-| `verification_evidence.created_at` | Evidence creation timestamp. | 🟪 **SYSTEM** — System-generated. |
+| <code>🟥 MANDATORY</code> `holdings.owner_person_id` | Person primarily accountable for the holding. |  |
+| <code>🟥 MANDATORY</code> `holdings.asset_class_code` | Selected top-level asset class. |  |
+| <code>🟥 MANDATORY</code> `holdings.asset_subtype_code` | Selected asset subtype. |  |
+| <code>🟥 MANDATORY</code> `holdings.name` | User-facing name for the holding. |  |
+| <code>🟥 MANDATORY</code> `holdings.currency` | Native ISO 4217 currency used for the holding. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes` | Validated object containing only the subtype fields listed below. | May be empty only when the subtype schema permits it. |
+| <code>🟥 MANDATORY</code> `holdings.status` | Lifecycle state: ACTIVE, CLOSED, DISPOSED or ARCHIVED. | Defaults to ACTIVE. |
+| <code>🟥 MANDATORY</code> `sources.source_type` | How the information was obtained: manual, import, connector, calculated or operator. | Required for each provenance record. |
+| <code>🟥 MANDATORY</code> `sources.trust_tier` | Evidence tier: verified, declared, estimated or unknown. | Required for each provenance record. |
+| <code>🟥 MANDATORY</code> `ownership_allocations.person_id` | Person receiving an ownership share. | Required for each ownership allocation. |
+| <code>🟥 MANDATORY</code> `ownership_allocations.ownership_pct` | Effective ownership percentage for the person. | Required for each ownership allocation. |
+| <code>🟥 MANDATORY</code> `ownership_allocations.effective_from` | Date from which the ownership share applies. | Required for each ownership allocation. |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.underlying_commodity` | Underlying commodity. Expected value: `str`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.instrument_kind` | Instrument kind. Expected value: `enum`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.position_side` | Position side. Expected value: `enum`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.quantity_and_unit` | Quantity and unit. Expected value: `object`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.expiry_date` | Expiry date. Expected value: `date`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.settlement_type` | Settlement type. Expected value: `enum`. |  |
+| <code>🟧 CONDITIONAL</code> `holdings.household_id` | Household in which the holding is shown. | Mandatory when included in a household portfolio. |
+| <code>🟧 CONDITIONAL</code> `holdings.quantity` | Units, shares, weight or other quantity when the asset is quantity-based. | Only when measured as units; omit for non-unitized assets. |
+| <code>🟧 CONDITIONAL</code> `holdings.identifier_type` | Kind of primary identifier, such as ISIN, folio or property reference. | When a canonical identifier is recorded. |
+| <code>🟧 CONDITIONAL</code> `holdings.identifier_ciphertext` | Encrypted primary identifier value. | When a canonical identifier is recorded; sensitive. |
+| <code>🟧 CONDITIONAL</code> `sources.data_consent_id` | Consent or lawful collection basis used by a connected source. | When collection depends on consent. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.value_minor_units` | Observed or appraised value in the valuation currency. | Required before the asset contributes to net worth. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.currency` | ISO 4217 currency of the valuation. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.as_of_at` | Date and time to which the valuation applies. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.source_id` | Source or manual-entry provenance for the valuation. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.valuation_method` | How the value was determined: market, appraisal, declared, modelled or cost. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.quantity` | Units acquired in the lot. | When the asset is quantity-based. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.cost_amount_minor_units` | Acquisition cost in minor currency units. | Required when recording a cost lot. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.currency` | ISO 4217 currency of the acquisition cost. | Required when recording a cost lot. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.acquired_on` | Acquisition date for the lot. | Required when recording a cost lot. |
+| <code>🟧 CONDITIONAL</code> `holding_restrictions.restriction_type` | Approved restriction type. | Required when a restriction exists. |
+| <code>🟧 CONDITIONAL</code> `holding_restrictions.effective_from` | Date from which the restriction applies. | Required when a restriction exists. |
+| <code>🟧 CONDITIONAL</code> `holding_restrictions.status` | Restriction state: active, released or disputed. | Required when a restriction exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.person_id` | Person responsible for funding the commitment. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.committed_minor_units` | Total committed amount in minor currency units. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.drawn_minor_units` | Amount already drawn. | Defaults to zero when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.currency` | ISO 4217 currency of the commitment. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.status` | Commitment state: open, partly drawn, fulfilled or cancelled. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `transactions.person_id` | Person who owns the transaction. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.source_id` | Provenance source for the transaction. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.transaction_type` | Type such as buy, sell, income, fee, tax or transfer. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.quantity` | Signed number of units affected. | When the transaction changes quantity. |
+| <code>🟧 CONDITIONAL</code> `transactions.amount_minor_units` | Signed cash amount in minor currency units. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.currency` | ISO 4217 transaction currency. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `income_streams.person_id` | Person receiving the income. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.name` | Display name of the income stream. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.income_type` | Income type such as rent, dividend, interest or pension. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.amount_minor_units` | Expected income amount in minor currency units. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.currency` | ISO 4217 income currency. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.frequency` | Expected payment frequency. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.starts_on` | Income start date. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.status` | Income-stream state: active, paused or ended. | Defaults to active when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `liability_holding_links.liability_id` | Liability secured by, financing or associated with the asset. | Required when the asset is linked to a liability. |
+| <code>🟧 CONDITIONAL</code> `liability_holding_links.link_type` | Relationship type: secured by, finances or associated with. | Required when linked to a liability. |
+| <code>🟧 CONDITIONAL</code> `liability_holding_links.effective_from` | Date from which the liability link applies. | Required when linked to a liability. |
+| <code>🟧 CONDITIONAL</code> `documents.owner_person_id` | Person who owns the document. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `documents.document_type` | Approved document type. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `documents.title` | Sanitized document title. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `documents.retention_class` | Retention policy applied to the document. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `document_versions.original_filename` | Sanitized original filename. | Required when a document is uploaded. |
+| <code>🟧 CONDITIONAL</code> `document_links.document_id` | Document linked to the asset. | Required when creating a document link. |
+| <code>🟧 CONDITIONAL</code> `document_links.link_purpose` | Purpose such as evidence, contract or statement. | Required when creating a document link. |
+| <code>🟧 CONDITIONAL</code> `verification_evidence.valuation_event_id` | Valuation supported by the evidence. |  |
+| <code>🟧 CONDITIONAL</code> `verification_evidence.document_id` | Supporting document. |  |
+| <code>🟧 CONDITIONAL</code> `verification_evidence.evidence_type` | Approved evidence type. | Required when verification evidence is recorded. |
+| <code>🟧 CONDITIONAL</code> `holdings.subtype_attributes.jurisdiction` | Country governing the offshore holding. | Mandatory when offshore is true. |
+| <code>🟧 CONDITIONAL</code> `holdings.subtype_attributes.tax_residency_relevance` | Whether the offshore holding is relevant to tax-residency reporting. | Mandatory when offshore is true. |
+| <code>🟧 CONDITIONAL</code> `holdings.subtype_attributes.reporting_status` | Current foreign-asset reporting state. | Mandatory when offshore is true. |
+| <code>🟧 CONDITIONAL</code> `holdings.subtype_attributes.strike_price` | Strike price. Expected value: `money`. |  |
+| <code>🟦 OPTIONAL</code> `holdings.acquired_on` | Known acquisition date. |  |
+| <code>🟦 OPTIONAL</code> `sources.provider_code` | Provider or institution code when applicable. |  |
+| <code>🟦 OPTIONAL</code> `sources.external_reference_hash` | Non-reversible hash of an external source reference. |  |
+| <code>🟦 OPTIONAL</code> `sources.metadata` | Allow-listed, source-specific provenance metadata. | Defaults to an empty object. |
+| <code>🟦 OPTIONAL</code> `ownership_allocations.effective_to` | Date on which the ownership share stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `ownership_allocations.source_id` | Evidence source supporting the ownership allocation. |  |
+| <code>🟦 OPTIONAL</code> `valuation_events.confidence` | Optional confidence score from 0 to 1. |  |
+| <code>🟦 OPTIONAL</code> `valuation_events.supersedes_event_id` | Prior valuation corrected by this event. |  |
+| <code>🟦 OPTIONAL</code> `valuation_events.metadata` | Bounded, method-specific valuation details. | Defaults to an empty object. |
+| <code>🟦 OPTIONAL</code> `cost_basis_lots.source_id` | Source supporting the acquisition lot. |  |
+| <code>🟦 OPTIONAL</code> `cost_basis_lots.supersedes_lot_id` | Prior acquisition lot corrected by this lot. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.liability_id` | Liability causing or associated with the restriction. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.counterparty_reference` | Bounded reference to the restriction counterparty. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.effective_to` | Date on which the restriction stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.source_id` | Evidence source supporting the restriction. |  |
+| <code>🟦 OPTIONAL</code> `commitments.due_on` | Known commitment due date. |  |
+| <code>🟦 OPTIONAL</code> `commitments.window_start` | Start of the permitted draw window. |  |
+| <code>🟦 OPTIONAL</code> `commitments.window_end` | End of the permitted draw window. |  |
+| <code>🟦 OPTIONAL</code> `commitments.source_id` | Source supporting the commitment. |  |
+| <code>🟦 OPTIONAL</code> `transactions.external_transaction_hash` | Scoped deduplication hash for an imported transaction. |  |
+| <code>🟦 OPTIONAL</code> `transactions.trade_date` | Trade or business-effective date. |  |
+| <code>🟦 OPTIONAL</code> `transactions.settled_at` | Settlement timestamp. |  |
+| <code>🟦 OPTIONAL</code> `transactions.description` | Sanitized transaction description. |  |
+| <code>🟦 OPTIONAL</code> `transactions.supersedes_transaction_id` | Prior transaction corrected by this event. |  |
+| <code>🟦 OPTIONAL</code> `income_streams.ends_on` | Income end date. |  |
+| <code>🟦 OPTIONAL</code> `income_streams.growth_rate_pct` | Optional expected annual growth rate. |  |
+| <code>🟦 OPTIONAL</code> `income_streams.source_id` | Source supporting the income stream. |  |
+| <code>🟦 OPTIONAL</code> `liability_holding_links.allocation_pct` | Optional share of the liability attributed to this asset. |  |
+| <code>🟦 OPTIONAL</code> `liability_holding_links.effective_to` | Date on which the liability link stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.document_date` | Business-effective date printed on the document. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.expires_on` | Document expiry date. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.source_id` | Source from which the document originated. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.supersedes_version_id` | Prior document version replaced by this version. |  |
+| <code>🟦 OPTIONAL</code> `document_links.effective_to` | Timestamp when the document link stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `verification_evidence.expires_at` | Evidence expiry timestamp. |  |
+| <code>🟦 OPTIONAL</code> `verification_evidence.notes` | Bounded verification notes. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.offshore` | Whether the holding is outside India. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.foreign_account_ref` | Protected foreign account reference. | Sensitive. |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.custodian_name` | Name of the custodian. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.custody_account_ref` | Protected custody-account reference. | Sensitive. |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.beneficial_owner_declaration` | Whether beneficial ownership has been declared. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.notes` | Bounded non-secret notes about the asset. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.exchange_code` | Exchange code. Expected value: `str`. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.delivery_location` | Delivery location. Expected value: `str`. |  |
+| <code>🟪 SYSTEM</code> `holdings.holding_id` | Unique identifier for the holding. |  |
+| <code>🟪 SYSTEM</code> `holdings.subtype_schema_version` | Exact subtype field-schema version used to validate the record. |  |
+| <code>🟪 SYSTEM</code> `holdings.created_by_principal_id` | Application principal that created the record. |  |
+| <code>🟪 SYSTEM</code> `holdings.created_at` | Creation timestamp. |  |
+| <code>🟪 SYSTEM</code> `holdings.updated_at` | Most recent update timestamp. |  |
+| <code>🟪 SYSTEM</code> `holdings.version` | Optimistic-lock version used to prevent conflicting updates. |  |
+| <code>🟪 SYSTEM</code> `sources.source_id` | Unique identifier for the provenance record referenced by valuations, transactions and evidence. |  |
+| <code>🟪 SYSTEM</code> `sources.captured_by_principal_id` | Application principal that captured the information. | When a person or operator captured it. |
+| <code>🟪 SYSTEM</code> `sources.captured_at` | Timestamp when the information was captured. |  |
+| <code>🟪 SYSTEM</code> `sources.created_at` | Creation timestamp for the provenance record. |  |
+| <code>🟪 SYSTEM</code> `ownership_allocations.ownership_allocation_id` | Unique identifier for an ownership allocation. |  |
+| <code>🟪 SYSTEM</code> `ownership_allocations.holding_id` | Holding to which the ownership allocation belongs. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `ownership_allocations.created_at` | Creation timestamp for the ownership allocation. |  |
+| <code>🟪 SYSTEM</code> `valuation_events.valuation_event_id` | Unique identifier for an immutable valuation observation. |  |
+| <code>🟪 SYSTEM</code> `valuation_events.holding_id` | Holding valued by the observation. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `valuation_events.recorded_by_principal_id` | Application principal that recorded the valuation. |  |
+| <code>🟪 SYSTEM</code> `valuation_events.recorded_at` | Timestamp when the valuation was recorded. |  |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.cost_basis_lot_id` | Unique identifier for an acquisition-cost lot. |  |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.holding_id` | Holding acquired through the lot. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.recorded_by_principal_id` | Application principal that recorded the lot. |  |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.recorded_at` | Timestamp when the lot was recorded. |  |
+| <code>🟪 SYSTEM</code> `holding_restrictions.restriction_id` | Unique identifier for a lien, pledge, lock-in, freeze or legal restriction. |  |
+| <code>🟪 SYSTEM</code> `holding_restrictions.holding_id` | Holding affected by the restriction. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `holding_restrictions.created_at` | Creation timestamp for the restriction record. |  |
+| <code>🟪 SYSTEM</code> `commitments.commitment_id` | Unique identifier for an undrawn or contingent commitment. |  |
+| <code>🟪 SYSTEM</code> `commitments.holding_id` | Holding associated with the commitment. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `commitments.version` | Optimistic-lock version for the commitment. |  |
+| <code>🟪 SYSTEM</code> `transactions.transaction_id` | Unique identifier for an immutable ledger event. |  |
+| <code>🟪 SYSTEM</code> `transactions.holding_id` | Holding affected by the transaction. | When recorded from the holding. |
+| <code>🟪 SYSTEM</code> `transactions.recorded_at` | Timestamp when the transaction was recorded. |  |
+| <code>🟪 SYSTEM</code> `income_streams.income_stream_id` | Unique identifier for recurring or expected income. |  |
+| <code>🟪 SYSTEM</code> `income_streams.holding_id` | Asset producing the income. | When created from the holding. |
+| <code>🟪 SYSTEM</code> `income_streams.version` | Optimistic-lock version for the income stream. |  |
+| <code>🟪 SYSTEM</code> `liability_holding_links.liability_holding_link_id` | Unique identifier linking the asset to a liability. |  |
+| <code>🟪 SYSTEM</code> `liability_holding_links.holding_id` | Asset participating in the liability relationship. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `liability_holding_links.created_at` | Creation timestamp for the liability link. |  |
+| <code>🟪 SYSTEM</code> `documents.document_id` | Unique identifier for supporting document metadata. |  |
+| <code>🟪 SYSTEM</code> `documents.lifecycle_state` | Document processing and availability state. |  |
+| <code>🟪 SYSTEM</code> `documents.current_version_id` | Current clean document version. |  |
+| <code>🟪 SYSTEM</code> `documents.created_by_principal_id` | Application principal that created the document. |  |
+| <code>🟪 SYSTEM</code> `documents.created_at` | Document creation timestamp. |  |
+| <code>🟪 SYSTEM</code> `documents.updated_at` | Document update timestamp. |  |
+| <code>🟪 SYSTEM</code> `documents.version` | Optimistic-lock version for document metadata. |  |
+| <code>🟪 SYSTEM</code> `document_versions.document_version_id` | Unique identifier for an immutable document version. |  |
+| <code>🟪 SYSTEM</code> `document_versions.document_id` | Parent document. | From the parent document. |
+| <code>🟪 SYSTEM</code> `document_versions.version_number` | Monotonic version number within the document. |  |
+| <code>🟪 SYSTEM</code> `document_versions.storage_zone` | Quarantine or clean object-storage zone. |  |
+| <code>🟪 SYSTEM</code> `document_versions.storage_key` | Random non-personal object-storage key. |  |
+| <code>🟪 SYSTEM</code> `document_versions.checksum_sha256` | SHA-256 integrity digest. |  |
+| <code>🟪 SYSTEM</code> `document_versions.mime_type` | Server-detected MIME type. |  |
+| <code>🟪 SYSTEM</code> `document_versions.size_bytes` | Validated object size. |  |
+| <code>🟪 SYSTEM</code> `document_versions.scan_state` | Malware scanning state. |  |
+| <code>🟪 SYSTEM</code> `document_versions.scanner_policy_version` | Scanning-policy version used. |  |
+| <code>🟪 SYSTEM</code> `document_versions.uploaded_at` | Upload timestamp. |  |
+| <code>🟪 SYSTEM</code> `document_links.document_link_id` | Unique identifier linking a document to the asset. |  |
+| <code>🟪 SYSTEM</code> `document_links.domain_type` | Approved domain-object type. | For an asset link. |
+| <code>🟪 SYSTEM</code> `document_links.domain_id` | Application-validated target identifier. | For an asset link. |
+| <code>🟪 SYSTEM</code> `document_links.holding_id` | Holding to which the document is linked. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `document_links.effective_from` | Timestamp from which the document link applies. | Unless explicitly effective later. |
+| <code>🟪 SYSTEM</code> `document_links.created_by_principal_id` | Application principal that created the link. |  |
+| <code>🟪 SYSTEM</code> `verification_evidence.verification_evidence_id` | Unique identifier for evidence supporting a valuation or fact. |  |
+| <code>🟪 SYSTEM</code> `verification_evidence.verification_state` | Pending, verified, rejected or expired state. |  |
+| <code>🟪 SYSTEM</code> `verification_evidence.verified_by_principal_id` | Application principal that performed verification. | When verified or rejected. |
+| <code>🟪 SYSTEM</code> `verification_evidence.verified_at` | Verification timestamp. | When verified or rejected. |
+| <code>🟪 SYSTEM</code> `verification_evidence.created_at` | Evidence creation timestamp. |  |
 
 </details>
 
@@ -775,189 +775,189 @@ Each subtype below expands into its complete field checklist. The status tags an
 <details>
 <summary><strong>Asset subtype: <code>CONVERTIBLE_SECURITY</code></strong></summary>
 
-| `table_name.column_name` | Description | Note |
+| Status and `table_name.column_name` | Description | Notes |
 |---|---|---|
-| `holdings.owner_person_id` | Person primarily accountable for the holding. | 🟥 **MANDATORY** — Required. |
-| `holdings.asset_class_code` | Selected top-level asset class. | 🟥 **MANDATORY** — Required. |
-| `holdings.asset_subtype_code` | Selected asset subtype. | 🟥 **MANDATORY** — Required. |
-| `holdings.name` | User-facing name for the holding. | 🟥 **MANDATORY** — Required. |
-| `holdings.currency` | Native ISO 4217 currency used for the holding. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes` | Validated object containing only the subtype fields listed below. | 🟥 **MANDATORY** — May be empty only when the subtype schema permits it. |
-| `holdings.status` | Lifecycle state: ACTIVE, CLOSED, DISPOSED or ARCHIVED. | 🟥 **MANDATORY** — Defaults to ACTIVE. |
-| `sources.source_type` | How the information was obtained: manual, import, connector, calculated or operator. | 🟥 **MANDATORY** — Required for each provenance record. |
-| `sources.trust_tier` | Evidence tier: verified, declared, estimated or unknown. | 🟥 **MANDATORY** — Required for each provenance record. |
-| `ownership_allocations.person_id` | Person receiving an ownership share. | 🟥 **MANDATORY** — Required for each ownership allocation. |
-| `ownership_allocations.ownership_pct` | Effective ownership percentage for the person. | 🟥 **MANDATORY** — Required for each ownership allocation. |
-| `ownership_allocations.effective_from` | Date from which the ownership share applies. | 🟥 **MANDATORY** — Required for each ownership allocation. |
-| `holdings.subtype_attributes.issuer_name` | Issuer name. Expected value: `str`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.security_name` | Security name. Expected value: `str`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.principal_or_face_value` | Principal or face value. Expected value: `money`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.conversion_ratio_or_formula` | Conversion ratio or formula. Expected value: `object`. | 🟥 **MANDATORY** — Required. |
-| `holdings.subtype_attributes.conversion_status` | Conversion status. Expected value: `enum`. | 🟥 **MANDATORY** — Required. |
-| `holdings.household_id` | Household in which the holding is shown. | 🟧 **CONDITIONAL** — Mandatory when included in a household portfolio. |
-| `holdings.quantity` | Units, shares, weight or other quantity when the asset is quantity-based. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `holdings.identifier_type` | Kind of primary identifier, such as ISIN, folio or property reference. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `holdings.identifier_ciphertext` | Encrypted primary identifier value. | 🟧 **CONDITIONAL** — Sensitive. |
-| `sources.data_consent_id` | Consent or lawful collection basis used by a connected source. | 🟧 **CONDITIONAL** — When collection depends on consent. |
-| `valuation_events.value_minor_units` | Observed or appraised value in the valuation currency. | 🟧 **CONDITIONAL** — Required before the asset contributes to net worth. |
-| `valuation_events.currency` | ISO 4217 currency of the valuation. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `valuation_events.as_of_at` | Date and time to which the valuation applies. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `valuation_events.source_id` | Source or manual-entry provenance for the valuation. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `valuation_events.valuation_method` | How the value was determined: market, appraisal, declared, modelled or cost. | 🟧 **CONDITIONAL** — Required with a valuation. |
-| `cost_basis_lots.quantity` | Units acquired in the lot. | 🟧 **CONDITIONAL** — When the asset is quantity-based. |
-| `cost_basis_lots.cost_amount_minor_units` | Acquisition cost in minor currency units. | 🟧 **CONDITIONAL** — Required when recording a cost lot. |
-| `cost_basis_lots.currency` | ISO 4217 currency of the acquisition cost. | 🟧 **CONDITIONAL** — Required when recording a cost lot. |
-| `cost_basis_lots.acquired_on` | Acquisition date for the lot. | 🟧 **CONDITIONAL** — Required when recording a cost lot. |
-| `holding_restrictions.restriction_type` | Approved restriction type. | 🟧 **CONDITIONAL** — Required when a restriction exists. |
-| `holding_restrictions.effective_from` | Date from which the restriction applies. | 🟧 **CONDITIONAL** — Required when a restriction exists. |
-| `holding_restrictions.status` | Restriction state: active, released or disputed. | 🟧 **CONDITIONAL** — Required when a restriction exists. |
-| `commitments.person_id` | Person responsible for funding the commitment. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `commitments.committed_minor_units` | Total committed amount in minor currency units. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `commitments.drawn_minor_units` | Amount already drawn. | 🟧 **CONDITIONAL** — Defaults to zero when a commitment exists. |
-| `commitments.currency` | ISO 4217 currency of the commitment. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `commitments.status` | Commitment state: open, partly drawn, fulfilled or cancelled. | 🟧 **CONDITIONAL** — Required when a commitment exists. |
-| `transactions.person_id` | Person who owns the transaction. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.source_id` | Provenance source for the transaction. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.transaction_type` | Type such as buy, sell, income, fee, tax or transfer. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.quantity` | Signed number of units affected. | 🟧 **CONDITIONAL** — When the transaction changes quantity. |
-| `transactions.amount_minor_units` | Signed cash amount in minor currency units. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `transactions.currency` | ISO 4217 transaction currency. | 🟧 **CONDITIONAL** — Required when a transaction is recorded. |
-| `income_streams.person_id` | Person receiving the income. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.name` | Display name of the income stream. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.income_type` | Income type such as rent, dividend, interest or pension. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.amount_minor_units` | Expected income amount in minor currency units. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.currency` | ISO 4217 income currency. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.frequency` | Expected payment frequency. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.starts_on` | Income start date. | 🟧 **CONDITIONAL** — Required when an income stream exists. |
-| `income_streams.status` | Income-stream state: active, paused or ended. | 🟧 **CONDITIONAL** — Defaults to active when an income stream exists. |
-| `liability_holding_links.liability_id` | Liability secured by, financing or associated with the asset. | 🟧 **CONDITIONAL** — Required when the asset is linked to a liability. |
-| `liability_holding_links.link_type` | Relationship type: secured by, finances or associated with. | 🟧 **CONDITIONAL** — Required when linked to a liability. |
-| `liability_holding_links.effective_from` | Date from which the liability link applies. | 🟧 **CONDITIONAL** — Required when linked to a liability. |
-| `documents.owner_person_id` | Person who owns the document. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `documents.document_type` | Approved document type. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `documents.title` | Sanitized document title. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `documents.retention_class` | Retention policy applied to the document. | 🟧 **CONDITIONAL** — Required when a document is attached. |
-| `document_versions.original_filename` | Sanitized original filename. | 🟧 **CONDITIONAL** — Required when a document is uploaded. |
-| `document_links.document_id` | Document linked to the asset. | 🟧 **CONDITIONAL** — Required when creating a document link. |
-| `document_links.link_purpose` | Purpose such as evidence, contract or statement. | 🟧 **CONDITIONAL** — Required when creating a document link. |
-| `verification_evidence.valuation_event_id` | Valuation supported by the evidence. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `verification_evidence.document_id` | Supporting document. | 🟧 **CONDITIONAL** — Required when applicable. |
-| `verification_evidence.evidence_type` | Approved evidence type. | 🟧 **CONDITIONAL** — Required when verification evidence is recorded. |
-| `holdings.subtype_attributes.jurisdiction` | Country governing the offshore holding. | 🟧 **CONDITIONAL** — Mandatory when offshore is true. |
-| `holdings.subtype_attributes.tax_residency_relevance` | Whether the offshore holding is relevant to tax-residency reporting. | 🟧 **CONDITIONAL** — Mandatory when offshore is true. |
-| `holdings.subtype_attributes.reporting_status` | Current foreign-asset reporting state. | 🟧 **CONDITIONAL** — Mandatory when offshore is true. |
-| `holdings.acquired_on` | Known acquisition date. | 🟦 **OPTIONAL** — May be supplied. |
-| `sources.provider_code` | Provider or institution code when applicable. | 🟦 **OPTIONAL** — May be supplied. |
-| `sources.external_reference_hash` | Non-reversible hash of an external source reference. | 🟦 **OPTIONAL** — May be supplied. |
-| `sources.metadata` | Allow-listed, source-specific provenance metadata. | 🟦 **OPTIONAL** — Defaults to an empty object. |
-| `ownership_allocations.effective_to` | Date on which the ownership share stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `ownership_allocations.source_id` | Evidence source supporting the ownership allocation. | 🟦 **OPTIONAL** — May be supplied. |
-| `valuation_events.confidence` | Optional confidence score from 0 to 1. | 🟦 **OPTIONAL** — May be supplied. |
-| `valuation_events.supersedes_event_id` | Prior valuation corrected by this event. | 🟦 **OPTIONAL** — May be supplied. |
-| `valuation_events.metadata` | Bounded, method-specific valuation details. | 🟦 **OPTIONAL** — Defaults to an empty object. |
-| `cost_basis_lots.source_id` | Source supporting the acquisition lot. | 🟦 **OPTIONAL** — May be supplied. |
-| `cost_basis_lots.supersedes_lot_id` | Prior acquisition lot corrected by this lot. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.liability_id` | Liability causing or associated with the restriction. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.counterparty_reference` | Bounded reference to the restriction counterparty. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.effective_to` | Date on which the restriction stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `holding_restrictions.source_id` | Evidence source supporting the restriction. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.due_on` | Known commitment due date. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.window_start` | Start of the permitted draw window. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.window_end` | End of the permitted draw window. | 🟦 **OPTIONAL** — May be supplied. |
-| `commitments.source_id` | Source supporting the commitment. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.external_transaction_hash` | Scoped deduplication hash for an imported transaction. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.trade_date` | Trade or business-effective date. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.settled_at` | Settlement timestamp. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.description` | Sanitized transaction description. | 🟦 **OPTIONAL** — May be supplied. |
-| `transactions.supersedes_transaction_id` | Prior transaction corrected by this event. | 🟦 **OPTIONAL** — May be supplied. |
-| `income_streams.ends_on` | Income end date. | 🟦 **OPTIONAL** — May be supplied. |
-| `income_streams.growth_rate_pct` | Optional expected annual growth rate. | 🟦 **OPTIONAL** — May be supplied. |
-| `income_streams.source_id` | Source supporting the income stream. | 🟦 **OPTIONAL** — May be supplied. |
-| `liability_holding_links.allocation_pct` | Optional share of the liability attributed to this asset. | 🟦 **OPTIONAL** — May be supplied. |
-| `liability_holding_links.effective_to` | Date on which the liability link stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.document_date` | Business-effective date printed on the document. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.expires_on` | Document expiry date. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.source_id` | Source from which the document originated. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_versions.supersedes_version_id` | Prior document version replaced by this version. | 🟦 **OPTIONAL** — May be supplied. |
-| `document_links.effective_to` | Timestamp when the document link stopped applying. | 🟦 **OPTIONAL** — May be supplied. |
-| `verification_evidence.expires_at` | Evidence expiry timestamp. | 🟦 **OPTIONAL** — May be supplied. |
-| `verification_evidence.notes` | Bounded verification notes. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.offshore` | Whether the holding is outside India. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.foreign_account_ref` | Protected foreign account reference. | 🟦 **OPTIONAL** — Sensitive. |
-| `holdings.subtype_attributes.custodian_name` | Name of the custodian. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.custody_account_ref` | Protected custody-account reference. | 🟦 **OPTIONAL** — Sensitive. |
-| `holdings.subtype_attributes.beneficial_owner_declaration` | Whether beneficial ownership has been declared. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.notes` | Bounded non-secret notes about the asset. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.isin` | Isin. Expected value: `str(12)`. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.coupon_rate_pct` | Coupon rate pct. Expected value: `pct`. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.maturity_date` | Maturity date. Expected value: `date`. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.conversion_start_date` | Conversion start date. Expected value: `date`. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.subtype_attributes.conversion_end_date` | Conversion end date. Expected value: `date`. | 🟦 **OPTIONAL** — May be supplied. |
-| `holdings.holding_id` | Unique identifier for the holding. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.subtype_schema_version` | Exact subtype field-schema version used to validate the record. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.created_by_principal_id` | Application principal that created the record. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.created_at` | Creation timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.updated_at` | Most recent update timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `holdings.version` | Optimistic-lock version used to prevent conflicting updates. | 🟪 **SYSTEM** — System-generated. |
-| `sources.source_id` | Unique identifier for the provenance record referenced by valuations, transactions and evidence. | 🟪 **SYSTEM** — System-generated. |
-| `sources.captured_by_principal_id` | Application principal that captured the information. | 🟪 **SYSTEM** — System-generated when a person or operator captured it. |
-| `sources.captured_at` | Timestamp when the information was captured. | 🟪 **SYSTEM** — System-generated. |
-| `sources.created_at` | Creation timestamp for the provenance record. | 🟪 **SYSTEM** — System-generated. |
-| `ownership_allocations.ownership_allocation_id` | Unique identifier for an ownership allocation. | 🟪 **SYSTEM** — System-generated. |
-| `ownership_allocations.holding_id` | Holding to which the ownership allocation belongs. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `ownership_allocations.created_at` | Creation timestamp for the ownership allocation. | 🟪 **SYSTEM** — System-generated. |
-| `valuation_events.valuation_event_id` | Unique identifier for an immutable valuation observation. | 🟪 **SYSTEM** — System-generated. |
-| `valuation_events.holding_id` | Holding valued by the observation. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `valuation_events.recorded_by_principal_id` | Application principal that recorded the valuation. | 🟪 **SYSTEM** — System-generated. |
-| `valuation_events.recorded_at` | Timestamp when the valuation was recorded. | 🟪 **SYSTEM** — System-generated. |
-| `cost_basis_lots.cost_basis_lot_id` | Unique identifier for an acquisition-cost lot. | 🟪 **SYSTEM** — System-generated. |
-| `cost_basis_lots.holding_id` | Holding acquired through the lot. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `cost_basis_lots.recorded_by_principal_id` | Application principal that recorded the lot. | 🟪 **SYSTEM** — System-generated. |
-| `cost_basis_lots.recorded_at` | Timestamp when the lot was recorded. | 🟪 **SYSTEM** — System-generated. |
-| `holding_restrictions.restriction_id` | Unique identifier for a lien, pledge, lock-in, freeze or legal restriction. | 🟪 **SYSTEM** — System-generated. |
-| `holding_restrictions.holding_id` | Holding affected by the restriction. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `holding_restrictions.created_at` | Creation timestamp for the restriction record. | 🟪 **SYSTEM** — System-generated. |
-| `commitments.commitment_id` | Unique identifier for an undrawn or contingent commitment. | 🟪 **SYSTEM** — System-generated. |
-| `commitments.holding_id` | Holding associated with the commitment. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `commitments.version` | Optimistic-lock version for the commitment. | 🟪 **SYSTEM** — System-generated. |
-| `transactions.transaction_id` | Unique identifier for an immutable ledger event. | 🟪 **SYSTEM** — System-generated. |
-| `transactions.holding_id` | Holding affected by the transaction. | 🟪 **SYSTEM** — System-generated when recorded from the holding. |
-| `transactions.recorded_at` | Timestamp when the transaction was recorded. | 🟪 **SYSTEM** — System-generated. |
-| `income_streams.income_stream_id` | Unique identifier for recurring or expected income. | 🟪 **SYSTEM** — System-generated. |
-| `income_streams.holding_id` | Asset producing the income. | 🟪 **SYSTEM** — System-generated when created from the holding. |
-| `income_streams.version` | Optimistic-lock version for the income stream. | 🟪 **SYSTEM** — System-generated. |
-| `liability_holding_links.liability_holding_link_id` | Unique identifier linking the asset to a liability. | 🟪 **SYSTEM** — System-generated. |
-| `liability_holding_links.holding_id` | Asset participating in the liability relationship. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `liability_holding_links.created_at` | Creation timestamp for the liability link. | 🟪 **SYSTEM** — System-generated. |
-| `documents.document_id` | Unique identifier for supporting document metadata. | 🟪 **SYSTEM** — System-generated. |
-| `documents.lifecycle_state` | Document processing and availability state. | 🟪 **SYSTEM** — System-managed. |
-| `documents.current_version_id` | Current clean document version. | 🟪 **SYSTEM** — System-managed. |
-| `documents.created_by_principal_id` | Application principal that created the document. | 🟪 **SYSTEM** — System-generated. |
-| `documents.created_at` | Document creation timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `documents.updated_at` | Document update timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `documents.version` | Optimistic-lock version for document metadata. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.document_version_id` | Unique identifier for an immutable document version. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.document_id` | Parent document. | 🟪 **SYSTEM** — System-generated from the parent document. |
-| `document_versions.version_number` | Monotonic version number within the document. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.storage_zone` | Quarantine or clean object-storage zone. | 🟪 **SYSTEM** — System-managed. |
-| `document_versions.storage_key` | Random non-personal object-storage key. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.checksum_sha256` | SHA-256 integrity digest. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.mime_type` | Server-detected MIME type. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.size_bytes` | Validated object size. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.scan_state` | Malware scanning state. | 🟪 **SYSTEM** — System-managed. |
-| `document_versions.scanner_policy_version` | Scanning-policy version used. | 🟪 **SYSTEM** — System-generated. |
-| `document_versions.uploaded_at` | Upload timestamp. | 🟪 **SYSTEM** — System-generated. |
-| `document_links.document_link_id` | Unique identifier linking a document to the asset. | 🟪 **SYSTEM** — System-generated. |
-| `document_links.domain_type` | Approved domain-object type. | 🟪 **SYSTEM** — System-generated for an asset link. |
-| `document_links.domain_id` | Application-validated target identifier. | 🟪 **SYSTEM** — System-generated for an asset link. |
-| `document_links.holding_id` | Holding to which the document is linked. | 🟪 **SYSTEM** — System-generated from the parent holding. |
-| `document_links.effective_from` | Timestamp from which the document link applies. | 🟪 **SYSTEM** — System-generated unless explicitly effective later. |
-| `document_links.created_by_principal_id` | Application principal that created the link. | 🟪 **SYSTEM** — System-generated. |
-| `verification_evidence.verification_evidence_id` | Unique identifier for evidence supporting a valuation or fact. | 🟪 **SYSTEM** — System-generated. |
-| `verification_evidence.verification_state` | Pending, verified, rejected or expired state. | 🟪 **SYSTEM** — System-managed. |
-| `verification_evidence.verified_by_principal_id` | Application principal that performed verification. | 🟪 **SYSTEM** — System-generated when verified or rejected. |
-| `verification_evidence.verified_at` | Verification timestamp. | 🟪 **SYSTEM** — System-generated when verified or rejected. |
-| `verification_evidence.created_at` | Evidence creation timestamp. | 🟪 **SYSTEM** — System-generated. |
+| <code>🟥 MANDATORY</code> `holdings.owner_person_id` | Person primarily accountable for the holding. |  |
+| <code>🟥 MANDATORY</code> `holdings.asset_class_code` | Selected top-level asset class. |  |
+| <code>🟥 MANDATORY</code> `holdings.asset_subtype_code` | Selected asset subtype. |  |
+| <code>🟥 MANDATORY</code> `holdings.name` | User-facing name for the holding. |  |
+| <code>🟥 MANDATORY</code> `holdings.currency` | Native ISO 4217 currency used for the holding. |  |
+| <code>🟥 MANDATORY</code> `holdings.quantity` | Positive number of shares, units, tokens or contracts held in an active position. | Positive quantity for an active holding. |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes` | Validated object containing only the subtype fields listed below. | May be empty only when the subtype schema permits it. |
+| <code>🟥 MANDATORY</code> `holdings.status` | Lifecycle state: ACTIVE, CLOSED, DISPOSED or ARCHIVED. | Defaults to ACTIVE. |
+| <code>🟥 MANDATORY</code> `sources.source_type` | How the information was obtained: manual, import, connector, calculated or operator. | Required for each provenance record. |
+| <code>🟥 MANDATORY</code> `sources.trust_tier` | Evidence tier: verified, declared, estimated or unknown. | Required for each provenance record. |
+| <code>🟥 MANDATORY</code> `ownership_allocations.person_id` | Person receiving an ownership share. | Required for each ownership allocation. |
+| <code>🟥 MANDATORY</code> `ownership_allocations.ownership_pct` | Effective ownership percentage for the person. | Required for each ownership allocation. |
+| <code>🟥 MANDATORY</code> `ownership_allocations.effective_from` | Date from which the ownership share applies. | Required for each ownership allocation. |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.issuer_name` | Issuer name. Expected value: `str`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.security_name` | Security name. Expected value: `str`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.principal_or_face_value` | Principal or face value. Expected value: `money`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.conversion_ratio_or_formula` | Conversion ratio or formula. Expected value: `object`. |  |
+| <code>🟥 MANDATORY</code> `holdings.subtype_attributes.conversion_status` | Conversion status. Expected value: `enum`. |  |
+| <code>🟧 CONDITIONAL</code> `holdings.household_id` | Household in which the holding is shown. | Mandatory when included in a household portfolio. |
+| <code>🟧 CONDITIONAL</code> `holdings.identifier_type` | Kind of primary identifier, such as ISIN, folio or property reference. | When a canonical identifier is recorded. |
+| <code>🟧 CONDITIONAL</code> `holdings.identifier_ciphertext` | Encrypted primary identifier value. | When a canonical identifier is recorded; sensitive. |
+| <code>🟧 CONDITIONAL</code> `sources.data_consent_id` | Consent or lawful collection basis used by a connected source. | When collection depends on consent. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.value_minor_units` | Observed or appraised value in the valuation currency. | Required before the asset contributes to net worth. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.currency` | ISO 4217 currency of the valuation. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.as_of_at` | Date and time to which the valuation applies. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.source_id` | Source or manual-entry provenance for the valuation. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `valuation_events.valuation_method` | How the value was determined: market, appraisal, declared, modelled or cost. | Required with a valuation. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.quantity` | Units acquired in the lot. | When the asset is quantity-based. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.cost_amount_minor_units` | Acquisition cost in minor currency units. | Required when recording a cost lot. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.currency` | ISO 4217 currency of the acquisition cost. | Required when recording a cost lot. |
+| <code>🟧 CONDITIONAL</code> `cost_basis_lots.acquired_on` | Acquisition date for the lot. | Required when recording a cost lot. |
+| <code>🟧 CONDITIONAL</code> `holding_restrictions.restriction_type` | Approved restriction type. | Required when a restriction exists. |
+| <code>🟧 CONDITIONAL</code> `holding_restrictions.effective_from` | Date from which the restriction applies. | Required when a restriction exists. |
+| <code>🟧 CONDITIONAL</code> `holding_restrictions.status` | Restriction state: active, released or disputed. | Required when a restriction exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.person_id` | Person responsible for funding the commitment. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.committed_minor_units` | Total committed amount in minor currency units. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.drawn_minor_units` | Amount already drawn. | Defaults to zero when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.currency` | ISO 4217 currency of the commitment. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `commitments.status` | Commitment state: open, partly drawn, fulfilled or cancelled. | Required when a commitment exists. |
+| <code>🟧 CONDITIONAL</code> `transactions.person_id` | Person who owns the transaction. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.source_id` | Provenance source for the transaction. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.transaction_type` | Type such as buy, sell, income, fee, tax or transfer. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.quantity` | Signed number of units affected. | When the transaction changes quantity. |
+| <code>🟧 CONDITIONAL</code> `transactions.amount_minor_units` | Signed cash amount in minor currency units. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `transactions.currency` | ISO 4217 transaction currency. | Required when a transaction is recorded. |
+| <code>🟧 CONDITIONAL</code> `income_streams.person_id` | Person receiving the income. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.name` | Display name of the income stream. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.income_type` | Income type such as rent, dividend, interest or pension. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.amount_minor_units` | Expected income amount in minor currency units. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.currency` | ISO 4217 income currency. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.frequency` | Expected payment frequency. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.starts_on` | Income start date. | Required when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `income_streams.status` | Income-stream state: active, paused or ended. | Defaults to active when an income stream exists. |
+| <code>🟧 CONDITIONAL</code> `liability_holding_links.liability_id` | Liability secured by, financing or associated with the asset. | Required when the asset is linked to a liability. |
+| <code>🟧 CONDITIONAL</code> `liability_holding_links.link_type` | Relationship type: secured by, finances or associated with. | Required when linked to a liability. |
+| <code>🟧 CONDITIONAL</code> `liability_holding_links.effective_from` | Date from which the liability link applies. | Required when linked to a liability. |
+| <code>🟧 CONDITIONAL</code> `documents.owner_person_id` | Person who owns the document. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `documents.document_type` | Approved document type. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `documents.title` | Sanitized document title. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `documents.retention_class` | Retention policy applied to the document. | Required when a document is attached. |
+| <code>🟧 CONDITIONAL</code> `document_versions.original_filename` | Sanitized original filename. | Required when a document is uploaded. |
+| <code>🟧 CONDITIONAL</code> `document_links.document_id` | Document linked to the asset. | Required when creating a document link. |
+| <code>🟧 CONDITIONAL</code> `document_links.link_purpose` | Purpose such as evidence, contract or statement. | Required when creating a document link. |
+| <code>🟧 CONDITIONAL</code> `verification_evidence.valuation_event_id` | Valuation supported by the evidence. |  |
+| <code>🟧 CONDITIONAL</code> `verification_evidence.document_id` | Supporting document. |  |
+| <code>🟧 CONDITIONAL</code> `verification_evidence.evidence_type` | Approved evidence type. | Required when verification evidence is recorded. |
+| <code>🟧 CONDITIONAL</code> `holdings.subtype_attributes.jurisdiction` | Country governing the offshore holding. | Mandatory when offshore is true. |
+| <code>🟧 CONDITIONAL</code> `holdings.subtype_attributes.tax_residency_relevance` | Whether the offshore holding is relevant to tax-residency reporting. | Mandatory when offshore is true. |
+| <code>🟧 CONDITIONAL</code> `holdings.subtype_attributes.reporting_status` | Current foreign-asset reporting state. | Mandatory when offshore is true. |
+| <code>🟦 OPTIONAL</code> `holdings.acquired_on` | Known acquisition date. |  |
+| <code>🟦 OPTIONAL</code> `sources.provider_code` | Provider or institution code when applicable. |  |
+| <code>🟦 OPTIONAL</code> `sources.external_reference_hash` | Non-reversible hash of an external source reference. |  |
+| <code>🟦 OPTIONAL</code> `sources.metadata` | Allow-listed, source-specific provenance metadata. | Defaults to an empty object. |
+| <code>🟦 OPTIONAL</code> `ownership_allocations.effective_to` | Date on which the ownership share stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `ownership_allocations.source_id` | Evidence source supporting the ownership allocation. |  |
+| <code>🟦 OPTIONAL</code> `valuation_events.confidence` | Optional confidence score from 0 to 1. |  |
+| <code>🟦 OPTIONAL</code> `valuation_events.supersedes_event_id` | Prior valuation corrected by this event. |  |
+| <code>🟦 OPTIONAL</code> `valuation_events.metadata` | Bounded, method-specific valuation details. | Defaults to an empty object. |
+| <code>🟦 OPTIONAL</code> `cost_basis_lots.source_id` | Source supporting the acquisition lot. |  |
+| <code>🟦 OPTIONAL</code> `cost_basis_lots.supersedes_lot_id` | Prior acquisition lot corrected by this lot. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.liability_id` | Liability causing or associated with the restriction. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.counterparty_reference` | Bounded reference to the restriction counterparty. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.effective_to` | Date on which the restriction stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `holding_restrictions.source_id` | Evidence source supporting the restriction. |  |
+| <code>🟦 OPTIONAL</code> `commitments.due_on` | Known commitment due date. |  |
+| <code>🟦 OPTIONAL</code> `commitments.window_start` | Start of the permitted draw window. |  |
+| <code>🟦 OPTIONAL</code> `commitments.window_end` | End of the permitted draw window. |  |
+| <code>🟦 OPTIONAL</code> `commitments.source_id` | Source supporting the commitment. |  |
+| <code>🟦 OPTIONAL</code> `transactions.external_transaction_hash` | Scoped deduplication hash for an imported transaction. |  |
+| <code>🟦 OPTIONAL</code> `transactions.trade_date` | Trade or business-effective date. |  |
+| <code>🟦 OPTIONAL</code> `transactions.settled_at` | Settlement timestamp. |  |
+| <code>🟦 OPTIONAL</code> `transactions.description` | Sanitized transaction description. |  |
+| <code>🟦 OPTIONAL</code> `transactions.supersedes_transaction_id` | Prior transaction corrected by this event. |  |
+| <code>🟦 OPTIONAL</code> `income_streams.ends_on` | Income end date. |  |
+| <code>🟦 OPTIONAL</code> `income_streams.growth_rate_pct` | Optional expected annual growth rate. |  |
+| <code>🟦 OPTIONAL</code> `income_streams.source_id` | Source supporting the income stream. |  |
+| <code>🟦 OPTIONAL</code> `liability_holding_links.allocation_pct` | Optional share of the liability attributed to this asset. |  |
+| <code>🟦 OPTIONAL</code> `liability_holding_links.effective_to` | Date on which the liability link stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.document_date` | Business-effective date printed on the document. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.expires_on` | Document expiry date. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.source_id` | Source from which the document originated. |  |
+| <code>🟦 OPTIONAL</code> `document_versions.supersedes_version_id` | Prior document version replaced by this version. |  |
+| <code>🟦 OPTIONAL</code> `document_links.effective_to` | Timestamp when the document link stopped applying. |  |
+| <code>🟦 OPTIONAL</code> `verification_evidence.expires_at` | Evidence expiry timestamp. |  |
+| <code>🟦 OPTIONAL</code> `verification_evidence.notes` | Bounded verification notes. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.offshore` | Whether the holding is outside India. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.foreign_account_ref` | Protected foreign account reference. | Sensitive. |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.custodian_name` | Name of the custodian. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.custody_account_ref` | Protected custody-account reference. | Sensitive. |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.beneficial_owner_declaration` | Whether beneficial ownership has been declared. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.notes` | Bounded non-secret notes about the asset. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.isin` | Isin. Expected value: `str(12)`. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.coupon_rate_pct` | Coupon rate pct. Expected value: `pct`. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.maturity_date` | Maturity date. Expected value: `date`. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.conversion_start_date` | Conversion start date. Expected value: `date`. |  |
+| <code>🟦 OPTIONAL</code> `holdings.subtype_attributes.conversion_end_date` | Conversion end date. Expected value: `date`. |  |
+| <code>🟪 SYSTEM</code> `holdings.holding_id` | Unique identifier for the holding. |  |
+| <code>🟪 SYSTEM</code> `holdings.subtype_schema_version` | Exact subtype field-schema version used to validate the record. |  |
+| <code>🟪 SYSTEM</code> `holdings.created_by_principal_id` | Application principal that created the record. |  |
+| <code>🟪 SYSTEM</code> `holdings.created_at` | Creation timestamp. |  |
+| <code>🟪 SYSTEM</code> `holdings.updated_at` | Most recent update timestamp. |  |
+| <code>🟪 SYSTEM</code> `holdings.version` | Optimistic-lock version used to prevent conflicting updates. |  |
+| <code>🟪 SYSTEM</code> `sources.source_id` | Unique identifier for the provenance record referenced by valuations, transactions and evidence. |  |
+| <code>🟪 SYSTEM</code> `sources.captured_by_principal_id` | Application principal that captured the information. | When a person or operator captured it. |
+| <code>🟪 SYSTEM</code> `sources.captured_at` | Timestamp when the information was captured. |  |
+| <code>🟪 SYSTEM</code> `sources.created_at` | Creation timestamp for the provenance record. |  |
+| <code>🟪 SYSTEM</code> `ownership_allocations.ownership_allocation_id` | Unique identifier for an ownership allocation. |  |
+| <code>🟪 SYSTEM</code> `ownership_allocations.holding_id` | Holding to which the ownership allocation belongs. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `ownership_allocations.created_at` | Creation timestamp for the ownership allocation. |  |
+| <code>🟪 SYSTEM</code> `valuation_events.valuation_event_id` | Unique identifier for an immutable valuation observation. |  |
+| <code>🟪 SYSTEM</code> `valuation_events.holding_id` | Holding valued by the observation. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `valuation_events.recorded_by_principal_id` | Application principal that recorded the valuation. |  |
+| <code>🟪 SYSTEM</code> `valuation_events.recorded_at` | Timestamp when the valuation was recorded. |  |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.cost_basis_lot_id` | Unique identifier for an acquisition-cost lot. |  |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.holding_id` | Holding acquired through the lot. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.recorded_by_principal_id` | Application principal that recorded the lot. |  |
+| <code>🟪 SYSTEM</code> `cost_basis_lots.recorded_at` | Timestamp when the lot was recorded. |  |
+| <code>🟪 SYSTEM</code> `holding_restrictions.restriction_id` | Unique identifier for a lien, pledge, lock-in, freeze or legal restriction. |  |
+| <code>🟪 SYSTEM</code> `holding_restrictions.holding_id` | Holding affected by the restriction. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `holding_restrictions.created_at` | Creation timestamp for the restriction record. |  |
+| <code>🟪 SYSTEM</code> `commitments.commitment_id` | Unique identifier for an undrawn or contingent commitment. |  |
+| <code>🟪 SYSTEM</code> `commitments.holding_id` | Holding associated with the commitment. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `commitments.version` | Optimistic-lock version for the commitment. |  |
+| <code>🟪 SYSTEM</code> `transactions.transaction_id` | Unique identifier for an immutable ledger event. |  |
+| <code>🟪 SYSTEM</code> `transactions.holding_id` | Holding affected by the transaction. | When recorded from the holding. |
+| <code>🟪 SYSTEM</code> `transactions.recorded_at` | Timestamp when the transaction was recorded. |  |
+| <code>🟪 SYSTEM</code> `income_streams.income_stream_id` | Unique identifier for recurring or expected income. |  |
+| <code>🟪 SYSTEM</code> `income_streams.holding_id` | Asset producing the income. | When created from the holding. |
+| <code>🟪 SYSTEM</code> `income_streams.version` | Optimistic-lock version for the income stream. |  |
+| <code>🟪 SYSTEM</code> `liability_holding_links.liability_holding_link_id` | Unique identifier linking the asset to a liability. |  |
+| <code>🟪 SYSTEM</code> `liability_holding_links.holding_id` | Asset participating in the liability relationship. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `liability_holding_links.created_at` | Creation timestamp for the liability link. |  |
+| <code>🟪 SYSTEM</code> `documents.document_id` | Unique identifier for supporting document metadata. |  |
+| <code>🟪 SYSTEM</code> `documents.lifecycle_state` | Document processing and availability state. |  |
+| <code>🟪 SYSTEM</code> `documents.current_version_id` | Current clean document version. |  |
+| <code>🟪 SYSTEM</code> `documents.created_by_principal_id` | Application principal that created the document. |  |
+| <code>🟪 SYSTEM</code> `documents.created_at` | Document creation timestamp. |  |
+| <code>🟪 SYSTEM</code> `documents.updated_at` | Document update timestamp. |  |
+| <code>🟪 SYSTEM</code> `documents.version` | Optimistic-lock version for document metadata. |  |
+| <code>🟪 SYSTEM</code> `document_versions.document_version_id` | Unique identifier for an immutable document version. |  |
+| <code>🟪 SYSTEM</code> `document_versions.document_id` | Parent document. | From the parent document. |
+| <code>🟪 SYSTEM</code> `document_versions.version_number` | Monotonic version number within the document. |  |
+| <code>🟪 SYSTEM</code> `document_versions.storage_zone` | Quarantine or clean object-storage zone. |  |
+| <code>🟪 SYSTEM</code> `document_versions.storage_key` | Random non-personal object-storage key. |  |
+| <code>🟪 SYSTEM</code> `document_versions.checksum_sha256` | SHA-256 integrity digest. |  |
+| <code>🟪 SYSTEM</code> `document_versions.mime_type` | Server-detected MIME type. |  |
+| <code>🟪 SYSTEM</code> `document_versions.size_bytes` | Validated object size. |  |
+| <code>🟪 SYSTEM</code> `document_versions.scan_state` | Malware scanning state. |  |
+| <code>🟪 SYSTEM</code> `document_versions.scanner_policy_version` | Scanning-policy version used. |  |
+| <code>🟪 SYSTEM</code> `document_versions.uploaded_at` | Upload timestamp. |  |
+| <code>🟪 SYSTEM</code> `document_links.document_link_id` | Unique identifier linking a document to the asset. |  |
+| <code>🟪 SYSTEM</code> `document_links.domain_type` | Approved domain-object type. | For an asset link. |
+| <code>🟪 SYSTEM</code> `document_links.domain_id` | Application-validated target identifier. | For an asset link. |
+| <code>🟪 SYSTEM</code> `document_links.holding_id` | Holding to which the document is linked. | From the parent holding. |
+| <code>🟪 SYSTEM</code> `document_links.effective_from` | Timestamp from which the document link applies. | Unless explicitly effective later. |
+| <code>🟪 SYSTEM</code> `document_links.created_by_principal_id` | Application principal that created the link. |  |
+| <code>🟪 SYSTEM</code> `verification_evidence.verification_evidence_id` | Unique identifier for evidence supporting a valuation or fact. |  |
+| <code>🟪 SYSTEM</code> `verification_evidence.verification_state` | Pending, verified, rejected or expired state. |  |
+| <code>🟪 SYSTEM</code> `verification_evidence.verified_by_principal_id` | Application principal that performed verification. | When verified or rejected. |
+| <code>🟪 SYSTEM</code> `verification_evidence.verified_at` | Verification timestamp. | When verified or rejected. |
+| <code>🟪 SYSTEM</code> `verification_evidence.created_at` | Evidence creation timestamp. |  |
 
 </details>
 

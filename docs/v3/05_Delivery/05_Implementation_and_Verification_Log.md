@@ -628,3 +628,9 @@ The first real cross-service run exposed a case-sensitive contract mismatch: aut
 ### 22 Sep 2026 — Public equity share quantity clarification
 
 The asset matrix initially repeated the generic `holdings.quantity` rule as Conditional for `PUBLIC_EQUITY`. The generic database column is nullable because some other asset types do not have units. For an active public equity holding, however, a positive share quantity is mandatory. The subtype schema, generator and traditional-securities matrix now state that specific rule.
+
+### 22 Sep 2026 — Shared-field audit and asset matrix presentation
+
+The quantity rule was reviewed for all 93 asset subtypes. Sixteen explicitly unit-based subtypes now require a positive `holdings.quantity` for an active position. The remaining subtype tables retain a conditional quantity row with the explicit instruction to omit it for non-unitized holdings. The shared identifier fields were clarified as conditional on recording a canonical identifier. Ownership, valuation, costs, transactions, income, restrictions, commitments and document fields were checked against their related-record conditions.
+
+The colored status code is now placed before the field path in the first column. The Notes column contains only relevant conditions or handling information and stays blank for an unqualified mandatory, optional or system field. The four status groups remain sorted within each expandable subtype.

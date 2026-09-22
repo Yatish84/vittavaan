@@ -12,16 +12,37 @@ A path such as `holdings.subtype_attributes.interest_rate_pct` means the `intere
 
 ## Status tags
 
-Every note starts with a colored tag. Rows inside each subtype are sorted in the order shown here.
+Each field path starts with a small colored tag. Rows inside each subtype are sorted in the order shown here. The Notes column is blank unless a condition or other qualification matters.
 
 | Tag | Plain-English meaning |
 |---|---|
-| 🟥 **MANDATORY** | Must be present before the holding can become active, or before the named related record can be created. |
-| 🟧 **CONDITIONAL** | Must be present only when the stated feature or circumstance applies. |
-| 🟦 **OPTIONAL** | May be supplied; absence means unknown or not applicable. |
-| 🟪 **SYSTEM** | Generated, calculated or lifecycle-managed by Vittavaan rather than entered freely by a user. |
+| <code>🟥 MANDATORY</code> | Must be present before the holding can become active, or before the named related record can be created. |
+| <code>🟧 CONDITIONAL</code> | Must be present only when the stated feature or circumstance applies. |
+| <code>🟦 OPTIONAL</code> | May be supplied; absence means unknown or not applicable. |
+| <code>🟪 SYSTEM</code> | Generated, calculated or lifecycle-managed by Vittavaan rather than entered freely by a user. |
 
-A note also states when information is sensitive. Sensitive values must be encrypted or represented by a protected reference and masked in normal responses.
+A note may also identify sensitive information. Sensitive values must be encrypted or represented by a protected reference and masked in normal responses.
+
+## Quantity rule audit
+
+The `holdings.quantity` requirement was reviewed across all 93 asset subtypes. It is mandatory for an active holding in 16 explicitly unit based subtypes (listed below). For other subtypes, it is conditional when the holding is represented in units; it is not needed for assets such as a bank account or a property. The physical database column remains nullable because it serves all asset types.
+
+- [`PUBLIC_EQUITY`](asset_field_matrix/TRAD_SECURITY.md#asset-subtype-public-equity)
+- [`GOVERNMENT_BOND`](asset_field_matrix/TRAD_SECURITY.md#asset-subtype-government-bond)
+- [`MUNICIPAL_BOND`](asset_field_matrix/TRAD_SECURITY.md#asset-subtype-municipal-bond)
+- [`CORPORATE_BOND`](asset_field_matrix/TRAD_SECURITY.md#asset-subtype-corporate-bond)
+- [`DEBENTURE`](asset_field_matrix/TRAD_SECURITY.md#asset-subtype-debenture)
+- [`COMMERCIAL_PAPER`](asset_field_matrix/TRAD_SECURITY.md#asset-subtype-commercial-paper)
+- [`CERTIFICATE_OF_DEPOSIT`](asset_field_matrix/TRAD_SECURITY.md#asset-subtype-certificate-of-deposit)
+- [`MUTUAL_FUND`](asset_field_matrix/FUND.md#asset-subtype-mutual-fund)
+- [`MONEY_MARKET_FUND`](asset_field_matrix/FUND.md#asset-subtype-money-market-fund)
+- [`REIT`](asset_field_matrix/REAL_ASSET.md#asset-subtype-reit)
+- [`CRYPTO_TOKEN`](asset_field_matrix/DIGITAL_ASSET.md#asset-subtype-crypto-token)
+- [`NFT`](asset_field_matrix/DIGITAL_ASSET.md#asset-subtype-nft)
+- [`TOKENIZED_ASSET`](asset_field_matrix/DIGITAL_ASSET.md#asset-subtype-tokenized-asset)
+- [`CAT_BOND`](asset_field_matrix/INSURANCE_SECURITY.md#asset-subtype-cat-bond)
+- [`EQUITY_OPTION`](asset_field_matrix/DERIVATIVE.md#asset-subtype-equity-option)
+- [`CONVERTIBLE_SECURITY`](asset_field_matrix/DERIVATIVE.md#asset-subtype-convertible-security)
 
 ## Asset subtype index
 
