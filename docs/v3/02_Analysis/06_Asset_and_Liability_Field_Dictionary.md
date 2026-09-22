@@ -4,6 +4,8 @@
 
 This document turns the operator PDF catalogue into implementable data-entry contracts. Every listed asset or liability is selectable even when a user does not own it. A selected subtype determines the form schema, validation rules, supported valuation methods, import mapping and presentation labels.
 
+The exact India-first permitted `subtype_attributes` for all 93 asset subtypes and 13 liability subtypes are defined in [India Asset and Liability Subtype Attribute Schemas](./07_India_Subtype_Attribute_Schemas.md). This document remains the profile and catalogue overview; the subtype-schema document governs the final field-level composition.
+
 The PDF's regulator, licence, implementation-cost, timeframe, fees and competitor columns remain research context. They do not become user fields or assertions that Vittavaan provides, intermediates or values a product.
 
 ## Field notation

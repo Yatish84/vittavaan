@@ -71,6 +71,7 @@ v1 and v2 must remain untouched as historical references. Do not move, delete or
 - The operator asset-class PDF and colleague-provided JSON were reconciled. Treat the JSON only as a reference for fields a form may capture for each asset/liability type; ignore its sample values and records. The field-capture disposition is documented without replacing the richer PDF-derived catalogue.
 - The full text of `User Story.dc.html`, `User Flow.dc.html` and `Schema.dc.html` was reviewed for invariants, states and open decisions.
 - Both pages of `docs/v2/Wireframe/uploads/Wealth Monitoring - Asset Classes - Operator.pdf` were extracted and visually inspected.
+- Current official SEBI, RBI, NSDL, India Post, PFRDA, EPFO, Ministry of Labour, MoHUA/RERA, IRDAI, FIU-IND, Income Tax and GST sources were reviewed for the India-first subtype field baseline. These are time-sensitive references and must be rechecked at implementation/legal-review gates.
 - `../auth-core/AGENTS.md`, README, client reuse strategy, session/token foundation, security architecture and OpenAPI/JWKS boundaries were inspected.
 
 ## Work completed in v3
@@ -93,6 +94,7 @@ v1 and v2 must remain untouched as historical references. Do not move, delete or
 | `02_Analysis/04_Sequence_and_State_Diagrams.md` | Mermaid sequences for core workflows and lifecycle state machines. |
 | `02_Analysis/05_Requirements_to_Domain_Coverage.md` | Requirement-family/surface coverage and analysis gaps carried to design. |
 | `02_Analysis/06_Asset_and_Liability_Field_Dictionary.md` | Universal fields, reusable profile schemas, complete operator-catalogue seed mapping, liability subtype contracts and conditional validation rules. |
+| `02_Analysis/07_India_Subtype_Attribute_Schemas.md` | Exact permitted fields for all 93 asset and 13 liability subtype combinations, including types, requirement markers, sensitivity, normalized storage destinations and India-specific references. |
 | `03_System_Design/01_Auth_Core_Integration.md` | Authentication boundary, sequence, claim validation, authorization order, failure and lifecycle behavior. |
 | `03_System_Design/02_Architecture_Overview.md` | Modular-monolith topology, modules, fact/projection paths, environments, scaling and failure boundaries. |
 | `03_System_Design/03_Database_Design.md` | Implementation-level PostgreSQL design for 50 tables: purpose, every planned column, PK/FK/UQ/CHK role, type, nullability/default, direct-relationship Mermaid per table, indexes, integrity, migrations and retention. |

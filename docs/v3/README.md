@@ -50,6 +50,7 @@ flowchart TD
 | Analysis | [Sequence and State Diagrams](./02_Analysis/04_Sequence_and_State_Diagrams.md) | Draft |
 | Analysis | [Requirements-to-Domain Coverage](./02_Analysis/05_Requirements_to_Domain_Coverage.md) | Draft |
 | Analysis | [Asset and Liability Field Dictionary](./02_Analysis/06_Asset_and_Liability_Field_Dictionary.md) | Draft |
+| Analysis | [India Subtype Attribute Schemas](./02_Analysis/07_India_Subtype_Attribute_Schemas.md) | Draft |
 | System design | [Auth-Core Integration](./03_System_Design/01_Auth_Core_Integration.md) | Draft |
 | System design | [Architecture Overview](./03_System_Design/02_Architecture_Overview.md) | Draft |
 | System design | [Database Design](./03_System_Design/03_Database_Design.md) | Draft |

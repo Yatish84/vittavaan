@@ -14,6 +14,7 @@
 | Product scope/release boundaries | Draft | Convert to stable requirement IDs. |
 | Asset/liability catalogue | Draft | Complete PDF subtype contracts and seed mapping added. The colleague JSON was reviewed as a field-template reference without narrowing the larger catalogue; finalize the documented owner/legal/valuation-policy decisions. |
 | Subtype field dictionary | Draft | Universal fields, reusable profiles, complete asset seeds, all 13 PDF liability contracts, conditional rules and a field-capture/form-family crosswalk for the colleague JSON are documented. |
+| India subtype schemas | Draft | Exact permitted attribute composition is documented for all 93 asset and 13 liability subtypes, including data types, required/conditional/optional markers, sensitivity, normalized destinations, India-specific identifiers and official-source baseline. Next: owner/domain review, machine-readable JSON Schema and UI-hint generation. |
 | Catalogue seeds/constraints | Draft | Deterministic seed package, schema versioning, persistence rules, database constraints, index matrix, API behavior and verification evidence specified. |
 | Auth-core integration | Draft | Confirm audience, redirect and deployment-specific values during implementation planning. |
 | Actors and system boundary | Draft | Formal actor distinctions, authority matrix and trust boundaries added. |

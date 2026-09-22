@@ -1448,7 +1448,7 @@ The exact field disposition and form-family coverage are maintained in `02_Analy
 
 These choices must be finalized before physical DDL is approved:
 
-1. Exact asset and liability subtype JSON schemas and catalogue seed codes.
+1. Convert the approved logical schemas in `02_Analysis/07_India_Subtype_Attribute_Schemas.md` into machine-readable JSON Schema/UI-hint files and deterministic catalogue seeds; the logical field composition and proposed stable codes are now documented.
 2. India-specific retention, residency, nominee, tax-lot, and document-class rules with legal/compliance review.
 3. Database tenancy enforcement model: shared-schema row-level security versus a later higher-isolation tier.
 4. Encryption provider, key hierarchy, rotation procedure, and searchable-field threat model.

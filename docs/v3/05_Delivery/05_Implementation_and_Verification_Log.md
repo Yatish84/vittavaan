@@ -543,3 +543,24 @@ The current auth-core web implementation writes `vittavaan.accessToken` to brows
 **Integration finding and correction**
 
 The first real cross-service run exposed a case-sensitive contract mismatch: auth-core correctly emits client type `WEB`, while Vittavaan had initially allowed lowercase `web`. Vittavaan failed closed with HTTP 401. Its default and deployment configuration were corrected to `WEB`, after which the complete flow passed. This is retained as regression coverage and operational evidence.
+
+### 22 Sep 2026 — India-first subtype attribute schema baseline
+
+**Status:** Logical field composition complete; owner/domain/legal review and machine-readable schema generation remain.
+
+**Documented**
+
+- Defined the exact permitted `subtype_attributes` composition for all 93 planned asset class/subtype pairs and all 13 liability subtypes.
+- Classified fields as required, conditional, optional, derived and/or sensitive, with precise logical types and cross-field rules.
+- Kept ownership, valuations, cost basis, transactions, income, documents, restrictions, liability balances, schedules, collateral and calculations in their normalized tables rather than duplicating them in subtype JSON.
+- Added India-specific identifiers and product details for demat/ISIN securities, Indian bank/deposit products, mutual funds/PMS/AIF, EPF/PPF/NPS/SSY/SCSS/APY/gratuity/annuities, RERA property, VDA/crypto, GST input credit and Indian loan/dues categories.
+- Recorded current official-source families from SEBI, RBI, NSDL, India Post, PFRDA, EPFO, Ministry of Labour, MoHUA/RERA, IRDAI, FIU-IND, Income Tax and GST. These remain time-sensitive and require revalidation at implementation and legal-release gates.
+
+**Verified**
+
+| Check | Result |
+|---|---|
+| Asset catalogue coverage | 93 of 93 subtype pairs have a matching schema entry |
+| Liability catalogue coverage | 13 of 13 liability subtypes have a matching schema entry |
+| Markdown integrity | Code fences balanced and `git diff --check` clean |
+| Schema boundary | Current value, balance, ownership and derived metrics remain outside unrestricted subtype JSON |
