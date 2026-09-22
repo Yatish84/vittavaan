@@ -604,6 +604,7 @@ The first real cross-service run exposed a case-sensitive contract mismatch: aut
 - Expanded all inherited profiles, including debentures, money-market funds, mezzanine debt, hedge strategies, commercial property and agricultural land.
 - Added a deterministic generator so the matrix can be refreshed from the canonical subtype-schema document without manual drift.
 - Expanded every individual subtype table to repeat all applicable fields from `holdings`, `sources`, `ownership_allocations`, `valuation_events`, `cost_basis_lots`, `holding_restrictions`, `commitments`, `transactions`, `income_streams`, `liability_holding_links`, `documents`, `document_versions`, `document_links` and `verification_evidence`. Readers no longer need to combine a subtype table with the common-field section.
+- Added a linked index for all asset subtypes, collapsible subtype sections, colored Mandatory/Conditional/Optional/System note tags, and deterministic status-first row sorting so the long matrix remains navigable.
 
 **Verified**
 
@@ -614,3 +615,4 @@ The first real cross-service run exposed a case-sensitive contract mismatch: aut
 | Complete self-contained matrix rows | 16,786 across 93 subtype tables |
 | Storage notation | Physical columns and logical JSON paths are explicitly distinguished |
 | Requirement vocabulary | Mandatory, Conditional, Optional, System-generated/calculated and Sensitive are defined |
+| Navigation and formatting | 93 linked index entries, 93 expandable subtype sections and status-first sorting verified |

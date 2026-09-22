@@ -71,6 +71,57 @@ function title(name) {
     .replace(/^./, (character) => character.toUpperCase());
 }
 
+const statusPresentation = {
+  mandatory: { rank: 0, tag: "🟥 **MANDATORY**" },
+  conditional: { rank: 1, tag: "🟧 **CONDITIONAL**" },
+  optional: { rank: 2, tag: "🟦 **OPTIONAL**" },
+  system: { rank: 3, tag: "🟪 **SYSTEM**" },
+};
+
+function requirementStatus(requirement) {
+  const normalized = requirement.toLowerCase();
+  if (normalized.startsWith("mandatory")) return "mandatory";
+  if (normalized.startsWith("conditional")) return "conditional";
+  if (normalized.startsWith("optional")) return "optional";
+  return "system";
+}
+
+function note(requirement) {
+  const status = requirementStatus(requirement);
+  let detail = requirement;
+  if (status === "mandatory") {
+    detail = requirement === "Mandatory"
+      ? "Required."
+      : requirement.replace(/^Mandatory\s+—\s+/i, "").replace(/^Mandatory for\s+/i, "Required for ");
+  } else if (status === "conditional") {
+    detail = requirement === "Conditional"
+      ? "Required when applicable."
+      : requirement.replace(/^Conditional\s+—\s+/i, "");
+  } else if (status === "optional") {
+    detail = requirement === "Optional"
+      ? "May be supplied."
+      : requirement.replace(/^Optional\s+—\s+/i, "");
+  }
+  detail = detail.replace(/^./, (character) => character.toUpperCase());
+  if (!/[.!?]$/.test(detail)) detail += ".";
+  return `${statusPresentation[status].tag} — ${detail}`;
+}
+
+function sortedByRequirement(fields) {
+  return fields
+    .map((field, index) => ({ field, index }))
+    .sort((left, right) => {
+      const leftRank = statusPresentation[requirementStatus(left.field[2])].rank;
+      const rightRank = statusPresentation[requirementStatus(right.field[2])].rank;
+      return leftRank - rightRank || left.index - right.index;
+    })
+    .map(({ field }) => field);
+}
+
+function anchor(assetSubtype) {
+  return `asset-subtype-${assetSubtype.toLowerCase().replaceAll("_", "-")}`;
+}
+
 const commonRows = [
   ["holdings.holding_id", "Unique identifier for the holding.", "System-generated"],
   ["holdings.owner_person_id", "Person primarily accountable for the holding.", "Mandatory"],
@@ -261,33 +312,46 @@ output.push("This document gives product, design, engineering and testing teams 
 output.push("");
 output.push("A path such as `holdings.subtype_attributes.interest_rate_pct` means the `interest_rate_pct` key inside the schema-validated `holdings.subtype_attributes` JSONB column. It is written in dotted form so its exact logical storage location is unambiguous. Normalized facts—ownership, valuation, transactions, income, restrictions and documents—remain in their dedicated tables.");
 output.push("");
-output.push("## Requirement meanings");
+output.push("## Status tags");
 output.push("");
-output.push("| Requirement | Plain-English meaning |");
+output.push("Every note starts with a colored tag. Rows inside each subtype are sorted in the order shown here.");
+output.push("");
+output.push("| Tag | Plain-English meaning |");
 output.push("|---|---|");
-output.push("| Mandatory | Must be present before the holding can become active. |");
-output.push("| Conditional | Must be present only when the stated feature or circumstance applies. |");
-output.push("| Optional | May be supplied; absence means unknown or not applicable. |");
-output.push("| System-generated / System-calculated | Produced by Vittavaan and not accepted as an authoritative manual value. |");
-output.push("| System-managed | Maintained by Vittavaan as a workflow or lifecycle state rather than entered freely by a user. |");
-output.push("| Sensitive | Must be encrypted or represented by a protected reference and masked in normal responses. |");
+output.push("| 🟥 **MANDATORY** | Must be present before the holding can become active, or before the named related record can be created. |");
+output.push("| 🟧 **CONDITIONAL** | Must be present only when the stated feature or circumstance applies. |");
+output.push("| 🟦 **OPTIONAL** | May be supplied; absence means unknown or not applicable. |");
+output.push("| 🟪 **SYSTEM** | Generated, calculated or lifecycle-managed by Vittavaan rather than entered freely by a user. |");
+output.push("");
+output.push("A note also states when information is sensitive. Sensitive values must be encrypted or represented by a protected reference and masked in normal responses.");
+output.push("");
+output.push("## Asset subtype index");
+output.push("");
+let indexClass = "";
+for (const row of rows.slice(0, 93)) {
+  if (row.assetClass !== indexClass) {
+    indexClass = row.assetClass;
+    output.push(`- **\`${indexClass}\`**`);
+  }
+  output.push(`  - [\`${row.assetSubtype}\`](#${anchor(row.assetSubtype)})`);
+}
 output.push("");
 output.push("## Fields common to every asset");
 output.push("");
 output.push("These normalized fields apply to every asset. They are also repeated inside every subtype table below so each subtype is a complete, standalone checklist.");
 output.push("");
-output.push("| `table_name.column_name` | Description | Requirement |");
+output.push("| `table_name.column_name` | Description | Note |");
 output.push("|---|---|---|");
-for (const [path, description, requirement] of commonRows) {
-  output.push(`| \`${path}\` | ${description} | ${requirement} |`);
+for (const [path, description, requirement] of sortedByRequirement(commonRows)) {
+  output.push(`| \`${path}\` | ${description} | ${note(requirement)} |`);
 }
 output.push("");
 output.push("## Fields available to any asset when applicable");
 output.push("");
-output.push("| `table_name.column_name` | Description | Requirement |");
+output.push("| `table_name.column_name` | Description | Note |");
 output.push("|---|---|---|");
-for (const field of crossCuttingRows) {
-  output.push(`| \`holdings.subtype_attributes.${field[0]}\` | ${field[1]} | ${field[2]} |`);
+for (const field of sortedByRequirement(crossCuttingRows)) {
+  output.push(`| \`holdings.subtype_attributes.${field[0]}\` | ${field[1]} | ${note(field[2])} |`);
 }
 output.push("");
 output.push("## Subtype-by-subtype fields");
@@ -317,13 +381,18 @@ for (const row of rows.slice(0, 93)) {
   }
   for (const field of subtypeRows) completeRows.set(field[0], field);
   totalMatrixRows += completeRows.size;
-  output.push(`### Asset subtype: \`${row.assetSubtype}\``);
+  output.push(`<a id="${anchor(row.assetSubtype)}"></a>`);
   output.push("");
-  output.push("| `table_name.column_name` | Description | Requirement |");
+  output.push("<details>");
+  output.push(`<summary><strong>Asset subtype: <code>${row.assetSubtype}</code></strong></summary>`);
+  output.push("");
+  output.push("| `table_name.column_name` | Description | Note |");
   output.push("|---|---|---|");
-  for (const [path, description, requirement] of completeRows.values()) {
-    output.push(`| \`${path}\` | ${description} | ${requirement} |`);
+  for (const [path, description, requirement] of sortedByRequirement([...completeRows.values()])) {
+    output.push(`| \`${path}\` | ${description} | ${note(requirement)} |`);
   }
+  output.push("");
+  output.push("</details>");
   output.push("");
 }
 
