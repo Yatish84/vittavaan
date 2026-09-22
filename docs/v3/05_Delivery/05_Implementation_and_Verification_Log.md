@@ -591,3 +591,24 @@ The first real cross-service run exposed a case-sensitive contract mismatch: aut
 **Remaining release evidence**
 
 - Provision and record the shared-staging HTTPS URLs, return origin, verifier placement, issuer, audience and independently managed handoff secret before claiming staging readiness.
+
+### 22 Sep 2026 — Asset field requirement matrix
+
+**Status:** Draft documentation complete; owner/domain review remains.
+
+**Documented**
+
+- Added an asset-only matrix for all 93 asset class/subtype combinations.
+- Listed every expanded subtype field as a logical `table_name.column_name` path with a description and explicit Mandatory, Conditional, Optional or System-calculated status.
+- Added the common normalized holding, ownership and valuation fields once so they are not misleadingly duplicated as subtype JSON fields.
+- Expanded all inherited profiles, including debentures, money-market funds, mezzanine debt, hedge strategies, commercial property and agricultural land.
+- Added a deterministic generator so the matrix can be refreshed from the canonical subtype-schema document without manual drift.
+
+**Verified**
+
+| Check | Result |
+|---|---|
+| Asset subtype coverage | 93 of 93 |
+| Expanded subtype field rows | 888 |
+| Storage notation | Physical columns and logical JSON paths are explicitly distinguished |
+| Requirement vocabulary | Mandatory, Conditional, Optional, System-generated/calculated and Sensitive are defined |

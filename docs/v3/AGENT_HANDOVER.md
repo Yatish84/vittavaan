@@ -95,6 +95,7 @@ v1 and v2 must remain untouched as historical references. Do not move, delete or
 | `02_Analysis/05_Requirements_to_Domain_Coverage.md` | Requirement-family/surface coverage and analysis gaps carried to design. |
 | `02_Analysis/06_Asset_and_Liability_Field_Dictionary.md` | Universal fields, reusable profile schemas, complete operator-catalogue seed mapping, liability subtype contracts and conditional validation rules. |
 | `02_Analysis/07_India_Subtype_Attribute_Schemas.md` | Exact permitted fields for all 93 asset and 13 liability subtype combinations, including types, requirement markers, sensitivity, normalized storage destinations and India-specific references. |
+| `02_Analysis/08_Asset_Field_Requirement_Matrix.md` | Asset-only, row-by-row checklist covering all 93 subtypes and 888 expanded fields using logical `table_name.column_name` paths, descriptions and clear requirement levels. Generated deterministically by `scripts/generate-asset-field-matrix.mjs`. |
 | `03_System_Design/01_Auth_Core_Integration.md` | Authentication boundary, sequence, claim validation, authorization order, failure and lifecycle behavior. |
 | `03_System_Design/02_Architecture_Overview.md` | Modular-monolith topology, modules, fact/projection paths, environments, scaling and failure boundaries. |
 | `03_System_Design/03_Database_Design.md` | Implementation-level PostgreSQL design for 50 tables: purpose, every planned column, PK/FK/UQ/CHK role, type, nullability/default, direct-relationship Mermaid per table, indexes, integrity, migrations and retention. |
